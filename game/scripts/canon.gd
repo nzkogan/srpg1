@@ -35,8 +35,8 @@ func _load_json(path: String) -> Array:
 	return data
 
 ## Returns all rows for a table, e.g. Canon.get_table("units").
-func get_table(name: String) -> Array:
-	return tables.get(name, [])
+func get_table(table_name: String) -> Array:
+	return tables.get(table_name, [])
 
 ## Returns the single row whose id_field matches id_value, or null.
 ## e.g. Canon.find_by("units", "unit_id", "u_avatar")
