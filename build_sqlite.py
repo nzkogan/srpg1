@@ -64,7 +64,7 @@ NUMERIC = {
     "maps": {"width", "height", "turn_limit", "min_solution_units",
              "boss_gated_until_turn", "deploy_slots"},
     "chapters": {"number"},
-    "prologue_roster": {"move", "hp", "dmg_vs_statue"},
+    "prologue_roster": {"move", "hp", "dmg_vs_statue", "deploy_row", "deploy_col"},
     "prologue_structures": {"turns_to_destroy", "hp", "defence"},
     "deputy_ledger": {"weight"},
     "terrain_costs": {
