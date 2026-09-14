@@ -1,0 +1,21 @@
+# map_f00 -- Ur-Nashet, the last night   24 x 16
+# Reads bottom to top. Court at row 15, the image at row 1.
+#   . court   W wall   c channel   a span   g planted   t step
+#   T high terrace   S statue   * seize (Sargath only)   x impassable
+
+xxxxxxxxxxxxxxxxxxxxxxxx
+TTTTTTTTTSTTTTTTTTTTTTTT
+TTTTTTTTT*TTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTT
+xxxxxxxxxxxxxxtttxxxxxxx
+gggggggggggggggggggggggg
+tttttttttttttttttttttttt
+xxxxxtttxxxxxxxxxxxxxxxx
+gggggggggggggggggggggggg
+tttttttttttttttttttttttt
+xxxxxxxxxxxxxxxtttxxxxxx
+gggggggggggggggggggggggg
+cccccccccccacccccccccccc
+........................
+WWWWWWWWWWWWWWWWWWWWWWWW
+........................
