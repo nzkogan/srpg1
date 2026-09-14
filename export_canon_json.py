@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Export canon.db tables to game/data/*.json so Godot/GDScript can read them.
+"""Export canon.db and map_*.txt into game/data/ so GDScript can read them.
 
 canon.db has no native GDScript driver without a third-party binary addon, so
 the game reads plain JSON instead -- one file per table, loaded generically
-by scripts/canon.gd. Run this any time canon.xlsx changes:
+by scripts/canon.gd. Map grids (map_*.txt) are plain text already; they're
+just copied into the project since res:// paths can't reach outside it. Run
+this any time canon.xlsx or a map_*.txt file changes:
 
     python build_sqlite.py
     python export_canon_json.py
@@ -16,11 +18,24 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 DB_PATH = ROOT / "canon.db"
 OUT_DIR = ROOT / "game" / "data"
+MAPS_OUT_DIR = OUT_DIR / "maps"
+
+
+def export_maps() -> None:
+    MAPS_OUT_DIR.mkdir(parents=True, exist_ok=True)
+    map_files = sorted(ROOT.glob("map_*.txt"))
+    for src in map_files:
+        dest = MAPS_OUT_DIR / src.name
+        dest.write_text(src.read_text())
+        print(f"  {src.name} -> {dest.relative_to(ROOT)}")
+    print(f"Copied {len(map_files)} map file(s) to {MAPS_OUT_DIR}")
 
 
 def export() -> None:
     if not DB_PATH.exists():
         sys.exit(f"{DB_PATH} not found -- run build_sqlite.py first")
+
+    export_maps()
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
