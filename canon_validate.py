@@ -54,6 +54,7 @@ PRIMARY_KEYS = {
     "states": ("state_id", "st_"),
     "defections": ("defection_id", "def_"),
     "locations": ("location_id", "loc_"),
+    "terrain_costs": ("terrain_id", "ter_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.

@@ -22,10 +22,13 @@ Author: drafted for Nick Kogan, 2026-08-21.
 """
 
 import sqlite3
+from pathlib import Path
+
 from openpyxl import load_workbook
 
-SRC = "/mnt/user-data/outputs/canon.xlsx"
-OUT = "/mnt/user-data/outputs/canon.db"
+ROOT = Path(__file__).parent
+SRC = ROOT / "canon.xlsx"
+OUT = ROOT / "canon.db"
 
 EXCLUDE = {
     "README", "validation", "calendar", "the_claimant", "roster_gaps",
@@ -51,6 +54,7 @@ PK = {
     "ascension_signals": ("signal_id", "sig_"), "endings": ("ending_id", "end_"),
     "signs": ("sign_id", "sgn_"), "practices": ("practice_id", "prc_"),
     "canon_flags": ("flag_id", "flag_"),
+    "terrain_costs": ("terrain_id", "ter_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
 }
 
@@ -63,6 +67,10 @@ NUMERIC = {
     "prologue_roster": {"move", "hp", "dmg_vs_statue"},
     "prologue_structures": {"turns_to_destroy", "hp", "defence"},
     "deputy_ledger": {"weight"},
+    "terrain_costs": {
+        "move_infantry", "move_armor", "move_riding", "move_flying",
+        "move_infantry_wet", "move_armor_wet",
+    },
 }
 
 # explicit foreign keys: (table, column) -> (ref_table, ref_column)
