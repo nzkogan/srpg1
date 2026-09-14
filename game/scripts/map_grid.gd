@@ -1,22 +1,25 @@
 extends Node2D
 ## Renders a map_*.txt terrain grid as flat colored tiles (matching
-## map_f00_reference.png's palette), lets you click any passable tile to see
-## the movement range of one of the 8 prologue units from that spot, and
-## simulates the two F0 structures (the wall, the statue) turn by turn.
+## map_f00_reference.png's palette), places the 8 prologue units at their
+## real starting tiles, and lets them actually move, attack the statue, and
+## seize -- turn by turn, with the wall and statue as destructible obstacles.
 ##
-## Units are drawn at their real starting tiles (prologue_roster's
-## deploy_row/deploy_col -- all row 15, the court, per
-## map_f00_reference.png's caption; only Sargath's and Bel-Iddin's columns
-## are textually grounded, see that sheet's note row for the rest).
-## Selecting a unit jumps the movement-range tool to their actual position;
-## clicking elsewhere still lets you test a hypothetical origin. Statue
-## attacks are still abstracted from adjacency (see _attack_statue) --
-## deploy positions exist now, but there's no pathing-to-adjacency system
-## yet, so the turn cap still stands in for "who can reach the statue".
+## Units start at prologue_roster's deploy_row/deploy_col (all row 15, the
+## court, per map_f00_reference.png's caption; only Sargath's and
+## Bel-Iddin's columns are textually grounded, see that sheet's note row for
+## the rest). Selecting a unit shows their movement range from wherever they
+## currently are; clicking a highlighted tile actually moves them there,
+## once per turn. Reaching the seize tile as Sargath specifically ends the
+## prologue -- "* seize (Sargath only)" in map_f00.txt's own legend.
+##
+## Known simplification: units don't block each other's movement or occupy
+## tiles exclusively (no collision in the pathfinding) -- real adjacency for
+## statue attacks is still capped by MAX_STATUE_ATTACKERS_PER_TURN rather
+## than computed from position, same as before.
 ##
 ## Controls:
-##   1-8 = select a unit (jumps to their starting tile)
-##   click a passable tile = test movement range from a hypothetical origin instead
+##   1-8 = select a unit (shows their range from their current tile)
+##   click a highlighted tile = move the selected unit there (once/turn)
 ##   A   = selected unit attacks the statue
 ##   N / Enter = advance to the next turn
 
@@ -27,10 +30,8 @@ const IMPASSABLE := 90 # terrain_costs uses 99 as its impassable sentinel
 ## Only 4 tiles are orthogonally adjacent to any single tile, the statue's
 ## included -- prologue_tuning's own note: "only 4 orthogonal tiles touch
 ## the image, so 7 combatants cannot all swing in the same turn -- the
-## warband has to ROTATE through it. That stretches the arithmetic 4 turns
-## into 5-6 turns of actual play, which is the intended feeling." Without
-## real unit positions there's no adjacency to check, so this cap stands in
-## for it directly.
+## warband has to ROTATE through it." Real positions exist now, but there's
+## still no pathing-to-adjacency check, so this cap stands in for it.
 const MAX_STATUE_ATTACKERS_PER_TURN := 4
 
 ## map_f00 is explicitly a rainstorm (maps.terrain: "hanging gardens in
@@ -54,25 +55,30 @@ const LEGEND := {
 
 const REACHABLE_TINT := Color(0.35, 0.65, 1.0, 0.45)
 const ORIGIN_TINT := Color(1.0, 0.9, 0.3, 0.7)
+const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
+const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
+const TOKEN_MOVED_COLOR := Color(0.35, 0.35, 0.4, 0.9)
 
 var grid: Array[String] = []
 var terrain_by_symbol: Dictionary = {} # symbol -> terrain_costs row (Dictionary)
 var units: Array = [] # prologue_roster rows, in file order
 var selected_unit_index := 0
 var origin: Vector2i = Vector2i(-1, -1)
+var current_reachable: Dictionary = {} # Vector2i -> cost, for the currently selected unit
 var tile_rects: Dictionary = {} # Vector2i -> ColorRect, so structures can recolor their tiles live
-var unit_tokens: Dictionary = {} # punit_id -> ColorRect (the token's background), for selection highlighting
+var unit_tokens: Dictionary = {} # punit_id -> {container: Node2D, bg: ColorRect}
+var unit_positions: Dictionary = {} # punit_id -> Vector2i, current position (starts at deploy tile)
+var seize_pos: Vector2i = Vector2i(-1, -1)
 
-const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
-const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
-
-# --- turn / structure state -------------------------------------------------
+# --- turn / structure / win state -------------------------------------------
 var turn := 0
 var wall_destroyed := false
 var statue_hp := 0
 var statue_max_hp := 0
 var statue_destroyed := false
 var attacked_this_turn: Dictionary = {} # punit_id -> true, reset every turn
+var moved_this_turn: Dictionary = {} # punit_id -> true, reset every turn
+var prologue_won := false
 
 var highlight_layer: Node2D
 var info_label: Label
@@ -85,6 +91,7 @@ func _ready() -> void:
 	_index_terrain_costs()
 	units = Canon.get_table("prologue_roster")
 	_index_structures()
+	_find_seize_tile()
 
 	_draw_grid()
 	_draw_axis_labels()
@@ -92,6 +99,10 @@ func _ready() -> void:
 	highlight_layer = Node2D.new()
 	add_child(highlight_layer)
 
+	for unit in units:
+		var pos := Vector2i(int(unit.get("deploy_col", -1)), int(unit.get("deploy_row", -1)))
+		if pos.x >= 0 and pos.y >= 0:
+			unit_positions[unit.get("punit_id")] = pos
 	_draw_unit_tokens()
 
 	status_label = Label.new()
@@ -112,18 +123,32 @@ func _ready() -> void:
 	else:
 		_update_info_label()
 
-## One token per unit at their deploy_row/deploy_col, drawn after
-## highlight_layer so movement-range tints never hide who's who.
+func _find_seize_tile() -> void:
+	for row in grid.size():
+		var col := grid[row].find("*")
+		if col != -1:
+			seize_pos = Vector2i(col, row)
+			return
+
+## One token per unit at their current position, drawn after highlight_layer
+## so movement-range tints never hide who's who. Each token is a small
+## container Node2D so moving a unit only means updating one .position.
 func _draw_unit_tokens() -> void:
 	for unit in units:
-		var pos := Vector2i(int(unit.get("deploy_col", -1)), int(unit.get("deploy_row", -1)))
-		if pos.x < 0 or pos.y < 0:
+		var pid = unit.get("punit_id")
+		if not unit_positions.has(pid):
 			continue
+		var pos: Vector2i = unit_positions[pid]
+
+		var container := Node2D.new()
+		container.position = Vector2(pos.x * CELL_SIZE, pos.y * CELL_SIZE)
+		add_child(container)
+
 		var bg := ColorRect.new()
 		bg.size = Vector2(CELL_SIZE - 6, CELL_SIZE - 6)
-		bg.position = Vector2(pos.x * CELL_SIZE + 3, pos.y * CELL_SIZE + 3)
+		bg.position = Vector2(3, 3)
 		bg.color = TOKEN_COLOR
-		add_child(bg)
+		container.add_child(bg)
 
 		var label := Label.new()
 		label.text = String(unit.get("name", "?")).substr(0, 2)
@@ -133,9 +158,9 @@ func _draw_unit_tokens() -> void:
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		label.add_theme_font_size_override("font_size", 11)
 		label.add_theme_color_override("font_color", Color.WHITE)
-		add_child(label)
+		container.add_child(label)
 
-		unit_tokens[unit.get("punit_id")] = bg
+		unit_tokens[pid] = {"container": container, "bg": bg}
 
 func _load_grid(path: String) -> Array[String]:
 	var f := FileAccess.open(path, FileAccess.READ)
@@ -193,7 +218,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var col := int(floor(local.x / CELL_SIZE))
 		var row := int(floor(local.y / CELL_SIZE))
 		if row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
-			_try_set_origin(Vector2i(col, row))
+			_try_move_to(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
 		var key_event := event as InputEventKey
 		if key_event.keycode == KEY_A:
@@ -205,50 +230,86 @@ func _unhandled_input(event: InputEvent) -> void:
 			if idx >= 0 and idx < units.size():
 				_select_unit(idx)
 
-## Selecting a unit jumps the movement tool to their real starting tile
-## (deploy_row/deploy_col), rather than leaving the previous origin set --
-## that made sense when there were no real positions to jump to.
+## Selecting a unit shows their movement range from wherever they currently
+## are (not their static deploy tile -- they may have already moved).
 func _select_unit(idx: int) -> void:
-	_set_token_highlight(selected_unit_index, false)
+	_refresh_token_color(selected_unit_index)
 	selected_unit_index = idx
-	_set_token_highlight(idx, true)
+	_refresh_token_color(idx)
 
-	var unit: Dictionary = units[idx]
-	var pos := Vector2i(int(unit.get("deploy_col", -1)), int(unit.get("deploy_row", -1)))
-	if pos.x >= 0 and pos.y >= 0:
-		origin = pos
+	var pid = units[idx].get("punit_id", "")
+	if unit_positions.has(pid):
+		origin = unit_positions[pid]
 	_recompute_and_draw()
 
-func _set_token_highlight(idx: int, selected: bool) -> void:
+func _refresh_token_color(idx: int) -> void:
 	if idx < 0 or idx >= units.size():
 		return
 	var pid = units[idx].get("punit_id", "")
-	var token: ColorRect = unit_tokens.get(pid)
-	if token:
-		token.color = TOKEN_SELECTED_COLOR if selected else TOKEN_COLOR
-
-func _try_set_origin(pos: Vector2i) -> void:
-	var symbol := grid[pos.y][pos.x]
-	var terrain: Dictionary = terrain_by_symbol.get(symbol, {})
-	if int(terrain.get("move_infantry", 1)) >= IMPASSABLE and int(terrain.get("move_flying", 1)) >= IMPASSABLE:
-		info_label.text = "Can't start on an impassable tile (%s at %d,%d)." % [symbol, pos.x, pos.y]
+	var token = unit_tokens.get(pid)
+	if token == null:
 		return
+	if idx == selected_unit_index:
+		token.bg.color = TOKEN_SELECTED_COLOR
+	elif moved_this_turn.has(pid):
+		token.bg.color = TOKEN_MOVED_COLOR
+	else:
+		token.bg.color = TOKEN_COLOR
+
+## Clicking a tile now commits a real move (once per turn) instead of just
+## previewing a hypothetical origin -- previewing IS the reachable-tile
+## highlight you already see once a unit is selected.
+func _try_move_to(pos: Vector2i) -> void:
+	if units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+
+	if moved_this_turn.has(pid):
+		info_label.text = "%s has already moved this turn." % unit.get("name")
+		return
+	if not current_reachable.has(pos):
+		info_label.text = "Out of range for %s." % unit.get("name")
+		return
+
+	unit_positions[pid] = pos
+	moved_this_turn[pid] = true
+	var token = unit_tokens.get(pid)
+	if token:
+		token.container.position = Vector2(pos.x * CELL_SIZE, pos.y * CELL_SIZE)
+
 	origin = pos
 	_recompute_and_draw()
+	_refresh_token_color(selected_unit_index)
+
+	if pid == "pu_sargath" and pos == seize_pos and not prologue_won:
+		prologue_won = true
+		status_label.text = "SEIZED. Sargath reaches the temple terrace -- the prologue ends here."
+		info_label.text = "Victory. (The endgame branches from here aren't modeled in this tool.)"
+		return
+
+	_update_status_label()
 
 func _recompute_and_draw() -> void:
 	for child in highlight_layer.get_children():
 		child.queue_free()
+	current_reachable.clear()
 	if origin == Vector2i(-1, -1) or units.is_empty():
 		_update_info_label()
 		return
 
 	var unit: Dictionary = units[selected_unit_index]
-	var move_budget := int(unit.get("move", 0))
+	var pid: String = unit.get("punit_id", "")
 	var movement_type: String = unit.get("movement_type", "infantry")
 
-	var reachable := _compute_reachable(origin, move_budget, movement_type)
-	for pos in reachable:
+	if moved_this_turn.has(pid):
+		# already acted this turn -- nothing further to show as reachable
+		current_reachable = {origin: 0}
+	else:
+		var move_budget := int(unit.get("move", 0))
+		current_reachable = _compute_reachable(origin, move_budget, movement_type)
+
+	for pos in current_reachable:
 		var tint := ORIGIN_TINT if pos == origin else REACHABLE_TINT
 		var rect := ColorRect.new()
 		rect.color = tint
@@ -256,7 +317,7 @@ func _recompute_and_draw() -> void:
 		rect.position = Vector2(pos.x * CELL_SIZE, pos.y * CELL_SIZE)
 		highlight_layer.add_child(rect)
 
-	_update_info_label(reachable.size())
+	_update_info_label(current_reachable.size())
 
 ## Symbol lookup, overridden by structure state -- once a structure falls
 ## its tile behaves like plain court, both visually (see _recolor_symbol)
@@ -294,7 +355,8 @@ func _neighbors(pos: Vector2i) -> Array[Vector2i]:
 	return result
 
 ## Dijkstra over the grid, capped at move_budget. The board is small (24x16)
-## so a plain O(n^2) extract-min is plenty fast; no need for a heap.
+## so a plain O(n^2) extract-min is plenty fast; no need for a heap. Does
+## NOT account for other units occupying tiles -- see the file header.
 func _compute_reachable(start: Vector2i, move_budget: int, movement_type: String) -> Dictionary:
 	var cost_so_far := {start: 0}
 	var frontier: Array[Vector2i] = [start]
@@ -333,6 +395,9 @@ func _recolor_symbol(symbol: String, color: Color) -> void:
 func _next_turn() -> void:
 	turn += 1
 	attacked_this_turn.clear()
+	moved_this_turn.clear()
+	for i in units.size():
+		_refresh_token_color(i)
 	if turn == 1 and not wall_destroyed:
 		wall_destroyed = true
 		_recolor_symbol("W", LEGEND["."])
@@ -340,9 +405,9 @@ func _next_turn() -> void:
 	_update_status_label()
 	_update_info_label()
 
-## Attacking is deliberately not gated on the selected unit's map position
-## (there isn't one -- see the file header). MAX_STATUE_ATTACKERS_PER_TURN
-## and the movement_type check below are what stand in for real adjacency.
+## Attacking is deliberately not gated on real adjacency to the statue --
+## there's no pathing-to-adjacency check yet, only the movement_type check
+## below and MAX_STATUE_ATTACKERS_PER_TURN standing in for "who can reach it".
 func _attack_statue() -> void:
 	if units.is_empty():
 		return
@@ -385,25 +450,30 @@ func _attack_statue() -> void:
 	_update_status_label()
 
 func _update_status_label() -> void:
+	if prologue_won:
+		return
 	var wall_state := "destroyed (Enmet, turn 1)" if wall_destroyed else "standing"
 	var statue_state := "RUBBLE" if statue_destroyed else "%d / %d HP" % [statue_hp, statue_max_hp]
 	status_label.text = (
-		"Turn %d -- Wall: %s -- Statue: %s -- attackers used this turn: %d/%d\n[A] attack statue with selected unit -- [N] / Enter: next turn"
-		% [turn, wall_state, statue_state, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN]
+		"Turn %d -- Wall: %s -- Statue: %s -- attackers: %d/%d this turn -- moved: %d/%d this turn\n[A] attack statue -- [N] / Enter: next turn -- click a highlighted tile to move"
+		% [turn, wall_state, statue_state, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()]
 	)
 
 func _update_info_label(reachable_count := -1) -> void:
+	if prologue_won:
+		return
 	if units.is_empty():
 		info_label.text = "No prologue_roster data loaded."
 		return
 	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
 	var lines: Array[String] = []
-	lines.append("[1-8] select unit (jumps to their tile) -- click elsewhere to test a hypothetical origin (rain map: wet costs apply)")
+	lines.append("[1-8] select unit -- click a highlighted tile to move there (rain map: wet costs apply)")
 	lines.append("Selected: %s -- move %s, %s, dmg_vs_statue %s" % [
 		unit.get("name"), unit.get("move"), unit.get("movement_type"), unit.get("dmg_vs_statue")
 	])
-	if origin != Vector2i(-1, -1):
-		lines.append("Origin: (%d, %d) -- %d tiles reachable" % [origin.x, origin.y, reachable_count])
-	else:
-		lines.append("Click a tile to set the origin.")
+	if moved_this_turn.has(pid):
+		lines.append("At (%d, %d) -- already moved this turn." % [origin.x, origin.y])
+	elif origin != Vector2i(-1, -1):
+		lines.append("At (%d, %d) -- %d tiles reachable" % [origin.x, origin.y, reachable_count])
 	info_label.text = "\n".join(lines)
