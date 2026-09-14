@@ -1,20 +1,35 @@
 extends Node2D
 ## Renders a map_*.txt terrain grid as flat colored tiles (matching
-## map_f00_reference.png's palette) and lets you click any passable tile to
-## see the movement range of one of the 8 prologue units from that spot,
-## using terrain_costs.json x prologue_roster.json (movement_type + move).
+## map_f00_reference.png's palette), lets you click any passable tile to see
+## the movement range of one of the 8 prologue units from that spot, and
+## simulates the two F0 structures (the wall, the statue) turn by turn.
 ##
 ## Deliberately does NOT place the 8 units on real starting tiles -- those
 ## aren't specified anywhere in canon.db or map_f00.txt (see the sourcing
 ## note in prologue_roster's own sheet). Click-to-test lets the movement
-## math get proven without inventing that data.
+## math get proven without inventing that data. Statue attacks are similarly
+## abstracted from position (see _attack_statue) since there's no adjacency
+## system without real unit placement -- the turn cap below is what stands
+## in for it.
 ##
-## Controls: click a passable tile = set movement origin for the selected
-## unit. Keys 1-8 = switch which of the 8 units you're testing.
+## Controls:
+##   click a passable tile = set movement origin for the selected unit
+##   1-8 = switch which of the 8 units is selected
+##   A   = selected unit attacks the statue
+##   N / Enter = advance to the next turn
 
 const CELL_SIZE := 32
 const MAP_PATH := "res://data/maps/map_f00.txt"
 const IMPASSABLE := 90 # terrain_costs uses 99 as its impassable sentinel
+
+## Only 4 tiles are orthogonally adjacent to any single tile, the statue's
+## included -- prologue_tuning's own note: "only 4 orthogonal tiles touch
+## the image, so 7 combatants cannot all swing in the same turn -- the
+## warband has to ROTATE through it. That stretches the arithmetic 4 turns
+## into 5-6 turns of actual play, which is the intended feeling." Without
+## real unit positions there's no adjacency to check, so this cap stands in
+## for it directly.
+const MAX_STATUE_ATTACKERS_PER_TURN := 4
 
 ## map_f00 is explicitly a rainstorm (maps.terrain: "hanging gardens in
 ## rain"); terrain_costs has no per-map wet flag yet, so this is hardcoded
@@ -43,9 +58,19 @@ var terrain_by_symbol: Dictionary = {} # symbol -> terrain_costs row (Dictionary
 var units: Array = [] # prologue_roster rows, in file order
 var selected_unit_index := 0
 var origin: Vector2i = Vector2i(-1, -1)
+var tile_rects: Dictionary = {} # Vector2i -> ColorRect, so structures can recolor their tiles live
+
+# --- turn / structure state -------------------------------------------------
+var turn := 0
+var wall_destroyed := false
+var statue_hp := 0
+var statue_max_hp := 0
+var statue_destroyed := false
+var attacked_this_turn: Dictionary = {} # punit_id -> true, reset every turn
 
 var highlight_layer: Node2D
 var info_label: Label
+var status_label: Label
 
 func _ready() -> void:
 	grid = _load_grid(MAP_PATH)
@@ -53,6 +78,7 @@ func _ready() -> void:
 		return
 	_index_terrain_costs()
 	units = Canon.get_table("prologue_roster")
+	_index_structures()
 
 	_draw_grid()
 	_draw_axis_labels()
@@ -60,11 +86,19 @@ func _ready() -> void:
 	highlight_layer = Node2D.new()
 	add_child(highlight_layer)
 
+	status_label = Label.new()
+	status_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
+	status_label.custom_minimum_size = Vector2(grid[0].length() * CELL_SIZE, 60)
+	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	add_child(status_label)
+
 	info_label = Label.new()
-	info_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
+	info_label.position = Vector2(0, grid.size() * CELL_SIZE + 80)
 	info_label.custom_minimum_size = Vector2(grid[0].length() * CELL_SIZE, 100)
 	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	add_child(info_label)
+
+	_update_status_label()
 	_update_info_label()
 
 func _load_grid(path: String) -> Array[String]:
@@ -84,6 +118,12 @@ func _index_terrain_costs() -> void:
 	for row in Canon.get_table("terrain_costs"):
 		terrain_by_symbol[row["symbol"]] = row
 
+func _index_structures() -> void:
+	for row in Canon.get_table("prologue_structures"):
+		if row["structure_id"] == "str_statue":
+			statue_max_hp = int(row["hp"])
+			statue_hp = statue_max_hp
+
 func _draw_grid() -> void:
 	for row in grid.size():
 		var line := grid[row]
@@ -95,6 +135,7 @@ func _draw_grid() -> void:
 			rect.size = Vector2(CELL_SIZE - 1, CELL_SIZE - 1)
 			rect.position = Vector2(col * CELL_SIZE, row * CELL_SIZE)
 			add_child(rect)
+			tile_rects[Vector2i(col, row)] = rect
 
 func _draw_axis_labels() -> void:
 	var width := grid[0].length() if not grid.is_empty() else 0
@@ -119,10 +160,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			_try_set_origin(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
 		var key_event := event as InputEventKey
-		var idx := key_event.keycode - KEY_1
-		if idx >= 0 and idx < units.size():
-			selected_unit_index = idx
-			_recompute_and_draw()
+		if key_event.keycode == KEY_A:
+			_attack_statue()
+		elif key_event.keycode == KEY_N or key_event.keycode == KEY_ENTER:
+			_next_turn()
+		else:
+			var idx := key_event.keycode - KEY_1
+			if idx >= 0 and idx < units.size():
+				selected_unit_index = idx
+				_recompute_and_draw()
+				_update_info_label()
 
 func _try_set_origin(pos: Vector2i) -> void:
 	var symbol := grid[pos.y][pos.x]
@@ -155,8 +202,21 @@ func _recompute_and_draw() -> void:
 
 	_update_info_label(reachable.size())
 
-func _terrain_cost(pos: Vector2i, movement_type: String) -> int:
+## Symbol lookup, overridden by structure state -- once a structure falls
+## its tile behaves like plain court, both visually (see _recolor_symbol)
+## and for movement math. This is the direct payoff of turn-based
+## destruction: the movement-range tool built earlier actually changes
+## shape once the wall or statue comes down.
+func _effective_symbol(pos: Vector2i) -> String:
 	var symbol := grid[pos.y][pos.x]
+	if symbol == "W" and wall_destroyed:
+		return "."
+	if symbol == "S" and statue_destroyed:
+		return "."
+	return symbol
+
+func _terrain_cost(pos: Vector2i, movement_type: String) -> int:
+	var symbol := _effective_symbol(pos)
 	var terrain: Dictionary = terrain_by_symbol.get(symbol)
 	if terrain == null:
 		return IMPASSABLE
@@ -202,6 +262,80 @@ func _compute_reachable(start: Vector2i, move_budget: int, movement_type: String
 				frontier.append(neighbor)
 	return cost_so_far
 
+func _recolor_symbol(symbol: String, color: Color) -> void:
+	for row in grid.size():
+		var line := grid[row]
+		for col in line.length():
+			if line[col] == symbol:
+				var pos := Vector2i(col, row)
+				if tile_rects.has(pos):
+					tile_rects[pos].color = color
+
+## Enmet removes the wall in one cast, turn 1 -- scripted, not a player
+## choice, so it just happens when turn 1 begins rather than needing an
+## attack action.
+func _next_turn() -> void:
+	turn += 1
+	attacked_this_turn.clear()
+	if turn == 1 and not wall_destroyed:
+		wall_destroyed = true
+		_recolor_symbol("W", LEGEND["."])
+	_recompute_and_draw()
+	_update_status_label()
+	_update_info_label()
+
+## Attacking is deliberately not gated on the selected unit's map position
+## (there isn't one -- see the file header). MAX_STATUE_ATTACKERS_PER_TURN
+## and the movement_type check below are what stand in for real adjacency.
+func _attack_statue() -> void:
+	if units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+
+	if statue_destroyed:
+		info_label.text = "The statue is already rubble."
+		return
+
+	var dmg := int(unit.get("dmg_vs_statue", 0))
+	if dmg <= 0:
+		info_label.text = "%s cannot attack (%s)." % [unit.get("name"), unit.get("what_they_do")]
+		return
+
+	var movement_type: String = unit.get("movement_type", "infantry")
+	var terrace: Dictionary = terrain_by_symbol.get("T", {})
+	if int(terrace.get("move_%s" % movement_type, IMPASSABLE)) >= IMPASSABLE:
+		info_label.text = "%s can never reach the temple terrace (%s is blocked there)." % [unit.get("name"), movement_type]
+		return
+
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+
+	if attacked_this_turn.size() >= MAX_STATUE_ATTACKERS_PER_TURN:
+		info_label.text = "Only %d units can reach the statue's 4 orthogonal tiles at once -- press N for next turn." % MAX_STATUE_ATTACKERS_PER_TURN
+		return
+
+	statue_hp = max(0, statue_hp - dmg)
+	attacked_this_turn[pid] = true
+	info_label.text = "%s hits the statue for %d. %d/%d HP remaining." % [unit.get("name"), dmg, statue_hp, statue_max_hp]
+
+	if statue_hp == 0:
+		statue_destroyed = true
+		_recolor_symbol("S", LEGEND["."])
+		_recompute_and_draw()
+		info_label.text = "The statue is rubble. It goes still."
+
+	_update_status_label()
+
+func _update_status_label() -> void:
+	var wall_state := "destroyed (Enmet, turn 1)" if wall_destroyed else "standing"
+	var statue_state := "RUBBLE" if statue_destroyed else "%d / %d HP" % [statue_hp, statue_max_hp]
+	status_label.text = (
+		"Turn %d -- Wall: %s -- Statue: %s -- attackers used this turn: %d/%d\n[A] attack statue with selected unit -- [N] / Enter: next turn"
+		% [turn, wall_state, statue_state, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN]
+	)
+
 func _update_info_label(reachable_count := -1) -> void:
 	if units.is_empty():
 		info_label.text = "No prologue_roster data loaded."
@@ -209,7 +343,9 @@ func _update_info_label(reachable_count := -1) -> void:
 	var unit: Dictionary = units[selected_unit_index]
 	var lines: Array[String] = []
 	lines.append("[1-8] switch unit -- click a passable tile to test movement range (rain map: wet costs apply)")
-	lines.append("Selected: %s -- move %s, %s" % [unit.get("name"), unit.get("move"), unit.get("movement_type")])
+	lines.append("Selected: %s -- move %s, %s, dmg_vs_statue %s" % [
+		unit.get("name"), unit.get("move"), unit.get("movement_type"), unit.get("dmg_vs_statue")
+	])
 	if origin != Vector2i(-1, -1):
 		lines.append("Origin: (%d, %d) -- %d tiles reachable" % [origin.x, origin.y, reachable_count])
 	else:
