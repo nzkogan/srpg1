@@ -1,0 +1,162 @@
+[
+  {
+    "settlement_id": "set_kaisareia",
+    "name": "Kaisareia",
+    "polity_id": "pol_diadem",
+    "status": "living",
+    "region_id": "rgn_center",
+    "notes": "twin city on both banks at the rift narrows; capital because the gap is defensible"
+  },
+  {
+    "settlement_id": "set_anthe",
+    "name": "Anthe",
+    "polity_id": "pol_diadem",
+    "status": "shrunken",
+    "region_id": "rgn_stepped_coast",
+    "notes": "port on the terraces; its harbour is two levels below the town and dry"
+  },
+  {
+    "settlement_id": "set_thessala",
+    "name": "Thessala",
+    "polity_id": "pol_diadem",
+    "status": "living",
+    "region_id": "rgn_center",
+    "notes": "south coast; where the grain fleet sails from"
+  },
+  {
+    "settlement_id": "set_nikaia",
+    "name": "Nikaia",
+    "polity_id": "pol_diadem",
+    "status": "shrunken",
+    "region_id": "rgn_center",
+    "notes": "six hundred people inside walls built for twenty thousand; fields grow between the quarters"
+  },
+  {
+    "settlement_id": "set_vashti",
+    "name": "Vashti",
+    "polity_id": "pol_diadem",
+    "status": "living",
+    "region_id": "rgn_ashland",
+    "notes": "occupied seat in the volcanic field; the Unstained will not take sacraments here"
+  },
+  {
+    "settlement_id": "set_sardeis",
+    "name": "Sardeis",
+    "polity_id": "pol_diadem",
+    "status": "ruin",
+    "region_id": "rgn_ashland",
+    "notes": "burned in the war; the Diadem has not rebuilt it and does not intend to"
+  },
+  {
+    "settlement_id": "set_vetch",
+    "name": "Vetch",
+    "polity_id": "pol_assembly",
+    "status": "living",
+    "region_id": "rgn_drowned_march",
+    "notes": "the Assembly's seat; timber walls on stone foundations that are much older Act 1: no confirmed quorum among the great houses -- the council currently governing is a rump, not a settled government."
+  },
+  {
+    "settlement_id": "set_halder",
+    "name": "Halder",
+    "polity_id": "pol_assembly",
+    "status": "living",
+    "region_id": "rgn_drowned_march",
+    "notes": "north coast; the sea ices in and the port closes for a third of the year"
+  },
+  {
+    "settlement_id": "set_marrow",
+    "name": "Marrow",
+    "polity_id": "pol_assembly",
+    "status": "shrunken",
+    "region_id": "rgn_drowned_march",
+    "notes": "the apothecary town; three streets of different widths, and the plague took half of it"
+  },
+  {
+    "settlement_id": "set_ostrova",
+    "name": "Ostrova",
+    "polity_id": "pol_assembly",
+    "status": "living",
+    "region_id": "rgn_drowned_march",
+    "notes": "on the plateau edge; closer to the horse-camps than to Vetch, and it shows"
+  },
+  {
+    "settlement_id": "set_kolm",
+    "name": "Kolm",
+    "polity_id": "pol_assembly",
+    "status": "ruin",
+    "region_id": "rgn_drowned_march",
+    "notes": "abandoned to the plague, not to war; nobody has gone back in"
+  },
+  {
+    "settlement_id": "set_lade",
+    "name": "Lade",
+    "polity_id": "pol_league",
+    "status": "living",
+    "region_id": "rgn_the_throat",
+    "notes": "first oasis past the wall; the caravanserai where prices rise when a fight is visible"
+  },
+  {
+    "settlement_id": "set_sarn",
+    "name": "Sarn",
+    "polity_id": "pol_league",
+    "status": "living",
+    "region_id": "rgn_the_throat",
+    "notes": "middle oasis; the League's treaty was signed here and is re-read aloud yearly"
+  },
+  {
+    "settlement_id": "set_kesh",
+    "name": "Kesh",
+    "polity_id": "pol_league",
+    "status": "living",
+    "region_id": "rgn_the_throat",
+    "notes": "last oasis before the river valley; where the road's tolls are actually collected"
+  },
+  {
+    "settlement_id": "set_anbar",
+    "name": "Anbar",
+    "polity_id": "pol_rivers",
+    "status": "living",
+    "region_id": "rgn_glass_flats",
+    "notes": "the lending houses; grain bought on credit against a harvest nobody has seen"
+  },
+  {
+    "settlement_id": "set_nirash",
+    "name": "Nirash",
+    "polity_id": "pol_rivers",
+    "status": "living",
+    "region_id": "rgn_glass_flats",
+    "notes": "delta city; older than the Diadem's oldest record of itself"
+  },
+  {
+    "settlement_id": "set_eresh",
+    "name": "Eresh",
+    "polity_id": "pol_rivers",
+    "status": "tell",
+    "region_id": "rgn_glass_flats",
+    "notes": "a mound with a modern village on top; the city underneath is still being dug out of it"
+  },
+  {
+    "settlement_id": "set_sindar",
+    "name": "Sindar",
+    "polity_id": "pol_ports",
+    "status": "living",
+    "region_id": "rgn_glass_flats",
+    "notes": "monsoon port; sells grain to both sides and does not pretend otherwise"
+  },
+  {
+    "settlement_id": "set_pelagos",
+    "name": "Pelagos",
+    "polity_id": "pol_isles",
+    "status": "living",
+    "region_id": "rgn_stepped_coast",
+    "notes": "fisher commune; the saint lives on the next island and they feed him"
+  },
+  {
+    "settlement_id": "set_stranded",
+    "name": "the stranded harbour",
+    "polity_id": "pol_diadem",
+    "status": "ruin",
+    "region_id": "rgn_stepped_coast",
+    "notes": "on the middle terrace, high above the waterline; the renunciants live in it"
+  }
+]

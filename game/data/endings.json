@@ -1,0 +1,42 @@
+[
+  {
+    "ending_id": "end_hierophant",
+    "route": "route_hierophant",
+    "name": "The Hierophant's capture (shared lead-up, not terminal)",
+    "trigger": "sect_id: TBD (whichever sect internally consolidates in Act 2)",
+    "premise": "the movement forces one answer onto a five-way argument the game has kept deliberately plural; the defense scenario is a literal conquest -- march, forced conversion, crusade logic, not economic absorption",
+    "resolution_and_aftermath": "the defense scenario ends in capture, not a kill -- the party wins the battle and the Diadem convenes a formal trial (crowned, bureaucratic state-legitimacy polity; the same machine that produces deputies off the epithet ledger now processes the largest moral choice in the game, not a special cutscene outside the system). The avatar or whoever holds the relevant commission recommends sentence. FORKS into end_hierophant_mercy or end_hierophant_execution -- see those rows for the actual terminal states."
+  },
+  {
+    "ending_id": "end_sanctified",
+    "route": "route_enlightened_one, GOOD branch",
+    "name": "Sanctification",
+    "trigger": "hidden telemetry threshold -- see ascension_signals tab",
+    "premise": "his ascension succeeds honestly: the debts that built his power were genuinely offered, not extracted. He becomes what his own doctrine claims to be -- grace as credit discharged by another, made literal and singular",
+    "resolution_and_aftermath": "NOT a boss fight against him. The party fights the deposed patrons of the Hundred Cities -- the full Lesser Key roster, ranks and legions made literal and playable for the first time -- as they resist being absorbed into one new claim. AMBIVALENT ON PURPOSE: a true, actually-good singular god still ends the plurality the whole game has protected. Historical anchor: local gods becoming saints, folk figures, or devils under an arriving monotheism, rarely simply erased -- this is that transition, played out with real stakes and no villain on the other side"
+  },
+  {
+    "ending_id": "end_perverse",
+    "route": "route_enlightened_one, BAD branch",
+    "name": "The perverse god",
+    "trigger": "hidden telemetry threshold NOT met -- see ascension_signals tab",
+    "premise": "his ascension is corrupted: the debts that built his power were extracted from people with no real choice. What emerges is monotheism-as-conquest rather than monotheism-as-grace",
+    "resolution_and_aftermath": "the party fights HIM directly. VISUAL CONVERGENCE WITH THE IDOL, deliberate: a false godhood assembled from what was taken, same as the Hierophant's colossus -- money and certainty are different roads to the same wrong destination. AFTERMATH is denial, not martyrdom, because he is exposed while still alive rather than killed: a remnant decides the defeat was itself a hidden necessary step and continues practicing in secret. Historical anchor: Sabbatai Zevi, the 17th c. claimant given a choice between conversion to Islam and execution, who converted -- and the Donmeh, a real following who reinterpreted the conversion as part of the messianic process rather than its refutation, and continued for centuries"
+  },
+  {
+    "ending_id": "end_hierophant_mercy",
+    "route": "route_hierophant, MERCY branch",
+    "name": "Subterfuge",
+    "trigger": "player chooses mercy at the Kaisareia trial",
+    "premise": "sparing him doesn't neutralise him -- it leaves a devoted core with no clean loss to mourn and a prophet (Methodios) who cannot accept a humiliating public capitulation as final",
+    "resolution_and_aftermath": "Methodios reframes the submission as a hidden necessary descent before the true ascension (the real Nathan of Gaza's exact move after Sabbatai Zevi's conversion to Islam under threat of execution). The movement goes underground and finishes what got interrupted -- A SECOND, LATER BATTLE. Deliberately convergent iconography with end_perverse and the Idol: mercy-then-subterfuge and extraction-then-ascension are the same wrong destination reached from different starts, and reusing the visual language says so without dialogue"
+  },
+  {
+    "ending_id": "end_hierophant_execution",
+    "route": "route_hierophant, EXECUTION branch",
+    "name": "The war",
+    "trigger": "player chooses execution at the Kaisareia trial",
+    "premise": "there is no ambiguity left for Methodios to manage quietly -- a killing reads as betrayal even without a literal broken promise, because the trial itself performed impartiality the outcome then violated",
+    "resolution_and_aftermath": "not one climactic fight -- several chapters of costly, attritional maps against regions and sects that were allied or neutral an act ago, now fractured. Historical anchor: Jan Hus, promised safe conduct to defend his views before a council, tried anyway, burned in 1415 -- the betrayal ignited the Hussite Wars, two decades of grinding conflict the Hussites were never fully crushed in, forcing a negotiated settlement rather than suppression. THE ASYMMETRY: mercy keeps the cost on the party, personally, later (a second fight, the world outside stays intact); execution discharges the cost onto the world immediately and completely (a war fought by people who did nothing wrong except believe the wrong thing at the wrong moment), while the party's hands are clean of that one death mattering twice. Neither is the nice option; both are honest"
+  }
+]

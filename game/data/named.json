@@ -1,0 +1,52 @@
+[
+  {
+    "named_id": "nmd_simurgh",
+    "name": "the Simurgh",
+    "region_id": "rgn_drowned_march",
+    "pact_object": "the feather",
+    "terms": "answers whoever holds the feather, and answers anyone who holds it",
+    "defection_trigger": "the feather changes hands; she arrives green and stops being green",
+    "signature_mechanic": "5 HP/turn to rider and adjacent allies (flat, not percentage)",
+    "notes": "cleanses corruption; the only thing that can strip a pact without a Pardoner, and will not do it on request"
+  },
+  {
+    "named_id": "nmd_huma",
+    "name": "the Huma",
+    "region_id": "rgn_the_throat",
+    "pact_object": "no seal; it cannot be owned",
+    "terms": "cannot be owned, only flown under; its shadow legitimizes whoever it falls on",
+    "defection_trigger": "never defects because it was never yours",
+    "signature_mechanic": "MAP HAZARD, NOT A MOUNT: drifts overhead; marked units gain stats and become targeting priority for every enemy",
+    "notes": "kill-taboo: whoever lands the blow dies in forty days, no reload undoes it"
+  },
+  {
+    "named_id": "nmd_anzu",
+    "name": "the Anzu",
+    "region_id": "rgn_glass_flats",
+    "pact_object": "the register itself",
+    "terms": "contracts with whoever can READ the register, not who owns it",
+    "defection_trigger": "someone demonstrates literacy you lack; ties to the hidden-literacy thread",
+    "signature_mechanic": "contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead",
+    "notes": "COST: weapons it unmakes cannot be captured, so riding it starves your only supply line"
+  },
+  {
+    "named_id": "nmd_karkadann",
+    "name": "the Karkadann",
+    "region_id": "rgn_ashland",
+    "pact_object": "the nest it guards",
+    "terms": "protects what it has decided to protect; nothing negotiates with it",
+    "defection_trigger": "turns the moment you threaten the doves; state orders and its terms are simply incompatible",
+    "signature_mechanic": "strong against mounted units; devastating charge that leaves it stuck one turn",
+    "notes": "the plain one on purpose -- the roster needs one straightforwardly good option"
+  },
+  {
+    "named_id": "nmd_shadhavar",
+    "name": "the Shadhavar",
+    "region_id": "rgn_stepped_coast",
+    "pact_object": "the song",
+    "terms": "pacts through beauty; the lure is what it IS, not a trick it performs",
+    "defection_trigger": "uncontrolled by design",
+    "signature_mechanic": "every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off",
+    "notes": "liability on escort maps, asset on defend maps"
+  }
+]

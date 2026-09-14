@@ -1,0 +1,56 @@
+[
+  {
+    "era_id": "era_cities",
+    "name": "The Hundred Cities",
+    "when": "~800 years before",
+    "shape": "Akkadian register",
+    "what_happened": "every valley held a city-state with its own patron, temple and king",
+    "what_it_means_now": "the patrons were NAMED PARTIES WITH TERMS, not metaphors",
+    "how_the_game_uses_it": "flashback chapters F1-F3: different roster, chariots, no requisition, no permadeath"
+  },
+  {
+    "era_id": "era_binding",
+    "name": "The Binding of Sargath",
+    "when": "~780 years before",
+    "shape": "Sargath of Ur-Nashet binds the rest",
+    "what_happened": "the First Register is written: which patron owes what to whom",
+    "what_it_means_now": "every pact in the present is a clause in a treaty nobody alive negotiated",
+    "how_the_game_uses_it": "the founding crime; the demons the nobles borrow from are deposed city-patrons"
+  },
+  {
+    "era_id": "era_empire",
+    "name": "The Long Reign",
+    "when": "780-90 years before",
+    "shape": "one realm, one church",
+    "what_happened": "the church that held it together was not telling the truth",
+    "what_it_means_now": "learning moved east and came back translated; the capital lived on inheritance",
+    "how_the_game_uses_it": "the age the Diadem still thinks it is living in"
+  },
+  {
+    "era_id": "era_venerated",
+    "name": "The Venerated",
+    "when": "~90-40 years before",
+    "shape": "a person, and then an absence",
+    "what_happened": "what they did is disputed; whether they died is disputed; the tomb is disputed",
+    "what_it_means_now": "the sects are five answers to one question the game never settles",
+    "how_the_game_uses_it": "no depiction survives that all parties accept as authentic"
+  },
+  {
+    "era_id": "era_war",
+    "name": "The War of the Two Claims",
+    "when": "40-1 years before",
+    "shape": "the realm splits",
+    "what_happened": "crowned succession against elective succession; both call themselves the inheritance",
+    "what_it_means_now": "ended in exhaustion, not victory; the claim did not end",
+    "how_the_game_uses_it": "Act 1 opens in the year after"
+  },
+  {
+    "era_id": "era_sargath_note",
+    "name": "Sargath, the binder",
+    "when": "the figure, not the age",
+    "shape": "a city-king who made the first empire and the first register in the same act",
+    "what_happened": "he did not kill the patrons; he WROTE THEM DOWN, which turned gods into signatories",
+    "what_it_means_now": "the register is his instrument and it outlived his empire by seven centuries",
+    "how_the_game_uses_it": "named for a real child; the sound is right and the etymology is nobody's"
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "forge_id": "frg_standard_a",
+    "name": "the Diadem's forge orders",
+    "location": null,
+    "tier": "standard",
+    "specialty": null,
+    "smith_notes": null,
+    "cycle_length": "1 chapter",
+    "access_logic": "requisition tier only (1/2/3 open orders at tier 1/2/3)",
+    "design_note": "the ordinary spine sidequest; no master required"
+  },
+  {
+    "forge_id": "frg_standard_b",
+    "name": "the Assembly's forge orders",
+    "location": null,
+    "tier": "standard",
+    "specialty": null,
+    "smith_notes": null,
+    "cycle_length": "1 chapter",
+    "access_logic": "requisition tier only (1/2/3 open orders at tier 1/2/3)",
+    "design_note": "the ordinary spine sidequest; no master required"
+  },
+  {
+    "forge_id": "frg_kaisareia",
+    "name": "the edged master",
+    "location": "set_kaisareia",
+    "tier": "master",
+    "specialty": "edged",
+    "smith_notes": "her own technique is inherited, a lineage carried from further east generations ago and never native to the capital -- the same story as its library",
+    "cycle_length": "2 chapters",
+    "access_logic": "STATE LEGITIMACY: requisition tier alone, no road to hold or favour to earn. The crown decides whether you're permitted a blade of the highest order and nothing else enters into it",
+    "design_note": "the baseline master, always reachable if the crown is willing"
+  },
+  {
+    "forge_id": "frg_vashti",
+    "name": "the hafted master",
+    "location": "set_vashti",
+    "tier": "master",
+    "specialty": "hafted",
+    "smith_notes": "her family has worked that forge for longer than the current occupation and treats the war as weather",
+    "cycle_length": "2 chapters",
+    "access_logic": "MILITARY CONTROL: requires holding the Vashti road, tied directly to Column A's actual chapters rather than a flat unlock -- access can be LOST mid-run if the road is lost",
+    "design_note": "arms lances and axes: the common soldier's tools, not the officer's. Fitting that the hardest-won master smith makes the plainest weapons"
+  },
+  {
+    "forge_id": "frg_herd",
+    "name": "the missile master",
+    "location": "pol_clans",
+    "tier": "master",
+    "specialty": "missile",
+    "smith_notes": "answers to no crown and holds no seat; the Herd Clans have no city to besiege and nothing to seize",
+    "cycle_length": "2 chapters",
+    "access_logic": "DIPLOMATIC STANDING: cannot be conquered or purchased, only granted passage -- the one master no amount of requisition tier or occupied ground can buy",
+    "design_note": "the master smith outside the state's reach entirely, which is the point"
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "region_id": "rgn_center",
+    "name": "the capital and its hinterland",
+    "direction": "center",
+    "elevated_in": "antique: the largest library on the continent, almost none of it originally theirs",
+    "scar": "none (the center is unscarred, which it considers proof of favor)",
+    "explanation_sacred": null,
+    "explanation_material": null,
+    "claimed_by_sect_id": "sect_court",
+    "named_id": null,
+    "texture": "translations whose originals no longer exist; astronomers using tables computed a thousand miles east; physicians trained on a text the capital once condemned"
+  },
+  {
+    "region_id": "rgn_drowned_march",
+    "name": "the Drowned March",
+    "direction": "north",
+    "elevated_in": "socially: assembly-based succession, women holding property and title, contract law where the center has patronage",
+    "scar": "a rift valley that filled; a lake with a visible former shoreline",
+    "explanation_sacred": "divine judgment on the old seat",
+    "explanation_material": "the ground simply dropped",
+    "claimed_by_sect_id": "sect_march",
+    "named_id": "nmd_simurgh",
+    "texture": "in dry years the top of a bell tower breaks the surface; villages sit on the new shoreline and farm the old one"
+  },
+  {
+    "region_id": "rgn_ashland",
+    "name": "the Ashland",
+    "direction": "east",
+    "elevated_in": "medically: hospitals with wards, optical and surgical instruments up the trade road",
+    "scar": "a volcanic field; spectacular soil, bad air",
+    "explanation_sacred": "the earth was punished and the punishment feeds us",
+    "explanation_material": "ordinary vulcanism on a long cycle",
+    "claimed_by_sect_id": "sect_vashti",
+    "named_id": "nmd_karkadann",
+    "texture": "miasma tiles live here and stop being generic fog; people farm it anyway because the crops are extraordinary; the Miasma Warden class was born in this ground"
+  },
+  {
+    "region_id": "rgn_glass_flats",
+    "name": "the Glass Flats",
+    "direction": "southeast",
+    "elevated_in": "mathematically: algebra used for inheritance law, instruments, double-entry along the road",
+    "scar": "fused ground, straight-edged, unmistakably made; nothing grows",
+    "explanation_sacred": "a weapon, a thousand years old, per the state",
+    "explanation_material": "a weapon, two hundred years old, per a manifest the Company's factors hold",
+    "claimed_by_sect_id": "sect_road",
+    "named_id": "nmd_anzu",
+    "texture": "Namibian register: white sky, hard noon light, mineral color, a single figure legible at distance. Beautiful, not gothic"
+  },
+  {
+    "region_id": "rgn_stepped_coast",
+    "name": "the Stepped Coast",
+    "direction": "west",
+    "elevated_in": "administratively: decimal officialdom, a labor tax, storehouse networks, knotted-cord records no living person can read",
+    "scar": "three raised marine terraces, each a former shoreline, each with a ruined harbor at the wrong altitude",
+    "explanation_sacred": "the sea was driven back by an act of will",
+    "explanation_material": "the land rises on a schedule nobody is on",
+    "claimed_by_sect_id": "sect_coast",
+    "named_id": "nmd_shadhavar",
+    "texture": "the quietest and most unsettling scar; purely tectonic and entirely undramatic"
+  },
+  {
+    "region_id": "rgn_the_throat",
+    "name": "the Throat",
+    "direction": "southeast",
+    "elevated_in": "commercially: credit instruments, brokerage, letters of exchange",
+    "scar": "none; the road itself is the feature",
+    "explanation_sacred": null,
+    "explanation_material": null,
+    "claimed_by_sect_id": "sect_road",
+    "named_id": "nmd_huma",
+    "texture": "the Huma drifts here rather than nesting; it never lands, so it belongs to a road rather than a place"
+  },
+  {
+    "region_id": "rgn_the_shoulder",
+    "name": "the Shoulder",
+    "direction": "east",
+    "elevated_in": "spiritually: the only place on the map everyone agrees is different, and nobody agrees why",
+    "scar": "the mountain wall itself -- no scar, because nothing happened to it; it is simply higher than anywhere people can live",
+    "explanation_sacred": "the veil is thin and the dead are near",
+    "explanation_material": "the air thins and the body fails; men see things because they are suffocating slowly",
+    "claimed_by_sect_id": "sect_march",
+    "named_id": null,
+    "texture": "Above the treeline nothing grows. ONE PHENOMENON, FIVE READINGS: the Continuing Word says the veil is thin; the court sect says thin air makes men foolish; the Company does not go, because there is nothing up there to trade with; the Unstained say it is the only ground clean enough to matter; the silent are already up there and will not discuss it. The Throat is the one gap through the wall, which is why the road is worth what it is worth."
+  }
+]

@@ -1,0 +1,317 @@
+[
+  {
+    "location_id": "loc_tally_house",
+    "name": "Kaisareia dockside, the tally house",
+    "region_id": "rgn_center",
+    "route": "diadem",
+    "chapters": "1, 26",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "night docks, neutral porters; where the avatar starts as a clerk"
+  },
+  {
+    "location_id": "loc_weighbridge",
+    "name": "The weighbridge, lowland estates",
+    "region_id": "rgn_center",
+    "route": "diadem",
+    "chapters": "2",
+    "acts": "1",
+    "what_the_ground_is_for": "hedgerow country; a requisition writ enforced on a reluctant house"
+  },
+  {
+    "location_id": "loc_grain_road",
+    "name": "The grain road",
+    "region_id": "rgn_center",
+    "route": "diadem",
+    "chapters": "3, 24",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "bridge choke and a foot-only ford; wagons move 4"
+  },
+  {
+    "location_id": "loc_thessala",
+    "name": "Thessala harbour",
+    "region_id": "rgn_center",
+    "route": "diadem",
+    "chapters": "4",
+    "acts": "1",
+    "what_the_ground_is_for": "south coast; grain bought abroad, unloaded under protest"
+  },
+  {
+    "location_id": "loc_salt_ford",
+    "name": "The salt ford, lower Scar",
+    "region_id": "rgn_center",
+    "route": "diadem",
+    "chapters": "5, 27",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "the rift crossed where it is shallow; the only southern crossing"
+  },
+  {
+    "location_id": "loc_anthe",
+    "name": "Anthe, on the terraces",
+    "region_id": "rgn_stepped_coast",
+    "route": "diadem",
+    "chapters": "6",
+    "acts": "1",
+    "what_the_ground_is_for": "a port stranded above its own water; three levels of street"
+  },
+  {
+    "location_id": "loc_stranded_harbour",
+    "name": "The stranded harbour",
+    "region_id": "rgn_stepped_coast",
+    "route": "diadem",
+    "chapters": "7",
+    "acts": "1",
+    "what_the_ground_is_for": "ruin on the middle terrace; the renunciants live in it"
+  },
+  {
+    "location_id": "loc_dry_country",
+    "name": "The dry country",
+    "region_id": "rgn_center",
+    "route": "diadem",
+    "chapters": "8, 23",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "open ground, no cover, the map that punishes slow armies"
+  },
+  {
+    "location_id": "loc_vashti_road",
+    "name": "The Vashti road",
+    "region_id": "rgn_ashland",
+    "route": "diadem",
+    "chapters": "9",
+    "acts": "1",
+    "what_the_ground_is_for": "the single road east; lava fans narrow it to one lane in places"
+  },
+  {
+    "location_id": "loc_vashti_gate",
+    "name": "Vashti gate",
+    "region_id": "rgn_ashland",
+    "route": "diadem",
+    "chapters": "10, 12, 28",
+    "acts": "1, 2, 3",
+    "what_the_ground_is_for": "the occupied seat; the Unstained will not talk to you"
+  },
+  {
+    "location_id": "loc_vetch_gate",
+    "name": "Vetch, the winter dole",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "1, 26",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "medicine cart to a gate; civilians chase it, looters follow"
+  },
+  {
+    "location_id": "loc_still_town",
+    "name": "The apothecary town",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "2",
+    "acts": "1",
+    "what_the_ground_is_for": "three streets of different widths; a preacher converting one a turn"
+  },
+  {
+    "location_id": "loc_chapterhouse",
+    "name": "The ruined chapterhouse",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "3",
+    "acts": "1",
+    "what_the_ground_is_for": "escape map; relic hunters reinforce forever; a reliquary to take or give"
+  },
+  {
+    "location_id": "loc_halder",
+    "name": "Halder harbour",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "4",
+    "acts": "1",
+    "what_the_ground_is_for": "north coast; exotic medicines bought from people who know it"
+  },
+  {
+    "location_id": "loc_lake_shore",
+    "name": "The lake shore",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "5, 25",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "the drowned town; a bell tower breaking the surface in dry years"
+  },
+  {
+    "location_id": "loc_ostrova",
+    "name": "Ostrova and the marches",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "6",
+    "acts": "1",
+    "what_the_ground_is_for": "steppe edge; the Assembly's eastern city, closer to the Plains than to Vetch"
+  },
+  {
+    "location_id": "loc_upper_scar",
+    "name": "The upper Scar",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "7, 27",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "escarpment fighting; the rift where it is still a cliff"
+  },
+  {
+    "location_id": "loc_timber_road",
+    "name": "The timber road",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "8, 23",
+    "acts": "1, 3",
+    "what_the_ground_is_for": "forest; the map where fliers are worthless and archers are not"
+  },
+  {
+    "location_id": "loc_march_shrine",
+    "name": "The March shrine",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "9",
+    "acts": "1",
+    "what_the_ground_is_for": "living prophecy; a sect that thinks revelation never stopped"
+  },
+  {
+    "location_id": "loc_vetch_chapel",
+    "name": "The King's Chapel, Vetch",
+    "region_id": "rgn_drowned_march",
+    "route": "assembly",
+    "chapters": "10, 12, 28",
+    "acts": "1, 2, 3",
+    "what_the_ground_is_for": "the court sect at home; obedience belongs to the throne"
+  },
+  {
+    "location_id": "loc_muster_field",
+    "name": "The muster field",
+    "region_id": "rgn_center",
+    "route": "both",
+    "chapters": "11, 30",
+    "acts": "2, 3",
+    "what_the_ground_is_for": "largest map; whole army deployed once; two timed objectives, one force"
+  },
+  {
+    "location_id": "loc_cinder_track",
+    "name": "The cinder track",
+    "region_id": "rgn_ashland",
+    "route": "both",
+    "chapters": "14, 16",
+    "acts": "2",
+    "what_the_ground_is_for": "column A; ash underfoot, bad air, the Karkadann's country"
+  },
+  {
+    "location_id": "loc_caravanserai",
+    "name": "Lade caravanserai",
+    "region_id": "rgn_the_throat",
+    "route": "both",
+    "chapters": "13, 15",
+    "acts": "2",
+    "what_the_ground_is_for": "column B; prices rise every turn a fight is visible in the bazaar"
+  },
+  {
+    "location_id": "loc_throat_pass",
+    "name": "The Throat pass",
+    "region_id": "rgn_the_throat",
+    "route": "both",
+    "chapters": "17, 19",
+    "acts": "2",
+    "what_the_ground_is_for": "column B; the road east, held by whoever taxes it this year"
+  },
+  {
+    "location_id": "loc_glass_edge",
+    "name": "The edge of the Glass Flats",
+    "region_id": "rgn_glass_flats",
+    "route": "both",
+    "chapters": "18, 29",
+    "acts": "2, 3",
+    "what_the_ground_is_for": "column A; straight-edged fused ground, nothing grows, nobody agrees why"
+  },
+  {
+    "location_id": "loc_reunion_field",
+    "name": "The reunion",
+    "region_id": "rgn_center",
+    "route": "both",
+    "chapters": "20",
+    "acts": "2",
+    "what_the_ground_is_for": "columns meet; whatever each lost is visible in what each brings"
+  },
+  {
+    "location_id": "loc_kaisareia_walls",
+    "name": "Kaisareia, the granary district",
+    "region_id": "rgn_center",
+    "route": "both",
+    "chapters": "21, 22",
+    "acts": "3",
+    "what_the_ground_is_for": "the capital as a battlefield; the synod's colossus is fed from here"
+  },
+  {
+    "location_id": "loc_simurgh_nest",
+    "name": "The mountain above the lake",
+    "region_id": "rgn_drowned_march",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "the Simurgh; a foster-mother who answers whoever holds the feather"
+  },
+  {
+    "location_id": "loc_dove_colony",
+    "name": "The dove colony",
+    "region_id": "rgn_ashland",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "the Karkadann; it guards what it has decided to guard"
+  },
+  {
+    "location_id": "loc_flats_interior",
+    "name": "The interior of the Flats",
+    "region_id": "rgn_glass_flats",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "the Anzu; arrows come apart, and it reads what you cannot"
+  },
+  {
+    "location_id": "loc_lowest_terrace",
+    "name": "The lowest terrace",
+    "region_id": "rgn_stepped_coast",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "the Shadhavar; the song pulls the nearest enemy one tile a turn"
+  },
+  {
+    "location_id": "loc_open_road",
+    "name": "The open road (no fixed site)",
+    "region_id": "rgn_the_throat",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "the Huma; it never lands, so it belongs to a road, not a place"
+  },
+  {
+    "location_id": "loc_hermit_lake",
+    "name": "The saint's lake",
+    "region_id": "rgn_stepped_coast",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "a hermit who refuses to adjudicate; fisher cult around him"
+  },
+  {
+    "location_id": "loc_north_wind",
+    "name": "The north wind",
+    "region_id": "rgn_drowned_march",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "the second hermit; likewise refuses"
+  },
+  {
+    "location_id": "loc_buried_works",
+    "name": "The buried works, under Vashti",
+    "region_id": "rgn_ashland",
+    "route": "both",
+    "chapters": "P",
+    "acts": "paralogue",
+    "what_the_ground_is_for": "records, complicit clerks, a shrine built over a facility"
+  }
+]

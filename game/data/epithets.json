@@ -1,0 +1,66 @@
+[
+  {
+    "epithet_id": "ep_bosskill",
+    "deed_category": "boss_kill",
+    "trigger": "kills a named boss in single combat",
+    "telemetry_source": "combat log",
+    "gates_paragon": "yes",
+    "forge_vocab_token": "Slayer of"
+  },
+  {
+    "epithet_id": "ep_solohold",
+    "deed_category": "solo_hold",
+    "trigger": "holds a choke alone for 3+ enemy phases",
+    "telemetry_source": "position log",
+    "gates_paragon": "yes",
+    "forge_vocab_token": "of the Ford"
+  },
+  {
+    "epithet_id": "ep_nohit",
+    "deed_category": "no_hit_map",
+    "trigger": "clears a map without being struck",
+    "telemetry_source": "combat log",
+    "gates_paragon": "yes",
+    "forge_vocab_token": "Untouched"
+  },
+  {
+    "epithet_id": "ep_miasma",
+    "deed_category": "miasma_walked",
+    "trigger": "ends turn on miasma tiles 5+ times",
+    "telemetry_source": "terrain log",
+    "gates_paragon": "no",
+    "forge_vocab_token": "Ash-walker"
+  },
+  {
+    "epithet_id": "ep_delivery",
+    "deed_category": "delivery",
+    "trigger": "escorts a cargo unit to its goal",
+    "telemetry_source": "objective log",
+    "gates_paragon": "no",
+    "forge_vocab_token": "Carter"
+  },
+  {
+    "epithet_id": "ep_dispersal",
+    "deed_category": "dispersal",
+    "trigger": "routs levies below half HP without killing",
+    "telemetry_source": "combat log",
+    "gates_paragon": "no",
+    "forge_vocab_token": "Merciful"
+  },
+  {
+    "epithet_id": "ep_talk",
+    "deed_category": "talk",
+    "trigger": "resolves an enemy by conversation",
+    "telemetry_source": "dialogue log",
+    "gates_paragon": "no",
+    "forge_vocab_token": "Peacemaker"
+  },
+  {
+    "epithet_id": "ep_capture",
+    "deed_category": "capture",
+    "trigger": "captures rather than kills 5+ times",
+    "telemetry_source": "combat log",
+    "gates_paragon": "yes",
+    "forge_vocab_token": "Taker"
+  }
+]

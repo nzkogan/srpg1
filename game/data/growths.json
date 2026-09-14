@@ -1,0 +1,122 @@
+[
+  {
+    "profile_id": "gp_bruiser",
+    "hp": 55,
+    "str": 55,
+    "mag": 5,
+    "dex": 40,
+    "spd": 40,
+    "lck": 35,
+    "def": 40,
+    "res": 20,
+    "total_check": 290
+  },
+  {
+    "profile_id": "gp_armor",
+    "hp": 60,
+    "str": 50,
+    "mag": 5,
+    "dex": 35,
+    "spd": 25,
+    "lck": 30,
+    "def": 60,
+    "res": 25,
+    "total_check": 290
+  },
+  {
+    "profile_id": "gp_cavalry",
+    "hp": 50,
+    "str": 45,
+    "mag": 10,
+    "dex": 45,
+    "spd": 50,
+    "lck": 40,
+    "def": 35,
+    "res": 25,
+    "total_check": 300
+  },
+  {
+    "profile_id": "gp_flier",
+    "hp": 45,
+    "str": 40,
+    "mag": 15,
+    "dex": 50,
+    "spd": 60,
+    "lck": 40,
+    "def": 25,
+    "res": 30,
+    "total_check": 305
+  },
+  {
+    "profile_id": "gp_archer",
+    "hp": 45,
+    "str": 45,
+    "mag": 10,
+    "dex": 55,
+    "spd": 50,
+    "lck": 40,
+    "def": 30,
+    "res": 25,
+    "total_check": 300
+  },
+  {
+    "profile_id": "gp_mage",
+    "hp": 40,
+    "str": 10,
+    "mag": 55,
+    "dex": 45,
+    "spd": 45,
+    "lck": 35,
+    "def": 25,
+    "res": 45,
+    "total_check": 300
+  },
+  {
+    "profile_id": "gp_healer",
+    "hp": 40,
+    "str": 15,
+    "mag": 50,
+    "dex": 40,
+    "spd": 45,
+    "lck": 45,
+    "def": 25,
+    "res": 50,
+    "total_check": 310
+  },
+  {
+    "profile_id": "gp_frail_lucky",
+    "hp": 35,
+    "str": 25,
+    "mag": 30,
+    "dex": 45,
+    "spd": 50,
+    "lck": 75,
+    "def": 20,
+    "res": 35,
+    "total_check": 315
+  },
+  {
+    "profile_id": "gp_jagen",
+    "hp": 20,
+    "str": 20,
+    "mag": 15,
+    "dex": 20,
+    "spd": 20,
+    "lck": 20,
+    "def": 20,
+    "res": 15,
+    "total_check": 150
+  },
+  {
+    "profile_id": "gp_avatar",
+    "hp": 45,
+    "str": 40,
+    "mag": 30,
+    "dex": 50,
+    "spd": 55,
+    "lck": 45,
+    "def": 30,
+    "res": 35,
+    "total_check": 330
+  }
+]

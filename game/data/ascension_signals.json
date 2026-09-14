@@ -1,0 +1,32 @@
+[
+  {
+    "signal_id": "sig_dispersal_ratio",
+    "category": "combat",
+    "what_it_reads": "dispersal-vs-kill ratio across the run (already tracked via epithets ep_dispersal / ep_bosskill etc.)",
+    "status": "candidate -- not locked"
+  },
+  {
+    "signal_id": "sig_unstained_respected",
+    "category": "sect",
+    "what_it_reads": "whether the Unstained's refusal of him was honored or steamrolled in how their chapters/paralogue resolved",
+    "status": "candidate -- not locked"
+  },
+  {
+    "signal_id": "sig_kest_restitution",
+    "category": "unit-specific",
+    "what_it_reads": "how Kest's arc closes -- whether the decan token thread resolves as restitution or as one more extraction",
+    "status": "candidate -- not locked"
+  },
+  {
+    "signal_id": "sig_forge_use",
+    "category": "economy",
+    "what_it_reads": "whether master-smith and forge access was used to help recruits/allies or to extract from them (ties to the 3-of-5 material cap decisions)",
+    "status": "candidate -- not locked"
+  },
+  {
+    "signal_id": "sig_defection_handling",
+    "category": "unit-specific",
+    "what_it_reads": "how Maren's conditional defection was handled -- recovered through genuine amends vs. left, or worse, exploited",
+    "status": "candidate -- not locked"
+  }
+]

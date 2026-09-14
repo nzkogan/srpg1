@@ -1,0 +1,13 @@
+[
+  {
+    "scene_id": "sc_x11_writ",
+    "chapter_id": "ch_x11",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|npc_surveyor",
+    "depends_on_flags": null,
+    "depends_on_units": "u_ricberta|u_emmerich",
+    "summary": "the writ is read; the deputy is named; the auditor reveals himself",
+    "status": "drafted",
+    "word_count": "0"
+  }
+]

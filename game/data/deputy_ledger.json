@@ -1,0 +1,47 @@
+[
+  {
+    "factor": "writ chapter deed",
+    "weight": 2,
+    "rationale": "main-story chapters only"
+  },
+  {
+    "factor": "paralogue deed",
+    "weight": 0,
+    "rationale": "unofficial work, off the books"
+  },
+  {
+    "factor": "on stated objective",
+    "weight": 1,
+    "rationale": "counts toward the map's briefed goal"
+  },
+  {
+    "factor": "within 4 tiles of surveyor",
+    "weight": 1,
+    "rationale": "witnessed by the auditor"
+  },
+  {
+    "factor": "unwitnessed kill",
+    "weight": 0,
+    "rationale": "far-corner heroics do not appear in the report"
+  },
+  {
+    "factor": "delivery / hold / dispersal",
+    "weight": 1.5,
+    "rationale": "legible categories outweigh kills"
+  },
+  {
+    "factor": "raw kill",
+    "weight": 0.5,
+    "rationale": "hard to write down in a way that survives a clerk"
+  },
+  {
+    "factor": "revealed literacy (tiebreak)",
+    "weight": 0.25,
+    "rationale": "Ricberta only, and only if a support revealed it"
+  },
+  {
+    "factor": "The crown picks the deputy off this. Player may contest once at the writ scene; the crown grants it and withholds Column B's supply attachment.",
+    "weight": null,
+    "rationale": null
+  }
+]

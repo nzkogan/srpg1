@@ -1,0 +1,35 @@
+[
+  {
+    "defection_id": "def_waldrada",
+    "unit_id": "u_waldrada",
+    "route": "diadem",
+    "kind": "scripted",
+    "act": "act 2",
+    "why_they_were_contingent": "serves the state that beat her country; loyalty was always contingent",
+    "trigger": "the Vashti campaign becomes an occupation she will not carry orders for",
+    "recruitable_back": "no",
+    "signposting": "signposted across Act 1 supports and her conduct on sect maps"
+  },
+  {
+    "defection_id": "def_anselm",
+    "unit_id": "u_anselm",
+    "route": "assembly",
+    "kind": "scripted",
+    "act": "act 2",
+    "why_they_were_contingent": "theology barometer; has been asking the question the whole game",
+    "trigger": "the crown answers with the court sect: obedience belongs to the throne",
+    "recruitable_back": "no",
+    "signposting": "a theological event, not a grievance; he says so before he goes"
+  },
+  {
+    "defection_id": "def_maren",
+    "unit_id": "u_maren",
+    "route": "assembly",
+    "kind": "conditional",
+    "act": "act 2",
+    "why_they_were_contingent": "born of the plague; bound for the Miasma Warden line",
+    "trigger": "the state's medicine policy writes off the Ashland in triage",
+    "recruitable_back": "yes",
+    "signposting": "caused by a supply decision several chapters earlier; reversible by a different one"
+  }
+]

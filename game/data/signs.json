@@ -1,0 +1,122 @@
+[
+  {
+    "sign_id": "sgn_ram",
+    "name": "the Ram",
+    "season": "spring, first",
+    "element": "fire",
+    "archetype": "the one who goes first and does not look back",
+    "virtue": "decisive under pressure",
+    "failure_mode": "cannot sit still long enough to be told the plan",
+    "calendar_note": "the Diadem keeps the Venerated's feast here: born at the lambing, hence the title"
+  },
+  {
+    "sign_id": "sgn_bull",
+    "name": "the Bull",
+    "season": "spring, second",
+    "element": "earth",
+    "archetype": "the one who will not be moved",
+    "virtue": "holds ground nobody else could",
+    "failure_mode": "mistakes stubbornness for principle",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_twins",
+    "name": "the Twins",
+    "season": "spring, third",
+    "element": "air",
+    "archetype": "the one who argues both sides",
+    "virtue": "sees the case against their own position",
+    "failure_mode": "will not commit while a better argument exists",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_crab",
+    "name": "the Crab",
+    "season": "summer, first",
+    "element": "water",
+    "archetype": "the one who guards the house",
+    "virtue": "loyal past reason",
+    "failure_mode": "the loyalty is to people, not to the cause, and it shows",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_lion",
+    "name": "the Lion",
+    "season": "summer, second",
+    "element": "fire",
+    "archetype": "the one who must be seen",
+    "virtue": "leads from in front because being watched steadies them",
+    "failure_mode": "cannot take a demotion gracefully",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_maiden",
+    "name": "the Maiden",
+    "season": "summer, third",
+    "element": "earth",
+    "archetype": "the one who keeps the record",
+    "virtue": "notices the discrepancy nobody else did",
+    "failure_mode": "corrects people who did not ask",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_scales",
+    "name": "the Scales",
+    "season": "autumn, first",
+    "element": "air",
+    "archetype": "the one who weighs",
+    "virtue": "the fairest arbiter in the room",
+    "failure_mode": "delay disguised as deliberation",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_scorpion",
+    "name": "the Scorpion",
+    "season": "autumn, second",
+    "element": "water",
+    "archetype": "the one who does not forget",
+    "virtue": "carries the grudge that keeps everyone honest",
+    "failure_mode": "carries it long after it stopped being useful",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_archer",
+    "name": "the Archer",
+    "season": "autumn, third",
+    "element": "fire",
+    "archetype": "the one who goes further out",
+    "virtue": "the scout who comes back with the thing you needed",
+    "failure_mode": "says the true thing at the worst moment",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_goat",
+    "name": "the Goat",
+    "season": "winter, first",
+    "element": "earth",
+    "archetype": "the one who climbs",
+    "virtue": "will do the unglamorous work for years",
+    "failure_mode": "measures people by what they have built",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_vessel",
+    "name": "the Vessel",
+    "season": "winter, second",
+    "element": "air",
+    "archetype": "the one who pours out",
+    "virtue": "gives away what they needed",
+    "failure_mode": "belongs to everyone and therefore to nobody",
+    "calendar_note": null
+  },
+  {
+    "sign_id": "sgn_fishes",
+    "name": "the Fishes",
+    "season": "winter, third",
+    "element": "water",
+    "archetype": "the one who dissolves the boundary",
+    "virtue": "understands the enemy too well to hate them",
+    "failure_mode": "understands the enemy too well to fight them",
+    "calendar_note": null
+  }
+]

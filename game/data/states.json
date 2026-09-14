@@ -1,0 +1,20 @@
+[
+  {
+    "state_id": "st_diadem",
+    "name": "the Diadem",
+    "seat": "Kaisareia",
+    "constitution": "crowned succession; the older claim",
+    "claim_against_the_other": "calls the Assembly a usurpation of an office that cannot be elected",
+    "elevated_in": "antique: the largest library on the continent, almost none of it originally theirs",
+    "court_sect_id": "sect_court"
+  },
+  {
+    "state_id": "st_assembly",
+    "name": "the Assembly",
+    "seat": "Vetch",
+    "constitution": "elective succession; assembly of the great houses",
+    "claim_against_the_other": "calls the Diadem a crown worn by whoever survived the last one",
+    "elevated_in": "socially current: contract law, property held by women, succession by assent",
+    "court_sect_id": "sect_court"
+  }
+]

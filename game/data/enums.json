@@ -1,0 +1,334 @@
+[
+  {
+    "category": "route",
+    "value": "diadem"
+  },
+  {
+    "category": "act",
+    "value": "prologue"
+  },
+  {
+    "category": "column",
+    "value": "unified"
+  },
+  {
+    "category": "art",
+    "value": "sword"
+  },
+  {
+    "category": "movement",
+    "value": "infantry"
+  },
+  {
+    "category": "class_tier",
+    "value": "commoner"
+  },
+  {
+    "category": "objective_verb",
+    "value": "seize"
+  },
+  {
+    "category": "sect_id",
+    "value": "sect_vashti"
+  },
+  {
+    "category": "unit_status",
+    "value": "recruitable"
+  },
+  {
+    "category": "deed_category",
+    "value": "boss_kill"
+  },
+  {
+    "category": "severity",
+    "value": "blocking"
+  },
+  {
+    "category": "tonal_register",
+    "value": "warm"
+  },
+  {
+    "category": "direction",
+    "value": "center"
+  },
+  {
+    "category": "reinforcement_source",
+    "value": "none"
+  },
+  {
+    "category": "killed_by_type",
+    "value": "polity"
+  },
+  {
+    "category": "route",
+    "value": "assembly"
+  },
+  {
+    "category": "act",
+    "value": "1"
+  },
+  {
+    "category": "column",
+    "value": "A"
+  },
+  {
+    "category": "art",
+    "value": "lance"
+  },
+  {
+    "category": "movement",
+    "value": "armor"
+  },
+  {
+    "category": "class_tier",
+    "value": "trained"
+  },
+  {
+    "category": "objective_verb",
+    "value": "hold"
+  },
+  {
+    "category": "sect_id",
+    "value": "sect_march"
+  },
+  {
+    "category": "unit_status",
+    "value": "jagen"
+  },
+  {
+    "category": "deed_category",
+    "value": "solo_hold"
+  },
+  {
+    "category": "severity",
+    "value": "warning"
+  },
+  {
+    "category": "tonal_register",
+    "value": "wondrous"
+  },
+  {
+    "category": "direction",
+    "value": "north"
+  },
+  {
+    "category": "reinforcement_source",
+    "value": "den"
+  },
+  {
+    "category": "killed_by_type",
+    "value": "named_creature"
+  },
+  {
+    "category": "route",
+    "value": "both"
+  },
+  {
+    "category": "act",
+    "value": "2"
+  },
+  {
+    "category": "column",
+    "value": "B"
+  },
+  {
+    "category": "art",
+    "value": "axe"
+  },
+  {
+    "category": "movement",
+    "value": "riding"
+  },
+  {
+    "category": "class_tier",
+    "value": "order"
+  },
+  {
+    "category": "objective_verb",
+    "value": "escort"
+  },
+  {
+    "category": "sect_id",
+    "value": "sect_road"
+  },
+  {
+    "category": "unit_status",
+    "value": "legacy"
+  },
+  {
+    "category": "deed_category",
+    "value": "no_hit_map"
+  },
+  {
+    "category": "severity",
+    "value": "info"
+  },
+  {
+    "category": "tonal_register",
+    "value": "cold"
+  },
+  {
+    "category": "direction",
+    "value": "east"
+  },
+  {
+    "category": "reinforcement_source",
+    "value": "scripted_visible"
+  },
+  {
+    "category": "killed_by_type",
+    "value": "defector"
+  },
+  {
+    "category": "act",
+    "value": "3"
+  },
+  {
+    "category": "art",
+    "value": "bow"
+  },
+  {
+    "category": "movement",
+    "value": "flying"
+  },
+  {
+    "category": "class_tier",
+    "value": "paragon"
+  },
+  {
+    "category": "objective_verb",
+    "value": "defend"
+  },
+  {
+    "category": "sect_id",
+    "value": "sect_court"
+  },
+  {
+    "category": "unit_status",
+    "value": "npc"
+  },
+  {
+    "category": "deed_category",
+    "value": "miasma_walked"
+  },
+  {
+    "category": "tonal_register",
+    "value": "grim"
+  },
+  {
+    "category": "direction",
+    "value": "southeast"
+  },
+  {
+    "category": "killed_by_type",
+    "value": "boss"
+  },
+  {
+    "category": "act",
+    "value": "paralogue"
+  },
+  {
+    "category": "art",
+    "value": "brawl"
+  },
+  {
+    "category": "class_tier",
+    "value": "shadow"
+  },
+  {
+    "category": "objective_verb",
+    "value": "escape"
+  },
+  {
+    "category": "sect_id",
+    "value": "sect_coast"
+  },
+  {
+    "category": "unit_status",
+    "value": "boss"
+  },
+  {
+    "category": "deed_category",
+    "value": "delivery"
+  },
+  {
+    "category": "tonal_register",
+    "value": "desolate"
+  },
+  {
+    "category": "direction",
+    "value": "west"
+  },
+  {
+    "category": "killed_by_type",
+    "value": "unknown"
+  },
+  {
+    "category": "art",
+    "value": "reason"
+  },
+  {
+    "category": "class_tier",
+    "value": "personal"
+  },
+  {
+    "category": "objective_verb",
+    "value": "rout"
+  },
+  {
+    "category": "deed_category",
+    "value": "dispersal"
+  },
+  {
+    "category": "tonal_register",
+    "value": "triumphal"
+  },
+  {
+    "category": "art",
+    "value": "faith"
+  },
+  {
+    "category": "class_tier",
+    "value": "hybrid"
+  },
+  {
+    "category": "objective_verb",
+    "value": "purchase"
+  },
+  {
+    "category": "deed_category",
+    "value": "talk"
+  },
+  {
+    "category": "tonal_register",
+    "value": "elegiac"
+  },
+  {
+    "category": "art",
+    "value": "authority"
+  },
+  {
+    "category": "objective_verb",
+    "value": "survive"
+  },
+  {
+    "category": "deed_category",
+    "value": "capture"
+  },
+  {
+    "category": "art",
+    "value": "none"
+  },
+  {
+    "category": "deed_category",
+    "value": "unseen_clear"
+  },
+  {
+    "category": "deed_category",
+    "value": "chest"
+  },
+  {
+    "category": "route",
+    "value": "Controlled vocabulary. Every enum-typed column in this workbook must draw from here. Add a value here first, then use it. Never invent one inline."
+  }
+]

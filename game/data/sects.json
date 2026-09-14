@@ -1,0 +1,62 @@
+[
+  {
+    "sect_id": "sect_vashti",
+    "self_title": "the Unstained",
+    "common_name": "Vashti men",
+    "slur": "washers",
+    "seat": "Vashti, in the Ashland",
+    "wound": "collaboration: lords who hosted the experiments still hold office",
+    "doctrine": "sacraments from complicit hands are void; the veneration must be re-made clean",
+    "route": "diadem",
+    "act2_chapter_count": "2",
+    "notes": "no talk conversations available on their seat map"
+  },
+  {
+    "sect_id": "sect_march",
+    "self_title": "the Continuing Word",
+    "common_name": "March voices",
+    "slur": "criers",
+    "seat": "the Drowned March",
+    "wound": "plague and the last hierarch's silence",
+    "doctrine": "RESTORATIONIST: everything was lost and has now been given back, whole, to a person nobody had heard of. Not a reform of the old church -- a replacement",
+    "route": "assembly",
+    "act2_chapter_count": "2",
+    "notes": "WILD COSMOLOGY, strange rather than spooky: the heavens are populated and the dead are busy; the stars are inhabited; the Venerated is one of many in a succession that continues, and the faithful are not going to a reward but to a POST. New scripture is still arriving, dictated, in progress -- chapters can be added between the player's Act 2 visits. The deposed patrons of the Hundred Cities are the planets: not destroyed by Sargath but ELEVATED, and the register is a misreading of a promotion (spectacularly wrong, and unfalsifiable). Translation runs through a physical instrument -- a stone, a bowl, a hat -- something ordinary the seer uses to read what is not there. They are rebaptising the dead by name off the parish lists, which puts the prophets and the crown's clerks in the same archive for opposite reasons. Prophecy NPCs convert green levies"
+  },
+  {
+    "sect_id": "sect_road",
+    "self_title": "the Company of the Road",
+    "common_name": "eastroaders",
+    "slur": "factors",
+    "seat": "the Throat (the Throat road)",
+    "wound": "starvation: the caravan cities live on the road, and the war closed it; what saved them was a stranger extending credit to people who could not repay",
+    "doctrine": "redemption is a purchase word -- to redeem is to buy back. Grace is credit extended to someone who cannot cover it, and the debt discharged by another. The god is met in exchange, on the road, not in buildings",
+    "route": "both",
+    "act2_chapter_count": "2",
+    "notes": "GROWS THE ENLIGHTENED ONE (canon). A CONFESSION, NOT A PEOPLE: you join it, anyone can, nobody is born a factor, and they recruit loudly in the open. They hold a sovereign state (the Toll League) with a seat and a treaty. Lending is universal in this world -- the Diadem crown lends, the Assembly borrows, the nobility is leveraged through pacts -- so credit is the water everyone swims in, not a marked group's trait. The historical analogue is Christian: the faith spread along trade routes carried by merchants, and Paul worked the port cities as a tentmaker. THE SECT THAT MARKETS TO THE SUFFERING: not 'endure now, reward later' but 'the payment has already been made, on your behalf, and you were not consulted'"
+  },
+  {
+    "sect_id": "sect_court",
+    "self_title": "the Ordered / the King's Chapel",
+    "common_name": "the school / the chapel",
+    "slur": "clerks",
+    "seat": "Kaisareia / Vetch",
+    "wound": "proximity to power",
+    "doctrine": "made not begotten: emulate, do not worship; obedience belongs to the throne",
+    "route": "both",
+    "act2_chapter_count": "1",
+    "notes": "grows the Grand Inquisitor; home-front thread, ambushes at reunion"
+  },
+  {
+    "sect_id": "sect_coast",
+    "self_title": "(refuses titles)",
+    "common_name": "the silent",
+    "slur": "(none)",
+    "seat": "the Stepped Coast",
+    "wound": "they are closest to the truth and least interested in sharing it",
+    "doctrine": "renunciation; refuse to adjudicate",
+    "route": "both",
+    "act2_chapter_count": "0",
+    "notes": "unreachable by writ; paralogue-only, dark in some runs"
+  }
+]

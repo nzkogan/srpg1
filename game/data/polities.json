@@ -1,0 +1,86 @@
+[
+  {
+    "polity_id": "pol_diadem",
+    "name": "The Diadem",
+    "constitution": "crowned succession",
+    "seat": "Kaisareia",
+    "region_id": "rgn_center",
+    "holds": "the rift peninsula, the Cindered Plains (occupied)",
+    "stance_on_the_war": "war victor; claims the whole inheritance",
+    "condition": "small, dry, damaged; feeding it is the entire Act 1 problem",
+    "naval_posture": "THE SEA POWER: war galleys out of Thessala, warm water, year-round; a fire weapon nobody else has and nobody else understands",
+    "comparative_advantage": "reach -- it can feed itself from anywhere with a coast"
+  },
+  {
+    "polity_id": "pol_assembly",
+    "name": "The Assembly",
+    "constitution": "elective; the great houses assent",
+    "seat": "Vetch",
+    "region_id": "rgn_drowned_march",
+    "holds": "the taiga belt and the forest lakes",
+    "stance_on_the_war": "war victor; calls the Diadem a crown worn by whoever survived",
+    "condition": "CONSTITUTIONAL COLLAPSE, not just resource-poor: legitimacy runs on assent of the great houses, and enough house heads died in the plague that Vetch may not currently have quorum to seat a government at all -- a rump council improvising rather than a functioning state. A crisis of authority, distinct from the Diadem's crisis of resources; this asymmetry was present in the original FE3H-era design (plague-and-no-spiritual-relief vs. crops-destroyed) and thinned out in the de-pivot -- restored here on purpose, since it primes which of the two Act 3 threats makes sense before the player ever chooses.",
+    "naval_posture": "no fleet and no shipwrights; Halder ices shut a third of the year",
+    "comparative_advantage": "interior lines, timber, horses -- and credit: it HIRES fleets it cannot build"
+  },
+  {
+    "polity_id": "pol_league",
+    "name": "The Toll League",
+    "constitution": "no sovereign; three cities, one treaty",
+    "seat": "Lade, Sarn, Kesh",
+    "region_id": "rgn_the_throat",
+    "holds": "the caravan road and its oases",
+    "stance_on_the_war": "neutral by policy, because both sides must pay to eat",
+    "condition": "the Company's power base; grace as circulating credit is THEIR doctrine",
+    "naval_posture": "none; the League is a road, not a coast",
+    "comparative_advantage": "the only gap in the mountain wall, and it charges for it"
+  },
+  {
+    "polity_id": "pol_rivers",
+    "name": "The River Kingdoms",
+    "constitution": "twelve old cities, rotating primacy",
+    "seat": "Anbar",
+    "region_id": "rgn_glass_flats",
+    "holds": "the eastern river valley and delta",
+    "stance_on_the_war": "indifferent; both successor states are provincial to them",
+    "condition": "oldest continuous cities on the map; the lending houses; where learning comes from",
+    "naval_posture": "river craft only, but they finance everyone else's ships",
+    "comparative_advantage": "capital, and the oldest continuous records on the map"
+  },
+  {
+    "polity_id": "pol_clans",
+    "name": "The Herd Clans",
+    "constitution": "no state; assemblies and horse-camps",
+    "seat": "none",
+    "region_id": "rgn_drowned_march",
+    "holds": "the high plateau",
+    "stance_on_the_war": "the Assembly's elective constitution came from here, which the Diadem calls proof of barbarism",
+    "condition": "cannot be conquered because there is nothing to seize",
+    "naval_posture": "none",
+    "comparative_advantage": "cannot be conquered because there is nothing to seize"
+  },
+  {
+    "polity_id": "pol_ports",
+    "name": "The Green Ports",
+    "constitution": "port councils, each independent",
+    "seat": "Sindar",
+    "region_id": "rgn_glass_flats",
+    "holds": "the monsoon coast",
+    "stance_on_the_war": "sells grain to anyone; the Diadem's fleet goes here",
+    "condition": "wet, rich, and entirely uninterested in the war",
+    "naval_posture": "the best merchant hulls afloat, and no navy at all",
+    "comparative_advantage": "grain, and a policy of selling it to both sides"
+  },
+  {
+    "polity_id": "pol_isles",
+    "name": "The Isles",
+    "constitution": "fisher communes; no central authority",
+    "seat": "Pelagos",
+    "region_id": "rgn_stepped_coast",
+    "holds": "the scattered isles",
+    "stance_on_the_war": "outside every claim",
+    "condition": "a hermit saint lives here and refuses to adjudicate anything",
+    "naval_posture": "fishing boats that know water no chart shows",
+    "comparative_advantage": "pilotage -- the Isles' crews are why anyone crosses safely"
+  }
+]

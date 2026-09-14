@@ -1,0 +1,82 @@
+[
+  {
+    "npc_id": "npc_carter",
+    "name": "the carter",
+    "role": "world troupe",
+    "act1": "yes",
+    "act2": "yes",
+    "act3": "yes",
+    "canon_dependent": "no",
+    "notes": "the hidden god is fond of him"
+  },
+  {
+    "npc_id": "npc_soldier",
+    "name": "the pardoned soldier",
+    "role": "world troupe",
+    "act1": "yes",
+    "act2": "yes",
+    "act3": "yes",
+    "canon_dependent": "yes",
+    "notes": null
+  },
+  {
+    "npc_id": "npc_surveyor",
+    "name": "the church surveyor",
+    "role": "world troupe",
+    "act1": "yes",
+    "act2": "yes",
+    "act3": "yes",
+    "canon_dependent": "no",
+    "notes": "revealed at ch_x11 as the crown's auditor; retroactively load-bearing"
+  },
+  {
+    "npc_id": "npc_heir",
+    "name": "the heir",
+    "role": "world troupe",
+    "act1": "yes",
+    "act2": "yes",
+    "act3": "yes",
+    "canon_dependent": "yes",
+    "notes": null
+  },
+  {
+    "npc_id": "npc_errand",
+    "name": "the small odd traveler",
+    "role": "hidden god",
+    "act1": "yes",
+    "act2": "yes",
+    "act3": "yes",
+    "canon_dependent": "no",
+    "notes": "Emmaus register; zero mechanical payoff; never confirmed"
+  },
+  {
+    "npc_id": "npc_macuil",
+    "name": "Macuil",
+    "role": "hermit saint",
+    "act1": "no",
+    "act2": "no",
+    "act3": "yes",
+    "canon_dependent": "no",
+    "notes": "the north wind winds; paralogue capstone; refuses to adjudicate"
+  },
+  {
+    "npc_id": "npc_indech",
+    "name": "Indech",
+    "role": "hermit saint",
+    "act1": "no",
+    "act2": "no",
+    "act3": "yes",
+    "canon_dependent": "no",
+    "notes": "his lake, fisher cult; paralogue capstone"
+  },
+  {
+    "npc_id": "npc_methodios",
+    "name": "Methodios",
+    "role": "prophet; herald of the Hierophant",
+    "act1": "no",
+    "act2": "yes",
+    "act3": "yes",
+    "canon_dependent": "no",
+    "notes": "SABBATAI ZEVI SPLIT IN TWO: the Hierophant carries the claimant's volatility (real cycles of exaltation and collapse, not villain theatrics); Methodios is the Nathan of Gaza figure -- did not originate the claim, proselytized it across Act 2 (his preaching is the actual mechanism that produces sect consolidation; whichever sect he's embedded in is a candidate answer to the open 'which sect' question on the Hierophant ending, not yet locked). NOT RECRUITABLE by design -- his function depends on staying devoted after the party wins. Survives the capture/trial regardless of verdict and is the one who decides, theologically, what defeat means: reframes mercy as a hidden necessary descent (subterfuge route) or reframes execution as betrayal with no ambiguity left to manage (attrition-war route). Named for Cyril and Methodios, missionaries who invented a script specifically to translate scripture for people who'd never had access to it -- his function is the same one degree removed: translating a person's volatility into a doctrine other people can hold"
+  }
+]

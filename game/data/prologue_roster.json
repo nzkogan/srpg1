@@ -1,0 +1,98 @@
+[
+  {
+    "punit_id": "pu_sargath",
+    "name": "Sargath",
+    "role": "king; sword and authority",
+    "move": 6,
+    "hp": 22,
+    "what_they_do": "must personally seize the temple terrace",
+    "what_it_teaches": "objectives that require a specific unit",
+    "ancestor_of": "the Strategist line",
+    "dmg_vs_statue": 14,
+    "notes": "the one time in the whole game the player commands a head of state in person"
+  },
+  {
+    "punit_id": "pu_enmet",
+    "name": "Enmet",
+    "role": "the wall-breaker; reason",
+    "move": 5,
+    "hp": 18,
+    "what_they_do": "one cast removes the wall, turn 1",
+    "what_it_teaches": "terrain is destructible",
+    "ancestor_of": "Warlock; the Tzitzimitl's Corrosion",
+    "dmg_vs_statue": 16,
+    "notes": "young, rain-soaked, unbothered, the most destructive thing on the continent; the modern doctrinal bans exist because of people like her"
+  },
+  {
+    "punit_id": "pu_tasme",
+    "name": "Tasme",
+    "role": "chariot; lance",
+    "move": 9,
+    "hp": 20,
+    "what_they_do": "absurd movement, cannot climb the terraces",
+    "what_it_teaches": "movement types and terrain cost",
+    "ancestor_of": "the riding column",
+    "dmg_vs_statue": 12,
+    "notes": "shows the player what mobility buys and what it costs"
+  },
+  {
+    "punit_id": "pu_bel_iddin",
+    "name": "Bel-Iddin",
+    "role": "shield-bearer; lance and shield",
+    "move": 4,
+    "hp": 30,
+    "what_they_do": "holds the aqueduct span alone against everything",
+    "what_it_teaches": "chokepoints and the enemy phase",
+    "ancestor_of": "General, Great shield",
+    "dmg_vs_statue": 10,
+    "notes": "the span is one tile wide; he simply does not move"
+  },
+  {
+    "punit_id": "pu_sirru",
+    "name": "Sirru",
+    "role": "archer; bow",
+    "move": 5,
+    "hp": 18,
+    "what_they_do": "kills across the water channels",
+    "what_it_teaches": "range, and impassable terrain",
+    "ancestor_of": "Sniper, Pavisier",
+    "dmg_vs_statue": 11,
+    "notes": "the channels teach that water stops feet and not arrows"
+  },
+  {
+    "punit_id": "pu_kadar",
+    "name": "Kadar",
+    "role": "axe",
+    "move": 5,
+    "hp": 24,
+    "what_they_do": "one-rounds anything on the terraces",
+    "what_it_teaches": "the weapon triangle",
+    "ancestor_of": "Warrior, Housecarl",
+    "dmg_vs_statue": 18,
+    "notes": "the highest damage against the statue, which is the point"
+  },
+  {
+    "punit_id": "pu_ilat",
+    "name": "Ilat",
+    "role": "priestess; faith",
+    "move": 5,
+    "hp": 16,
+    "what_they_do": "heals, and lifts the fatigue marker",
+    "what_it_teaches": "support actions",
+    "ancestor_of": "Bishop; the Simurgh's role",
+    "dmg_vs_statue": 6,
+    "notes": "she can hit the statue too, badly, and the game does not stop her"
+  },
+  {
+    "punit_id": "pu_nashar",
+    "name": "Nashar",
+    "role": "the scribe; non-combatant",
+    "move": 5,
+    "hp": 12,
+    "what_they_do": "follows; cannot attack; must survive",
+    "what_it_teaches": "protect-the-unit, and the ending",
+    "ancestor_of": "the surveyor, and the whole clerk thread",
+    "dmg_vs_statue": 0,
+    "notes": "the player spends the map vaguely protecting him without knowing why"
+  }
+]

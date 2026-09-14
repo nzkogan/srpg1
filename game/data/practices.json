@@ -1,0 +1,42 @@
+[
+  {
+    "practice_id": "prc_pilgrimage",
+    "name": "The Shoulder pilgrimage",
+    "sect_id": "sect_march",
+    "cadence": "annual",
+    "cost": "free",
+    "what_happens": "walk the road up to the shoulder of the peak, keep vigil, come down",
+    "what_it_claims": "THE ASCENT MUST BE PERMITTED, NEVER ATTEMPTED. Nobody summits. The peak is not a destination, and daring is the sin",
+    "notes": "the one thing they believe is up there is the one place their own doctrine forbids them to reach; when somebody finally goes over the top it is a SCHISM, not an adventure"
+  },
+  {
+    "practice_id": "prc_oracle",
+    "name": "The oracle of the dead",
+    "sect_id": "sect_march",
+    "cadence": "continuous",
+    "cost": "a fee, and a procedure",
+    "what_happens": "a real building at the mouth of the high valley, staffed, with a waiting list; you fast, you are led down, you are permitted one question",
+    "what_it_claims": "the dead are not resting, they are busy, and they can be reached at a price",
+    "notes": "COMMERCIALISED RELIGION, played straight: people come from both states, including people who despise the sect, because their child died in the plague and they want to ask something. This -- not doctrine -- is how the Continuing Word gets its reach"
+  },
+  {
+    "practice_id": "prc_sky_burial",
+    "name": "The high burial",
+    "sect_id": "sect_march",
+    "cadence": "as needed",
+    "cost": "free",
+    "what_happens": "the dead are left on a charnel terrace at altitude for the birds",
+    "what_it_claims": "the body is a vessel; the soul has a post to get to and should not be delayed",
+    "notes": "grimly practical above the treeline where the ground is frozen; also an unforgettable map"
+  },
+  {
+    "practice_id": "prc_rebaptism",
+    "name": "Enrolment of the dead",
+    "sect_id": "sect_march",
+    "cadence": "continuous",
+    "cost": "free",
+    "what_happens": "the plague dead are rebaptised by name, read off the parish lists",
+    "what_it_claims": "nobody is enrolled without their name being spoken",
+    "notes": "puts the prophets and the crown's clerks in the same archive, for opposite reasons"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "structure_id": "str_wall",
+    "name": "The river wall",
+    "turns_to_destroy": 1,
+    "hp": 400,
+    "defence": 0,
+    "retaliates": "no",
+    "requires_multiple_units": "no",
+    "behaviour": "Enmet removes it in one cast on turn 1; 40 tiles of masonry, a generation to build",
+    "what_it_argues": "SPECTACLE: instant, and it takes one gifted person"
+  },
+  {
+    "structure_id": "str_statue",
+    "name": "The patron's image",
+    "turns_to_destroy": 5,
+    "hp": 340,
+    "defence": 0,
+    "retaliates": "no",
+    "requires_multiple_units": "yes",
+    "behaviour": "no defence, no retaliation, cannot be one-shot by anyone; every unit must walk up and hit it",
+    "what_it_argues": "EROSION: slow, communal, boring, and it needs everybody's hands on it"
+  }
+]

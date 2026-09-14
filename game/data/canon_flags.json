@@ -1,0 +1,9 @@
+[
+  {
+    "flag_id": "flag_deaths",
+    "question": "Which of the current 18 died, and how?",
+    "allowed_values": "per-unit: alive | died_ch<N>_by_<killed_by_type>",
+    "affects": "epilogue generation (see epilogue_generation tab), absence-as-content, Act 3 epithet-ledger callbacks",
+    "severity": "blocking"
+  }
+]
