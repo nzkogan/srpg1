@@ -118,7 +118,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
 			_try_set_origin(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
-		var idx := event.keycode - KEY_1
+		var key_event := event as InputEventKey
+		var idx := key_event.keycode - KEY_1
 		if idx >= 0 and idx < units.size():
 			selected_unit_index = idx
 			_recompute_and_draw()
@@ -170,7 +171,7 @@ func _terrain_cost(pos: Vector2i, movement_type: String) -> int:
 
 func _neighbors(pos: Vector2i) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
-	for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+	for d: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
 		var n := pos + d
 		if n.y >= 0 and n.y < grid.size() and n.x >= 0 and n.x < grid[0].length():
 			result.append(n)
