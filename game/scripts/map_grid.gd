@@ -4,17 +4,19 @@ extends Node2D
 ## the movement range of one of the 8 prologue units from that spot, and
 ## simulates the two F0 structures (the wall, the statue) turn by turn.
 ##
-## Deliberately does NOT place the 8 units on real starting tiles -- those
-## aren't specified anywhere in canon.db or map_f00.txt (see the sourcing
-## note in prologue_roster's own sheet). Click-to-test lets the movement
-## math get proven without inventing that data. Statue attacks are similarly
-## abstracted from position (see _attack_statue) since there's no adjacency
-## system without real unit placement -- the turn cap below is what stands
-## in for it.
+## Units are drawn at their real starting tiles (prologue_roster's
+## deploy_row/deploy_col -- all row 15, the court, per
+## map_f00_reference.png's caption; only Sargath's and Bel-Iddin's columns
+## are textually grounded, see that sheet's note row for the rest).
+## Selecting a unit jumps the movement-range tool to their actual position;
+## clicking elsewhere still lets you test a hypothetical origin. Statue
+## attacks are still abstracted from adjacency (see _attack_statue) --
+## deploy positions exist now, but there's no pathing-to-adjacency system
+## yet, so the turn cap still stands in for "who can reach the statue".
 ##
 ## Controls:
-##   click a passable tile = set movement origin for the selected unit
-##   1-8 = switch which of the 8 units is selected
+##   1-8 = select a unit (jumps to their starting tile)
+##   click a passable tile = test movement range from a hypothetical origin instead
 ##   A   = selected unit attacks the statue
 ##   N / Enter = advance to the next turn
 
@@ -59,6 +61,10 @@ var units: Array = [] # prologue_roster rows, in file order
 var selected_unit_index := 0
 var origin: Vector2i = Vector2i(-1, -1)
 var tile_rects: Dictionary = {} # Vector2i -> ColorRect, so structures can recolor their tiles live
+var unit_tokens: Dictionary = {} # punit_id -> ColorRect (the token's background), for selection highlighting
+
+const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
+const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
 
 # --- turn / structure state -------------------------------------------------
 var turn := 0
@@ -86,6 +92,8 @@ func _ready() -> void:
 	highlight_layer = Node2D.new()
 	add_child(highlight_layer)
 
+	_draw_unit_tokens()
+
 	status_label = Label.new()
 	status_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
 	status_label.custom_minimum_size = Vector2(grid[0].length() * CELL_SIZE, 60)
@@ -99,7 +107,35 @@ func _ready() -> void:
 	add_child(info_label)
 
 	_update_status_label()
-	_update_info_label()
+	if not units.is_empty():
+		_select_unit(0)
+	else:
+		_update_info_label()
+
+## One token per unit at their deploy_row/deploy_col, drawn after
+## highlight_layer so movement-range tints never hide who's who.
+func _draw_unit_tokens() -> void:
+	for unit in units:
+		var pos := Vector2i(int(unit.get("deploy_col", -1)), int(unit.get("deploy_row", -1)))
+		if pos.x < 0 or pos.y < 0:
+			continue
+		var bg := ColorRect.new()
+		bg.size = Vector2(CELL_SIZE - 6, CELL_SIZE - 6)
+		bg.position = Vector2(pos.x * CELL_SIZE + 3, pos.y * CELL_SIZE + 3)
+		bg.color = TOKEN_COLOR
+		add_child(bg)
+
+		var label := Label.new()
+		label.text = String(unit.get("name", "?")).substr(0, 2)
+		label.size = bg.size
+		label.position = bg.position
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		label.add_theme_font_size_override("font_size", 11)
+		label.add_theme_color_override("font_color", Color.WHITE)
+		add_child(label)
+
+		unit_tokens[unit.get("punit_id")] = bg
 
 func _load_grid(path: String) -> Array[String]:
 	var f := FileAccess.open(path, FileAccess.READ)
@@ -167,9 +203,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			var idx := key_event.keycode - KEY_1
 			if idx >= 0 and idx < units.size():
-				selected_unit_index = idx
-				_recompute_and_draw()
-				_update_info_label()
+				_select_unit(idx)
+
+## Selecting a unit jumps the movement tool to their real starting tile
+## (deploy_row/deploy_col), rather than leaving the previous origin set --
+## that made sense when there were no real positions to jump to.
+func _select_unit(idx: int) -> void:
+	_set_token_highlight(selected_unit_index, false)
+	selected_unit_index = idx
+	_set_token_highlight(idx, true)
+
+	var unit: Dictionary = units[idx]
+	var pos := Vector2i(int(unit.get("deploy_col", -1)), int(unit.get("deploy_row", -1)))
+	if pos.x >= 0 and pos.y >= 0:
+		origin = pos
+	_recompute_and_draw()
+
+func _set_token_highlight(idx: int, selected: bool) -> void:
+	if idx < 0 or idx >= units.size():
+		return
+	var pid = units[idx].get("punit_id", "")
+	var token: ColorRect = unit_tokens.get(pid)
+	if token:
+		token.color = TOKEN_SELECTED_COLOR if selected else TOKEN_COLOR
 
 func _try_set_origin(pos: Vector2i) -> void:
 	var symbol := grid[pos.y][pos.x]
@@ -342,7 +398,7 @@ func _update_info_label(reachable_count := -1) -> void:
 		return
 	var unit: Dictionary = units[selected_unit_index]
 	var lines: Array[String] = []
-	lines.append("[1-8] switch unit -- click a passable tile to test movement range (rain map: wet costs apply)")
+	lines.append("[1-8] select unit (jumps to their tile) -- click elsewhere to test a hypothetical origin (rain map: wet costs apply)")
 	lines.append("Selected: %s -- move %s, %s, dmg_vs_statue %s" % [
 		unit.get("name"), unit.get("move"), unit.get("movement_type"), unit.get("dmg_vs_statue")
 	])
