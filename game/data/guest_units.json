@@ -1,0 +1,15 @@
+[
+  {
+    "guest_id": "gst_anna",
+    "name": "Anna",
+    "sect_id": "sect_march",
+    "base_class_id": "cls_tr_faith",
+    "growth_profile_id": "gp_healer",
+    "trigger_condition": "Fires only if BOTH def_anselm AND def_maren have resolved -- either departure alone does not trigger her; the roster still has one faith unit standing in that case.",
+    "joins": "Immediately once both defections have resolved.",
+    "departs": "Hard departure by the Act 2/3 reunion (ch_x11-adjacent), regardless of whether Maren is later recovered via her conditional defection's reversibility -- this keeps the roster at 18 units / 153 support chains, she is deliberately not part of that grid.",
+    "support_shape": "No tiered support chain -- one fixed scene instead.",
+    "off_screen_purpose_on_exit": "Continues the Continuing Word's rebaptism fieldwork (prc_rebaptism) off-screen after departing -- cross-referencing parish/decan lists to enroll the plague dead by name.",
+    "act3_payoff": "RECONSTRUCTION GAP -- not included in the changelog summary this row was built from; needs the real text from the source session (see calendar's decan-token row, which references this field directly)."
+  }
+]

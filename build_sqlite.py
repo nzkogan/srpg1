@@ -55,6 +55,7 @@ PK = {
     "signs": ("sign_id", "sgn_"), "practices": ("practice_id", "prc_"),
     "canon_flags": ("flag_id", "flag_"),
     "terrain_costs": ("terrain_id", "ter_"),
+    "guest_units": ("guest_id", "gst_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
 }
 
@@ -99,6 +100,9 @@ FKS = {
     ("materials", "named_id"): ("named", "named_id"),
     ("materials", "forge_id"): ("forges", "forge_id"),
     ("practices", "sect_id"): ("sects", "sect_id"),
+    ("guest_units", "sect_id"): ("sects", "sect_id"),
+    ("guest_units", "base_class_id"): ("classes", "class_id"),
+    ("guest_units", "growth_profile_id"): ("growths", "profile_id"),
 }
 
 

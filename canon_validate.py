@@ -55,6 +55,7 @@ PRIMARY_KEYS = {
     "defections": ("defection_id", "def_"),
     "locations": ("location_id", "loc_"),
     "terrain_costs": ("terrain_id", "ter_"),
+    "guest_units": ("guest_id", "gst_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -245,6 +246,30 @@ def main():
         if missing:
             fail("c11", "warning", f"npcs.{r['npc_id']}",
                  f"troupe rule requires an appearance in every act; missing {', '.join(missing)}")
+
+    # --- c13 defection class-niche coverage: a scripted/conditional
+    #     departure should not zero out a class niche with no other
+    #     non-defecting unit in it and no guest_units entry covering it ------
+    class_niche = {r["class_id"]: (r.get("art_primary"), r.get("movement"))
+                   for r in tabs["classes"]}
+    unit_niche = {r["unit_id"]: class_niche.get(r.get("base_class_id"))
+                  for r in tabs["units"]}
+    defecting_units = {r["unit_id"] for r in tabs["defections"]}
+    guest_niches = {class_niche.get(r.get("base_class_id")) for r in tabs["guest_units"]}
+    for r in tabs["defections"]:
+        uid = r["unit_id"]
+        niche = unit_niche.get(uid)
+        if niche is None:
+            continue
+        has_redundancy = any(
+            other_id != uid and other_id not in defecting_units and unit_niche.get(other_id) == niche
+            for other_id in unit_niche
+        )
+        if has_redundancy or niche in guest_niches:
+            continue
+        fail("c13", "warning", f"defections.{r['defection_id']}",
+             "unit is the roster's only unit in its class niche and no "
+             "guest_units entry covers it if this defection fires")
 
     # --- c13d christian_allegory sect_id must resolve, and every sect should
     #     have exactly one allegory entry ------------------------------------
