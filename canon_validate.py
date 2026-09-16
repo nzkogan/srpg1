@@ -58,6 +58,7 @@ PRIMARY_KEYS = {
     "guest_units": ("guest_id", "gst_"),
     "unit_base_stats": ("unit_id", "u_"),  # reuses units' id space by design, same pattern as christian_allegory/sects
     "weapons": ("weapon_id", "wpn_"),
+    "enemy_archetypes": ("enemy_id", "ea_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -206,6 +207,17 @@ def main():
         if r.get("art") not in MATRIX_ARTS:
             fail("c07", "blocking", f"weapons.{r['weapon_id']}",
                  f"art '{r.get('art')}' is not one of {MATRIX_ARTS}")
+
+    # --- c07c enemy_archetypes.weapon_art must be real, first_seen_map_id
+    #     must resolve --------------------------------------------------------
+    for r in tabs["enemy_archetypes"]:
+        if r.get("weapon_art") not in MATRIX_ARTS:
+            fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
+                 f"weapon_art '{r.get('weapon_art')}' is not one of {MATRIX_ARTS}")
+        map_id = r.get("first_seen_map_id")
+        if map_id and map_id not in ids["maps"]:
+            fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
+                 f"first_seen_map_id '{map_id}' does not exist")
 
     # --- c08 promotion reachability ------------------------------------------
     class_ids = ids["classes"]

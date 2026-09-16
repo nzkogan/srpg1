@@ -58,6 +58,7 @@ PK = {
     "guest_units": ("guest_id", "gst_"),
     "unit_base_stats": ("unit_id", "u_"),
     "weapons": ("weapon_id", "wpn_"),
+    "enemy_archetypes": ("enemy_id", "ea_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
 }
 
@@ -70,6 +71,7 @@ NUMERIC = {
     "prologue_roster": {"move", "hp", "dmg_vs_statue", "deploy_row", "deploy_col"},
     "unit_base_stats": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res"},
     "weapons": {"might", "hit", "crit", "weight", "uses", "range_min", "range_max"},
+    "enemy_archetypes": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res"},
     "prologue_structures": {"turns_to_destroy", "hp", "defence"},
     "deputy_ledger": {"weight"},
     "terrain_costs": {
@@ -108,6 +110,7 @@ FKS = {
     ("guest_units", "base_class_id"): ("classes", "class_id"),
     ("guest_units", "growth_profile_id"): ("growths", "profile_id"),
     ("unit_base_stats", "unit_id"): ("units", "unit_id"),
+    ("enemy_archetypes", "first_seen_map_id"): ("maps", "map_id"),
 }
 
 
