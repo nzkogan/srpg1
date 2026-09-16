@@ -57,6 +57,7 @@ PK = {
     "terrain_costs": ("terrain_id", "ter_"),
     "guest_units": ("guest_id", "gst_"),
     "unit_base_stats": ("unit_id", "u_"),
+    "weapons": ("weapon_id", "wpn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
 }
 
@@ -68,6 +69,7 @@ NUMERIC = {
     "chapters": {"number"},
     "prologue_roster": {"move", "hp", "dmg_vs_statue", "deploy_row", "deploy_col"},
     "unit_base_stats": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res"},
+    "weapons": {"might", "hit", "crit", "weight", "uses", "range_min", "range_max"},
     "prologue_structures": {"turns_to_destroy", "hp", "defence"},
     "deputy_ledger": {"weight"},
     "terrain_costs": {

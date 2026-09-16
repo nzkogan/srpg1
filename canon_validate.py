@@ -57,6 +57,7 @@ PRIMARY_KEYS = {
     "terrain_costs": ("terrain_id", "ter_"),
     "guest_units": ("guest_id", "gst_"),
     "unit_base_stats": ("unit_id", "u_"),  # reuses units' id space by design, same pattern as christian_allegory/sects
+    "weapons": ("weapon_id", "wpn_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -199,6 +200,12 @@ def main():
                 fail("c07", "info", f"matrix.{art}+{mv}", f"declared gap: {DECLARED_GAPS[(art, mv)]}")
             else:
                 fail("c07", "blocking", f"matrix.{art}+{mv}", "matrix cell empty and not a declared gap")
+
+    # --- c07b weapons.art must be a real art ---------------------------------
+    for r in tabs["weapons"]:
+        if r.get("art") not in MATRIX_ARTS:
+            fail("c07", "blocking", f"weapons.{r['weapon_id']}",
+                 f"art '{r.get('art')}' is not one of {MATRIX_ARTS}")
 
     # --- c08 promotion reachability ------------------------------------------
     class_ids = ids["classes"]
