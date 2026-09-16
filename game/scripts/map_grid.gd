@@ -17,10 +17,24 @@ extends Node2D
 ## statue attacks is still capped by MAX_STATUE_ATTACKERS_PER_TURN rather
 ## than computed from position, same as before.
 ##
+## One enemy is now live on the map: ea_garrison (enemy_archetypes), placed at
+## a tile along the col-9 seize approach -- not textually grounded (map_f00's
+## design_note never gives it a tile, only "fatigued and not a threat"), a
+## placement choice standing in as "one last guard between the wall and the
+## temple." Its stats and behavior text ARE grounded (see enemy_archetypes'
+## own NOTE row). Any combat-capable prologue unit (all but pu_nashar, who
+## "cannot attack") can fight it with [F] once in weapon range, using their
+## own weapon_art/str/mag/dex/spd/lck/def/res -- new columns on prologue_roster
+## added for this (see that tab's own trailing NOTE row for what's grounded
+## vs. reused-baseline there) -- resolved through the real Combat.gd module,
+## RNG and all, not a guaranteed hit. No counterattack is modeled (no enemy
+## phase yet); this is one unit's action, same shape as attacking the statue.
+##
 ## Controls:
 ##   1-8 = select a unit (shows their range from their current tile)
 ##   click a highlighted tile = move the selected unit there (once/turn)
 ##   A   = selected unit attacks the statue
+##   F   = selected unit fights the garrison soldier (if in weapon range)
 ##   N / Enter = advance to the next turn
 
 const CELL_SIZE := 32
@@ -58,6 +72,13 @@ const ORIGIN_TINT := Color(1.0, 0.9, 0.3, 0.7)
 const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
 const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
 const TOKEN_MOVED_COLOR := Color(0.35, 0.35, 0.4, 0.9)
+const ENEMY_TOKEN_COLOR := Color(0.55, 0.12, 0.12, 0.95)
+
+## Not sourced from map_f00's design_note (it names no tile) -- a placement
+## choice, on the col-9 line the statue (row 1) and seize tile (row 2) both
+## sit on, read as "guarding the approach." Reachable within a turn or two
+## of the row-15 deploy line, so the fight is actually testable early.
+const ENEMY_SPAWN_POS := Vector2i(9, 11)
 
 var grid: Array[String] = []
 var terrain_by_symbol: Dictionary = {} # symbol -> terrain_costs row (Dictionary)
@@ -69,6 +90,13 @@ var tile_rects: Dictionary = {} # Vector2i -> ColorRect, so structures can recol
 var unit_tokens: Dictionary = {} # punit_id -> {container: Node2D, bg: ColorRect}
 var unit_positions: Dictionary = {} # punit_id -> Vector2i, current position (starts at deploy tile)
 var seize_pos: Vector2i = Vector2i(-1, -1)
+
+var weapons_by_id: Dictionary = {} # weapon_id -> weapons row
+var enemy: Dictionary = {} # the ea_garrison row (enemy_archetypes), empty if not found
+var enemy_hp := 0
+var enemy_max_hp := 0
+var enemy_defeated := false
+var enemy_token: Dictionary = {} # {container: Node2D, bg: ColorRect}
 
 # --- turn / structure / win state -------------------------------------------
 var turn := 0
@@ -89,9 +117,11 @@ func _ready() -> void:
 	if grid.is_empty():
 		return
 	_index_terrain_costs()
+	_index_weapons()
 	units = Canon.get_table("prologue_roster")
 	_index_structures()
 	_find_seize_tile()
+	_spawn_enemy()
 
 	_draw_grid()
 	_draw_axis_labels()
@@ -104,6 +134,7 @@ func _ready() -> void:
 		if pos.x >= 0 and pos.y >= 0:
 			unit_positions[unit.get("punit_id")] = pos
 	_draw_unit_tokens()
+	_draw_enemy_token()
 
 	status_label = Label.new()
 	status_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
@@ -162,6 +193,39 @@ func _draw_unit_tokens() -> void:
 
 		unit_tokens[pid] = {"container": container, "bg": bg}
 
+## Mirrors _draw_unit_tokens but for the single live enemy, in ENEMY_TOKEN_COLOR
+## so it reads distinctly from the player tokens.
+func _draw_enemy_token() -> void:
+	if enemy.is_empty() or enemy_defeated:
+		return
+
+	var container := Node2D.new()
+	container.position = Vector2(ENEMY_SPAWN_POS.x * CELL_SIZE, ENEMY_SPAWN_POS.y * CELL_SIZE)
+	add_child(container)
+
+	var bg := ColorRect.new()
+	bg.size = Vector2(CELL_SIZE - 6, CELL_SIZE - 6)
+	bg.position = Vector2(3, 3)
+	bg.color = ENEMY_TOKEN_COLOR
+	container.add_child(bg)
+
+	var label := Label.new()
+	label.text = String(enemy.get("name", "?")).substr(0, 2)
+	label.size = bg.size
+	label.position = bg.position
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 11)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	container.add_child(label)
+
+	enemy_token = {"container": container, "bg": bg}
+
+func _remove_enemy_token() -> void:
+	if enemy_token.has("container"):
+		enemy_token.container.queue_free()
+	enemy_token = {}
+
 func _load_grid(path: String) -> Array[String]:
 	var f := FileAccess.open(path, FileAccess.READ)
 	if f == null:
@@ -184,6 +248,26 @@ func _index_structures() -> void:
 		if row["structure_id"] == "str_statue":
 			statue_max_hp = int(row["hp"])
 			statue_hp = statue_max_hp
+
+func _index_weapons() -> void:
+	for row in Canon.get_table("weapons"):
+		weapons_by_id[row["weapon_id"]] = row
+
+## One weapon each, no repair (map_f00's own design_note) -- every
+## combat-capable unit (and the garrison) fights with the *_basic tier of
+## their weapon_art.
+func _weapon_for_art(art: String) -> Dictionary:
+	return weapons_by_id.get("wpn_%s_basic" % art, {})
+
+func _spawn_enemy() -> void:
+	for row in Canon.get_table("enemy_archetypes"):
+		if row["enemy_id"] == "ea_garrison":
+			enemy = row
+			break
+	if enemy.is_empty():
+		return
+	enemy_max_hp = int(enemy["hp"])
+	enemy_hp = enemy_max_hp
 
 func _draw_grid() -> void:
 	for row in grid.size():
@@ -223,6 +307,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		var key_event := event as InputEventKey
 		if key_event.keycode == KEY_A:
 			_attack_statue()
+		elif key_event.keycode == KEY_F:
+			_attack_enemy()
 		elif key_event.keycode == KEY_N or key_event.keycode == KEY_ENTER:
 			_next_turn()
 		else:
@@ -449,14 +535,72 @@ func _attack_statue() -> void:
 
 	_update_status_label()
 
+## Real unit-vs-enemy combat, resolved through Combat.gd (weapon triangle,
+## hit/crit/damage RNG and all) -- not a guaranteed hit like the statue.
+## One-directional: no counterattack, same shape as attacking the statue.
+func _attack_enemy() -> void:
+	if units.is_empty() or enemy.is_empty() or enemy_defeated:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var weapon_art = unit.get("weapon_art")
+
+	if weapon_art == null or weapon_art == "":
+		info_label.text = "%s cannot fight (%s)." % [unit.get("name"), unit.get("what_they_do")]
+		return
+
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1):
+		return
+
+	var weapon := _weapon_for_art(weapon_art)
+	if weapon.is_empty():
+		return
+
+	var dist: int = abs(pos.x - ENEMY_SPAWN_POS.x) + abs(pos.y - ENEMY_SPAWN_POS.y)
+	var range_min := int(weapon.get("range_min", 1))
+	var range_max := int(weapon.get("range_max", 1))
+	if dist < range_min or dist > range_max:
+		info_label.text = "%s is out of range of the %s (needs %d-%d tiles, is %d away)." % [
+			unit.get("name"), enemy.get("name"), range_min, range_max, dist
+		]
+		return
+
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+	var result := Combat.resolve_attack(unit, enemy, weapon, rng)
+	attacked_this_turn[pid] = true
+
+	if not result.hit:
+		info_label.text = "%s attacks the %s and misses." % [unit.get("name"), enemy.get("name")]
+	else:
+		enemy_hp = max(0, enemy_hp - int(result.damage))
+		var crit_text := " CRITICAL HIT!" if result.crit else ""
+		info_label.text = "%s hits the %s for %d damage.%s %d/%d HP remaining." % [
+			unit.get("name"), enemy.get("name"), result.damage, crit_text, enemy_hp, enemy_max_hp
+		]
+		if enemy_hp == 0:
+			enemy_defeated = true
+			_remove_enemy_token()
+			info_label.text += " The %s falls." % enemy.get("name")
+
+	_update_status_label()
+
 func _update_status_label() -> void:
 	if prologue_won:
 		return
 	var wall_state := "destroyed (Enmet, turn 1)" if wall_destroyed else "standing"
 	var statue_state := "RUBBLE" if statue_destroyed else "%d / %d HP" % [statue_hp, statue_max_hp]
+	var enemy_state := "none"
+	if not enemy.is_empty():
+		enemy_state = "defeated" if enemy_defeated else "%s %d/%d HP" % [enemy.get("name"), enemy_hp, enemy_max_hp]
 	status_label.text = (
-		"Turn %d -- Wall: %s -- Statue: %s -- attackers: %d/%d this turn -- moved: %d/%d this turn\n[A] attack statue -- [N] / Enter: next turn -- click a highlighted tile to move"
-		% [turn, wall_state, statue_state, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()]
+		"Turn %d -- Wall: %s -- Statue: %s -- Garrison: %s -- attackers: %d/%d this turn -- moved: %d/%d this turn\n[A] attack statue -- [F] fight garrison -- [N] / Enter: next turn -- click a highlighted tile to move"
+		% [turn, wall_state, statue_state, enemy_state, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()]
 	)
 
 func _update_info_label(reachable_count := -1) -> void:
@@ -469,8 +613,9 @@ func _update_info_label(reachable_count := -1) -> void:
 	var pid: String = unit.get("punit_id", "")
 	var lines: Array[String] = []
 	lines.append("[1-8] select unit -- click a highlighted tile to move there (rain map: wet costs apply)")
-	lines.append("Selected: %s -- move %s, %s, dmg_vs_statue %s" % [
-		unit.get("name"), unit.get("move"), unit.get("movement_type"), unit.get("dmg_vs_statue")
+	lines.append("Selected: %s -- move %s, %s, dmg_vs_statue %s, weapon_art %s" % [
+		unit.get("name"), unit.get("move"), unit.get("movement_type"), unit.get("dmg_vs_statue"),
+		unit.get("weapon_art")
 	])
 	if moved_this_turn.has(pid):
 		lines.append("At (%d, %d) -- already moved this turn." % [origin.x, origin.y])

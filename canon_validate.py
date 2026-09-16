@@ -59,6 +59,7 @@ PRIMARY_KEYS = {
     "unit_base_stats": ("unit_id", "u_"),  # reuses units' id space by design, same pattern as christian_allegory/sects
     "weapons": ("weapon_id", "wpn_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
+    "prologue_roster": ("punit_id", "pu_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -218,6 +219,14 @@ def main():
         if map_id and map_id not in ids["maps"]:
             fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
                  f"first_seen_map_id '{map_id}' does not exist")
+
+    # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
+    #     the one deliberate non-combatant) -------------------------------------
+    for r in tabs["prologue_roster"]:
+        art = r.get("weapon_art")
+        if art is not None and art not in MATRIX_ARTS:
+            fail("c07", "blocking", f"prologue_roster.{r['punit_id']}",
+                 f"weapon_art '{art}' is not one of {MATRIX_ARTS} or null")
 
     # --- c08 promotion reachability ------------------------------------------
     class_ids = ids["classes"]

@@ -12,6 +12,14 @@
     "what_it_teaches": "objectives that require a specific unit",
     "ancestor_of": "the Strategist line",
     "dmg_vs_statue": 14,
+    "weapon_art": "sword",
+    "str": 5,
+    "mag": 3,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "the one time in the whole game the player commands a head of state in person"
   },
   {
@@ -27,6 +35,14 @@
     "what_it_teaches": "terrain is destructible",
     "ancestor_of": "Warlock; the Tzitzimitl's Corrosion",
     "dmg_vs_statue": 16,
+    "weapon_art": "reason",
+    "str": 3,
+    "mag": 6,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "young, rain-soaked, unbothered, the most destructive thing on the continent; the modern doctrinal bans exist because of people like her"
   },
   {
@@ -42,6 +58,14 @@
     "what_it_teaches": "movement types and terrain cost",
     "ancestor_of": "the riding column",
     "dmg_vs_statue": 12,
+    "weapon_art": "lance",
+    "str": 5,
+    "mag": 3,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "shows the player what mobility buys and what it costs"
   },
   {
@@ -57,6 +81,14 @@
     "what_it_teaches": "chokepoints and the enemy phase",
     "ancestor_of": "General, Great shield",
     "dmg_vs_statue": 10,
+    "weapon_art": "lance",
+    "str": 5,
+    "mag": 3,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "the span is one tile wide; he simply does not move"
   },
   {
@@ -72,6 +104,14 @@
     "what_it_teaches": "range, and impassable terrain",
     "ancestor_of": "Sniper, Pavisier",
     "dmg_vs_statue": 11,
+    "weapon_art": "bow",
+    "str": 5,
+    "mag": 3,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "the channels teach that water stops feet and not arrows"
   },
   {
@@ -87,6 +127,14 @@
     "what_it_teaches": "the weapon triangle",
     "ancestor_of": "Warrior, Housecarl",
     "dmg_vs_statue": 18,
+    "weapon_art": "axe",
+    "str": 5,
+    "mag": 3,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "the highest damage against the statue, which is the point"
   },
   {
@@ -102,6 +150,14 @@
     "what_it_teaches": "support actions",
     "ancestor_of": "Bishop; the Simurgh's role",
     "dmg_vs_statue": 6,
+    "weapon_art": "faith",
+    "str": 3,
+    "mag": 6,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
     "notes": "she can hit the statue too, badly, and the game does not stop her"
   },
   {
@@ -117,6 +173,14 @@
     "what_it_teaches": "protect-the-unit, and the ending",
     "ancestor_of": "the surveyor, and the whole clerk thread",
     "dmg_vs_statue": 0,
+    "weapon_art": null,
+    "str": 0,
+    "mag": 0,
+    "dex": 0,
+    "spd": 0,
+    "lck": 0,
+    "def": 0,
+    "res": 0,
     "notes": "the player spends the map vaguely protecting him without knowing why"
   }
 ]
