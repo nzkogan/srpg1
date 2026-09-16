@@ -70,5 +70,23 @@
     "res": 3,
     "behavior": "Reinforces every 3 turns forever (map_a03's own design note) -- an attritional/escape-pressure enemy, not meant to be fully eliminated.",
     "first_seen_map_id": "map_a03"
+  },
+  {
+    "enemy_id": "ea_privateer",
+    "name": "Privateer",
+    "weapon_art": "sword",
+    "movement_type": "infantry",
+    "tier": "trained",
+    "level": 5,
+    "hp": 20,
+    "str": 5,
+    "mag": 3,
+    "dex": 6,
+    "spd": 6,
+    "lck": 5,
+    "def": 4,
+    "res": 3,
+    "behavior": "Boards from the map edges; the Assembly bought this fleet and its guards outright, 'paid for in Anbar' (map_d05's own design note). Grapple lines are the dens they reinforce from -- cut one and it stops producing them, same attritional shape as ea_relic_hunter's den on map_a03.",
+    "first_seen_map_id": "map_d05"
   }
 ]
