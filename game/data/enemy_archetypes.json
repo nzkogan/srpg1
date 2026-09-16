@@ -169,5 +169,43 @@
     "res": 13,
     "behavior": "Generic boss-tier template, not tied to any specific map -- reskin/rename per chapter. Reconstructed 'paragon' tier baseline (lv30+, same bracket classes.tier uses for the deed-gated legendary player classes) continuing the same commoner->trained->order extrapolation as ea_hardened_veteran/ea_war_captain, plus heavier HP padding (+25) and a high-tier weapon. The toughest generic template in this tab. Unlike ea_conquered_soldier, this one's stats are NOT deliberately undercut -- a boss should actually be dangerous.",
     "first_seen_map_id": null
+  },
+  {
+    "enemy_id": "ea_preacher_boyan",
+    "name": "Boyan, the preacher",
+    "weapon_art": "faith",
+    "weapon_tier": "basic",
+    "movement_type": "infantry",
+    "tier": "order",
+    "level": 15,
+    "hp": 24,
+    "str": 4,
+    "mag": 8,
+    "dex": 12,
+    "spd": 11,
+    "lck": 10,
+    "def": 6,
+    "res": 9,
+    "behavior": "map_a02's own design note: 'preacher converts 1 townsfolk/turn; kill / answer / capture' -- three resolution paths, so he has to actually be fightable, not just flavor text. chapters.ch_a02.notes independently confirms capture matters: 'jailed preacher is an Act 2 hook.' Worth flagging: chapters.ch_a02.teaches_system says 'talk / capture / disperse' -- slightly different wording than the map's own 'kill / answer / capture' (talk~=answer, disperse~=kill, presumably, but that's a guess, not a resolution of the inconsistency). u_edda joins this same chapter auto ('village reciter') -- a reciter countering a preacher's rhetoric reads as a strong candidate for the 'answer' path, though nothing in units.u_edda's own row states that outright, so treat it as a suggested thread, not settled canon. Named/flavored as a Bogomil-adjacent heretical dualist preacher, leaning on naming_reference's ref_bogomils entry (status: 'UNFINISHED BUSINESS -- flagged as a candidate 5th/6th sect... never followed up') -- an interpretive choice, not an assignment naming_reference itself makes. Reskin of the ea_hardened_veteran sidequest-tier template (order/mid instead of a mook's trained/basic) with str/mag swapped the way Enmet/Ilat's prologue stats already are, and hp/def/res hand-tuned down from the template -- a rhetorician, not a soldier. Playtested against u_gunnar (bow, personal tier, one of ch_a02's own recruits, chosen because his class notes literally say 'Capture + Shove mercy kit' -- he's the intended actor for the 'capture' path) via a live Combat.gd data check: at mag 11 / weapon_tier mid, Boyan hit for 15 at 91% against Gunnar's 20 HP -- close to a two-round kill on a level-1 recruit, too sharp a spike for Act 1 Chapter 2. Turned down to mag 8 / weapon_tier basic (was 11/mid); re-verified at 9 damage / 91% hit, a real threat but not a near-instant loss. u_edda ('village reciter', the 'answer' candidate) turns out to have base_class_id cls_skald, art_primary 'none' -- she literally cannot fight, which reads as strong indirect confirmation that 'answer' is meant to be a non-combat resolution, not a combat one.",
+    "first_seen_map_id": "map_a02"
+  },
+  {
+    "enemy_id": "ea_relic_hunter_captain",
+    "name": "Vitomir",
+    "weapon_art": "bow",
+    "weapon_tier": "high",
+    "movement_type": "infantry",
+    "tier": "order",
+    "level": 20,
+    "hp": 38,
+    "str": 11,
+    "mag": 3,
+    "dex": 17,
+    "spd": 15,
+    "lck": 11,
+    "def": 9,
+    "res": 6,
+    "behavior": "Commands the ea_relic_hunter squads that 'reinforce every 3 turns forever' per map_a03's own design note, and stands over the reliquary's 'take-or-give' objective. chapters.ch_a03.notes force- deploys u_torvald here specifically ('last of a plague-gutted order') -- tempting to tie the chapterhouse/reliquary to Torvald's own destroyed order, but nothing in canon.xlsx actually says that; flagging it as a possible thread worth writing toward, not asserting it as fact. u_anselm ('adrift monk; theology barometer') also joins this chapter, fitting a reliquary/sacred-relic objective generally, though again not explicitly tied to this fight by name anywhere. Name is invented, no naming_reference anchor -- a mercenary looter leader, not a Byzantine/Balkan historical figure, didn't force a fit. Reskin of the ea_war_captain miniboss-tier template, same bow art as his own relic hunters (differentiated by tier, not by art) -- one genuine step up from ea_preacher_boyan/a02, matching ch_a03 (chapter 3) being the harder escalation past ch_a02 (chapter 2).",
+    "first_seen_map_id": "map_a03"
   }
 ]
