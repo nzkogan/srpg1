@@ -71,6 +71,7 @@ DECLARED_GAPS = {
 
 MATRIX_ARTS = ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 MATRIX_MOVES = ["infantry", "armor", "riding", "flying"]
+WEAPON_TIERS = ["worn", "basic", "mid", "high"]
 
 MAX_CONSECUTIVE_SAME_VERB = 2
 
@@ -227,6 +228,16 @@ def main():
         if art is not None and art not in MATRIX_ARTS:
             fail("c07", "blocking", f"prologue_roster.{r['punit_id']}",
                  f"weapon_art '{art}' is not one of {MATRIX_ARTS} or null")
+
+    # --- c07e weapons.tier / enemy_archetypes.weapon_tier must be a real tier -
+    for r in tabs["weapons"]:
+        if r.get("tier") not in WEAPON_TIERS:
+            fail("c07", "blocking", f"weapons.{r['weapon_id']}",
+                 f"tier '{r.get('tier')}' is not one of {WEAPON_TIERS}")
+    for r in tabs["enemy_archetypes"]:
+        if r.get("weapon_tier") not in WEAPON_TIERS:
+            fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
+                 f"weapon_tier '{r.get('weapon_tier')}' is not one of {WEAPON_TIERS}")
 
     # --- c08 promotion reachability ------------------------------------------
     class_ids = ids["classes"]
