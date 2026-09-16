@@ -56,6 +56,7 @@ PK = {
     "canon_flags": ("flag_id", "flag_"),
     "terrain_costs": ("terrain_id", "ter_"),
     "guest_units": ("guest_id", "gst_"),
+    "unit_base_stats": ("unit_id", "u_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
 }
 
@@ -66,6 +67,7 @@ NUMERIC = {
              "boss_gated_until_turn", "deploy_slots"},
     "chapters": {"number"},
     "prologue_roster": {"move", "hp", "dmg_vs_statue", "deploy_row", "deploy_col"},
+    "unit_base_stats": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res"},
     "prologue_structures": {"turns_to_destroy", "hp", "defence"},
     "deputy_ledger": {"weight"},
     "terrain_costs": {
@@ -103,6 +105,7 @@ FKS = {
     ("guest_units", "sect_id"): ("sects", "sect_id"),
     ("guest_units", "base_class_id"): ("classes", "class_id"),
     ("guest_units", "growth_profile_id"): ("growths", "profile_id"),
+    ("unit_base_stats", "unit_id"): ("units", "unit_id"),
 }
 
 

@@ -56,6 +56,7 @@ PRIMARY_KEYS = {
     "locations": ("location_id", "loc_"),
     "terrain_costs": ("terrain_id", "ter_"),
     "guest_units": ("guest_id", "gst_"),
+    "unit_base_stats": ("unit_id", "u_"),  # reuses units' id space by design, same pattern as christian_allegory/sects
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
