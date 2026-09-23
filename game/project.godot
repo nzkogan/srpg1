@@ -7,7 +7,7 @@ config_version=5
 [application]
 
 config/name="SRPG1"
-run/main_scene="res://main.tscn"
+run/main_scene="res://scenes/overworld.tscn"
 
 [autoload]
 

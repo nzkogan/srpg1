@@ -25,6 +25,7 @@ extends Node2D
 ##   A   = selected unit attacks the statue (map_f00 only)
 ##   F   = selected unit fights the nearest living enemy in weapon range
 ##   N / Enter = advance to the next turn
+##   Escape = return to the overworld
 
 ## Which map this scene instance plays. Drives the terrain file, unit roster,
 ## encounter_spawns filter, and objective logic below.
@@ -447,6 +448,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_attack_enemy()
 		elif key_event.keycode == KEY_N or key_event.keycode == KEY_ENTER:
 			_next_turn()
+		elif key_event.keycode == KEY_ESCAPE:
+			get_tree().change_scene_to_file("res://scenes/overworld.tscn")
 		else:
 			var idx := key_event.keycode - KEY_1
 			if idx >= 0 and idx < units.size():
