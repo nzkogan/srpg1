@@ -61,7 +61,11 @@ func _ready() -> void:
 
 	for i in sortable.size():
 		var ch: Dictionary = sortable[i][3]
-		var map_id: String = ch.get("map_id", "")
+		# a handful of chapters (e.g. ch_h32, "The Kaisareia Trial") have no
+		# map at all by design -- .get()'s default only applies when the key
+		# is absent, and this key IS present with a null value, so it must
+		# be checked explicitly rather than relying on the default.
+		var map_id: String = ch.get("map_id") if ch.get("map_id") != null else ""
 		var map_row: Dictionary = maps_by_id.get(map_id, {})
 		var pos := Vector2(100 + i * NODE_SPACING, NODE_Y)
 		nodes.append({
