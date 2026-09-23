@@ -388,7 +388,7 @@
     "turn_limit": 0,
     "terrain": "a literal conquest -- march, forced conversion, crusade logic, not economic absorption",
     "chapter_id": "ch_h31",
-    "design_note": "Terrain/encounter_spawns/scene built (Act3 fleshing-out pass). end_hierophant's shared lead-up: 'the defense scenario is a literal conquest.' sect_id on ch_h31 is intentionally null -- see that chapter's own note.",
+    "design_note": "Terrain/encounter_spawns/scene built (Act3 fleshing-out pass). end_hierophant's shared lead-up: 'the defense scenario is a literal conquest.' sect_id on ch_h31 is resolved to sect_march -- see the_hierophant tab.",
     "reuse_in_act3": "no",
     "reinforcement_source": "den",
     "den_capturable": "yes",

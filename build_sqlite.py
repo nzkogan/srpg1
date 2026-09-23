@@ -31,9 +31,9 @@ SRC = ROOT / "canon.xlsx"
 OUT = ROOT / "canon.db"
 
 EXCLUDE = {
-    "README", "validation", "calendar", "the_claimant", "roster_gaps",
-    "epilogue_generation", "christian_allegory", "naming_reference",
-    "prologue_tuning", "enums",  # enums handled separately, normalized
+    "README", "validation", "calendar", "the_claimant", "the_hierophant",
+    "roster_gaps", "epilogue_generation", "christian_allegory",
+    "naming_reference", "prologue_tuning", "enums",  # enums handled separately, normalized
 }
 
 # tab -> (id_column, id_prefix). Same convention canon_validate.py uses to tell

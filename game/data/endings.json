@@ -3,7 +3,7 @@
     "ending_id": "end_hierophant",
     "route": "route_hierophant",
     "name": "The Hierophant's capture (shared lead-up, not terminal)",
-    "trigger": "sect_id: TBD (whichever sect internally consolidates in Act 2)",
+    "trigger": "sect_id: sect_march (RESOLVED 2026-09-23, see the_hierophant tab)",
     "premise": "the movement forces one answer onto a five-way argument the game has kept deliberately plural; the defense scenario is a literal conquest -- march, forced conversion, crusade logic, not economic absorption",
     "resolution_and_aftermath": "the defense scenario ends in capture, not a kill -- the party wins the battle and the Diadem convenes a formal trial (crowned, bureaucratic state-legitimacy polity; the same machine that produces deputies off the epithet ledger now processes the largest moral choice in the game, not a special cutscene outside the system). The avatar or whoever holds the relevant commission recommends sentence. FORKS into end_hierophant_mercy or end_hierophant_execution -- see those rows for the actual terminal states."
   },
