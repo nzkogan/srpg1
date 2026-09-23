@@ -28,6 +28,12 @@ const AVAILABLE_SCENES := {
 	"map_d02": "res://scenes/map_d02.tscn",
 	"map_a01": "res://scenes/map_a01.tscn",
 	"map_d05": "res://scenes/map_d05.tscn",
+	"map_v21": "res://scenes/map_v21.tscn",
+	"map_v22": "res://scenes/map_v22.tscn",
+	"map_c21": "res://scenes/map_c21.tscn",
+	"map_m21": "res://scenes/map_m21.tscn",
+	"map_m22": "res://scenes/map_m22.tscn",
+	"map_r16": "res://scenes/map_r16.tscn",
 }
 
 const ACT_RANK := {"prologue": 0, "1": 1, "2": 2, "3": 3, "paralogue": 9}

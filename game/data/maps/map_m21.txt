@@ -1,0 +1,18 @@
+# map_m21 -- The Drowned March   20 x 14
+# Reads top to bottom (row0 = top). Causeway widens at the south bank (row13) for deploy.
+#   . causeway   c floodwater (flying only)   E escort destination
+
+cccccccc....cccccccc
+cccccccc.E..cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cccccccc....cccccccc
+cc................cc

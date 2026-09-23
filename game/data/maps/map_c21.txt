@@ -1,0 +1,16 @@
+# map_c21 -- The Vetch Reunion   18 x 12
+# Reads top to bottom (row0 = top).
+#   i the hall (indoor)   d the courtyard (riding)   D defend point
+
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+dddddddddDdddddddd
+dddddddddddddddddd
+dddddddddddddddddd
+dddddddddddddddddd
+dddddddddddddddddd
+dddddddddddddddddd

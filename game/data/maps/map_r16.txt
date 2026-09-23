@@ -1,0 +1,18 @@
+# map_r16 -- The Toll League   20 x 14
+# Reads top to bottom (row0 = top). No objective tile -- 'purchase' isn't modeled, same as map_b15.
+#   d toll road (riding)   p counting house (crowd)
+
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp
+ddddddddddpppppppppp

@@ -1,0 +1,16 @@
+# map_v22 -- Re-Made Clean   16 x 12
+# Reads top to bottom (row0 = top).
+#   i nave (indoor, blocks flying)   p congregation (crowd)   D defend point (the ritual)
+
+iiiiiiiiiiiiiiii
+ippppppppppppppi
+ippppppppppppppi
+ippppppppppppppi
+ippppppppppppppi
+ippppppppppppppi
+ipppppppDppppppi
+ippppppppppppppi
+ippppppppppppppi
+ippppppppppppppi
+ippppppppppppppi
+iiiiiiiiiiiiiiii

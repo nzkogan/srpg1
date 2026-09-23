@@ -1,0 +1,16 @@
+# map_m22 -- The Same Archive   16 x 12
+# Reads top to bottom (row0 = top).
+#   i reading room (indoor)   s the stacks (foot only)   D defend point
+
+iiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiii
+iiiisiiiisiisiii
+iiiisiiiisiisiii
+iiiisiiiisiisiii
+iiiisiiDisiisiii
+iiiisiiiisiisiii
+iiiisiiiisiisiii
+iiiisiiiisiisiii
+iiiisiiiisiisiii
+iiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiii
