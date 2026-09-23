@@ -57,6 +57,6 @@
     "doctrine": "renunciation; refuse to adjudicate",
     "route": "both",
     "act2_chapter_count": "0",
-    "notes": "unreachable by writ; paralogue-only, dark in some runs ADDENDUM: ch_p_macuil / map_p_macuil is this sect's paralogue -- confirmed (2026-09-23) via regions.rgn_stepped_coast's claimed_by_sect_id and its texture matching this sect's own doctrine almost word for word. See that chapter's own note for the full reasoning."
+    "notes": "unreachable by writ; paralogue-only, dark in some runs ADDENDUM: ch_p_macuil / map_p_macuil is this sect's paralogue -- confirmed (2026-09-23) via regions.rgn_stepped_coast's claimed_by_sect_id and its texture matching this sect's own doctrine almost word for word. See that chapter's own note for the full reasoning. ADDENDUM 2 (2026-09-23): ch_p_indech / map_p_indech is this sect's paralogue too -- initially missed because the first check only read the regions tab; locations.loc_hermit_lake, polities.pol_isles, and settlements.set_pelagos (all region_id=rgn_stepped_coast) confirm it. Macuil and Indech are two distinct hermits claimed by the same sect, not duplicates -- see ch_p_indech's own note for the correction."
   }
 ]

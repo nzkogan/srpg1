@@ -125,9 +125,9 @@
     "chapter_id": "ch_p_indech",
     "type": "post-battle",
     "speaker_ids": "u_avatar|npc_indech",
-    "depends_on_flags": null,
+    "depends_on_flags": "flag_deaths",
     "depends_on_units": null,
-    "summary": "Indech's fisher cult reads the lake for an answer it may not actually contain",
+    "summary": "Indech's fisher cult reads the lake for an answer it may not actually contain -- same refusal-to-adjudicate as Macuil (teaches_system's shared line), here through water instead of stone; 'dark in some runs' (sects.sect_coast's own note, now applying to both its paralogues) reads off flag_deaths the same way sc_p_macuil's summary does: a costly crossing of the ford reads the cult's silence as an indictment, a clean one reads it as genuine renunciation, same words either way.",
     "status": "drafted",
     "word_count": "0"
   }

@@ -505,10 +505,10 @@
     "width": 18,
     "height": 14,
     "objective_verb": "defend",
-    "turn_limit": 0,
-    "terrain": "Indech's lake, a fisher cult's water",
+    "turn_limit": 8,
+    "terrain": "the hermit's lake: his island on the north shore, Pelagos (the fisher commune) on the south, open water between that only the Isles' own pilots cross safely -- except one known shallow ford",
     "chapter_id": "ch_p_indech",
-    "design_note": "SKELETON ONLY, same caveat as map_p_macuil -- npcs.npc_indech gives 'his lake, fisher cult' and nothing else concrete. objective_verb is a placeholder default (seize), not derived from anything.",
+    "design_note": "Regrounded (2026-09-23) once locations.loc_hermit_lake/polities.pol_isles/settlements.set_pelagos were found (see ch_p_indech's own note for the correction and full connection). objective_verb='defend' was already set but turn_limit was 0, which silently made the defend-win condition (map_grid.gd's _check_defend_win, limit>0 required) unreachable -- set to 8, matching map_a02/map_v22/map_m22's precedent for the same objective_verb. Terrain rebuilt around a real chokepoint: pol_isles.comparative_advantage ('pilotage -- the Isles' crews are why anyone crosses safely') implies the open water isn't safely crossable without a local pilot, so a raiding ea_warlord reaching Pelagos needs a ford -- that ford, not the lake itself, is what's actually being defended. ea_warlord's movement_type is infantry (enemy_archetypes), so it can use the foot-only ford exactly like the player's own ground units; the old placeholder terrain had no ford at all, which would have made either side unable to reach the other.",
     "reuse_in_act3": "no",
     "reinforcement_source": "none",
     "den_capturable": "no",
@@ -517,6 +517,6 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the shore (foot)|open water (flying only, placeholder)"
+    "approaches": "the shores (foot)|the ford, 3 tiles wide (foot only)|open water (flying only)"
   }
 ]
