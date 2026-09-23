@@ -5,3 +5,5 @@
 [node name="MapF00" type="Node2D"]
 position = Vector2(48, 48)
 script = ExtResource("1")
+map_id = "map_f00"
+wet = true

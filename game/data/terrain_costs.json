@@ -9,6 +9,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "plain open ground; no cost basis stated in docs, defaulted to 1"
   },
   {
@@ -21,6 +22,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "width-1 chokepoint per Bel-Iddin's note; that's a grid-topology fact, not a cost -- this table only carries cost"
   },
   {
@@ -33,6 +35,7 @@
     "move_flying": 1,
     "move_infantry_wet": 2,
     "move_armor_wet": 2,
+    "hazard_dmg": 0,
     "notes": "riding impassable per Tasme ('cannot climb the terraces'); +1 wet per map_f00's terrain note ('stepped terraces (+1 cost when wet)'), applied here to infantry/armor -- unclear if a riding-wet cost is even meaningful given riding is already blocked outright"
   },
   {
@@ -45,6 +48,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "labelled impassable in both map_f00.txt and map_f00_reference.png legends; flying=1 is my inference (open air above a retaining wall), not stated outright"
   },
   {
@@ -57,6 +61,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "impassable while standing; Enmet removes it turn 1 (prologue_structures.str_wall). This table has no state machine -- treat as ter_court once destroyed. Needs real structure-state wiring later, not just a static lookup"
   },
   {
@@ -69,6 +74,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "no cost stated anywhere in the docs; defaulted to 1, revise if this should slow movement"
   },
   {
@@ -81,6 +87,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "no cost stated anywhere in the docs; defaulted to 1. These are the only gaps through the x rows -- worth deciding if they should be slower or movement-type-restricted"
   },
   {
@@ -93,6 +100,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "occupies its tile as a structure, not steppable -- same pattern as ter_wall, see prologue_structures.str_statue"
   },
   {
@@ -105,6 +113,7 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "functionally plain ground; 'Sargath only' is an objective rule (who may seize), not a movement cost -- out of scope here"
   },
   {
@@ -117,6 +126,150 @@
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
+    "hazard_dmg": 0,
     "notes": "flying only, per map_f00's own approaches list ('the channels (flying only)'); Sirru's note says water blocks feet but not arrows -- that's an attack-range rule, a separate system, not represented in this table"
+  },
+  {
+    "terrain_id": "ter_rooftop",
+    "symbol": "r",
+    "name": "rooftop (map_a02)",
+    "move_infantry": 99,
+    "move_armor": 99,
+    "move_riding": 99,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "flying only, per map_a02's own approaches list ('rooftops (flying)')."
+  },
+  {
+    "terrain_id": "ter_building",
+    "symbol": "b",
+    "name": "building (map_a02, impassable)",
+    "move_infantry": 99,
+    "move_armor": 99,
+    "move_riding": 99,
+    "move_flying": 99,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "street-front facades; also blocks flying, unlike f00's wall-face -- these are roofed structures, not a retaining wall's open-air top."
+  },
+  {
+    "terrain_id": "ter_wide_street",
+    "symbol": "d",
+    "name": "wide street (map_a02)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "per map_a02's approaches: 'wide street (riding)'. All movement types pay the same cost here -- width, not cost, is what favors riding (no per-map chokepoint-vs-type system exists, same limitation ter_span's note already flags)."
+  },
+  {
+    "terrain_id": "ter_narrow_street",
+    "symbol": "s",
+    "name": "narrow street (map_a02)",
+    "move_infantry": 1,
+    "move_armor": 99,
+    "move_riding": 99,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "per map_a02's approaches: 'narrow street (foot)' -- armor/riding blocked outright, same convention as ter_terrace_high blocking riding."
+  },
+  {
+    "terrain_id": "ter_plaza",
+    "symbol": "p",
+    "name": "crowd plaza (map_a02)",
+    "move_infantry": 2,
+    "move_armor": 2,
+    "move_riding": 2,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "map_a02.terrain: 'crowd tiles' -- cost 2 for ground types (congestion), flying unaffected. Where Boyan and the townsfolk stand, and the deploy zone."
+  },
+  {
+    "terrain_id": "ter_cloister",
+    "symbol": "i",
+    "name": "cloister (map_a03)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 99,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "map_a03's own approaches: 'cloister (indoors, no cold)'. Blocks flying (roofed corridor) -- the tradeoff for being the only cold-safe terrain here."
+  },
+  {
+    "terrain_id": "ter_open_ward",
+    "symbol": "o",
+    "name": "open ward (map_a03)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 2,
+    "notes": "map_a03's approaches: 'open ward (fast, costly)' -- 'fast' is the cost-1 move, 'costly' is the hazard_dmg. map_a03.terrain: 'cold drains 2 HP/turn outdoors'."
+  },
+  {
+    "terrain_id": "ter_rubble",
+    "symbol": "u",
+    "name": "rubble (map_a03)",
+    "move_infantry": 2,
+    "move_armor": 3,
+    "move_riding": 3,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 2,
+    "notes": "ruined-priory debris; armor/riding slowed more than infantry, flying unaffected. Still outdoors -- same 2 HP/turn cold drain as ter_open_ward."
+  },
+  {
+    "terrain_id": "ter_reliquary",
+    "symbol": "R",
+    "name": "reliquary (map_a03, objective)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 2,
+    "notes": "the 'take-or-give' objective tile itself; costs and hazard match ter_open_ward (it sits in the open ward, not the cloister)."
+  },
+  {
+    "terrain_id": "ter_defend_point",
+    "symbol": "D",
+    "name": "defend point (map_a02, objective)",
+    "move_infantry": 2,
+    "move_armor": 2,
+    "move_riding": 2,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "same cost as ter_plaza (it IS a plaza tile) -- distinct symbol only so map logic can find the objective without scanning for a specific coordinate."
+  },
+  {
+    "terrain_id": "ter_escape",
+    "symbol": "E",
+    "name": "escape tile (map_a03, objective)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 99,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "same cost/hazard as ter_cloister (it's the ring's south-center tile) -- distinct symbol so map logic can find the objective."
   }
 ]

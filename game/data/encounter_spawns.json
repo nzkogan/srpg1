@@ -1,0 +1,110 @@
+[
+  {
+    "spawn_id": "spn_a02_boyan",
+    "map_id": "map_a02",
+    "kind": "boss",
+    "enemy_id": "ea_preacher_boyan",
+    "row": 8,
+    "col": 8,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Stands on the defend-point tile (D) -- literally where the crowd/townsfolk are."
+  },
+  {
+    "spawn_id": "spn_a02_mook1",
+    "map_id": "map_a02",
+    "kind": "mook",
+    "enemy_id": "ea_conscript_levy",
+    "row": 7,
+    "col": 4,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Pre-placed on the narrow street, west side."
+  },
+  {
+    "spawn_id": "spn_a02_mook2",
+    "map_id": "map_a02",
+    "kind": "mook",
+    "enemy_id": "ea_conscript_levy",
+    "row": 7,
+    "col": 13,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Pre-placed on the narrow street, east side."
+  },
+  {
+    "spawn_id": "spn_a02_den",
+    "map_id": "map_a02",
+    "kind": "den",
+    "enemy_id": "ea_conscript_levy",
+    "row": 4,
+    "col": 16,
+    "spawn_interval": 2,
+    "max_waves": 4,
+    "wave_size": 1,
+    "notes": "Wide-street edge. Interval/cap (every 2 turns, 4 waves max) are invented -- map_a02's own design_note doesn't state a cadence the way map_a03's does; chosen to fit turn_limit=8 without becoming unwinnable attrition."
+  },
+  {
+    "spawn_id": "spn_a03_boss",
+    "map_id": "map_a03",
+    "kind": "boss",
+    "enemy_id": "ea_relic_hunter_captain",
+    "row": 4,
+    "col": 8,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Guards the reliquary from one tile north."
+  },
+  {
+    "spawn_id": "spn_a03_mook1",
+    "map_id": "map_a03",
+    "kind": "mook",
+    "enemy_id": "ea_relic_hunter",
+    "row": 4,
+    "col": 6,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Pre-placed near the reliquary, west side."
+  },
+  {
+    "spawn_id": "spn_a03_mook2",
+    "map_id": "map_a03",
+    "kind": "mook",
+    "enemy_id": "ea_relic_hunter",
+    "row": 7,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Pre-placed further into the open ward, south-east."
+  },
+  {
+    "spawn_id": "spn_a03_den",
+    "map_id": "map_a03",
+    "kind": "den",
+    "enemy_id": "ea_relic_hunter",
+    "row": 6,
+    "col": 7,
+    "spawn_interval": 3,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Adjacent to the reliquary. Interval/wave size taken directly from map_a03's own design_note: 'reinforces every 3 turns forever' -- max_waves is null (unlimited), the one den where that's literal text, not an invented cap."
+  },
+  {
+    "spawn_id": "spn_f00_garrison",
+    "map_id": "map_f00",
+    "kind": "boss",
+    "enemy_id": "ea_garrison",
+    "row": 11,
+    "col": 9,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Migrated from map_grid.gd's old hardcoded ENEMY_SPAWN_POS=Vector2i(9,11) (x=col, y=row) -- same tile, now data-driven like every other map's spawns, instead of a second parallel enemy-spawn code path."
+  }
+]

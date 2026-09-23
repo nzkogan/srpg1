@@ -1,0 +1,20 @@
+# map_a03 -- The chapterhouse   17 x 12
+# Reads top to bottom (row0 = top of this file -- unlike map_f00.txt, which
+# reads bottom to top; see map_a02.txt's header for why). Interior rubble
+# (u) is seeded (seed=3, ~15% density).
+#   i cloister (indoor, no cold, blocks flying)   o open ward (outdoor, cold drain)
+#   u rubble (outdoor, cold drain, slower for armor/riding)
+#   R reliquary (objective)   E escape tile (objective)
+
+iiiiiiiiiiiiiiiii
+iooooouuooooooooi
+ioooooouooouooooi
+iooooooouuooooooi
+ioooooooooooooooi
+iooooouoRuooooooi
+iuouooooooououooi
+ioouooooooooooooi
+ioooooooouoouooui
+ioooooouuoooooooi
+ioooooouooooooooi
+iiiiiiiiEiiiiiiii

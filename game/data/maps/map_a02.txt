@@ -1,0 +1,20 @@
+# map_a02 -- The still night   18 x 12
+# Reads top to bottom (row0 = top of this file -- unlike map_f00.txt, which
+# reads bottom to top; each map's row0 is just whatever its own file's first
+# data line is, and encounter_spawns.row/col match that file's own order).
+#   r rooftop (flying only)   b building (impassable)
+#   d wide street   s narrow street (foot only)
+#   p crowd plaza (also the deploy zone)   D defend point (Boyan stands here)
+
+rrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrr
+bbbbbbbbbbbbbbbbbb
+bddddddddddddddddb
+bddddddddddddddddb
+bddddddddddddddddb
+bbbbbbbbbbbbbbbbbb
+bssssssssssssssssb
+ppppppppDDpppppppp
+pppppppppppppppppp
+pppppppppppppppppp
+pppppppppppppppppp

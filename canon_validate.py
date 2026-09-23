@@ -60,6 +60,7 @@ PRIMARY_KEYS = {
     "weapons": ("weapon_id", "wpn_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
     "prologue_roster": ("punit_id", "pu_"),
+    "encounter_spawns": ("spawn_id", "spn_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -238,6 +239,32 @@ def main():
         if r.get("weapon_tier") not in WEAPON_TIERS:
             fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
                  f"weapon_tier '{r.get('weapon_tier')}' is not one of {WEAPON_TIERS}")
+
+    # --- c07f encounter_spawns: map_id/enemy_id must resolve, kind must be
+    #     real, row/col must be within that map's width/height, den rows must
+    #     carry a spawn_interval/wave_size --------------------------------
+    map_dims = {r["map_id"]: (r.get("width"), r.get("height")) for r in tabs["maps"]}
+    SPAWN_KINDS = ["boss", "mook", "den"]
+    for r in tabs["encounter_spawns"]:
+        sid = r["spawn_id"]
+        if r.get("map_id") not in map_dims:
+            fail("c07", "blocking", f"encounter_spawns.{sid}",
+                 f"map_id '{r.get('map_id')}' does not exist")
+            continue
+        if r.get("enemy_id") not in ids["enemy_archetypes"]:
+            fail("c07", "blocking", f"encounter_spawns.{sid}",
+                 f"enemy_id '{r.get('enemy_id')}' does not exist")
+        if r.get("kind") not in SPAWN_KINDS:
+            fail("c07", "blocking", f"encounter_spawns.{sid}",
+                 f"kind '{r.get('kind')}' is not one of {SPAWN_KINDS}")
+        width, height = map_dims[r["map_id"]]
+        row, col = r.get("row"), r.get("col")
+        if width and height and not (0 <= col < width and 0 <= row < height):
+            fail("c07", "blocking", f"encounter_spawns.{sid}",
+                 f"(row={row}, col={col}) is outside {r['map_id']}'s {width}x{height} grid")
+        if r.get("kind") == "den" and not r.get("spawn_interval"):
+            fail("c07", "blocking", f"encounter_spawns.{sid}",
+                 "kind 'den' requires a spawn_interval")
 
     # --- c08 promotion reachability ------------------------------------------
     class_ids = ids["classes"]
