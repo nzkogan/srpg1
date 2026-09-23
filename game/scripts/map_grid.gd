@@ -508,13 +508,20 @@ func _try_move_to(pos: Vector2i) -> void:
 	_recompute_and_draw()
 	_refresh_token_color(selected_unit_index)
 
-	if pid == "pu_sargath" and pos == seize_pos and not map_won:
+	# map_f00's seize is Sargath-only (the prologue's own stated rule); every
+	# other seize map has no such restriction named, so any unit qualifies.
+	var seize_allowed := map_id != "map_f00" or pid == "pu_sargath"
+	if map_row.get("objective_verb") == "seize" and seize_allowed and pos == seize_pos and not map_won:
 		map_won = true
-		status_label.text = "SEIZED. Sargath reaches the temple terrace -- the prologue ends here."
+		status_label.text = "SEIZED. %s reaches the objective." % unit.get("name")
 		info_label.text = "Victory. (The endgame branches from here aren't modeled in this tool.)"
 		return
 
-	if map_row.get("objective_verb") == "escape" and pos == escape_pos:
+	# 'escort' reuses the same reach-the-edge-and-leave shape as 'escape' --
+	# both are "get units to a tile," the difference (escorting a specific
+	# cargo/NPC unit) isn't modeled, flagged on each escort map's own notes.
+	var verb: String = map_row.get("objective_verb", "")
+	if (verb == "escape" or verb == "escort") and pos == escape_pos:
 		unit_positions.erase(pid)
 		if token:
 			token.container.queue_free()

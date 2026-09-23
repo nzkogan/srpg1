@@ -1,0 +1,19 @@
+# map_b15 -- The going rate   18 x 14
+# Reads top to bottom (row0 = top). No objective tile -- 'purchase' (rising
+# prices tied to fight visibility) isn't modeled at all; movement/combat only.
+#   k covered arcade/awnings (blocks flying)   p open bazaar (crowd)   s porters' alley (foot only)
+
+kkkkkkkkkkkkkkkkkk
+kppppppppppppppppk
+kppppppppppppppppk
+kppppppppppppppppk
+kppppppppspppppppk
+kppppppppspppppppk
+kppppppppspppppppk
+kppppppppspppppppk
+kppppppppspppppppk
+kppppppppspppppppk
+kppppppppppppppppk
+kppppppppppppppppk
+kppppppppppppppppk
+kkkkkkkkkkkkkkkkkk

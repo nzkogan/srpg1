@@ -271,5 +271,31 @@
     "move_armor_wet": null,
     "hazard_dmg": 0,
     "notes": "same cost/hazard as ter_cloister (it's the ring's south-center tile) -- distinct symbol so map logic can find the objective."
+  },
+  {
+    "terrain_id": "ter_ford",
+    "symbol": "F",
+    "name": "ford (map_d03)",
+    "move_infantry": 1,
+    "move_armor": 99,
+    "move_riding": 99,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "per map_d03's own approaches: 'southern ford (foot only)' -- same cost profile as ter_narrow_street, distinct symbol/name since it's a river crossing, not a street."
+  },
+  {
+    "terrain_id": "ter_covered_market",
+    "symbol": "k",
+    "name": "covered arcade / awnings (map_b15)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 99,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "map_b15.terrain: 'awnings block flight, arcade blocks bows' -- the flight block is modeled (blocks flying like ter_cloister does); the bow-block is an attack-range restriction, not a movement cost, and isn't modeled anywhere yet."
   }
 ]
