@@ -9,10 +9,20 @@ extends Node2D
 ## overworld is future work; this just needs to exist and be navigable now.
 ##
 ## Node color marks whether that chapter's map actually has a scene built
-## yet (blue = clickable, grey = not built). Ordering itself is entirely
-## data-driven (Canon's chapters/maps tables, sorted by act then number) --
-## only the map_id -> scene path lookup below is hardcoded, since "does a
-## .tscn file exist" isn't something canon.xlsx can know.
+## yet (blue = clickable, grey = not built or currently locked). Ordering
+## itself is entirely data-driven (Canon's chapters/maps tables, sorted by
+## act then number) -- only the map_id -> scene path lookup below is
+## hardcoded, since "does a .tscn file exist" isn't something canon.xlsx
+## can know.
+##
+## ch_h32 "The Kaisareia Trial" has no map_id at all (see chapters' own
+## note) -- it's keyed by chapter_id in SPECIAL_SCENES instead, pointing at
+## trial.tscn, a non-battle choice screen that sets GameState's
+## flag_hierophant_verdict. ch_h33_mercy and ch_h34_war1/2/3 are gated on
+## that flag: locked (grey, distinct message) until the trial sets it, then
+## only the matching branch unlocks -- the other one stays locked for that
+## playthrough, same as canon_flags.flag_hierophant_verdict's own "affects"
+## column describes.
 ##
 ## Controls: click a blue node to load its map. Press Escape inside any map
 ## to return here (see map_grid.gd).
@@ -46,6 +56,20 @@ const AVAILABLE_SCENES := {
 	"map_p_indech": "res://scenes/map_p_indech.tscn",
 }
 
+## Chapters with no map_id at all get keyed by chapter_id instead.
+const SPECIAL_SCENES := {
+	"ch_h32": "res://scenes/trial.tscn",
+}
+
+const HIEROPHANT_FLAG := "flag_hierophant_verdict"
+## chapter_id -> the verdict value that unlocks it.
+const HIEROPHANT_GATED := {
+	"ch_h33_mercy": "mercy",
+	"ch_h34_war1": "execution",
+	"ch_h34_war2": "execution",
+	"ch_h34_war3": "execution",
+}
+
 const ACT_RANK := {"prologue": 0, "1": 1, "2": 2, "3": 3, "paralogue": 9}
 
 const NODE_RADIUS := 24.0
@@ -77,6 +101,7 @@ func _ready() -> void:
 
 	for i in sortable.size():
 		var ch: Dictionary = sortable[i][3]
+		var chapter_id: String = ch.get("chapter_id", "")
 		# a handful of chapters (e.g. ch_h32, "The Kaisareia Trial") have no
 		# map at all by design -- .get()'s default only applies when the key
 		# is absent, and this key IS present with a null value, so it must
@@ -84,9 +109,28 @@ func _ready() -> void:
 		var map_id: String = ch.get("map_id") if ch.get("map_id") != null else ""
 		var map_row: Dictionary = maps_by_id.get(map_id, {})
 		var pos := Vector2(100 + i * NODE_SPACING, NODE_Y)
+
+		var locked_reason := ""
+		var has_scene: bool
+		if SPECIAL_SCENES.has(chapter_id):
+			has_scene = true
+		elif HIEROPHANT_GATED.has(chapter_id):
+			var needed: String = HIEROPHANT_GATED[chapter_id]
+			var verdict = GameState.get_flag(HIEROPHANT_FLAG)
+			if verdict == null:
+				locked_reason = "requires a sentence recommendation at The Kaisareia Trial (ch_h32) first"
+				has_scene = false
+			elif verdict != needed:
+				locked_reason = "this playthrough's verdict was '%s', not '%s' -- locked for good this run" % [verdict, needed]
+				has_scene = false
+			else:
+				has_scene = AVAILABLE_SCENES.has(map_id)
+		else:
+			has_scene = AVAILABLE_SCENES.has(map_id)
+
 		nodes.append({
 			"chapter": ch, "map_row": map_row, "pos": pos,
-			"has_scene": AVAILABLE_SCENES.has(map_id),
+			"has_scene": has_scene, "locked_reason": locked_reason,
 		})
 
 	_draw_connections()
@@ -97,8 +141,12 @@ func _ready() -> void:
 	info_label.custom_minimum_size = Vector2(nodes.size() * NODE_SPACING, 100)
 	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	add_child(info_label)
+	var verdict_text := "no sentence recommended yet" if GameState.get_flag(HIEROPHANT_FLAG) == null \
+		else "verdict: %s" % GameState.get_flag(HIEROPHANT_FLAG)
 	info_label.text = (
-		"Click a blue node to load its map (grey = no scene built yet). " +
+		"Click a blue node to load its map (grey = no scene built, or locked). " +
+		"The Kaisareia Trial (ch_h32, %s) forks ch_h33_mercy vs. ch_h34_war1-3 -- " % verdict_text +
+		"only one branch is ever reachable in a given run. " +
 		"Route note: diadem (d) and assembly (a) chapters shown here are " +
 		"actually alternate Act 1 branches in canon.xlsx, not one real " +
 		"sequential path -- interleaved by chapter number for now, see this " +
@@ -140,8 +188,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 
 func _select_node(n: Dictionary) -> void:
-	var map_id: String = n.map_row.get("map_id", "")
-	if not n.has_scene:
-		info_label.text = "%s (%s) has no playable scene built yet." % [n.chapter.get("title"), map_id]
+	var chapter_id: String = n.chapter.get("chapter_id", "")
+	if SPECIAL_SCENES.has(chapter_id):
+		get_tree().change_scene_to_file(SPECIAL_SCENES[chapter_id])
 		return
+	if not n.has_scene:
+		if n.get("locked_reason", "") != "":
+			info_label.text = "%s: %s" % [n.chapter.get("title"), n.locked_reason]
+		else:
+			var map_id: String = n.map_row.get("map_id", "")
+			info_label.text = "%s (%s) has no playable scene built yet." % [n.chapter.get("title"), map_id]
+		return
+	var map_id: String = n.map_row.get("map_id", "")
 	get_tree().change_scene_to_file(AVAILABLE_SCENES[map_id])

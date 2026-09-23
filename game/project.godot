@@ -12,3 +12,4 @@ run/main_scene="res://scenes/overworld.tscn"
 [autoload]
 
 Canon="*res://scripts/canon.gd"
+GameState="*res://scripts/game_state.gd"
