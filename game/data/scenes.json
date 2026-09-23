@@ -114,9 +114,9 @@
     "chapter_id": "ch_p_macuil",
     "type": "post-battle",
     "speaker_ids": "u_avatar|npc_macuil",
-    "depends_on_flags": null,
+    "depends_on_flags": "flag_deaths",
     "depends_on_units": null,
-    "summary": "Macuil refuses to adjudicate anything the avatar asks him; the north wind winds regardless",
+    "summary": "Macuil offers both explanations for the terraces -- driven back by will, or rising on a schedule nobody is on -- and refuses to say which one is true; 'dark in some runs' (sects.sect_coast's own note) reads off flag_deaths: a costly run hears his silence as an indictment, a clean one hears it as genuine renunciation -- same words either way, per that sect's own doctrine that adjudication itself is the thing being refused",
     "status": "drafted",
     "word_count": "0"
   },

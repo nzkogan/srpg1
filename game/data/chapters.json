@@ -357,10 +357,10 @@
     "number": 90,
     "title": "The North Wind Winds",
     "map_id": "map_p_macuil",
-    "sect_id": null,
+    "sect_id": "sect_coast",
     "recruits_unit_ids": null,
-    "notes": "npcs.npc_macuil: 'hermit saint... the north wind winds; paralogue capstone; refuses to adjudicate.' act1=no, act2=no, act3=yes on that row -- confirms this is act3-only content, not misplaced.",
-    "tonal_register": "strange",
+    "notes": "npcs.npc_macuil: 'hermit saint... the north wind winds; paralogue capstone; refuses to adjudicate.' act1=no, act2=no, act3=yes on that row -- confirms this is act3-only content, not misplaced. sect_id RESOLVED to sect_coast (2026-09-23): regions.rgn_stepped_coast is explicitly claimed_by_sect_id=sect_coast, and its own texture ('three raised marine terraces, each a former shoreline, each with a ruined harbor at the wrong altitude'; sacred explanation 'the sea was driven back by an act of will' vs. material explanation 'the land rises on a schedule nobody is on', neither privileged) is a direct match for sect_coast's own doctrine ('renunciation; refuse to adjudicate') and for Macuil's own 'refuses to adjudicate' almost word for word. sects.sect_coast's own notes ('unreachable by writ; paralogue-only, dark in some runs') are why this is the ONLY paralogue for this sect -- act2_chapter_count=0 is deliberate (validation's own v11 check names the Stepped Coast as the one legal zero-chapter case). ch_p_indech was checked for the same connection and found to have none -- no region claimed_by sect_coast matches 'his lake, fisher cult', so its sect_id stays null; only Macuil's paralogue is sect_coast's.",
+    "tonal_register": "elegiac",
     "teaches_system": "a saint who will not judge"
   },
   {
@@ -373,7 +373,7 @@
     "map_id": "map_p_indech",
     "sect_id": null,
     "recruits_unit_ids": null,
-    "notes": "npcs.npc_indech: 'hermit saint... his lake, fisher cult; paralogue capstone.' Same act1=no/act2=no/act3=yes confirmation as ch_p_macuil.",
+    "notes": "npcs.npc_indech: 'hermit saint... his lake, fisher cult; paralogue capstone.' Same act1=no/act2=no/act3=yes confirmation as ch_p_macuil. CHECKED (2026-09-23) for a sect_coast connection while grounding ch_p_macuil -- found none. No region claimed_by sect_coast matches a lake/fisher cult (rgn_stepped_coast is coastal/tectonic, not a lake). sect_id stays null; this is a separate, still-ungrounded thread, not the same paralogue as Macuil's.",
     "tonal_register": "wondrous",
     "teaches_system": "a saint who will not judge"
   }

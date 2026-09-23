@@ -57,6 +57,6 @@
     "doctrine": "renunciation; refuse to adjudicate",
     "route": "both",
     "act2_chapter_count": "0",
-    "notes": "unreachable by writ; paralogue-only, dark in some runs"
+    "notes": "unreachable by writ; paralogue-only, dark in some runs ADDENDUM: ch_p_macuil / map_p_macuil is this sect's paralogue -- confirmed (2026-09-23) via regions.rgn_stepped_coast's claimed_by_sect_id and its texture matching this sect's own doctrine almost word for word. See that chapter's own note for the full reasoning."
   }
 ]

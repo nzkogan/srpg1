@@ -486,9 +486,9 @@
     "height": 12,
     "objective_verb": "seize",
     "turn_limit": 0,
-    "terrain": "wherever Macuil actually is -- 'the north wind winds' per his own npcs.notes",
+    "terrain": "the Stepped Coast: three raised marine terraces, each a former shoreline, with a ruined harbor stranded at the wrong altitude",
     "chapter_id": "ch_p_macuil",
-    "design_note": "SKELETON ONLY, and honestly thinner than the others -- npcs.npc_macuil gives almost no concrete detail beyond 'refuses to adjudicate.' objective_verb is a placeholder default (seize), not derived from anything; this paralogue's mechanics are unwritten, only its existence and tone are staked out here.",
+    "design_note": "Regrounded (2026-09-23) once rgn_stepped_coast's own texture was found -- see ch_p_macuil's own note for the full connection. Terrain rebuilt from the region's own scar text instead of the earlier placeholder plain ground. objective_verb stays a placeholder default (seize) -- nothing in npcs.npc_macuil or the region's own row states an objective, only atmosphere and a doctrine match.",
     "reuse_in_act3": "no",
     "reinforcement_source": "none",
     "den_capturable": "no",
@@ -497,7 +497,7 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "unclear -- placeholder|unclear -- placeholder"
+    "approaches": "the lower terrace (foot)|the upper terraces (riding blocked)"
   },
   {
     "map_id": "map_p_indech",
