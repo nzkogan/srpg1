@@ -9,5 +9,126 @@
     "summary": "the writ is read; the deputy is named; the auditor reveals himself",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_e31_ledger",
+    "chapter_id": "ch_e31",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": "flag_deaths",
+    "depends_on_units": "u_maren|u_kest",
+    "summary": "the avatar reviews what Act 1-2 choices bought and cost; ascension_signals' hidden telemetry (sig_defection_handling, sig_kest_restitution) starts reading here, invisibly",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_e32_sanctified",
+    "chapter_id": "ch_e32_sanctified",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "the deposed patrons fall; no one strikes down the Enlightened One himself; the avatar watches a true good ending still cost the plurality something",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_e32_perverse",
+    "chapter_id": "ch_e32_perverse",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "the avatar faces him directly; the Idol's shape is unmistakably the Hierophant's colossus too; victory reads as exposure, not martyrdom",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_h31_capture",
+    "chapter_id": "ch_h31",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|npc_methodios",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "the defense scenario ends in capture, not a kill; Methodios watches his claimant taken alive, and says nothing yet",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_h32_trial",
+    "chapter_id": "ch_h32",
+    "type": "narrative",
+    "speaker_ids": "u_avatar|npc_methodios",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "the Diadem convenes at Kaisareia; the avatar (or whoever holds the relevant commission) recommends sentence; SETS flag_hierophant_verdict (mercy | execution), forking to ch_h33_mercy or ch_h34_war1",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_h33_mercy_subterfuge",
+    "chapter_id": "ch_h33_mercy",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar|npc_methodios",
+    "depends_on_flags": "flag_hierophant_verdict",
+    "depends_on_units": null,
+    "summary": "Methodios reframes the capitulation as a hidden necessary descent, not a defeat; the movement goes to ground; a second battle is already forming",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_h34_war1",
+    "chapter_id": "ch_h34_war1",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": "flag_hierophant_verdict",
+    "depends_on_units": null,
+    "summary": "the first fractured region takes up arms; a former ally's banner now marks an enemy den",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_h34_war2",
+    "chapter_id": "ch_h34_war2",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": "flag_hierophant_verdict",
+    "depends_on_units": null,
+    "summary": "a second front opens; the avatar counts what the sentence chosen at Kaisareia is actually costing, region by region",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_h34_war3_reckoning",
+    "chapter_id": "ch_h34_war3",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|npc_methodios",
+    "depends_on_flags": "flag_hierophant_verdict",
+    "depends_on_units": null,
+    "summary": "the war's last field; Methodios names the killing a betrayal, not a verdict, and means it",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_macuil",
+    "chapter_id": "ch_p_macuil",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|npc_macuil",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Macuil refuses to adjudicate anything the avatar asks him; the north wind winds regardless",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_indech",
+    "chapter_id": "ch_p_indech",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|npc_indech",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Indech's fisher cult reads the lake for an answer it may not actually contain",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

@@ -316,6 +316,10 @@
     "value": "capture"
   },
   {
+    "category": "tonal_register",
+    "value": "solemn"
+  },
+  {
     "category": "art",
     "value": "none"
   },
@@ -324,11 +328,31 @@
     "value": "unseen_clear"
   },
   {
+    "category": "tonal_register",
+    "value": "tense"
+  },
+  {
     "category": "deed_category",
     "value": "chest"
   },
   {
+    "category": "tonal_register",
+    "value": "eerie"
+  },
+  {
+    "category": "tonal_register",
+    "value": "uneasy"
+  },
+  {
     "category": "route",
     "value": "Controlled vocabulary. Every enum-typed column in this workbook must draw from here. Add a value here first, then use it. Never invent one inline."
+  },
+  {
+    "category": "tonal_register",
+    "value": "ambivalent"
+  },
+  {
+    "category": "tonal_register",
+    "value": "strange"
   }
 ]

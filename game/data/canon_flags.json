@@ -5,5 +5,12 @@
     "allowed_values": "per-unit: alive | died_ch<N>_by_<killed_by_type>",
     "affects": "epilogue generation (see epilogue_generation tab), absence-as-content, Act 3 epithet-ledger callbacks",
     "severity": "blocking"
+  },
+  {
+    "flag_id": "flag_hierophant_verdict",
+    "question": "At the Kaisareia Trial (ch_h32), did the player recommend mercy or execution?",
+    "allowed_values": "mercy | execution",
+    "affects": "which chapter fires next: ch_h33_mercy (Subterfuge) vs. ch_h34_war1/2/3 (The War); endings.end_hierophant_mercy vs. end_hierophant_execution",
+    "severity": "blocking"
   }
 ]
