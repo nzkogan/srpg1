@@ -297,5 +297,44 @@
     "move_armor_wet": null,
     "hazard_dmg": 0,
     "notes": "map_b15.terrain: 'awnings block flight, arcade blocks bows' -- the flight block is modeled (blocks flying like ter_cloister does); the bow-block is an attack-range restriction, not a movement cost, and isn't modeled anywhere yet."
+  },
+  {
+    "terrain_id": "ter_hedgerow",
+    "symbol": "h",
+    "name": "hedgerow (map_d02)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 99,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "map_d02's own approaches: 'hedgerow foot path' vs 'open road (riding)' -- hedgerows block riding specifically (armor still passes), per the map's own terrain text 'hedgerows block riding.' Distinct from ter_narrow_street, which blocks both armor and riding."
+  },
+  {
+    "terrain_id": "ter_miasma",
+    "symbol": "m",
+    "name": "miasma (map_a01)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 2,
+    "notes": "map_a01.terrain: 'miasma tiles.' Toxic gas, so hazard applies to flying too (unlike map_a03's cold, this isn't a ground-only effect) -- same 2 HP/turn as ter_open_ward, reused rather than inventing a different number."
+  },
+  {
+    "terrain_id": "ter_ice",
+    "symbol": "n",
+    "name": "ice (map_a01)",
+    "move_infantry": 1,
+    "move_armor": 1,
+    "move_riding": 1,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 1,
+    "notes": "map_a01's approaches: 'the ice (risky, fast).' 'Fast' isn't modeled (cost is the same 1 as everything else here, nothing to contrast it against); 'risky' is simplified to a minor 1 HP/turn hazard, a stand-in for a real slip mechanic this pass doesn't build."
   }
 ]

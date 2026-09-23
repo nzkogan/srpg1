@@ -1,0 +1,18 @@
+# map_d05 -- The grain fleet   22 x 12
+# Reads top to bottom (row0 = top). Three lashed decks joined by gangways.
+#   . deck   c open water (flying only -- 'riding impossible, armor sinks')   a gangway
+# No objective tile -- 'survive' is turn_limit-based (see map_grid.gd's
+# generalized defend/survive check), not tied to a specific tile.
+
+cccccccccccccccccccccc
+cccccccccccccccccccccc
+c......c......c......c
+c......c......c......c
+c......c......c......c
+c......a......a......c
+c......c......c......c
+c......c......c......c
+c......c......c......c
+c......c......c......c
+cccccccccccccccccccccc
+cccccccccccccccccccccc

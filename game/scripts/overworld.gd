@@ -25,6 +25,9 @@ const AVAILABLE_SCENES := {
 	"map_d03": "res://scenes/map_d03.tscn",
 	"map_x11": "res://scenes/map_x11.tscn",
 	"map_b15": "res://scenes/map_b15.tscn",
+	"map_d02": "res://scenes/map_d02.tscn",
+	"map_a01": "res://scenes/map_a01.tscn",
+	"map_d05": "res://scenes/map_d05.tscn",
 }
 
 const ACT_RANK := {"prologue": 0, "1": 1, "2": 2, "3": 3, "paralogue": 9}

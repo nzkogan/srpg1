@@ -250,5 +250,113 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "See spn_b15_mook1."
+  },
+  {
+    "spawn_id": "spn_d02_den",
+    "map_id": "map_d02",
+    "kind": "den",
+    "enemy_id": "ea_conscript_levy",
+    "row": 5,
+    "col": 15,
+    "spawn_interval": 3,
+    "max_waves": 3,
+    "wave_size": 1,
+    "notes": "Interval/cap invented (map_d02's design_note describes flee-below-half-HP behavior, not a reinforcement cadence) -- 3 turns/3 waves, same default used elsewhere for an unstated den. ea_conscript_levy is ITS first_seen_map_id."
+  },
+  {
+    "spawn_id": "spn_d02_mook1",
+    "map_id": "map_d02",
+    "kind": "mook",
+    "enemy_id": "ea_conscript_levy",
+    "row": 2,
+    "col": 1,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_d02_den."
+  },
+  {
+    "spawn_id": "spn_d02_mook2",
+    "map_id": "map_d02",
+    "kind": "mook",
+    "enemy_id": "ea_conscript_levy",
+    "row": 9,
+    "col": 14,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_d02_den."
+  },
+  {
+    "spawn_id": "spn_a01_mook1",
+    "map_id": "map_a01",
+    "kind": "mook",
+    "enemy_id": "ea_looter",
+    "row": 5,
+    "col": 2,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "ea_looter's own first_seen_map_id is map_a01 -- 'looters kill them if unshielded' is this map's own design_note. No den (reinforcement_source=none)."
+  },
+  {
+    "spawn_id": "spn_a01_mook2",
+    "map_id": "map_a01",
+    "kind": "mook",
+    "enemy_id": "ea_looter",
+    "row": 5,
+    "col": 13,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_a01_mook1."
+  },
+  {
+    "spawn_id": "spn_d05_den_port",
+    "map_id": "map_d05",
+    "kind": "den",
+    "enemy_id": "ea_privateer",
+    "row": 2,
+    "col": 1,
+    "spawn_interval": 2,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "'Privateers board from the map edges... GRAPPLE LINES ARE THE DENS' (map_d05's own design_note) -- port-side den. Interval invented (2 turns), max_waves null (unlimited) since the note frames this as an ongoing voyage threat, not a one-off; turn_limit=10 caps total spawns naturally."
+  },
+  {
+    "spawn_id": "spn_d05_den_starboard",
+    "map_id": "map_d05",
+    "kind": "den",
+    "enemy_id": "ea_privateer",
+    "row": 2,
+    "col": 20,
+    "spawn_interval": 2,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Starboard-side den, same grounding as spn_d05_den_port -- 'the map edges' is plural."
+  },
+  {
+    "spawn_id": "spn_d05_mook1",
+    "map_id": "map_d05",
+    "kind": "mook",
+    "enemy_id": "ea_privateer",
+    "row": 3,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Already-boarded privateers, same archetype as the dens produce."
+  },
+  {
+    "spawn_id": "spn_d05_mook2",
+    "map_id": "map_d05",
+    "kind": "mook",
+    "enemy_id": "ea_privateer",
+    "row": 8,
+    "col": 17,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_d05_mook1."
   }
 ]

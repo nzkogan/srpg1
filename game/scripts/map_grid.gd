@@ -694,16 +694,19 @@ func _hazard_at(pos: Vector2i) -> int:
 	var terrain: Dictionary = terrain_by_symbol.get(symbol, {})
 	return int(terrain.get("hazard_dmg", 0))
 
-## map_a02's defend objective: surviving to turn_limit is a win. Defeating
-## the boss early also ends the threat and wins immediately (checked in
-## _attack_enemy instead, since that's when it can happen).
+## 'defend' (a02) and 'survive' (d05) share the same shape: reaching
+## turn_limit is a win. Defeating a boss early also ends the threat and
+## wins immediately for 'defend' maps (checked in _attack_enemy instead,
+## since that's when it can happen) -- d05 has no boss row, only mooks/dens,
+## so that early-win branch never fires there.
 func _check_defend_win() -> void:
-	if map_won or map_row.get("objective_verb") != "defend":
+	var verb: String = map_row.get("objective_verb", "")
+	if map_won or (verb != "defend" and verb != "survive"):
 		return
 	var limit := int(map_row.get("turn_limit", 0))
 	if limit > 0 and turn >= limit:
 		map_won = true
-		status_label.text = "SURVIVED. Turn %d reached -- the crowd is safe." % turn
+		status_label.text = "SURVIVED. Turn %d reached." % turn
 		info_label.text = "Victory."
 
 ## Attacking is deliberately not gated on real adjacency to the statue --
