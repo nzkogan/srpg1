@@ -34,6 +34,16 @@ const AVAILABLE_SCENES := {
 	"map_m21": "res://scenes/map_m21.tscn",
 	"map_m22": "res://scenes/map_m22.tscn",
 	"map_r16": "res://scenes/map_r16.tscn",
+	"map_e31": "res://scenes/map_e31.tscn",
+	"map_e32_sanctified": "res://scenes/map_e32_sanctified.tscn",
+	"map_e32_perverse": "res://scenes/map_e32_perverse.tscn",
+	"map_h31": "res://scenes/map_h31.tscn",
+	"map_h33_mercy": "res://scenes/map_h33_mercy.tscn",
+	"map_h34_war1": "res://scenes/map_h34_war1.tscn",
+	"map_h34_war2": "res://scenes/map_h34_war2.tscn",
+	"map_h34_war3": "res://scenes/map_h34_war3.tscn",
+	"map_p_macuil": "res://scenes/map_p_macuil.tscn",
+	"map_p_indech": "res://scenes/map_p_indech.tscn",
 }
 
 const ACT_RANK := {"prologue": 0, "1": 1, "2": 2, "3": 3, "paralogue": 9}

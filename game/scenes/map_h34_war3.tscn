@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/map_grid.gd" id="1"]
+
+[node name="MapH34War3" type="Node2D"]
+position = Vector2(48, 48)
+script = ExtResource("1")
+map_id = "map_h34_war3"
+deploy_unit_ids = Array[String](["u_jost", "u_ricberta", "u_emmerich", "u_sigrun", "u_waldrada", "u_tancred", "u_maren", "u_brandt", "u_torvald"])
+deploy_row = 14
+deploy_col_start = 1
+deploy_col_step = 2
+wet = false

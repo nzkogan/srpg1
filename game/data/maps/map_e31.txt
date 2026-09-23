@@ -1,0 +1,20 @@
+# map_e31 -- The Ledger Comes Due   22 x 16
+# Reads top to bottom (row0 = top).
+#   p counting floor (crowd)   d loading yard (riding)
+
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd
+pppppppppppddddddddddd

@@ -1,0 +1,19 @@
+# map_h34_war2 -- The War: Second Front   20 x 14
+# Reads top to bottom (row0 = top). Deliberately similar to map_h34_war1 --
+# grinding, near-identical fronts is the point of an attritional war arc.
+#   . front line (foot)   d flank road (riding)
+
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd

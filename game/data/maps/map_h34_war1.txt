@@ -1,0 +1,18 @@
+# map_h34_war1 -- The War: First Front   20 x 14
+# Reads top to bottom (row0 = top).
+#   . front line (foot)   d flank road (riding)
+
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
+............dddddddd
