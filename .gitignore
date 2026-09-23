@@ -10,6 +10,9 @@
 __pycache__/
 *.pyc
 
+# canon_validate.py scratch output -- regenerated on every run, not source
+violations.csv
+
 # OS
 .DS_Store
 Thumbs.db
