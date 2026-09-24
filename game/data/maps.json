@@ -518,5 +518,25 @@
     "forced_deploy_ids": null,
     "deploy_slots": 6,
     "approaches": "the shores (foot)|the ford, 3 tiles wide (foot only)|open water (flying only)"
+  },
+  {
+    "map_id": "map_p_shadhavar",
+    "title": "The Lowest Terrace",
+    "width": 16,
+    "height": 12,
+    "objective_verb": "seize",
+    "turn_limit": 0,
+    "terrain": "the lowest of the Stepped Coast's three raised marine terraces, at the waterline, with the higher terraces rising behind it and the open sea beyond",
+    "chapter_id": "ch_p_shadhavar",
+    "design_note": "New (2026-09-24). Grounded in locations.loc_lowest_terrace ('the Shadhavar; the song pulls the nearest enemy one tile a turn') and regions.rgn_stepped_coast's own scar ('three raised marine terraces, each a former shoreline, each with a ruined harbor at the wrong altitude') -- this is specifically the LOWEST of those three terraces, the one nearest the water, distinct from ch_p_indech's own site in the same region (a lake further out among the isles). Terrain: the upper terraces sit as a riding-blocked backdrop band, the lowest terrace itself is the open battlefield, the sea is the boundary beyond it. objective_verb='seize' is a placeholder default, same as every other paralogue map -- nothing in named.nmd_shadhavar or locations.loc_lowest_terrace states a win condition, only atmosphere. ea_shadhavar (enemy_archetypes) stands in for the creature itself, same pattern as ea_warlord standing in for Macuil and Indech's own capstone encounters -- the real pact/three-way-capture system and the song's always-on pull effect are NOT modeled in map_grid.gd, see this chapter's own note for the full scope flag.",
+    "reuse_in_act3": "no",
+    "reinforcement_source": "none",
+    "den_capturable": "no",
+    "min_solution_units": 2,
+    "boss_gated_until_turn": 0,
+    "boss_gate_reason": null,
+    "forced_deploy_ids": null,
+    "deploy_slots": 6,
+    "approaches": "the lowest terrace (foot, riding)|the upper terraces (riding blocked)|the sea (flying only)"
   }
 ]

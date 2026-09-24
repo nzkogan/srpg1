@@ -54,6 +54,7 @@ const AVAILABLE_SCENES := {
 	"map_h34_war3": "res://scenes/map_h34_war3.tscn",
 	"map_p_macuil": "res://scenes/map_p_macuil.tscn",
 	"map_p_indech": "res://scenes/map_p_indech.tscn",
+	"map_p_shadhavar": "res://scenes/map_p_shadhavar.tscn",
 }
 
 ## Chapters with no map_id at all get keyed by chapter_id instead.

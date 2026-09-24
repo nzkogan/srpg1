@@ -850,5 +850,17 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "npcs.npc_indech: 'paralogue capstone,' same treatment as map_p_macuil."
+  },
+  {
+    "spawn_id": "spn_pshadhavar_boss",
+    "map_id": "map_p_shadhavar",
+    "kind": "boss",
+    "enemy_id": "ea_shadhavar",
+    "row": 4,
+    "col": 9,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "locations.loc_lowest_terrace / named.nmd_shadhavar: the creature itself, placed mid-terrace, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_shadhavar.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss after that map's own correction."
   }
 ]

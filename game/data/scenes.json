@@ -130,5 +130,16 @@
     "summary": "Indech's fisher cult reads the lake for an answer it may not actually contain -- same refusal-to-adjudicate as Macuil (teaches_system's shared line), here through water instead of stone; 'dark in some runs' (sects.sect_coast's own note, now applying to both its paralogues) reads off flag_deaths the same way sc_p_macuil's summary does: a costly crossing of the ford reads the cult's silence as an indictment, a clean one reads it as genuine renunciation, same words either way.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_shadhavar",
+    "chapter_id": "ch_p_shadhavar",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "No hermit here to refuse an answer -- the Shadhavar doesn't judge, it lures, and named.nmd_shadhavar is explicit the lure is what it IS, not a performance: the song plays whether or not anyone is meant to hear it. The avatar reaches the lowest terrace already knowing capture is a category error for this one -- 'uncontrolled by design' (its own defection_trigger) means nothing here is actually decided by the player's approach, only witnessed.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

@@ -376,5 +376,19 @@
     "notes": "npcs.npc_indech: 'hermit saint... his lake, fisher cult; paralogue capstone.' Same act1=no/act2=no/act3=yes confirmation as ch_p_macuil. CORRECTED (2026-09-23): the first pass checking for a sect_coast connection only read the regions tab (one row per claimed region) and missed the finer-grained locations/polities/settlements tabs. locations.loc_hermit_lake ('The saint's lake', region_id=rgn_stepped_coast, 'a hermit who refuses to adjudicate; fisher cult around him') is Indech's lake almost verbatim. polities.pol_isles (also rgn_stepped_coast) independently confirms it: 'a hermit saint lives here and refuses to adjudicate anything.' settlements.set_pelagos (also rgn_stepped_coast): 'fisher commune; the saint lives on the next island and they feed him' -- Pelagos IS the fisher cult. CORRECTION 2 (2026-09-24): the earlier note here also claimed Macuil was sect_coast's paralogue too, in this same region -- that was wrong (see ch_p_macuil's own corrected note). locations.loc_hermit_lake itself names Indech 'a hermit', and the paired loc_north_wind row (region_id=rgn_drowned_march) names Macuil 'the second hermit' in a DIFFERENT region -- sect_coast's own paralogue set is Indech and the Shadhavar (locations.loc_lowest_terrace, same region), not Indech and Macuil. teaches_system's shared 'a saint who will not judge' with ch_p_macuil is still deliberate parallel structure across two different sects, not evidence they share one.",
     "tonal_register": "wondrous",
     "teaches_system": "a saint who will not judge"
+  },
+  {
+    "chapter_id": "ch_p_shadhavar",
+    "act": "paralogue",
+    "route": "both",
+    "column": "unified",
+    "number": 92,
+    "title": "The Lowest Terrace",
+    "map_id": "map_p_shadhavar",
+    "sect_id": "sect_coast",
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-24), sect_coast's third declared paralogue location -- found while auditing every locations row tagged chapters='P' after the ch_p_macuil correction (see that chapter's own note). locations.loc_lowest_terrace (region_id=rgn_stepped_coast, chapters='P', acts='paralogue', 'the Shadhavar; the song pulls the nearest enemy one tile a turn') and named.nmd_shadhavar (same region, pact_object='the song', terms='pacts through beauty; the lure is what it IS, not a trick it performs', signature_mechanic='every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off', notes='liability on escort maps, asset on defend maps') are the full grounding -- both independently point at rgn_stepped_coast, already confirmed claimed_by_sect_id=sect_coast. This completes sect_coast's declared paralogue set (Indech + the Shadhavar, per every locations row tagged chapters='P' with region_id=rgn_stepped_coast); Macuil is not part of it, see that chapter's own corrected note. IMPORTANT SCOPE NOTE: the real pact/capture system (named's own addendum: 'three-way capture: intact / harvest / kill', 'the Named know each other: kill one and the next will not be captured') and the Shadhavar's own always-on song-pull mechanic are NOT implemented in map_grid.gd -- this chapter is built to the same skeleton depth as every other map this session (real terrain, a reachable objective, a scene), not a claim that the capture system itself now exists. ea_shadhavar (enemy_archetypes) represents it as a reachable/fightable stand-in the same way ea_warlord stands in for Macuil and Indech's own capstone fights.",
+    "tonal_register": "eerie",
+    "teaches_system": "a pact that cannot be turned off"
   }
 ]

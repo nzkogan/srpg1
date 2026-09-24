@@ -207,5 +207,24 @@
     "res": 6,
     "behavior": "Commands the ea_relic_hunter squads that 'reinforce every 3 turns forever' per map_a03's own design note, and stands over the reliquary's 'take-or-give' objective. chapters.ch_a03.notes force- deploys u_torvald here specifically ('last of a plague-gutted order') -- tempting to tie the chapterhouse/reliquary to Torvald's own destroyed order, but nothing in canon.xlsx actually says that; flagging it as a possible thread worth writing toward, not asserting it as fact. u_anselm ('adrift monk; theology barometer') also joins this chapter, fitting a reliquary/sacred-relic objective generally, though again not explicitly tied to this fight by name anywhere. Name is invented, no naming_reference anchor -- a mercenary looter leader, not a Byzantine/Balkan historical figure, didn't force a fit. Reskin of the ea_war_captain miniboss-tier template, same bow art as his own relic hunters (differentiated by tier, not by art) -- one genuine step up from ea_preacher_boyan/a02, matching ch_a03 (chapter 3) being the harder escalation past ch_a02 (chapter 2).",
     "first_seen_map_id": "map_a03"
+  },
+  {
+    "enemy_id": "ea_shadhavar",
+    "name": "The Shadhavar",
+    "weapon_art": "reason",
+    "weapon_tier": "high",
+    "movement_type": "riding",
+    "tier": "paragon",
+    "level": 33,
+    "hp": 68,
+    "str": 14,
+    "mag": 20,
+    "dex": 18,
+    "spd": 24,
+    "lck": 12,
+    "def": 12,
+    "res": 18,
+    "behavior": "Represents named.nmd_shadhavar as a reachable/fightable stand-in for ch_p_shadhavar's capstone encounter -- same pattern as ea_warlord standing in for Macuil and Indech. named.nmd_shadhavar itself gives no stat block anywhere in canon.xlsx (none of the five Named do), so every number here is an invented placeholder pending real design, same caveat every other capstone row in this tab already carries. movement_type='riding' is an interpretive call (a large four-legged singing beast reads closer to cavalry-speed than foot or armor -- nothing in named.nmd_shadhavar states a movement type). weapon_art is a placeholder too: its actual 'attack' per named.nmd_shadhavar's own signature_mechanic is the always-on song-pull, not a weapon, and that pull effect is NOT implemented here or in map_grid.gd -- this row only lets the encounter exist as a normal fight, it does not model the Named's real mechanic. tier/level/hp set to capstone weight, matching ea_warlord's own bracket.",
+    "first_seen_map_id": "map_p_shadhavar"
   }
 ]
