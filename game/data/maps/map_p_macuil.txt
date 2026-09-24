@@ -1,18 +1,22 @@
 # map_p_macuil -- The North Wind Winds   16 x 12
-# Reads top to bottom (row0 = top). Regrounded from regions.rgn_stepped_coast's
-# own scar text: three raised marine terraces, each a former shoreline, with
-# a ruined harbor stranded at the wrong altitude on the middle one.
-#   . open ground / modern shore   T raised marine terrace (riding blocked)
-#   b the ruined harbor (impassable)
-
-TTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTT
+# Reads top to bottom (row0 = top). REGROUNDED AGAIN (2026-09-24): the prior
+# terrace terrain used rgn_stepped_coast, the wrong region (see chapters'
+# own corrected note). Rebuilt from rgn_drowned_march's actual scar/texture:
+# a rift valley that filled, a lake with a visible former shoreline, a bell
+# tower's tip breaking the surface in dry years, villages farming the old
+# shoreline. Mostly open farmland around a residual lake patch.
+#   . shoreline farmland (open ground)   c open water (flying only)
+#   x the bell tower's tip (impassable to ground; flying passes over --
+#     reusing ter_wall_face for its cost profile, not its "wall/temple" name)
+#   * seize tile (Macuil's spot, on dry ground at the new shoreline)
 ................
-TTTTTTTbbbTTTTTT
-TTTTTTTbbbTTTTTT
 ................
-TTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTT
+................
+......cccc......
+.....ccccc......
+.....ccxcc...*..
+.....ccccc......
+......cccc......
 ................
 ................
 ................

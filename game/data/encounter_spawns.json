@@ -833,11 +833,11 @@
     "kind": "boss",
     "enemy_id": "ea_warlord",
     "row": 5,
-    "col": 8,
+    "col": 12,
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "npcs.npc_macuil: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty -- everything else about this fight is genuinely unwritten, see this map's own design_note."
+    "notes": "npcs.npc_macuil: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty. Repositioned (2026-09-24) to row5/col12 -- dry shoreline ground at the map's new eastern shore, next to the regrounded seize tile, not in the lake patch the old row5/col8 coordinate now falls inside."
   },
   {
     "spawn_id": "spn_pindech_boss",

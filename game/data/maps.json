@@ -486,9 +486,9 @@
     "height": 12,
     "objective_verb": "seize",
     "turn_limit": 0,
-    "terrain": "the Stepped Coast: three raised marine terraces, each a former shoreline, with a ruined harbor stranded at the wrong altitude",
+    "terrain": "a drowned valley: farmland on the exposed old shoreline, a residual lake at the rift's low point with a bell tower's submerged tip still visible, villages worked the dry ground seasonally",
     "chapter_id": "ch_p_macuil",
-    "design_note": "Regrounded (2026-09-23) once rgn_stepped_coast's own texture was found -- see ch_p_macuil's own note for the full connection. Terrain rebuilt from the region's own scar text instead of the earlier placeholder plain ground. objective_verb stays a placeholder default (seize) -- nothing in npcs.npc_macuil or the region's own row states an objective, only atmosphere and a doctrine match.",
+    "design_note": "REGROUNDED AGAIN (2026-09-24): the 2026-09-23 pass rebuilt this terrain from rgn_stepped_coast's terrace scar text, which turned out to be the wrong region -- see chapters.ch_p_macuil's own corrected note. Terrain rebuilt a second time from rgn_drowned_march's actual scar ('a rift valley that filled; a lake with a visible former shoreline') and texture ('in dry years the top of a bell tower breaks the surface; villages sit on the new shoreline and farm the old one'): mostly open farmland (the exposed old shoreline, dry-year conditions) around a residual lake patch with the bell tower's tip as a landmark -- reusing ter_wall_face ('x') for the tip purely for its existing cost profile (impassable to ground, flying passes over), not for its 'wall/temple' name. objective_verb stays a placeholder default (seize) -- nothing in npcs.npc_macuil or the region's own row states an objective, only atmosphere and a doctrine match -- but this pass actually places a '*' seize tile in the grid, which the prior version never did (seize_pos would have resolved to map_grid.gd's not-found sentinel, making the old map's stated objective unreachable regardless of play). Seize tile sits on dry ground at the hermit's spot on the new shoreline, not in the water, so it's reachable on foot.",
     "reuse_in_act3": "no",
     "reinforcement_source": "none",
     "den_capturable": "no",
@@ -497,7 +497,7 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the lower terrace (foot)|the upper terraces (riding blocked)"
+    "approaches": "the shoreline farmland (foot)|the lake (flying only, ground blocked around the tower)"
   },
   {
     "map_id": "map_p_indech",

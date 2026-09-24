@@ -57,7 +57,7 @@
     "act2": "no",
     "act3": "yes",
     "canon_dependent": "no",
-    "notes": "the north wind winds; paralogue capstone; refuses to adjudicate sect_coast CONFIRMED (2026-09-23) as the sect whose paralogue this is, via regions.rgn_stepped_coast's claimed_by_sect_id and matching texture."
+    "notes": "the north wind winds; paralogue capstone; refuses to adjudicate sect_march CORRECTED (2026-09-24, reassigned from an earlier wrong sect_coast claim -- see ch_p_macuil's own note) as the sect whose paralogue this is, via locations.loc_north_wind (region_id=rgn_drowned_march, 'the second hermit; likewise refuses'), matching both this chapter's title and that region's own direction='north'."
   },
   {
     "npc_id": "npc_indech",

@@ -116,7 +116,7 @@
     "speaker_ids": "u_avatar|npc_macuil",
     "depends_on_flags": "flag_deaths",
     "depends_on_units": null,
-    "summary": "Macuil offers both explanations for the terraces -- driven back by will, or rising on a schedule nobody is on -- and refuses to say which one is true; 'dark in some runs' (sects.sect_coast's own note) reads off flag_deaths: a costly run hears his silence as an indictment, a clean one hears it as genuine renunciation -- same words either way, per that sect's own doctrine that adjudication itself is the thing being refused",
+    "summary": "Macuil offers both explanations for the drowned valley -- divine judgment on the old seat, or the ground simply dropping, per rgn_drowned_march's own explanation_sacred/explanation_material -- and refuses to say which one is true; 'the north wind winds' reads as much like weather passing over an unanswered question as it does a location. 'Dark in some runs' (this sect's own doctrine language, reused the way sc_p_indech's summary reuses it for sect_coast) reads off flag_deaths: a costly run hears his silence as an indictment, a clean one hears it as genuine refusal to judge -- same words either way, matching sect_march's own wild cosmology just as closely as the earlier, wrong-region draft matched sect_coast's renunciation -- Macuil's personal refusal to adjudicate isn't itself sect doctrine, so the device transfers regardless of which sect actually claims the ground he stands on.",
     "status": "drafted",
     "word_count": "0"
   },
