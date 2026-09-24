@@ -174,5 +174,16 @@
     "summary": "Visible from the moment you cross the edge -- 'a single figure legible at distance' (rgn_glass_flats' own texture) -- and no closer for it. named.nmd_anzu contracts with whoever can read the register, not whoever owns it or beats it; the avatar reaches the interior already unsure which of those the fight itself was ever supposed to prove.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_huma",
+    "chapter_id": "ch_p_huma",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Nothing lands. named.nmd_huma is explicit it never does -- 'cannot be owned, only flown under', and whatever unit its shadow crossed on the way east carries that the rest of the way, unasked and unrefusable. No fight for it, no pact, no register to sign -- sect_road's own doctrine ('the payment has already been made, on your behalf, and you were not consulted') describes the Huma's blessing as exactly as it describes their god's.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

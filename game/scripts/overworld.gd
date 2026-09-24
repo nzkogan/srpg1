@@ -58,6 +58,7 @@ const AVAILABLE_SCENES := {
 	"map_p_simurgh": "res://scenes/map_p_simurgh.tscn",
 	"map_p_karkadann": "res://scenes/map_p_karkadann.tscn",
 	"map_p_anzu": "res://scenes/map_p_anzu.tscn",
+	"map_p_huma": "res://scenes/map_p_huma.tscn",
 }
 
 ## Chapters with no map_id at all get keyed by chapter_id instead.

@@ -898,5 +898,29 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "locations.loc_flats_interior / named.nmd_anzu: the creature standing alone in the open flat, one tile east of the seize tile at row6/col9 (see game/data/maps/map_p_anzu.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session."
+  },
+  {
+    "spawn_id": "spn_phuma_mook1",
+    "map_id": "map_p_huma",
+    "kind": "mook",
+    "enemy_id": "ea_looter",
+    "row": 1,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "No named identity, same reuse as map_r16's own two looter mooks -- 'opportunists working the toll road', this time the open stretch rather than the toll-city itself. reinforcement_source=none, mooks only, no den."
+  },
+  {
+    "spawn_id": "spn_phuma_mook2",
+    "map_id": "map_p_huma",
+    "kind": "mook",
+    "enemy_id": "ea_looter",
+    "row": 5,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_phuma_mook1."
   }
 ]
