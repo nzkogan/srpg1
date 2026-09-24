@@ -245,5 +245,24 @@
     "res": 24,
     "behavior": "Represents named.nmd_simurgh as a reachable/fightable stand-in for ch_p_simurgh's capstone encounter, same pattern as ea_warlord/ea_shadhavar. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Skewed toward mag/res/lck over str/def -- 'foster-mother' and 'cleanses corruption' read as a protector, not a brawler, distinct from ea_shadhavar's more even spread. movement_type='flying' is a direct read of the Simurgh's own mythic register (a great bird), not an inference the way ea_shadhavar's 'riding' call had to be. weapon_art='faith' for the same reason -- 'cleanses corruption' is a healer's register, not a fighter's. Her real signature_mechanic (5 HP/turn to rider and adjacent allies) is NOT implemented here -- this row only lets the encounter exist as a normal fight, same scope limit as every other Named stand-in.",
     "first_seen_map_id": "map_p_simurgh"
+  },
+  {
+    "enemy_id": "ea_karkadann",
+    "name": "The Karkadann",
+    "weapon_art": "brawl",
+    "weapon_tier": "high",
+    "movement_type": "riding",
+    "tier": "paragon",
+    "level": 33,
+    "hp": 78,
+    "str": 24,
+    "mag": 6,
+    "dex": 14,
+    "spd": 18,
+    "lck": 12,
+    "def": 22,
+    "res": 10,
+    "behavior": "Represents named.nmd_karkadann as a reachable/fightable stand-in for ch_p_karkadann's capstone encounter, same pattern as the other three Named this session. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Unlike ea_shadhavar (mag-skewed) or ea_simurgh (mag/res-skewed healer profile), this one is str/def-heavy -- named.nmd_karkadann's own notes call it 'the plain one on purpose... straightforwardly good', a physical guardian rather than a mystic, and its signature_mechanic ('strong against mounted units; devastating charge that leaves it stuck one turn') reads as a heavy melee brawler. movement_type='riding' is a direct read (Karkadann is traditionally a horned charging beast, and its own mechanic explicitly involves a charge), the most confident of the four movement_type calls made for the Named so far. weapon_art='brawl' for the same reason -- it fights with its own body, not a weapon. The charge/anti-mounted bonus itself is NOT implemented.",
+    "first_seen_map_id": "map_p_karkadann"
   }
 ]

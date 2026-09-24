@@ -558,5 +558,25 @@
     "forced_deploy_ids": null,
     "deploy_slots": 6,
     "approaches": "the nest plateau (foot, riding)|the slopes (riding blocked)|the lake far below (flying only)"
+  },
+  {
+    "map_id": "map_p_karkadann",
+    "title": "The Dove Colony",
+    "width": 16,
+    "height": 12,
+    "objective_verb": "seize",
+    "turn_limit": 0,
+    "terrain": "the Ashland's volcanic ash field, miasma throughout, ringing a clear central clearing -- the dove colony the Karkadann guards",
+    "chapter_id": "ch_p_karkadann",
+    "design_note": "New (2026-09-24). Grounded in locations.loc_dove_colony and regions.rgn_ashland's own scar/texture ('a volcanic field; spectacular soil, bad air' / 'miasma tiles live here and stop being generic fog'). Terrain reuses ter_miasma ('m', hazard_dmg=2, all movement types affected including flying, per its own existing cost row) for the ash field blanketing the region, with a clear central clearing (the dove colony itself, safe ground) players must cross the hazard to reach, and a clean foothold at the deploy edge so the encounter doesn't start with damage already ticking. objective_verb='seize' is a placeholder default, same as every other paralogue map. ea_karkadann (enemy_archetypes) stands in for the creature as a fightable capstone, same pattern as the other three Named stand-ins this session -- its real charge mechanic (bonus vs mounted units, stuck one turn after) is NOT modeled in map_grid.gd, which has no type-effectiveness or stun-after-attack system.",
+    "reuse_in_act3": "no",
+    "reinforcement_source": "none",
+    "den_capturable": "no",
+    "min_solution_units": 2,
+    "boss_gated_until_turn": 0,
+    "boss_gate_reason": null,
+    "forced_deploy_ids": null,
+    "deploy_slots": 6,
+    "approaches": "the clearing (foot, riding, safe)|the ash field (all movement, 2 HP/turn hazard)"
   }
 ]

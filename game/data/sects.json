@@ -9,7 +9,7 @@
     "doctrine": "sacraments from complicit hands are void; the veneration must be re-made clean",
     "route": "diadem",
     "act2_chapter_count": "2",
-    "notes": "no talk conversations available on their seat map"
+    "notes": "no talk conversations available on their seat map ADDENDUM (2026-09-24): ch_p_karkadann / map_p_karkadann is this sect's paralogue -- locations.loc_dove_colony and named.nmd_karkadann, both region_id=rgn_ashland, already confirmed claimed_by_sect_id=sect_vashti. rgn_ashland's other paralogue-tagged location, loc_buried_works, is a separate, not-yet-built paralogue (records/complicit clerks, not a Named creature) -- this sect's declared paralogue set is not yet complete the way sect_coast's and sect_march's are."
   },
   {
     "sect_id": "sect_march",

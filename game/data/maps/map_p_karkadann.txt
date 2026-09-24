@@ -1,0 +1,19 @@
+# map_p_karkadann -- The Dove Colony   16 x 12
+# Reads top to bottom (row0 = top). Grounded in locations.loc_dove_colony
+# and regions.rgn_ashland's own scar/texture: a volcanic field, miasma
+# throughout, ringing the guarded clearing at its center. Deploy edge is
+# kept clear so the encounter doesn't start with hazard damage ticking.
+#   m ash field / miasma (hazard, all movement types)   . the clearing (safe)
+#   * seize tile (the colony's heart)
+mmmmmmmmmmmmmmmm
+mmmmmmmmmmmmmmmm
+mmmm........mmmm
+mmmm........mmmm
+mmmm....*...mmmm
+mmmm........mmmm
+mmmm........mmmm
+mmmmmmmmmmmmmmmm
+mmmmmmmmmmmmmmmm
+mmmmmmmmmmmmmmmm
+mmmmmmmmmmmmmmmm
+................

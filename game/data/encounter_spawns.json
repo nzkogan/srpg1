@@ -874,5 +874,17 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "locations.loc_simurgh_nest / named.nmd_simurgh: the creature at her nest, one tile east of the seize tile at row6/col8 (see game/data/maps/map_p_simurgh.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss and spn_pshadhavar_boss."
+  },
+  {
+    "spawn_id": "spn_pkarkadann_boss",
+    "map_id": "map_p_karkadann",
+    "kind": "boss",
+    "enemy_id": "ea_karkadann",
+    "row": 4,
+    "col": 9,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "locations.loc_dove_colony / named.nmd_karkadann: the creature guarding the clearing's center, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_karkadann.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session."
   }
 ]

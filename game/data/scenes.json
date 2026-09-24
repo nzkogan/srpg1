@@ -152,5 +152,16 @@
     "summary": "The feather is not here to be picked up -- named.nmd_simurgh is explicit she 'answers whoever holds the feather', past tense already decided, and nothing in this chapter's own grounding gives the avatar one. She watches from the nest and does not descend; 'cleanses corruption... will not do it on request' reads as the same shape of refusal sect_march's own hermit gives two ridges over, gentler in tone but just as final.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_karkadann",
+    "chapter_id": "ch_p_karkadann",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "No feather, no fisher cult, no refusal to judge -- the Karkadann's terms are the simplest of the Named's: it guards the doves, and nothing it has not decided to protect matters to it either way. named.nmd_karkadann's own notes call it 'the plain one on purpose', and the avatar leaves the clearing without a riddle to carry, just the doves, still there, still guarded, whether or not that was ever in question.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]
