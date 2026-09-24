@@ -886,5 +886,17 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "locations.loc_dove_colony / named.nmd_karkadann: the creature guarding the clearing's center, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_karkadann.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session."
+  },
+  {
+    "spawn_id": "spn_panzu_boss",
+    "map_id": "map_p_anzu",
+    "kind": "boss",
+    "enemy_id": "ea_anzu",
+    "row": 6,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "locations.loc_flats_interior / named.nmd_anzu: the creature standing alone in the open flat, one tile east of the seize tile at row6/col9 (see game/data/maps/map_p_anzu.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session."
   }
 ]

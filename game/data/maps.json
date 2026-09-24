@@ -578,5 +578,25 @@
     "forced_deploy_ids": null,
     "deploy_slots": 6,
     "approaches": "the clearing (foot, riding, safe)|the ash field (all movement, 2 HP/turn hazard)"
+  },
+  {
+    "map_id": "map_p_anzu",
+    "title": "The Interior of the Flats",
+    "width": 18,
+    "height": 12,
+    "objective_verb": "seize",
+    "turn_limit": 0,
+    "terrain": "the Glass Flats' interior: fused, straight-edged, featureless ground under a white sky -- open sightlines in every direction, nothing to break them",
+    "chapter_id": "ch_p_anzu",
+    "design_note": "New (2026-09-24). Grounded in locations.loc_flats_interior and regions.rgn_glass_flats's own scar/texture ('fused ground, straight-edged, unmistakably made; nothing grows' / 'white sky, hard noon light, mineral color, a single figure legible at distance. Beautiful, not gothic'). Terrain deliberately reuses only ter_court ('.', plain cost-1 ground) throughout -- no new symbol, no hazard, on purpose: 'nothing grows' and 'a single figure legible at distance' both describe a stark, empty, sightline-open flat, the first paralogue map this session without any terrain variation at all. That emptiness is the grounded choice, not a placeholder shortcut. objective_verb='seize' stays the same reviewed placeholder as every paralogue map (see chapters.ch_p_anzu's own note for why sect_road's real 'purchase' precedent was considered and rejected here). ea_anzu (enemy_archetypes) stands in for the creature as a fightable capstone -- its real weapon-degrading touch and the literacy-contract system are NOT modeled in map_grid.gd.",
+    "reuse_in_act3": "no",
+    "reinforcement_source": "none",
+    "den_capturable": "no",
+    "min_solution_units": 2,
+    "boss_gated_until_turn": 0,
+    "boss_gate_reason": null,
+    "forced_deploy_ids": null,
+    "deploy_slots": 6,
+    "approaches": "the open flat (all movement, no cover, no chokepoints)"
   }
 ]

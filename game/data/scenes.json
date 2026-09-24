@@ -163,5 +163,16 @@
     "summary": "No feather, no fisher cult, no refusal to judge -- the Karkadann's terms are the simplest of the Named's: it guards the doves, and nothing it has not decided to protect matters to it either way. named.nmd_karkadann's own notes call it 'the plain one on purpose', and the avatar leaves the clearing without a riddle to carry, just the doves, still there, still guarded, whether or not that was ever in question.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_anzu",
+    "chapter_id": "ch_p_anzu",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Visible from the moment you cross the edge -- 'a single figure legible at distance' (rgn_glass_flats' own texture) -- and no closer for it. named.nmd_anzu contracts with whoever can read the register, not whoever owns it or beats it; the avatar reaches the interior already unsure which of those the fight itself was ever supposed to prove.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

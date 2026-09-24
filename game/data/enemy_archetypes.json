@@ -264,5 +264,24 @@
     "res": 10,
     "behavior": "Represents named.nmd_karkadann as a reachable/fightable stand-in for ch_p_karkadann's capstone encounter, same pattern as the other three Named this session. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Unlike ea_shadhavar (mag-skewed) or ea_simurgh (mag/res-skewed healer profile), this one is str/def-heavy -- named.nmd_karkadann's own notes call it 'the plain one on purpose... straightforwardly good', a physical guardian rather than a mystic, and its signature_mechanic ('strong against mounted units; devastating charge that leaves it stuck one turn') reads as a heavy melee brawler. movement_type='riding' is a direct read (Karkadann is traditionally a horned charging beast, and its own mechanic explicitly involves a charge), the most confident of the four movement_type calls made for the Named so far. weapon_art='brawl' for the same reason -- it fights with its own body, not a weapon. The charge/anti-mounted bonus itself is NOT implemented.",
     "first_seen_map_id": "map_p_karkadann"
+  },
+  {
+    "enemy_id": "ea_anzu",
+    "name": "The Anzu",
+    "weapon_art": "bow",
+    "weapon_tier": "high",
+    "movement_type": "flying",
+    "tier": "paragon",
+    "level": 33,
+    "hp": 70,
+    "str": 12,
+    "mag": 22,
+    "dex": 22,
+    "spd": 20,
+    "lck": 14,
+    "def": 14,
+    "res": 20,
+    "behavior": "Represents named.nmd_anzu as a reachable/fightable stand-in for ch_p_anzu's capstone encounter, same pattern as the other four Named this session. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Skewed toward mag/dex/res over str -- named.nmd_anzu's whole identity is intellectual ('contracts with whoever can READ the register', 'hidden-literacy thread'), not physical, distinct from ea_karkadann's brawler profile. weapon_art='bow' is the most literally grounded of the five Named calls -- its own signature_mechanic explicitly says 'arrows come apart'. movement_type='flying' reads off the Anzu's traditional lion-eagle register and the region's own 'single figure legible at distance' texture (something seen from far off across an open flat). The weapon-degrading touch itself is NOT implemented -- this row only lets the encounter exist as a normal fight.",
+    "first_seen_map_id": "map_p_anzu"
   }
 ]
