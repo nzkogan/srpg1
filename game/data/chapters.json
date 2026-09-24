@@ -390,5 +390,19 @@
     "notes": "New (2026-09-24), sect_coast's third declared paralogue location -- found while auditing every locations row tagged chapters='P' after the ch_p_macuil correction (see that chapter's own note). locations.loc_lowest_terrace (region_id=rgn_stepped_coast, chapters='P', acts='paralogue', 'the Shadhavar; the song pulls the nearest enemy one tile a turn') and named.nmd_shadhavar (same region, pact_object='the song', terms='pacts through beauty; the lure is what it IS, not a trick it performs', signature_mechanic='every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off', notes='liability on escort maps, asset on defend maps') are the full grounding -- both independently point at rgn_stepped_coast, already confirmed claimed_by_sect_id=sect_coast. This completes sect_coast's declared paralogue set (Indech + the Shadhavar, per every locations row tagged chapters='P' with region_id=rgn_stepped_coast); Macuil is not part of it, see that chapter's own corrected note. IMPORTANT SCOPE NOTE: the real pact/capture system (named's own addendum: 'three-way capture: intact / harvest / kill', 'the Named know each other: kill one and the next will not be captured') and the Shadhavar's own always-on song-pull mechanic are NOT implemented in map_grid.gd -- this chapter is built to the same skeleton depth as every other map this session (real terrain, a reachable objective, a scene), not a claim that the capture system itself now exists. ea_shadhavar (enemy_archetypes) represents it as a reachable/fightable stand-in the same way ea_warlord stands in for Macuil and Indech's own capstone fights.",
     "tonal_register": "eerie",
     "teaches_system": "a pact that cannot be turned off"
+  },
+  {
+    "chapter_id": "ch_p_simurgh",
+    "act": "paralogue",
+    "route": "both",
+    "column": "unified",
+    "number": 93,
+    "title": "The Mountain Above the Lake",
+    "map_id": "map_p_simurgh",
+    "sect_id": "sect_march",
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-24). sect_march's second declared paralogue, found the same way ch_p_shadhavar was: auditing every locations row tagged chapters='P'. locations.loc_simurgh_nest (region_id=rgn_drowned_march, 'The mountain above the lake', 'the Simurgh; a foster-mother who answers whoever holds the feather') and named.nmd_simurgh (same region -- pact_object='the feather', terms='answers whoever holds the feather, and answers anyone who holds it', signature_mechanic='5 HP/turn to rider and adjacent allies (flat, not percentage)', notes='cleanses corruption; the only thing that can strip a pact without a Pardoner, and will not do it on request'). Both independently point at rgn_drowned_march, already confirmed claimed_by_sect_id=sect_march via ch_p_macuil's own corrected note. This gives sect_march two declared paralogues (loc_north_wind/Macuil, loc_simurgh_nest/the Simurgh) against rgn_drowned_march's own locations rows -- no third one tagged chapters='P' exists for this region or rgn_the_shoulder (sect_march's other claimed region), so this completes sect_march's set the same way ch_p_shadhavar completed sect_coast's. SCOPE NOTE, same as every other named-creature paralogue this session: the real pact system (whoever holds the feather commands her, defects instantly on the feather changing hands, cleanses corruption 'will not do it on request') and the flat 5 HP/turn aura are NOT implemented in map_grid.gd -- this is a reachable/fightable skeleton encounter only, same honesty flag as ea_shadhavar's own row. The Simurgh reads as notably less adversarial than the Shadhavar or the Karkadann (nothing in named.nmd_simurgh suggests she attacks on sight) -- representing her as encounter_spawns kind='boss' is a bigger tonal stretch here than anywhere else this pattern has been used, flagged plainly rather than smoothed over.",
+    "tonal_register": "ambivalent",
+    "teaches_system": "help you cannot simply ask for"
   }
 ]

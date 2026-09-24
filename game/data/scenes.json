@@ -141,5 +141,16 @@
     "summary": "No hermit here to refuse an answer -- the Shadhavar doesn't judge, it lures, and named.nmd_shadhavar is explicit the lure is what it IS, not a performance: the song plays whether or not anyone is meant to hear it. The avatar reaches the lowest terrace already knowing capture is a category error for this one -- 'uncontrolled by design' (its own defection_trigger) means nothing here is actually decided by the player's approach, only witnessed.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_p_simurgh",
+    "chapter_id": "ch_p_simurgh",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The feather is not here to be picked up -- named.nmd_simurgh is explicit she 'answers whoever holds the feather', past tense already decided, and nothing in this chapter's own grounding gives the avatar one. She watches from the nest and does not descend; 'cleanses corruption... will not do it on request' reads as the same shape of refusal sect_march's own hermit gives two ridges over, gentler in tone but just as final.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

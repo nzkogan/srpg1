@@ -538,5 +538,25 @@
     "forced_deploy_ids": null,
     "deploy_slots": 6,
     "approaches": "the lowest terrace (foot, riding)|the upper terraces (riding blocked)|the sea (flying only)"
+  },
+  {
+    "map_id": "map_p_simurgh",
+    "title": "The Mountain Above the Lake",
+    "width": 16,
+    "height": 14,
+    "objective_verb": "seize",
+    "turn_limit": 0,
+    "terrain": "a mountain rising above rgn_drowned_march's drowned lake, slopes ringing a nest plateau, the lake visible far below",
+    "chapter_id": "ch_p_simurgh",
+    "design_note": "New (2026-09-24). Grounded in locations.loc_simurgh_nest ('The mountain above the lake') and regions.rgn_drowned_march's own scar/texture -- the same lake ch_p_macuil's regrounded terrain sits beside, seen this time from the mountain above it rather than the drowned shoreline itself. Terrain: mountain slopes (riding blocked) ringing an open plateau where the nest sits, with the lake visible far below as a flying-only boundary. objective_verb='seize' is a placeholder default, same as every other paralogue map -- nothing in named.nmd_simurgh or locations.loc_simurgh_nest states a win condition. ea_simurgh (enemy_archetypes) stands in for the creature as a fightable capstone, same pattern as ea_warlord/ea_shadhavar -- but flagged more strongly here than elsewhere: named.nmd_simurgh reads as protective and benevolent ('foster-mother', 'cleanses corruption'), not adversarial, so treating her as a hostile boss spawn is a bigger simplification than for the Shadhavar or Macuil's own capstone fight. The real pact/feather system and her 5 HP/turn aura are NOT modeled in map_grid.gd.",
+    "reuse_in_act3": "no",
+    "reinforcement_source": "none",
+    "den_capturable": "no",
+    "min_solution_units": 2,
+    "boss_gated_until_turn": 0,
+    "boss_gate_reason": null,
+    "forced_deploy_ids": null,
+    "deploy_slots": 6,
+    "approaches": "the nest plateau (foot, riding)|the slopes (riding blocked)|the lake far below (flying only)"
   }
 ]

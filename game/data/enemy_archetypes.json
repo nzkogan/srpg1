@@ -226,5 +226,24 @@
     "res": 18,
     "behavior": "Represents named.nmd_shadhavar as a reachable/fightable stand-in for ch_p_shadhavar's capstone encounter -- same pattern as ea_warlord standing in for Macuil and Indech. named.nmd_shadhavar itself gives no stat block anywhere in canon.xlsx (none of the five Named do), so every number here is an invented placeholder pending real design, same caveat every other capstone row in this tab already carries. movement_type='riding' is an interpretive call (a large four-legged singing beast reads closer to cavalry-speed than foot or armor -- nothing in named.nmd_shadhavar states a movement type). weapon_art is a placeholder too: its actual 'attack' per named.nmd_shadhavar's own signature_mechanic is the always-on song-pull, not a weapon, and that pull effect is NOT implemented here or in map_grid.gd -- this row only lets the encounter exist as a normal fight, it does not model the Named's real mechanic. tier/level/hp set to capstone weight, matching ea_warlord's own bracket.",
     "first_seen_map_id": "map_p_shadhavar"
+  },
+  {
+    "enemy_id": "ea_simurgh",
+    "name": "The Simurgh",
+    "weapon_art": "faith",
+    "weapon_tier": "high",
+    "movement_type": "flying",
+    "tier": "paragon",
+    "level": 33,
+    "hp": 72,
+    "str": 10,
+    "mag": 24,
+    "dex": 16,
+    "spd": 22,
+    "lck": 18,
+    "def": 10,
+    "res": 24,
+    "behavior": "Represents named.nmd_simurgh as a reachable/fightable stand-in for ch_p_simurgh's capstone encounter, same pattern as ea_warlord/ea_shadhavar. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Skewed toward mag/res/lck over str/def -- 'foster-mother' and 'cleanses corruption' read as a protector, not a brawler, distinct from ea_shadhavar's more even spread. movement_type='flying' is a direct read of the Simurgh's own mythic register (a great bird), not an inference the way ea_shadhavar's 'riding' call had to be. weapon_art='faith' for the same reason -- 'cleanses corruption' is a healer's register, not a fighter's. Her real signature_mechanic (5 HP/turn to rider and adjacent allies) is NOT implemented here -- this row only lets the encounter exist as a normal fight, same scope limit as every other Named stand-in.",
+    "first_seen_map_id": "map_p_simurgh"
   }
 ]

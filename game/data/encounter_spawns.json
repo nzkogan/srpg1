@@ -862,5 +862,17 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "locations.loc_lowest_terrace / named.nmd_shadhavar: the creature itself, placed mid-terrace, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_shadhavar.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss after that map's own correction."
+  },
+  {
+    "spawn_id": "spn_psimurgh_boss",
+    "map_id": "map_p_simurgh",
+    "kind": "boss",
+    "enemy_id": "ea_simurgh",
+    "row": 6,
+    "col": 9,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "locations.loc_simurgh_nest / named.nmd_simurgh: the creature at her nest, one tile east of the seize tile at row6/col8 (see game/data/maps/map_p_simurgh.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss and spn_pshadhavar_boss."
   }
 ]
