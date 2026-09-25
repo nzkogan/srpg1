@@ -14,6 +14,27 @@ class_name Combat
 ## stated lineage, "mechanically descended from Fire Emblem," per
 ## PROJECT_HANDOFF.md), not sourced numbers. Revisit freely.
 ##
+## TRIANGLE_HIT_BONUS/TRIANGLE_DAMAGE_BONUS calibrated 2026-09-25:
+## simulated triangle_modifier against every real weapon (game/data/
+## weapons.json) x unit_base_stats.json x enemy_archetypes.json matchup
+## across all four tiers (commoner/trained/order/paragon), then confirmed
+## the headline figures by actually calling this script's own functions
+## in a headless Godot run (a first Python replica was off by 1 on a .5
+## case -- GDScript's round() rounds half away from zero, Python's rounds
+## half to even -- so these numbers are the verified in-engine output,
+## not the Python estimate). 15 hit moves a near-certain hit (81 vs 96%,
+## disadvantage) or a real-but-clear favorite (77 vs 62%, advantage)
+## without ever forcing a hard 0/100 by itself; 1 damage is a real but
+## modest swing against typical mid-game hit damage (5-9 in these same
+## matchups). Left both values unchanged -- they already produce
+## sensible, non-degenerate outcomes against the actual content, not
+## just in the abstract. Adjacent finding, NOT addressed here (out of
+## scope for the triangle specifically): crit is close to nonfunctional
+## game-wide -- every one of the 28 weapons has crit=0, so crit_chance is
+## pure dex/2 - defender_lck, which clears zero in only 52 of 270 real
+## attacker/defender combos this session tested, usually by 1-4%. That's
+## a crit-formula/weapon-data calibration question, a separate pass.
+##
 ## Stat dicts use growths.gd's own column names (str, mag, dex, spd, lck,
 ## def, res) so they'll drop in directly once real current-stat generation
 ## exists, plus a weapon_art key (the DEFENDER's own equipped weapon's art,
