@@ -196,5 +196,71 @@
     "summary": "The shrine above was re-consecrated years ago -- 'complicit hands scrubbed from its stones' (map_v21's own note) -- and none of that touched what's down here. sect_vashti's own doctrine says a sacrament from complicit hands is void until re-made clean; the records in this room were never a sacrament, never re-made, and never once addressed by the reconsecration built directly over them. The avatar leaves with paper, not absolution -- those were always two different things, whatever the shrine upstairs implied.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_d04",
+    "chapter_id": "ch_d04",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Grain hits the quay under a crowd's own noise, and it's the opportunists working that noise, not the crowd itself, that the avatar's people end up fighting. The Diadem calls it protest management; the dockworkers call it Thursday.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_d06",
+    "chapter_id": "ch_d06",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Anthe's harbour sits two levels below the town and dry -- the same stranded-water scar that runs the length of this coast, here just a port trying to keep working above it.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_d07",
+    "chapter_id": "ch_d07",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The renunciants who live in this ruin don't fight and don't explain themselves either; the avatar's people clear scavengers off the middle terrace and leave them exactly as unbothered as they found them.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_d08",
+    "chapter_id": "ch_d08",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Nothing to hide behind and nowhere it would matter -- the dry country doesn't punish bad positioning so much as make the question irrelevant. Whoever moves faster decides the terms.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_d09",
+    "chapter_id": "ch_d09",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The road narrows where the lava fanned out and never fully cooled into anything wider than one cart. Local levies hold the narrows less because they can win there than because it's the only place worth holding at all.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_d10",
+    "chapter_id": "ch_d10",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The gate doesn't open and nobody inside answers a question -- sect_vashti's own seat living up to sects.sect_vashti's own note almost a decade before ch_v21 confirms it in writing: no talk conversations available on their seat map, Act 1 included.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

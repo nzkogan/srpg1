@@ -1,0 +1,16 @@
+# map_d04 -- Thessala Harbour   16 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_thessala:
+# grain bought abroad, unloaded under protest. Defend the unloading for
+# 8 turns or defeat the looter boss early.
+#   . the quay (open ground)   k warehouse sheds (blocks flying)
+#   c open water at the harbour edge (flying only)
+..............cc
+..............cc
+.....kkkk.....cc
+.....kkkk.....cc
+..............cc
+..............cc
+..............cc
+.....kkkk.....cc
+.....kkkk.....cc
+..............cc

@@ -1,0 +1,18 @@
+# map_d10 -- Vashti Gate   16 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_vashti_gate's
+# Act1 occurrence: the occupied seat, the Unstained will not talk to you.
+# Diadem's Act1 finale -- breach the gate. See chapters.ch_d10's own note
+# on how this relates to ch_v21, the same location's Act2 return.
+#   m ash-field approach (hazard, all movement types)   . open ground
+#   x the wall (impassable to ground, flying passes)
+#   * seize tile (the gate breach)
+mmmmmmm.......xx
+mmmmmmm.......xx
+mmmmmmm.......xx
+mmmmmmm.......xx
+mmmmmmm........*
+mmmmmmm.........
+mmmmmmm.......xx
+mmmmmmm.......xx
+mmmmmmm.......xx
+mmmmmmm.......xx

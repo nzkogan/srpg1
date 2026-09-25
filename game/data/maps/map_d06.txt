@@ -1,0 +1,21 @@
+# map_d06 -- Anthe, on the Terraces   16 x 12
+# Reads top to bottom (row0 = top). Grounded directly in
+# regions.rgn_stepped_coast's own scar text -- three raised marine
+# terraces, a ruined harbour stranded at the wrong altitude. See
+# chapters.ch_d06's own note on why this, not ch_p_macuil, is this
+# terrain's rightful home.
+#   T raised marine terrace (riding blocked)   . open ground
+#   b the stranded harbour ruin (impassable, blocks flying too)
+#   * seize tile (the harbour master's post, beside the ruin)
+TTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTT
+................
+......bbb..*....
+......bbb.......
+................
+TTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTT

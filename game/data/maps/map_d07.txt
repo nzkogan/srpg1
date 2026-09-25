@@ -1,0 +1,18 @@
+# map_d07 -- The Stranded Harbour   14 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_stranded_
+# harbour: a ruin on the middle terrace where sect_coast's renunciants
+# live -- flavor, not combatants. The fight is scavengers picking through
+# the ruin. Same region/vocabulary as map_d06, not copy-pasted from it.
+#   T raised marine terrace (riding blocked)   . open ground
+#   b the ruin (impassable, blocks flying too)
+#   * seize tile (the scavengers' cache, beside the ruin)
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+..............
+.....bbbb.*...
+.....bbbb.....
+..............
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
+TTTTTTTTTTTTTT
