@@ -642,5 +642,33 @@
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_vetch_chapel's Act1 occurrence (chapters='10, 12, 28', this is the '10'; region_id=rgn_drowned_march, 'the court sect at home; obedience belongs to the throne'). sects.sect_court's own seat is 'Kaisareia / Vetch' -- direct match. This location's chapter-12 occurrence is already built as ch_c21 'The Vetch Reunion' (Act2, sect_id=sect_court, 'ambushes at reunion' per that sect's own notes) -- same diadem/assembly pairing already established for ch_d10/ch_v21: this is assembly's Act1 finale, the first arrival, sect_id=None like the rest of Act1, not the sect-attributed Act2 return. VALIDATOR NOTE (2026-09-25): c09 now flags 3 consecutive 'seize' chapters on route='assembly' (ch_a08/a09/a10), and c15 flags a 6-chapter gap since the last warm/wondrous one reaching ch_a08. Same review already applied to the diadem batch: none of these locations' own text stated a non-seize objective or a warm/wondrous register, so both are left as-is rather than forcing unearned variety.",
     "tonal_register": "grim",
     "teaches_system": "a loyalist home front, first contact"
+  },
+  {
+    "chapter_id": "ch_k21",
+    "act": "3",
+    "route": "both",
+    "column": "unified",
+    "number": 21,
+    "title": "Kaisareia, the Granary District",
+    "map_id": "map_k21",
+    "sect_id": "sect_court",
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-25). Act3 gap audit: cross-referencing every locations row with acts containing '3' against the chapters tab found that most of them are Act1/2 locations REUSED in Act3 (chapters columns like '1, 26' or '18, 29') -- covered by maps.reuse_in_act3='yes' already set on 12 existing maps, and by the maps tab's own note ('Act 3 embeds reuse_in_act3 tilemaps into larger battlefields'), not a content gap. locations.loc_kaisareia_walls is the one genuine exception: acts='3' ONLY (chapters='21, 22'), no Act1/2 precedent -- 'Kaisareia, the granary district', 'the capital as a battlefield; the synod's colossus is fed from here'. This is chapter 21, the first of loc_kaisareia_walls' two entries. sect_id=sect_court, grounded in three independent facts: regions.rgn_center's own claimed_by_sect_id=sect_court; sects.sect_court's own notes call it explicitly the 'home-front thread'; and 'the capital as a battlefield' is that home front literally becoming one. 'The synod' reads as sect_court's own governing body -- 'synod' is an ecclesiastical council term, and sect_court is 'the school / the chapel', a clerical order -- though canon.xlsx never states this outright, flagged as an interpretive read, not a cited fact. objective_verb='defend' (turn_limit=10, matching map_e31's own Act3 defend precedent) -- holding the capital's own supply district against attackers.",
+    "tonal_register": "tense",
+    "teaches_system": "a home front, not a frontier"
+  },
+  {
+    "chapter_id": "ch_k22",
+    "act": "3",
+    "route": "both",
+    "column": "unified",
+    "number": 22,
+    "title": "What Feeds the Colossus",
+    "map_id": "map_k22",
+    "sect_id": "sect_court",
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-25). Act3 gap audit: cross-referencing every locations row with acts containing '3' against the chapters tab found that most of them are Act1/2 locations REUSED in Act3 (chapters columns like '1, 26' or '18, 29') -- covered by maps.reuse_in_act3='yes' already set on 12 existing maps, and by the maps tab's own note ('Act 3 embeds reuse_in_act3 tilemaps into larger battlefields'), not a content gap. locations.loc_kaisareia_walls is the one genuine exception: acts='3' ONLY (chapters='21, 22'), no Act1/2 precedent -- 'Kaisareia, the granary district', 'the capital as a battlefield; the synod's colossus is fed from here'. Chapter 22, the second and closing entry -- the district now embattled, the fight reaching what the location's own text calls 'the synod's colossus'. THEMATIC CROSS-REFERENCE, not resolved here: maps.map_e32_perverse (sect_road's end_perverse terminal) already names its own boss 'the colossus' ('assembled from what was taken -- a false godhood given a body'), and scenes.sc_e32_perverse calls the Idol's shape 'unmistakably the Hierophant's colossus too' -- three sects (sect_road's Idol, sect_march's Hierophant, and now sect_court's synod) each apparently building their own 'false godhood'. Whether these are the same colossus, echoes of one motif, or genuinely separate objects is NOT stated anywhere in canon.xlsx and is not decided here -- this chapter's own colossus (ter_statue reused for it, 'S', in map_k22.txt) is built as its own local landmark, not a claimed identity with the other two. objective_verb='seize' -- reach and secure what feeds it. VALIDATOR NOTE (2026-09-25): inserting ch_k21/ch_k22 between the existing Act2/Act3 numbering pushed c15's warm/wondrous-gap count further on every downstream Act3 chapter (ch_e32_sanctified/perverse, ch_h32-h34, ch_p_macuil). Reviewed, not fixed: neither ch_k21 ('tense') nor ch_k22 ('eerie') grounds to a warm or wondrous register on its own terms -- a home front under attack and a false-godhood reveal aren't warm material -- same call already made for every other tonal-pacing finding this session.",
+    "tonal_register": "eerie",
+    "teaches_system": "what a false godhood is actually made of"
   }
 ]

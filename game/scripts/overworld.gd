@@ -60,6 +60,8 @@ const AVAILABLE_SCENES := {
 	"map_e31": "res://scenes/map_e31.tscn",
 	"map_e32_sanctified": "res://scenes/map_e32_sanctified.tscn",
 	"map_e32_perverse": "res://scenes/map_e32_perverse.tscn",
+	"map_k21": "res://scenes/map_k21.tscn",
+	"map_k22": "res://scenes/map_k22.tscn",
 	"map_h31": "res://scenes/map_h31.tscn",
 	"map_h33_mercy": "res://scenes/map_h33_mercy.tscn",
 	"map_h34_war1": "res://scenes/map_h34_war1.tscn",

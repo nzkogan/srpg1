@@ -45,7 +45,7 @@
     "doctrine": "made not begotten: emulate, do not worship; obedience belongs to the throne",
     "route": "both",
     "act2_chapter_count": "1",
-    "notes": "grows the Grand Inquisitor; home-front thread, ambushes at reunion"
+    "notes": "grows the Grand Inquisitor; home-front thread, ambushes at reunion ADDENDUM (2026-09-25): ch_k21/ch_k22 (map_k21/map_k22) are this sect's own Act3 content -- locations.loc_kaisareia_walls, region_id=rgn_center (already confirmed claimed_by_sect_id=sect_court), 'the capital as a battlefield'. This is the home-front thread's own climax, the same way ch_e31/e32 belong to sect_road and ch_h31-h34 belong to sect_march -- see ch_k21/ch_k22's own notes for the full reasoning, including an unresolved cross-reference to the 'colossus' motif ch_e32_perverse and the_hierophant also use. The Grand Inquisitor this sect 'grows' per its own notes is not confirmed anywhere to be embodied by, or even present at, this chapter's fight -- that identification is not made here."
   },
   {
     "sect_id": "sect_coast",

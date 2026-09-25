@@ -1186,5 +1186,53 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Household guard, same composition as ch_d10."
+  },
+  {
+    "spawn_id": "spn_k21_boss",
+    "map_id": "map_k21",
+    "kind": "boss",
+    "enemy_id": "ea_war_captain",
+    "row": 6,
+    "col": 15,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Act3 tier per this session's own precedent (order/paragon-tier reuse, not commoner mooks) -- the district's defending captain."
+  },
+  {
+    "spawn_id": "spn_k21_mook",
+    "map_id": "map_k21",
+    "kind": "mook",
+    "enemy_id": "ea_hardened_veteran",
+    "row": 12,
+    "col": 5,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_k21_boss."
+  },
+  {
+    "spawn_id": "spn_k22_boss",
+    "map_id": "map_k22",
+    "kind": "boss",
+    "enemy_id": "ea_warlord",
+    "row": 7,
+    "col": 13,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Paragon-tier capstone for the district's climax, guarding the colossus's base."
+  },
+  {
+    "spawn_id": "spn_k22_mook",
+    "map_id": "map_k22",
+    "kind": "mook",
+    "enemy_id": "ea_hardened_veteran",
+    "row": 11,
+    "col": 13,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_k22_boss."
   }
 ]

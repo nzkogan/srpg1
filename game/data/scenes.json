@@ -339,5 +339,27 @@
     "summary": "Obedience belongs to the throne, and the chapel at Vetch says so with its gate shut rather than its doors open -- the same welcome ch_c21 will describe in writing, years before that reunion's own ambush makes it literal.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_k21",
+    "chapter_id": "ch_k21",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The granary district was never built to be defended -- it was built to feed people, and the same silos that stored the capital's own surplus turn out to store just as much for whatever the synod is running further in. Holding it isn't victory, just a delay.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_k22",
+    "chapter_id": "ch_k22",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "'The synod's colossus is fed from here' turns out to be exactly as literal as it sounds -- a body assembled from what the granary quietly diverted, standing where a district used to be one thing and is now becoming another. Whether this is the same hunger the Idol and the Hierophant answer to, or just the capital's own version of it, is not a question this fight settles.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]
