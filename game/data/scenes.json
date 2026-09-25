@@ -361,5 +361,38 @@
     "summary": "'The synod's colossus is fed from here' turns out to be exactly as literal as it sounds -- a body assembled from what the granary quietly diverted, standing where a district used to be one thing and is now becoming another. Whether this is the same hunger the Idol and the Hierophant answer to, or just the capital's own version of it, is not a question this fight settles.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_ct19",
+    "chapter_id": "ch_ct19",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The ash never really settles, and neither does whoever's stationed out here -- the Karkadann is somewhere past the treeline this track skirts, and nobody guarding the crossing seems eager to find out how close.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_tp19",
+    "chapter_id": "ch_tp19",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Whoever holds the Throat pass sets the year's price, and this year it isn't the Company of the Road collecting -- just someone else's garrison, doing the same job under a different flag.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_rf20",
+    "chapter_id": "ch_rf20",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Two columns that split back at the tally house and the winter dole make camp within sight of each other for the first time since. What each brings back says as much as what each lost on the way -- neither needs saying out loud for the other to read it.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

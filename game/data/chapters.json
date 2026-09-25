@@ -670,5 +670,47 @@
     "notes": "New (2026-09-25). Act3 gap audit: cross-referencing every locations row with acts containing '3' against the chapters tab found that most of them are Act1/2 locations REUSED in Act3 (chapters columns like '1, 26' or '18, 29') -- covered by maps.reuse_in_act3='yes' already set on 12 existing maps, and by the maps tab's own note ('Act 3 embeds reuse_in_act3 tilemaps into larger battlefields'), not a content gap. locations.loc_kaisareia_walls is the one genuine exception: acts='3' ONLY (chapters='21, 22'), no Act1/2 precedent -- 'Kaisareia, the granary district', 'the capital as a battlefield; the synod's colossus is fed from here'. Chapter 22, the second and closing entry -- the district now embattled, the fight reaching what the location's own text calls 'the synod's colossus'. THEMATIC CROSS-REFERENCE, not resolved here: maps.map_e32_perverse (sect_road's end_perverse terminal) already names its own boss 'the colossus' ('assembled from what was taken -- a false godhood given a body'), and scenes.sc_e32_perverse calls the Idol's shape 'unmistakably the Hierophant's colossus too' -- three sects (sect_road's Idol, sect_march's Hierophant, and now sect_court's synod) each apparently building their own 'false godhood'. Whether these are the same colossus, echoes of one motif, or genuinely separate objects is NOT stated anywhere in canon.xlsx and is not decided here -- this chapter's own colossus (ter_statue reused for it, 'S', in map_k22.txt) is built as its own local landmark, not a claimed identity with the other two. objective_verb='seize' -- reach and secure what feeds it. VALIDATOR NOTE (2026-09-25): inserting ch_k21/ch_k22 between the existing Act2/Act3 numbering pushed c15's warm/wondrous-gap count further on every downstream Act3 chapter (ch_e32_sanctified/perverse, ch_h32-h34, ch_p_macuil). Reviewed, not fixed: neither ch_k21 ('tense') nor ch_k22 ('eerie') grounds to a warm or wondrous register on its own terms -- a home front under attack and a false-godhood reveal aren't warm material -- same call already made for every other tonal-pacing finding this session.",
     "tonal_register": "eerie",
     "teaches_system": "what a false godhood is actually made of"
+  },
+  {
+    "chapter_id": "ch_ct19",
+    "act": "2",
+    "route": "both",
+    "column": "A",
+    "number": 19,
+    "title": "The Cinder Track",
+    "map_id": "map_ct19",
+    "sect_id": null,
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-25). Act2 gap audit: cross-referencing every locations row with acts containing '2' against the chapters tab and every built map's own terrain/design_note text (not just chapter numbers, which are known to diverge from locations' own legacy numbering -- confirmed again here: loc_caravanserai's two listed numbers, 13 and 15, both turned out to already be covered by the single built map_b15, whose terrain text -- 'caravanserai; awnings block flight, arcade blocks bows' -- matches it exactly; loc_muster_field/13,30 is ch_x11's own 'muster field, river with two crossings'; loc_vetch_chapel/12 is ch_c21; loc_vashti_gate/12 is ch_v21). Three locations had no such match anywhere in the 8 already-built Act2 maps' own text: locations.loc_cinder_track (region_id=rgn_ashland, column 'A', 'ash underfoot, bad air, the Karkadann's country'). 'The Karkadann's country' is flavor/atmosphere, not the creature itself -- ea_karkadann and the real encounter stay reserved for ch_p_karkadann's own paralogue. This is a waypoint crossing, not a sect-attributed chapter: rgn_ashland is sect_vashti's region, but sect_vashti's own act2_chapter_count=2 is already fully satisfied by ch_v21/v22, so this stays sect_id=None like ch_x11's own muster field -- shared Act2 content, not a third sect_vashti chapter. objective_verb='escape' (crossing the ash track), same mechanism as ch_p_huma/ch_d09's own road corridors.",
+    "tonal_register": "tense",
+    "teaches_system": "an ash crossing, no fixed foe"
+  },
+  {
+    "chapter_id": "ch_tp19",
+    "act": "2",
+    "route": "both",
+    "column": "B",
+    "number": 19,
+    "title": "The Throat Pass",
+    "map_id": "map_tp19",
+    "sect_id": null,
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-25). Act2 gap audit: cross-referencing every locations row with acts containing '2' against the chapters tab and every built map's own terrain/design_note text (not just chapter numbers, which are known to diverge from locations' own legacy numbering -- confirmed again here: loc_caravanserai's two listed numbers, 13 and 15, both turned out to already be covered by the single built map_b15, whose terrain text -- 'caravanserai; awnings block flight, arcade blocks bows' -- matches it exactly; loc_muster_field/13,30 is ch_x11's own 'muster field, river with two crossings'; loc_vetch_chapel/12 is ch_c21; loc_vashti_gate/12 is ch_v21). Three locations had no such match anywhere in the 8 already-built Act2 maps' own text: locations.loc_throat_pass (region_id=rgn_the_throat, column 'B', 'the road east, held by whoever taxes it this year'). Same narrative position as ch_ct19 (both number=19) -- the two columns' own parallel waypoints, matching the precedent Act1's diadem/assembly chapters already set by sharing numbers across parallel routes. rgn_the_throat is sect_road's own seat region, but sect_road's act2_chapter_count=2 is already satisfied by ch_b15/r16, so this stays sect_id=None too -- 'held by whoever taxes it this year' reads as contested/generic control, not sect_road's own declared toll-city (that's ch_r16). objective_verb='seize' -- the toll checkpoint itself is the thing to take.",
+    "tonal_register": "tense",
+    "teaches_system": "a toll held by force, not by law"
+  },
+  {
+    "chapter_id": "ch_rf20",
+    "act": "2",
+    "route": "both",
+    "column": "unified",
+    "number": 20,
+    "title": "The Reunion",
+    "map_id": "map_rf20",
+    "sect_id": null,
+    "recruits_unit_ids": null,
+    "notes": "New (2026-09-25). Act2 gap audit: cross-referencing every locations row with acts containing '2' against the chapters tab and every built map's own terrain/design_note text (not just chapter numbers, which are known to diverge from locations' own legacy numbering -- confirmed again here: loc_caravanserai's two listed numbers, 13 and 15, both turned out to already be covered by the single built map_b15, whose terrain text -- 'caravanserai; awnings block flight, arcade blocks bows' -- matches it exactly; loc_muster_field/13,30 is ch_x11's own 'muster field, river with two crossings'; loc_vetch_chapel/12 is ch_c21; loc_vashti_gate/12 is ch_v21). Three locations had no such match anywhere in the 8 already-built Act2 maps' own text: locations.loc_reunion_field (region_id=rgn_center, 'columns meet; whatever each lost is visible in what each brings') -- the ONE location tagged acts='2' with no companion Act1/3 number at all, and the only one without a column A/B split: this is where ch_ct19's and ch_tp19's own columns (and, structurally, Act1's diadem/assembly routes before them) converge back into Act2's own 'both'-route chapters. Considered building this as a non-battle special scene (matching ch_h32's own trial.gd/trial.tscn precedent, since 'whatever each lost is visible in what each brings' reads as reflective rather than combat-driven) but built as a standard map_grid battle instead, consistent with every other Act1-3 gap chapter this session -- a full skeleton first, a special non-battle treatment is future work, not invented here without being asked. objective_verb='seize' -- reach the reunion point itself, honest default.",
+    "tonal_register": "warm",
+    "teaches_system": "what each side kept, what each side lost"
   }
 ]

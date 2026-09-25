@@ -1234,5 +1234,77 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "See spn_k22_boss."
+  },
+  {
+    "spawn_id": "spn_ct19_mook1",
+    "map_id": "map_ct19",
+    "kind": "mook",
+    "enemy_id": "ea_conscript_levy",
+    "row": 1,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Ashland locals guarding the ash crossing, no boss -- same road-map pattern as ch_p_huma/ch_d09."
+  },
+  {
+    "spawn_id": "spn_ct19_mook2",
+    "map_id": "map_ct19",
+    "kind": "mook",
+    "enemy_id": "ea_conscript_levy",
+    "row": 6,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_ct19_mook1."
+  },
+  {
+    "spawn_id": "spn_tp19_boss",
+    "map_id": "map_tp19",
+    "kind": "boss",
+    "enemy_id": "ea_war_captain",
+    "row": 5,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "The pass's garrison captain -- 'held by whoever taxes it' reads as an organized force, not bandits."
+  },
+  {
+    "spawn_id": "spn_rf20_boss",
+    "map_id": "map_rf20",
+    "kind": "boss",
+    "enemy_id": "ea_war_captain",
+    "row": 7,
+    "col": 11,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "A contesting force at the reunion point itself."
+  },
+  {
+    "spawn_id": "spn_rf20_mook1",
+    "map_id": "map_rf20",
+    "kind": "mook",
+    "enemy_id": "ea_looter",
+    "row": 3,
+    "col": 3,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Opportunists near one column's own camp."
+  },
+  {
+    "spawn_id": "spn_rf20_mook2",
+    "map_id": "map_rf20",
+    "kind": "mook",
+    "enemy_id": "ea_looter",
+    "row": 11,
+    "col": 16,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "Opportunists near the other column's own camp."
   }
 ]

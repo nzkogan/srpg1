@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/map_grid.gd" id="1"]
+
+[node name="MapRf20" type="Node2D"]
+position = Vector2(48, 48)
+script = ExtResource("1")
+map_id = "map_rf20"
+deploy_unit_ids = Array[String](["u_avatar", "u_dietmar", "u_sigrun", "u_kheldar", "u_ricberta", "u_emmerich", "u_torvald", "u_maren"])
+deploy_row = 12
+deploy_col_start = 1
+deploy_col_step = 2
+wet = false
