@@ -28,12 +28,11 @@ class_name Combat
 ## modest swing against typical mid-game hit damage (5-9 in these same
 ## matchups). Left both values unchanged -- they already produce
 ## sensible, non-degenerate outcomes against the actual content, not
-## just in the abstract. Adjacent finding, NOT addressed here (out of
-## scope for the triangle specifically): crit is close to nonfunctional
-## game-wide -- every one of the 28 weapons has crit=0, so crit_chance is
-## pure dex/2 - defender_lck, which clears zero in only 52 of 270 real
-## attacker/defender combos this session tested, usually by 1-4%. That's
-## a crit-formula/weapon-data calibration question, a separate pass.
+## just in the abstract. Adjacent finding from this same pass, addressed
+## separately below (crit_chance's own comment): crit was close to
+## nonfunctional game-wide under its original dex/2 weighting -- fixed
+## there, not here, since it's a different formula/constant than the
+## triangle.
 ##
 ## Stat dicts use growths.gd's own column names (str, mag, dex, spd, lck,
 ## def, res) so they'll drop in directly once real current-stat generation
@@ -77,10 +76,23 @@ static func hit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dicti
 	var def_avoid: float = defender.get("spd", 0) * 2 + defender.get("lck", 0)
 	return clampi(int(round(atk_hit - def_avoid + mod.hit)), 0, 100)
 
-## crit = weapon_crit + dex/2, minus defender's lck as crit avoid.
-## Clamped to [0, 100]. Triangle does not affect crit in this design.
+## crit = weapon_crit + dex, minus defender's lck as crit avoid. Clamped
+## to [0, 100]. Triangle does not affect crit in this design.
+##
+## Calibrated 2026-09-25: the original dex/2 halving, combined with every
+## one of the 28 weapons in game/data/weapons.json having crit=0, made
+## this near-nonfunctional -- simulated against every real unit_base_
+## stats.json x enemy_archetypes.json attacker/defender pair (1,056
+## ordered combos, both directions): only 18.8% had ANY nonzero chance,
+## averaging 0.56% and topping out at 10%. Tested three alternatives
+## (full dex, half-both dex/lck, dex*0.75) against the same 1,056 combos;
+## full dex -- simply removing the halving, no new constants introduced
+## -- gave the healthiest spread (57.5% nonzero, mean 3.4%, max 21%,
+## never runaway) without inventing an arbitrary weighting. weapon crit
+## staying at 0 everywhere is a separate, not-yet-addressed calibration
+## question (weapons.json data, not this formula).
 static func crit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dictionary) -> int:
-	var atk_crit: float = weapon.get("crit", 0) + attacker.get("dex", 0) / 2.0
+	var atk_crit: float = weapon.get("crit", 0) + attacker.get("dex", 0)
 	var def_crit_avoid: float = defender.get("lck", 0)
 	return clampi(int(round(atk_crit - def_crit_avoid)), 0, 100)
 
