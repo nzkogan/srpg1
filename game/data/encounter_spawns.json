@@ -922,5 +922,29 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "See spn_phuma_mook1."
+  },
+  {
+    "spawn_id": "spn_pburiedworks_boss",
+    "map_id": "map_p_buried_works",
+    "kind": "boss",
+    "enemy_id": "ea_hardened_veteran",
+    "row": 4,
+    "col": 13,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "No named identity, same reuse ch_v21's own encounter_spawns row already used ea_hardened_veteran for -- 'complicit hands' generally, the works' overseer guarding the archive doorway."
+  },
+  {
+    "spawn_id": "spn_pburiedworks_mook",
+    "map_id": "map_p_buried_works",
+    "kind": "mook",
+    "enemy_id": "ea_hardened_veteran",
+    "row": 10,
+    "col": 6,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "See spn_pburiedworks_boss -- a second complicit guard on the south corridor bypass."
   }
 ]

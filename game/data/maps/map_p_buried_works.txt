@@ -1,0 +1,22 @@
+# map_p_buried_works -- The Buried Works   16 x 12
+# Reads top to bottom (row0 = top). Grounded in locations.loc_buried_works
+# ("records, complicit clerks, a shrine built over a facility") and
+# sects.sect_vashti's own wound/doctrine. The archive chamber (seize tile)
+# sits behind a rubble field, reached either the long way around the south
+# corridor or the costlier, hazardous way straight through the debris.
+#   x buried structure wall (impassable to ground, flying passes)
+#   u rubble / collapsed section (cost 2 foot / 3 armor+riding, hazard)
+#   . clear corridor / chamber floor
+#   * seize tile (the archive)
+xxxxxxxxxxxxxxxx
+x..........xxxxx
+x..........x*.xx
+x..........x.xxx
+x.....uuuu.....x
+x.....uuuu.....x
+x.....uuuu.....x
+x.....uuuu.....x
+x..............x
+x..............x
+x..............x
+xxxxxxxxxxxxxxxx

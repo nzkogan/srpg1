@@ -618,5 +618,25 @@
     "forced_deploy_ids": null,
     "deploy_slots": 6,
     "approaches": "the road (all movement, open, no cover)"
+  },
+  {
+    "map_id": "map_p_buried_works",
+    "title": "The Buried Works",
+    "width": 16,
+    "height": 12,
+    "objective_verb": "seize",
+    "turn_limit": 0,
+    "terrain": "a facility buried under Vashti, sealed off and half-collapsed, the shrine's reconsecration built directly over it -- corridors, rubble, and a small archive chamber holding what the shrine above was built to bury",
+    "chapter_id": "ch_p_buried_works",
+    "design_note": "New (2026-09-24). Grounded in locations.loc_buried_works ('records, complicit clerks, a shrine built over a facility') and sects.sect_vashti's own wound/doctrine. Terrain reuses ter_wall_face ('x') for the buried structure's walls and ter_rubble ('u', from map_a03 -- 'ruined-priory debris') for a collapsed section blocking the direct route to the archive, forcing a detour through the south corridor -- or a costlier, hazardous cut straight through the rubble, giving foot units (move_infantry=2) an edge over armor/riding (move_armor/riding=3) the same way ter_rubble already does on map_a03. The archive chamber (the seize tile) sits in a small walled room reached only through one doorway, on the far side of the rubble from the deploy zone. No Named creature -- ea_hardened_veteran reused for both the boss and mook spawn, same archetype and justification as ch_v21's own 'complicit hands' guard. objective_verb='seize' is directly grounded here, not the usual paralogue placeholder -- the records are explicitly the thing to reach, see chapters.ch_p_buried_works' own note.",
+    "reuse_in_act3": "no",
+    "reinforcement_source": "none",
+    "den_capturable": "no",
+    "min_solution_units": 2,
+    "boss_gated_until_turn": 0,
+    "boss_gate_reason": null,
+    "forced_deploy_ids": null,
+    "deploy_slots": 6,
+    "approaches": "the south corridor (all movement, clear)|straight through the rubble (foot favored, hazardous)"
   }
 ]
