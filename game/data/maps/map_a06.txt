@@ -1,0 +1,16 @@
+# map_a06 -- Ostrova and the Marches   18 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_ostrova:
+# steppe edge, the Assembly's eastern frontier city.
+#   . open steppe (cost 1, all movement types)
+#   b settlement building (impassable, blocks flying too)
+#   * seize tile (reached via the clear east-edge corridor)
+..................
+..................
+............bbbbb.
+............bb.bb*
+............bb.bb.
+............bbbbb.
+............bbbbb.
+..................
+..................
+..................

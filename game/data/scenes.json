@@ -262,5 +262,82 @@
     "summary": "The gate doesn't open and nobody inside answers a question -- sect_vashti's own seat living up to sects.sect_vashti's own note almost a decade before ch_v21 confirms it in writing: no talk conversations available on their seat map, Act 1 included.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a04",
+    "chapter_id": "ch_a04",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "No crowd at Halder, no cart to chase -- just a quiet trade in medicine nobody upriver wants to ask too many questions about, and opportunists who noticed the same thing the avatar's people did.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a05",
+    "chapter_id": "ch_a05",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The bell tower shows itself for one dry season and vanishes back under for the next; whoever built the town underneath it clearly expected the water to stay put. It didn't.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a06",
+    "chapter_id": "ch_a06",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Ostrova sits close enough to the Plains that the Assembly's own writ starts to feel optional past a certain point on the map -- the raiders who hit it clearly agree.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a07",
+    "chapter_id": "ch_a07",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Downstream the rift filled and became a lake with a story about it. Up here it's still just a cliff, and holding the shelf along its edge has no story attached yet, only the fighting.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a08",
+    "chapter_id": "ch_a08",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The canopy takes the sky away from anything that flies and leaves the ground fight exactly as it would be anywhere else -- bandits who know that difference use it.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a09",
+    "chapter_id": "ch_a09",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "New scripture arrives here the way it always does for sect_march -- dictated, in progress, never finished -- and the levies being talked into believing it were conscripts an hour ago.",
+    "status": "drafted",
+    "word_count": "0"
+  },
+  {
+    "scene_id": "sc_a10",
+    "chapter_id": "ch_a10",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Obedience belongs to the throne, and the chapel at Vetch says so with its gate shut rather than its doors open -- the same welcome ch_c21 will describe in writing, years before that reunion's own ambush makes it literal.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

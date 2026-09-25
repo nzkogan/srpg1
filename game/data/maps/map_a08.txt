@@ -1,0 +1,20 @@
+# map_a08 -- The Timber Road   18 x 12
+# Reads top to bottom (row0 = top). Grounded in locations.loc_timber_road:
+# forest, fliers worthless, archers not. ter_cloister reused purely for
+# its cost profile (blocks flying, cost 1 ground) -- see chapters.ch_a08's
+# own note on why, not for its "cloister/indoors" name.
+#   i forest canopy (blocks flying, cost 1 all ground types)
+#   . the road (open, all movement types)
+#   * seize tile
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+...............*..
+..................
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiii

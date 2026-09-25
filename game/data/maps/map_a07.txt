@@ -1,0 +1,17 @@
+# map_a07 -- The Upper Scar   18 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_upper_scar:
+# escarpment fighting, the rift where it is still a cliff -- upstream of
+# ch_a05's own flooded stretch of the same rift. Defend the shelf for 8
+# turns or defeat the boss early.
+#   . the cliff-edge shelf (open ground)
+#   x the void beyond the cliff (impassable to ground, flying passes)
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx
+.............xxxxx

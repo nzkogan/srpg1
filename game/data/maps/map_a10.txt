@@ -1,0 +1,17 @@
+# map_a10 -- The King's Chapel, Vetch   16 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_vetch_
+# chapel's Act1 occurrence: the court sect at home, obedience belongs to
+# the throne. Assembly's Act1 finale -- same wall/breach vocabulary as
+# ch_d10's gate.
+#   . chapel yard (open ground)   x chapel wall (impassable to ground, flying passes)
+#   * seize tile (the breach)
+.............xx.
+.............xx.
+.............xx.
+.............xx.
+...............*
+................
+.............xx.
+.............xx.
+.............xx.
+.............xx.

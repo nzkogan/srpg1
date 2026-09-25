@@ -1,0 +1,17 @@
+# map_a04 -- Halder Harbour   16 x 10
+# Reads top to bottom (row0 = top). Grounded in locations.loc_halder:
+# exotic medicines bought from people who know it. Same harbour
+# vocabulary as map_d04, laid out fresh, not copy-pasted.
+#   . the quay (open ground)   k warehouse sheds (blocks flying)
+#   c open water at the harbour edge (flying only)
+#   * seize tile
+..............cc
+..............cc
+.....kkkk.....cc
+.....kkkk....*cc
+..............cc
+..............cc
+..............cc
+.....kkkk.....cc
+.....kkkk.....cc
+..............cc
