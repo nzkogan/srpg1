@@ -1,39 +1,39 @@
 [
   {
     "profile_id": "gp_bruiser",
-    "hp": 55,
+    "hp": 65,
     "str": 55,
     "mag": 5,
     "dex": 40,
     "spd": 40,
-    "lck": 35,
-    "def": 40,
+    "lck": 40,
+    "def": 50,
     "res": 20,
-    "total_check": 290
+    "total_check": 315
   },
   {
     "profile_id": "gp_armor",
-    "hp": 60,
+    "hp": 70,
     "str": 50,
     "mag": 5,
     "dex": 35,
     "spd": 25,
     "lck": 30,
-    "def": 60,
-    "res": 25,
-    "total_check": 290
+    "def": 70,
+    "res": 30,
+    "total_check": 315
   },
   {
     "profile_id": "gp_cavalry",
-    "hp": 50,
+    "hp": 55,
     "str": 45,
     "mag": 10,
     "dex": 45,
-    "spd": 50,
+    "spd": 55,
     "lck": 40,
     "def": 35,
-    "res": 25,
-    "total_check": 300
+    "res": 30,
+    "total_check": 315
   },
   {
     "profile_id": "gp_flier",
@@ -49,27 +49,27 @@
   },
   {
     "profile_id": "gp_archer",
-    "hp": 45,
+    "hp": 50,
     "str": 45,
     "mag": 10,
     "dex": 55,
     "spd": 50,
     "lck": 40,
-    "def": 30,
-    "res": 25,
-    "total_check": 300
+    "def": 35,
+    "res": 30,
+    "total_check": 315
   },
   {
     "profile_id": "gp_mage",
-    "hp": 40,
+    "hp": 50,
     "str": 10,
     "mag": 55,
     "dex": 45,
     "spd": 45,
     "lck": 35,
-    "def": 25,
+    "def": 30,
     "res": 45,
-    "total_check": 300
+    "total_check": 315
   },
   {
     "profile_id": "gp_healer",
@@ -112,11 +112,11 @@
     "hp": 45,
     "str": 40,
     "mag": 30,
-    "dex": 50,
-    "spd": 55,
-    "lck": 45,
+    "dex": 45,
+    "spd": 50,
+    "lck": 40,
     "def": 30,
     "res": 35,
-    "total_check": 330
+    "total_check": 315
   }
 ]
