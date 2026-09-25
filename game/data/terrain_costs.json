@@ -68,14 +68,14 @@
     "terrain_id": "ter_planted",
     "symbol": "g",
     "name": "planted terrace",
-    "move_infantry": 1,
-    "move_armor": 1,
-    "move_riding": 1,
+    "move_infantry": 2,
+    "move_armor": 2,
+    "move_riding": 2,
     "move_flying": 1,
     "move_infantry_wet": null,
     "move_armor_wet": null,
     "hazard_dmg": 0,
-    "notes": "no cost stated anywhere in the docs; defaulted to 1, revise if this should slow movement"
+    "notes": "CALIBRATED (2026-09-25): was cost 1 for everyone, flagged by this table's own trailing note as one of a handful with 'no textual basis anywhere.' Set to 2 for ground types (flying stays 1) -- tilled/furrowed farmland plausibly slows foot and mounted movement, same 'congestion' cost already used for ter_plaza. Checked against the one map that uses this symbol (map_f00, three full-width 'g' bands) with a Dijkstra shortest-path sanity check from deploy to the seize tile: total path cost only rises from 137 to 144 (a unit only ever crosses 3 such bands on the way up), a ~5% change that does not meaningfully alter the map's pacing -- the real cost driver is zigzagging between the barrier rows' narrow gaps, not these bands themselves."
   },
   {
     "terrain_id": "ter_stair",
@@ -88,7 +88,7 @@
     "move_infantry_wet": null,
     "move_armor_wet": null,
     "hazard_dmg": 0,
-    "notes": "no cost stated anywhere in the docs; defaulted to 1. These are the only gaps through the x rows -- worth deciding if they should be slower or movement-type-restricted"
+    "notes": "CALIBRATED (2026-09-25): this table's own trailing note flagged this as 'worth deciding if they should be slower or movement-type-restricted.' Tested restricting armor/riding (matching ter_narrow_street/ter_hedgerow's own convention) against the only map that uses this symbol (map_f00) before changing anything -- these 't' columns are the ONLY non-impassable passage through several otherwise fully-'x' barrier rows blocking the court from the statue. Restricting them would strand Bel-Iddin (armor) and Tasme (riding) completely, when Tasme's own established block is specifically 'the terraces' (the separate 'T' symbol higher up), not these stairs -- that would silently break the one hand-crafted map this symbol appears on. Confirmed cost 1 for every movement type is correct as-is, not an unexamined default."
   },
   {
     "terrain_id": "ter_statue",

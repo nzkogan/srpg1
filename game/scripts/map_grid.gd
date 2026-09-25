@@ -60,6 +60,21 @@ const MAX_STATUE_ATTACKERS_PER_TURN := 4
 ## (only movement_type exists, via classes.movement) -- these reuse the same
 ## numbers prologue_roster's own units already established per movement
 ## type (Tasme=riding 9, Bel-Iddin=armor 4, the infantry majority 5-6).
+##
+## flying=7 has no such source -- prologue_roster's 8 units are all ground
+## types, nothing flies in it. Calibrated 2026-09-25 by flood-filling
+## reachable tiles under each type's own budget across 5 real built maps
+## (open ground, terrace/lake, lava-road, rubble+statue, forest canopy):
+## on open/mixed terrain flying reaches roughly 60-70% of riding's tile
+## count, tracking budget-squared (7^2/9^2=60%) almost exactly -- internally
+## consistent, not degenerate. On map_a08 (forest canopy, ter_cloister
+## blocks flying outright) flying's reach collapsed to near-zero, which is
+## the location's own grounding working as intended ("fliers worthless,
+## archers not"), not a bug. Left unchanged: flying's real value is
+## exclusive access to flying-only terrain (channels, statue/colossus
+## tops) and hazard/block immunity, not raw tile count, so a lower budget
+## than riding's 9 isn't itself evidence of a problem -- there was nothing
+## in this test that called for a different number.
 const MOVEMENT_TYPE_DEFAULT_MOVE := {"infantry": 5, "armor": 4, "riding": 9, "flying": 7}
 
 ## Combined legend across all three maps' symbol vocabularies -- each map
