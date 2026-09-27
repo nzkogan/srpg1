@@ -61,6 +61,7 @@ PRIMARY_KEYS = {
     "enemy_archetypes": ("enemy_id", "ea_"),
     "prologue_roster": ("punit_id", "pu_"),
     "encounter_spawns": ("spawn_id", "spn_"),
+    "supports": ("chain_id", "sup_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.

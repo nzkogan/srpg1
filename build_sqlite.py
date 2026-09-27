@@ -61,6 +61,7 @@ PK = {
     "enemy_archetypes": ("enemy_id", "ea_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
+    "supports": ("chain_id", "sup_"),
 }
 
 # numeric columns per tab, everything else defaults to TEXT
@@ -116,6 +117,10 @@ FKS = {
     ("enemy_archetypes", "first_seen_map_id"): ("maps", "map_id"),
     ("encounter_spawns", "map_id"): ("maps", "map_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
+    ("supports", "unit_a_id"): ("units", "unit_id"),
+    ("supports", "unit_b_id"): ("units", "unit_id"),
+    ("supports", "sign_a"): ("signs", "sign_id"),
+    ("supports", "sign_b"): ("signs", "sign_id"),
 }
 
 
