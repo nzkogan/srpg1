@@ -14,12 +14,12 @@
     "chain_id": "sup_avatar_ricberta",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_ricberta",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar reviews Ricberta's levy reports and flags the handwriting as suspiciously clean for a dictated report; Ricberta deflects, badly, in a way that would fool someone with less reason to notice competence being hidden. B: The avatar doesn't push it in front of the levy, which Ricberta clocks as deliberate -- an administrator who argues everything in the open chose not to, this once. She starts wondering what else the avatar's decided not to argue about, out loud, for someone's sake. A: The avatar admits they know exactly why she's hiding it -- rank protects nothing once someone above you decides your competence is a liability, and they've watched it happen to smarter people than either of them. Ricberta, who's spent years managing the secret alone, gets the first offer of institutional cover from someone with the rank to actually make it stick: the avatar will vouch for her literacy being an asset, not a flag, whenever she decides to stop hiding it. She doesn't take the offer. She does, for the first time, believe someone meant it.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Ricberta=Crab from Ricberta/Sigrun). Direct tie: Ricberta's own note ('secretly literate... literacy is a deputy tiebreak') is exactly the kind of hidden-competence-as-liability the avatar's own institutional position lets them actually shield, unlike the peers who could only ever gossip about it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_emmerich",
@@ -234,12 +234,12 @@
     "chain_id": "sup_jost_tancred",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_tancred",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, fresh into the Pardoner line and taking absolution seriously, corners Jost about whether he regrets the banditry. Jost's honest answer -- not really, it kept him fed -- is not the answer Tancred was hoping to practice forgiving. B: Jost, watching Tancred grind through the Pardoner line's unglamorous requirements with real effort, admits he doesn't understand doing hard, boring work for a payoff that's mostly spiritual. Tancred doesn't try to convert him; he just keeps climbing, visibly, in front of Jost, which needles Jost more than a sermon would have. A: Jost admits the sleeping was never really laziness -- it's that trying and failing at something that mattered once cost him more than he could afford to keep paying, so he stopped trying at anything he couldn't walk away from clean. Tancred, who measures people by what they build rather than what they've survived, tells him the climbing doesn't have to be for something -- his own is mostly just proof he's still capable of it. Jost doesn't take up the climb. He does start showing up to watch, which is its own kind of practice.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Tancred=Goat from Tancred/Anselm). Both diadem-route village-adjacent recruits (ch_d03), opposite relationships to their own pasts -- Jost's own note ('lucky sleeper') read as someone who stopped trying at anything he couldn't walk away from clean, set against Tancred's own note ('Pardoner line') as someone who took up trying, deliberately, as its own discipline. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_maren",
@@ -619,12 +619,12 @@
     "chain_id": "sup_emmerich_anselm",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich, terrified of being caught in an error in front of the Baron, asks Anselm -- half-joking -- whether the order has a blessing for accountants. Anselm's answer is a real one: no, because accuracy isn't a virtue their doctrine tracks, only intent, which Emmerich finds both useless and strangely comforting. B: Emmerich admits the fear isn't really about the Baron, it's that being visibly valued is the only thing keeping him from being reassigned somewhere he can't fix anything at all. Anselm, whose entire crisis is that he understands too many sides of a question to condemn or bless cleanly, recognizes a kindred fear dressed up as competence anxiety instead of doubt. A: Anselm offers him the one piece of his dissolved theology that still holds together: intent survives an error even when the ledger doesn't, and a Baron who can't tell the difference was never the audience worth keeping anyway. Emmerich doesn't stop being anxious about the showcase. He does start keeping a second, private ledger -- the honest one -- and tells Anselm it's the closest thing he has to a confession, unprompted, which is more than the monk's actual congregation has managed lately.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Anselm=Fishes from Tancred/Anselm). Cross-route (diadem/assembly), post-convergence, same convention as Waldrada/Edda and Dietmar/Torvald. Lion's failure mode ('cannot take a demotion gracefully') read as showcase-anxiety, met by Fishes' virtue (understands too many sides to condemn cleanly) offering the one piece of doctrine that actually helps. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_kheldar",
@@ -685,12 +685,12 @@
     "chain_id": "sup_sigrun_waldrada",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_waldrada",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_scales",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Diadem's two mounted couriers -- one horse, one wing -- end up delivering the same dispatch twice, redundantly, and spend the debrief arguing whose route was actually faster instead of who wasted the ride. B: Sigrun clocks that Waldrada takes the long way around certain checkpoints on purpose, and asks why. Waldrada admits some of those checkpoints are staffed by people she used to answer to under the assembly, and she's not ready to be recognized yet. A: Sigrun, whose own worst habit is saying the true thing at the worst possible moment, tells her outright: avoiding the checkpoint doesn't undo the defection, it just makes her look like she's still choosing a side by hiding from one. Waldrada, still weighing the whole question the way she weighs everything, admits Sigrun's right and hates that the shortest path is also the one she has to fly in the open. She starts taking the direct route. Sigrun starts riding escort on that leg, unasked, so being seen doesn't mean being seen alone.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Waldrada=Scales from Waldrada/Edda). Both diadem-route mounted couriers -- Archer's failure mode ('says the true thing at the worst moment') as the literal mechanism that forces Scales' failure mode ('delay disguised as deliberation') into the open. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_tancred",
@@ -1026,12 +1026,12 @@
     "chain_id": "sup_tancred_kheldar",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, still new enough to the Pardoner line to take it seriously, tries to extract a confession out of Kheldar for the manifest fraud everyone quietly knows about. Kheldar finds the attempt almost sweet and declines to be absolved of a sin he doesn't consider one. B: Tancred presses on principle, not results -- he says the confession was never really for Kheldar's sake, it's for his own, practicing the unglamorous work of holding someone to account even when it changes nothing. Kheldar, unused to being pursued without an angle, starts actually answering the questions instead of deflecting them, if only out of professional curiosity about a man who wants nothing from him. A: Kheldar admits, obliquely, that he keeps a private ledger of the debts he actually can't repay -- not the profitable discrepancies, the other kind -- and has never shown it to anyone. Tancred doesn't ask to see it; he tells Kheldar that's closer to penance than anything Tancred's own line teaches, since nobody assigned it to him and nobody's grading it. Kheldar doesn't confess to anything. He does, for the first time, let someone watch him not lie about not confessing.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Kheldar=Scorpion from Kheldar/Kest). Direct moral-code friction: Tancred's own note ('village recruit; Pardoner line') is explicitly a forgiveness/penance class line, set against Kheldar's own note ('manifest discrepancy thread') -- a penitent and an unrepentant profiteer, deliberately not resolved into either converting the other. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_dietmar",
@@ -1081,12 +1081,12 @@
     "chain_id": "sup_maren_brandt",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Brandt's shield arm takes a hit that should have ended his rotation for the week; Maren, running the dole line short-handed, patches him fast and rough and tells him to sit down before she makes it an order. He doesn't sit down. She notices he doesn't, and files it. B: Maren starts treating Brandt's gate post as a second stop on her rounds, not because he asks, but because he's the one soldier on the wall who'll actually report an injury before it's an emergency -- which she reads correctly as him trusting her enough not to make him look weak for it. A: Brandt admits the gate holds because he's decided it has to, not because he's actually as sturdy as the post -- and that Maren's the only one who's caught the gap between those two things without using it against him. Maren, who's spent her whole practice deciding which people get her real attention instead of her rationed attention, makes her decision plain: she starts teaching him the forms that turn a shield-sergeant into someone who can actually take the hits he's been absorbing on will alone. The Great Shield he earns after isn't hers to take credit for. It's the first time either of them built something instead of just enduring it.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Brandt=Bull from Brandt/Solveig). This is the class-unlock chain already referenced in units.u_brandt's own note ('Great shield via Maren support'), finally written -- kept platonic/mentorship, not romantic, consistent with the earlier decision (see the Brandt/Solveig and Ricberta/Brandt chains) to keep Brandt's canon class-unlock ally distinct from his actual romance-flagged option. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_solveig",
@@ -1356,12 +1356,12 @@
     "chain_id": "sup_solveig_rinsa",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Solveig, curious what an actual oracle does with prophecy once it's spoken, asks Rinsa what happens to the answers people carry back up. Rinsa's answer -- she doesn't keep track, it was never hers to keep -- unsettles Solveig more than a mystical one would have. B: Rinsa notices Solveig flinch at the word 'carry' and asks what she's carrying that isn't a question. Solveig admits her whole family's prophecy was never asked, either -- it was handed to her already answered, and she's spent her life being the vessel for a message she didn't get to receive fresh. A: Rinsa, who pours herself out professionally and has never once needed the customer's question to matter to her personally, tells Solveig the difference that's been eating her without a name: Rinsa chose the emptying, every time, at the door, and can walk back out of it; Solveig was filled before she could choose anything. Solveig, hearing her own condition named by someone who does it on purpose and still keeps a self underneath, asks the only useful question left: how. Rinsa doesn't have a clean answer. She offers to find out with her, which is the first time either Vessel's been asked to keep something instead of pouring it out.",
+    "notes": "Both units already carry the Vessel sign from their own established chains (Solveig from Brandt/Solveig, Rinsa from her own units row / Rinsa/Kest) -- deliberately paired as a mirror rather than avoided: two Vessels, argued as genuinely distinct (Solveig's family-inherited emptying vs Rinsa's chosen, professional one), with the mirroring itself as the chain's actual subject rather than a coincidence to write around. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_kest",
@@ -1444,23 +1444,23 @@
     "chain_id": "sup_gunnar_kest",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar catches Kest casing the assembly armory with the flat, professional patience of someone who's tracked plenty of things smarter than a startled deer. He doesn't report her. He tells her she's good, but not as good as she thinks, and offers to prove it. B: Kest, insulted and curious in equal measure, takes him up on it -- a stalking contest, her against his decades of reading a treeline. She loses, badly, and can't figure out how he read her approach before she'd committed to it. A: Gunnar tells her the trick isn't the tracking, it's refusing to move until the argument in his own head about the best approach has actually settled -- something he's had forty years to get right and she's still doing live, mid-job, which is why she hesitates at the worst moments. Kest admits that's exactly her problem, and exactly why she's never been caught taking something she meant to walk away from and never quite has. Gunnar doesn't offer to fix it. He offers to keep hunting with her until the two voices in her head learn his patience instead of each other's noise.",
+    "notes": "Both signs reused verbatim (Gunnar=Goat from Gunnar/Edda, Kest=Twins her own already-stated sign). A hunter's patient single-mindedness set against a thief's arguing-both-sides indecision -- Goat's virtue (sustained, exacting craft) as the literal fix for the Twins' failure mode (won't commit while a better argument exists). Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_edda_anselm",
     "unit_a_id": "u_edda",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_maiden",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants Anselm's blessings recited word for word, every caveat included, for the record; Anselm finds this faintly absurd -- nobody preserves the hedge, they preserve the promise. B: Edda insists the hedge is the actual content -- a monk's caveats are the only honest theology on record anywhere in her collection, and she's not going to be the one who edits him into false certainty for posterity. Anselm, who's spent the whole crisis assuming his doubt makes him a worse record than a confident man, hears his own uncertainty called valuable for the first time. A: Anselm admits he's been quietly grateful someone's writing the doubt down at all, since it means it existed, whatever happens to his faith after. Edda tells him plainly: the record doesn't care if he resolves it, only that it's true when it's written -- and his caveats are more true than most of what she's had to preserve from men who never doubted anything in their lives. Anselm stops apologizing for the hedges. Edda gets the most honestly-transcribed theology in her whole collection.",
+    "notes": "Both signs reused verbatim (Edda=Maiden from Waldrada/Edda, Anselm=Fishes from Tancred/Anselm). Both assembly-route. Direct tie: Edda's own note ('village reciter') as the record-keeper who values Anselm's own note ('theology barometer') -- his doubt-riddled caveats -- as the truest theology in her whole collection, rather than something to be edited into false confidence. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_edda_kheldar",
@@ -1576,12 +1576,12 @@
     "chain_id": "sup_kheldar_dietmar",
     "unit_a_id": "u_kheldar",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar, who fought for the diadem's legitimacy before Kheldar was old enough to profit off it, wants to know how a man who serves no side at all sleeps at night. Kheldar's answer -- very well, thank you -- is not the confrontation Dietmar came for. B: Dietmar presses harder than the question deserves, and Kheldar, reading the real target, points out that a revolution fought for legitimacy and a smuggling trade fought for margin have the same actual output: both of them decide who gets to eat this winter, one of them just admits the profit motive out loud. Dietmar doesn't have a clean rebuttal. A: Dietmar admits what's actually eating him -- the revolution he bled for produced exactly the kind of grey, transactional peace Kheldar profits off of, and some nights that looks less like victory than like the thing they fought to prevent, just slower. Kheldar, who has made an entire life out of refusing to be anyone's evidence for a verdict, tells him the honest thing: the peace holding at all, ugly and profitable and unglamorous, is probably the only kind that was ever actually available to hold. Dietmar doesn't forgive him for being right. He does stop needling him about it, which from Dietmar is the same thing.",
+    "notes": "Both signs reused verbatim (Kheldar=Scorpion from Kheldar/Kest, Dietmar=Lion from Dietmar/Torvald). Direct ideological friction: Dietmar's own note ('revolution-generation; obsolescence arc') as an idealist confronting the transactional peace Kheldar's own note ('manifest discrepancy thread') literally profits from -- neither convinces the other, which is the point. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_kheldar_torvald",
