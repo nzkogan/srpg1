@@ -190,12 +190,12 @@
     "chain_id": "sup_jost_ricberta",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_ricberta",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Ricberta doesn't trust the ford bandit the diadem just recruited, says so to his face, and expects him to either sulk or lie about it. Jost does neither -- agrees with her, cheerfully, and goes back to sleep. B: Jost keeps proving decisive exactly when the levy needs it and useless every other moment, which Ricberta, who's spent her whole career being the useful one nobody notices, finds harder to forgive than if he were simply bad at the job. A: Ricberta admits what actually bothers her -- Jost gets to be exactly what he is, unpolished and unbothered, while she's spent years managing a secret just to keep her post. Jost's answer surprises her: he tells her the sleeping is the only unpolished thing about him left, the rest -- the timing, the read on a fight -- he built on purpose, the same as she built her reading in secret; it just doesn't look like work from the outside. Ricberta stops mistaking his ease for laziness, and starts running her levy's ambush drills past him first.",
+    "notes": "Both signs reused verbatim from their own established chains (Jost=Ram from Jost/Emmerich, Ricberta=Crab from Ricberta/Sigrun). Both diadem-route, ch_d02/ch_d03 -- a freshly-recruited ex-bandit and the levy sergeant who has every institutional reason to distrust him. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_emmerich",
@@ -421,12 +421,12 @@
     "chain_id": "sup_ricberta_brandt",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: A diadem sergeant and an assembly sergeant compare levies the way any two career soldiers on opposite sides of a fence do -- whose men hold better, whose gate matters more. B: Ricberta needles Brandt about the assembly's discipline; Brandt, who has never once needed to be smarter than his post to keep it, doesn't have a clever answer and says so, plainly, which throws Ricberta more than an argument would have. A: Ricberta admits the real grievance was never about discipline -- it's that being smart enough to need to hide it made her career something to manage rather than something to just do, and Brandt's uncomplicated competence looks like a life she didn't get offered. Brandt, who has spent his own career being underestimated as simple, tells her that holding a gate without needing anyone to notice you're clever at it is its own kind of hard -- and that he'd take her levy's discipline over his own gate crew's, if either of them ever needed to say so out loud, which sergeants generally don't.",
+    "notes": "Both signs reused verbatim from their own established chains (Ricberta=Crab from Ricberta/Sigrun, Brandt=Bull from Brandt/Solveig). Cross-route mirror-professionals (both sergeants, both lance/armor), post-convergence. Platonic chain, capped at A -- explicitly not folded into either unit's existing romance chain (Ricberta/Sigrun, Brandt/Solveig)."
   },
   {
     "chain_id": "sup_ricberta_solveig",
@@ -630,12 +630,12 @@
     "chain_id": "sup_emmerich_kheldar",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's ledgers have a Kheldar-shaped hole in them that he's known about for months and never reported, which eats at him more than any error he's actually caught. B: Kheldar, amused, points out that reporting him would cost Emmerich the one manifest that always balances -- a smuggler who's good enough to make the books look clean is worth more to a showcase clerk than an honest one who isn't. Emmerich hates that this is true and hates more that he'd already worked it out himself. A: Emmerich admits the real fear isn't Kheldar, it's that the Baron's showcase was never really about accuracy, and Kheldar's the only person who's said so to his face instead of letting him find out alone. Kheldar, who has made a career out of being the discrepancy no one can afford to close, offers him something closer to honesty than either expected: he'll keep the numbers clean exactly as long as it's useful to both of them, no further promises -- which is more truth than the Baron's ever gotten out of either man.",
+    "notes": "Both signs reused verbatim from their own established chains (Emmerich=Lion from Jost/Emmerich, Kheldar=Scorpion from Kheldar/Kest above). Direct mechanical tie: Emmerich's own note ('requisitions clerk') is exactly the job that should catch Kheldar's own note ('manifest discrepancy thread') -- the chain is built on the clerk quietly choosing not to catch him. Platonic/rivalry chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_dietmar",
@@ -729,12 +729,12 @@
     "chain_id": "sup_sigrun_solveig",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Two couriers, one diadem one assembly, compare routes and speeds the way any two people who do the exact same job for opposite employers inevitably do -- with more edge than either admits to. B: Sigrun's needling ('your birds fly prettier, mine actually get there') lands somewhere real: Solveig's family expects the prophecy to arrive gracefully, not just arrive, and grace has cost her time on more than one run that mattered. Sigrun didn't know that was the standard she was being measured against, and stops needling once she does. A: Solveig admits she envies that Sigrun's speed is just her own -- nobody's waiting on her arrivals to mean anything beyond the message. Sigrun, whose worst habit is saying the true thing at the worst moment, tells her plainly that a courier who's only ever delivering somebody else's prophecy stops being a courier and starts being cargo -- and offers to race her, actually race her, no family, no stakes, just to remind her which one she is.",
+    "notes": "Both signs reused verbatim from their own established chains (Sigrun=Archer from Ricberta/Sigrun, Solveig=Vessel from Brandt/Solveig) -- same unit, same sign, not reassigned. Cross-route (diadem Sigrun, assembly Solveig), post-convergence, both couriers by trade -- the professional mirror is the whole hook. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_gunnar",
@@ -916,12 +916,12 @@
     "chain_id": "sup_waldrada_dietmar",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar, revolution-generation to his core, has opinions about defectors; Waldrada, freshly defected from the assembly, has heard every one of them already and isn't interested in his verdict. B: Dietmar admits the opinions are really about himself -- he's spent so long being the diadem's proof that the old loyalties held that a defector reads to him like an accusation. Waldrada, who's spent the same stretch of time unable to say outright which side she serves, recognizes someone else performing a loyalty he isn't sure he still feels. A: Waldrada tells him plainly that deliberation isn't the same as disloyalty -- she took years weighing it and the assembly earned every year of doubt. Dietmar, who has never once let himself weigh it, admits her question is the one he's been outrunning since the gate-holding deed started feeling more like a museum piece than a duty. Neither talks the other out of anything; they just stop being each other's evidence for a verdict neither one wanted to reach alone.",
+    "notes": "Both signs reused verbatim from their own established chains (Waldrada=Scales from Waldrada/Edda, Dietmar=Lion from Dietmar/Torvald above). Both diadem-route (ch_d01/ch_d02) -- a defector and the veteran who's built his whole identity on never having been one. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_torvald",
@@ -1125,12 +1125,12 @@
     "chain_id": "sup_maren_anselm",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Two faith-tree healers argue their first triage call opposite ways -- Anselm wants to bless the dying properly even if it costs the line time; Maren wants the line moving, blessing be damned, because more people live that way. B: Anselm admits he can't finish a blessing without a caveat lately, doctrine gone loose in his hands, and watching Maren work without any of his doubt looks like a mercy he's lost the knack for. Maren corrects him: it's not certainty, it's that she decided a long time ago which people she's loyal to, and the dole line always wins the tiebreak. A: Maren admits the certainty is a mask over the same doubt his caveats are honest about -- she's just better at not showing it while the line's still moving. Anselm, whose whole practice has become sitting in the doubt rather than hiding it, offers her the one thing his theology's actually good for: permission to not have it worked out yet and keep working anyway. It's the first time anyone's told her the mask doesn't have to be a wound.",
+    "notes": "Both signs reused verbatim from their own established chains (Maren=Crab from Avatar/Maren, Anselm=Fishes from Tancred/Anselm). Both faith-tree healers (cls_tr_faith), assembly-route, direct doctrine-vs-practice friction. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_kheldar",
@@ -1422,12 +1422,12 @@
     "chain_id": "sup_gunnar_torvald",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The assembly's two oldest hands size each other up across a training yard -- a huntsman who's outlasted three commanding officers and a knight who's outlasted his entire order. B: Gunnar, sharpening a crossbow bolt with more attention than it needs, asks Torvald outright how he keeps showing up to guard people for an order that isn't there to order him to. Torvald's answer is short: someone has to, and he's the only one left who remembers how. A: Gunnar admits he's not sure his own decades of solitary, exacting work have added up to anything an army needs, just a very good aim and no one left to impress with it. Torvald tells him that's the wrong measure -- an order dies, the standard it kept doesn't have to, and Gunnar's kept his own standard for longer without anyone watching than Torvald's own men managed with a whole chapel behind them. Two old men who assumed nobody was still counting find out they've both been counted.",
+    "notes": "Gunnar=Goat reused from Gunnar/Edda. Torvald=Crab reused from Dietmar/Torvald above -- same unit, same sign. Both assembly-route, both the roster's oldest recruitable veterans outside the jagen pair itself. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_gunnar_rinsa",
@@ -1554,12 +1554,12 @@
     "chain_id": "sup_anselm_rinsa",
     "unit_a_id": "u_anselm",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_fishes",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm, theology gone loose with doubt, wants to know what Rinsa actually saw down at the Throat -- not the oracle's answer, the descent itself. Rinsa, who's led hundreds of people down and up, finds the question almost quaint; everyone wants the answer, no one's ever asked about the stairs. B: Rinsa admits the stairs are the only honest part of the job -- the answer's whatever the customer needed to hear, but the dark is the same dark for everyone who goes down it. Anselm, whose whole crisis is that he understands too many sides of a question to condemn any of them cleanly, recognizes in her an authority that doesn't come from doctrine at all, just from having actually been there. A: Rinsa admits she's never told anyone what she believes is actually down there, because belief was never required for the job -- she pours out whatever the descent needs of her and keeps nothing back for herself, including her own certainty. Anselm offers the one thing his dissolved theology still has: he doesn't need her to believe anything to trust what she saw. It's the first support of her life where being asked wasn't also being asked to perform an answer.",
+    "notes": "Both signs reused verbatim from their own established chains (Anselm=Fishes from Tancred/Anselm, Rinsa=Vessel from her own units row / the Rinsa/Kest chain). Direct thematic tie: Rinsa's own note calls her 'the only unit who has BEEN down there' regarding the Venerated's death, and Anselm's own note calls him a 'theology barometer' -- this chain is the one place a doctrinal crisis meets someone whose authority comes from experience, not doctrine, before the Act 3 question about the Venerated is ever asked. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_anselm_kest",
@@ -1609,23 +1609,23 @@
     "chain_id": "sup_kheldar_kest",
     "unit_a_id": "u_kheldar",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kest recognizes Kheldar's manifest discrepancies for exactly what they are, because she's been running the same trick smaller and poorer her whole life; she corners him wanting either a cut or an explanation. B: Kheldar offers neither -- offers instead an assessment: she's good enough to be dangerous to him specifically, and he'd rather know where she is than have her loose in his ledgers. Kest hears this as respect dressed as threat, which is closer to true than either of them says out loud. A: Kest admits she never takes more than what an economy this shrunken has already lost; Kheldar, whose whole trade runs on discrepancies nobody's tracking closely enough to miss, recognizes the same code he doesn't follow himself and doesn't insult her by pretending otherwise. What they land on isn't trust, it's the working peace two professionals reach when neither one's stupid enough to make the other an enemy over scraps -- and Kheldar, for the first time on record, tells someone a true number.",
+    "notes": "Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Kheldar=Scorpion is new, off his own note ('smuggler merchant-spy... manifest discrepancy thread' -- an information broker who trades in what he remembers and what he can hold over someone, the Scorpion's virtue 'carries the grudge that keeps everyone honest' read as leverage rather than personal grievance). Rivalry-to-working-peace chain between Nikaia's two underworld professionals; capped at A, no romance flag (deliberately platonic -- two people whose whole skillset is not attaching to anything)."
   },
   {
     "chain_id": "sup_dietmar_torvald",
     "unit_a_id": "u_dietmar",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Two old soldiers from opposite prologues, thrown together once the routes converge, sizing each other up as artifacts of a war nobody under thirty remembers. Dietmar wants to know if Torvald's order died well; Torvald wants to know why Dietmar's still trying to be someone's last good memory of the revolution. B: Dietmar admits the obsolescence stings worse than any wound -- being kept around as a symbol, not a soldier. Torvald's answer isn't sympathy, it's correction: his whole order is dead and he's still here holding a post for people who aren't; Dietmar, by comparison, still has a war to be useful in, he's just too proud to notice. A: Dietmar takes the correction the way only another veteran could land it, and starts fighting for the gate-holding deed the way Torvald's been holding his post all along -- not for the record, because there's a body of men behind him worth it. Torvald, watching Dietmar finally stop performing the revolution and start doing the actual unglamorous work of it, extends the closest thing he has left to give: he calls him brother-in-arms, and means the second word literally, for the first time since the plague took his own.",
+    "notes": "Dietmar=Lion is new, off his own note ('revolution-generation; obsolescence arc' -- an old-guard hero whose identity depends on being seen as one, now fading, the Lion's failure mode 'cannot take a demotion gracefully' as the literal obsolescence arc). Torvald=Crab is new, off his own note ('last of a plague-gutted order; force-deployed' -- loyal past reason to an order that no longer exists to give orders, the Crab's virtue/failure pair exactly) -- a third distinct Crab (after Ricberta's military-secrecy and Maren's medical-scarcity readings), argued here as institutional loyalty that survives its own institution's death; the repetition is deliberate, not a shortcut, per the signs tab's own allowance for 18 units over 12 signs. Both jagens, cross-route (diadem/assembly), so this only makes sense post-convergence, same convention as Waldrada/Edda. Platonic chain, capped at A (no S) -- non-romantic chains in this pass cap at A, reserving S for the 10 romance-flagged chains."
   },
   {
     "chain_id": "sup_dietmar_rinsa",
