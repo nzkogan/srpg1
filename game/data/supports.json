@@ -3,12 +3,12 @@
     "chain_id": "sup_avatar_jost",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_jost",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_ram",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar keeps re-litigating the decision to recruit a bandit at all, out loud, in front of Jost, apparently unaware or unbothered that he's standing right there for it. Jost, unbothered in turn, just waits for them to finish. B: The avatar admits the re-litigating isn't really about Jost -- it's the habit, they do it to every call whether it worked out or not. Jost points out that's exhausting to watch and probably worse to live inside, and offers the one thing his own approach has going for it: once a thing's decided, sleeping through the rest of the argument is free. A: The avatar admits they've never once managed to just let a decision be decided; Jost admits his own version of that isn't peace, it's refusing to spend anything on a question after the fact because spending on it before never worked either. Neither talks the other into changing. The avatar starts running fewer post-mortems out loud where Jost has to hear them; Jost starts actually staying awake for the ones that are about him.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Jost=Ram from Jost/Emmerich). Scorpion's failure mode ('carries it long after it stopped being useful') set directly against Ram's virtue (decisive, doesn't look back) -- two opposite relationships to a decision once it's made. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_ricberta",
@@ -146,12 +146,12 @@
     "chain_id": "sup_avatar_dietmar",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar asks Dietmar, bluntly, whether the gate-holding deed is a real strategic priority or a favor to an old soldier's ego. Dietmar, who has spent the obsolescence arc waiting for exactly this question and dreading it, doesn't dodge -- he just doesn't answer it either. B: The avatar keeps pushing, the way they push everything, and Dietmar finally admits he doesn't know the honest answer himself, which unsettles him more than the accusation would have. The avatar, who has never once let an unresolved question sit, recognizes something familiar in a man who's been avoiding his own for longer than the avatar's been alive. A: Dietmar admits the deed matters to him whether or not it's the correct use of the diadem's resources, and that not knowing which is the actual failure of the obsolescence, not the fading itself. The avatar, whose whole method is arguing until something resolves, doesn't resolve it for him -- just tells him some questions are worth keeping open on purpose, since a man who stops asking whether he still matters is worse off than one who keeps asking and doesn't like the answer yet. Dietmar takes the deed anyway. He stops needing it to be the right call to be worth doing.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Dietmar=Lion from Dietmar/Torvald). Scorpion's virtue ('carries the grudge that keeps everyone honest') applied to an institutional question rather than a personal one, directly confronting Lion's failure mode ('cannot take a demotion gracefully'). Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_torvald",
@@ -168,12 +168,12 @@
     "chain_id": "sup_avatar_rinsa",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar wants Rinsa's account of the descent formally, for the record, the way they want everything -- structured, arguable, citable. Rinsa gives them the same answer she gives everyone: the descent isn't the kind of thing that survives being made into an argument. B: The avatar, who has never once accepted 'some things don't reduce to a case' as a real answer, keeps pressing, and Rinsa finally asks them plainly what they're actually trying to settle. The avatar admits it's the Venerated question -- they need it to be decidable, because the whole administration they're running depends on eventually deciding it. A: Rinsa tells them the descent doesn't decide anything either, it just goes down and comes back, same as it always has, for anyone -- the deciding was never hers to do, only the witnessing. The avatar, whose entire method is deciding things, has to sit with a source who refuses to resolve into a verdict on command. It doesn't change the avatar's strategy. It does change how they ask the next question, and the one after that -- less like a case to close, more like a person they're actually listening to.",
+    "notes": "Avatar=Scorpion reused from Avatar/Maren. Rinsa's own already-stated sign, the Vessel, reused verbatim. Direct tie to the endgame: Rinsa's own note calls her 'the only unit who has BEEN down there' regarding whether the Venerated is dead, and the avatar's own note ('voiced and argumentative') makes them exactly the kind of person who'd try to litigate that fact instead of just receiving it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_kest",
@@ -806,12 +806,12 @@
     "chain_id": "sup_sigrun_rinsa",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun, professionally curious about anyone who travels somewhere and comes back with something, asks Rinsa what the descent is actually like to ride, courier to courier. Rinsa points out she doesn't ride anything, she walks it, every time, on foot, in the dark -- there's no fast way down. B: Sigrun admits the comparison was lazy, and asks a better question: does the answer ever change, run to run. Rinsa says no, that's not what changes -- what changes is who's asking, and she's the one thing that stays constant across every question anyone's ever carried down there. A: Sigrun, whose whole worth is in what she brings back and how fast, admits she's never once thought about what it costs to be the medium and not the message -- to matter only as the route, never the news. Rinsa tells her that's exactly right, and exactly fine; being the road is its own kind of necessary, and Sigrun of all people, whose job is also being a road for other people's urgent things, should already know that isn't nothing. Sigrun stops apologizing for asking a lazy question. She starts actually listening to the answer.",
+    "notes": "Sigrun=Archer reused from Ricberta/Sigrun. Rinsa's own already-stated sign, the Vessel, reused verbatim. Archer's own function (ranges out, returns with news) set against Vessel's failure mode ('belongs to everyone and therefore to nobody') -- two professions built around carrying something for someone else, argued from opposite ends of what that costs. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_kest",
@@ -839,12 +839,12 @@
     "chain_id": "sup_waldrada_maren",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Maren, running the dole line during a cold snap, needs Waldrada's flight roster locked in fast; Waldrada, still weighing whether the diadem's logistics are even trustworthy enough to commit her route to, is late with the answer and costs the line an hour. B: Maren doesn't soften the complaint -- an hour is real, on a dole line, in winter -- and Waldrada, expecting judgment, gets something else instead: Maren asks what she's actually weighing, because indecision this costly usually isn't really about the schedule. Waldrada admits it's the same question it always is: which side actually deserves the commitment. A: Maren tells her plainly that the dole line doesn't have the luxury of that question -- she decided a long time ago who she's loyal to and it was never the crown or the assembly, it was the people in front of her, and Waldrada could try deciding the same way instead of weighing institutions against each other forever. Waldrada doesn't resolve the larger question. She does start locking her schedule to Maren's line specifically, loyalty to one person doing the work that loyalty to a whole side never managed.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Maren=Crab from Avatar/Maren). Scales' failure mode ('delay disguised as deliberation') given a real cost by Crab's virtue (loyalty to people, not causes) -- Maren's practical answer to a question Waldrada's been treating as abstract. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_brandt",
@@ -960,12 +960,12 @@
     "chain_id": "sup_tancred_maren",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred asks Maren for a blessing over the dole line, formally, Pardoner-style; Maren tells him blessings don't move grain and she doesn't have time for the ones that don't. B: Tancred, stung, points out he's offering the one thing his class actually has to give; Maren admits she wasn't dismissing the offer, she's just run out of patience for anything that doesn't visibly help, faith included -- and asks him, if he wants to help, to carry crates instead. A: Tancred carries crates, for weeks, without complaint, and Maren admits she underestimated what a Pardoner's discipline actually looks like in practice -- unglamorous, repeated, not asking for credit. Tancred tells her the crates were never separate from the blessing, just the part of it that shows; Maren, who measures loyalty in exactly that kind of showing up, gives him something rarer than absolution: she trusts him with the line unsupervised.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Maren=Crab from Avatar/Maren). Goat's virtue ('will do the unglamorous work for years') proven rather than argued -- Maren's own Crab failure mode (loyalty that shows in action, not words) sets the terms of what actually earns her trust. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_brandt",
@@ -982,12 +982,12 @@
     "chain_id": "sup_tancred_solveig",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, working through the Pardoner line's early absolutions, offers Solveig one for whatever she thinks she's guilty of regarding the family prophecy. Solveig tells him there's nothing to absolve -- she didn't do anything, it was just handed to her, which is somehow worse. B: Tancred admits he doesn't actually have a rite for that -- his whole class handles sin, choices made and needing forgiving, not inheritance nobody chose. Solveig, hearing her situation correctly named as outside his order's whole framework for the first time, feels less alone in it rather than more, just from being accurately placed instead of misfiled as guilt. A: Solveig admits what she actually needs isn't forgiveness, it's someone to witness that the prophecy was never a choice and still cost her one anyway. Tancred, who measures people by what they build rather than what's been built onto them, tells her plainly: nothing she's inherited counts against what she chooses to build from here, and he'll hold her to that measure instead of the family's. Solveig doesn't stop carrying the prophecy. She starts building something of her own alongside it, with someone keeping the second, honest score.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Solveig=Vessel from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence. Goat's virtue (measures people by what they build) offered as an alternative to Vessel's failure mode ('belongs to everyone and therefore to nobody') -- a support about being measured by choice rather than inheritance. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_gunnar",
@@ -1136,12 +1136,12 @@
     "chain_id": "sup_maren_kheldar",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Maren's dole allotments keep coming up short in ways that trace, eventually, back to Kheldar's manifest games; she corners him expecting to have to threaten someone for once. B: Kheldar, who has never once been cornered by someone who wasn't after a cut, is thrown by a healer who just wants the shortage to stop, no leverage implied. He offers, half as a joke, to make her specific shortage disappear -- meaning fixed, not hidden. A: Maren takes the offer and makes her terms plain: she doesn't care what else he moves through his manifests, only that her line stays whole, and she'll know if it doesn't. Kheldar, who has spent his whole career being the discrepancy nobody can pin down, finds himself pinned down anyway, by someone with no leverage over him at all except that he'd have to look at himself if her line went hungry on his account. He keeps the deal. He doesn't examine too closely why hers is the one account he balances for free.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Kheldar=Scorpion from Kheldar/Kest). Crab's virtue (loyal past reason, to people not causes) as the one thing in Kheldar's orbit he can't out-negotiate, since she isn't negotiating. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_dietmar",
@@ -1411,12 +1411,12 @@
     "chain_id": "sup_gunnar_dietmar",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar, sharpening a bolt as usual, tells Dietmar plainly he's never heard of him -- the revolution, the legend, none of it reached an assembly huntsman's ears out on the old border. Dietmar, used to being recognized everywhere in diadem circles, finds the anonymity almost refreshing and almost insulting in equal measure. B: Dietmar admits, once the insult wears off, that being unrecognized here is the first honest read he's gotten on whether the legend still holds up without the legend attached -- and it mostly does, which surprises him. Gunnar, who has spent his whole career being competent without being known for it, tells him that's just what the work is like for most people; Dietmar's the unusual one, not Gunnar. A: Gunnar admits he's never once needed anyone to know what he can do, only that it gets done, and asks Dietmar honestly whether the being-seen part was ever actually about the revolution or just something he picked up along the way and never put down. Dietmar doesn't have a clean answer, but for the first time he says he doesn't need one -- a huntsman nobody's heard of just did him the favor of being competent, unbothered, and entirely unimpressed, and it's the most useful he's felt in the whole obsolescence arc.",
+    "notes": "Both signs reused verbatim (Gunnar=Goat from Gunnar/Edda, Dietmar=Lion from Dietmar/Torvald). Cross-route (assembly/diadem). Goat's virtue (unglamorous work, no audience required) as the direct counter-example to Lion's failure mode ('cannot take a demotion gracefully') -- competence that never needed witnessing in the first place. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_gunnar_torvald",
@@ -1499,12 +1499,12 @@
     "chain_id": "sup_edda_rinsa",
     "unit_a_id": "u_edda",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_maiden",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants to record what the oracle actually says, verbatim, for the archive; Rinsa tells her that's not how it works -- the oracle doesn't say anything to her, only to the person who descended, and she's just the one who leads them down and back. B: Edda, undeterred, asks to record Rinsa's part instead -- the leading, the waiting, the hundreds of times. Rinsa finds this stranger than being asked for the oracle's words; nobody's ever wanted the guide's account before, only the destination's. A: Rinsa gives it to her, plainly, without performance -- what the stairs feel like on the two-hundredth trip, how she tells if someone's about to lose their nerve, what she does with her own thoughts while she waits in the dark for a stranger's question to finish. Edda writes all of it down and tells her it's the first account in her whole collection of someone who does the actual carrying instead of just receiving what gets carried. Rinsa, who pours herself out for a living and has never once had any of it kept, finds out what it's like to have some of it kept anyway.",
+    "notes": "Edda=Maiden reused from Waldrada/Edda. Rinsa's own already-stated sign, the Vessel, reused verbatim. Direct tie: Edda's own note ('village reciter,' the record-keeper) turned toward Rinsa's own note (the one unit who's actually descended) -- the first time anyone in the archive records the guide instead of the destination. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_edda_kest",
