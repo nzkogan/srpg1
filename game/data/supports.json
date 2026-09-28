@@ -69,12 +69,12 @@
     "chain_id": "sup_avatar_maren",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "Assembly-route avatar option. Avatar's own gender/orientation is player-chosen per this design's own protagonist convention, so this and every other avatar pairing are inherently player-flexible, not fixed by this row -- flagged for the assembly route specifically since u_maren's own route is assembly."
+    "status": "drafted",
+    "summary": "C: The avatar keeps re-pushing an already-overruled requisition for more winter-dole grain. Maren, who runs the dole line, has heard every version of this argument already, from people with more rank and less follow-through. B: Maren notices the avatar doesn't stop arguing once the requisition is denied a second time -- goes over the ledgers alone, at night, still building a case nobody asked to hear again. She starts leaving the real capacity numbers where they will find them. A: The avatar admits the arguing was never strategy -- walking away from a wrong call feels like the actual failure, rank or no rank. Maren, who has watched people put on a Warden's mask specifically so they can keep making that same call without it costing them anything, tells them plainly: don't go numb to it, get useful instead -- and hands over the dole line's real numbers, unfiltered. S (romance): the avatar stops arguing to be right and starts arguing with Maren's numbers instead of past them; Maren, who pours herself out for a whole line of strangers every winter, finds the one person she doesn't have to ration the truth for.",
+    "notes": "Avatar=Scorpion is new, off the avatar's own note ('level 1 administrator... voiced and argumentative'), read as someone who keeps re-raising a decision everyone else has let rank settle, which is the Scorpion's virtue ('carries the grudge that keeps everyone honest') read institutionally rather than personally. Maren=Crab is new, off her own note ('winter-dole healer' -- loyalty to the people in her line over the crown's actual allotment, the Crab's own failure mode read as triage under scarcity) -- a deliberate second Crab, distinct from Ricberta's (military/secrecy) by being medical/scarcity-driven instead. Assembly-route avatar option per the original skeleton note; the avatar's sign is treated as fixed across both avatar chains in this pass, the same convention already used for an established unit's sign (Kest, Rinsa), not reassigned per pairing."
   },
   {
     "chain_id": "sup_avatar_brandt",
@@ -179,12 +179,12 @@
     "chain_id": "sup_avatar_kest",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_twins",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "Diadem-route avatar option, same player-flexibility note as the u_maren row above -- u_kest's own route is diadem."
+    "status": "drafted",
+    "summary": "C: Kest cases the avatar's own field desk out of habit before she's decided whether to join at all. The avatar catches her at it and, instead of reporting it, asks what she'd have taken. B: The avatar keeps re-litigating a call from chapters back -- a defection let stand, a resource not seized -- out loud, to no one in particular. Kest recognizes the arguing-with-someone-not-there rhythm immediately and says nothing, which is its own kind of recognition. A: Pressed, the avatar admits the second-guessing isn't doubt about the decision, it's refusing to let a bad outcome go unexamined just because it's over. Kest, still withholding her own reason for the same habit, offers only that she used to think the arguing meant something was wrong with her. The avatar's answer -- that it just means the argument mattered enough to keep -- is the first thing anyone's said about it that isn't trying to fix her. S (romance): the avatar's grudge against its own decisions and Kest's grudge against her own survival stop being separate arguments -- two people who never let a thing go finally aim it at the same target instead of at themselves.",
+    "notes": "Kest's sign (the Twins) is her own already-stated sign, reused verbatim, not reassigned -- same treatment as in the Rinsa/Kest chain. Avatar=Scorpion reused from the Avatar/Maren chain above (see that chain's note for the grounding). Diadem-route avatar option per the original skeleton note."
   },
   {
     "chain_id": "sup_jost_ricberta",
@@ -201,12 +201,12 @@
     "chain_id": "sup_jost_emmerich",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_emmerich",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_lion",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "Both diadem-route men -- Emmerich (requisitions clerk; Baron showcase) and Jost (ford bandit; lucky sleeper) -- not written this pass, same breadth reasoning as Waldrada/Edda above."
+    "status": "drafted",
+    "summary": "C: Emmerich's requisition ledgers keep coming up short after Jost's unit passes through. Jost's defense: he only takes what the count had already lost, not what's tracked -- which Emmerich hears as a personal insult to his ledger's accuracy. B: Jost, constitutionally unable to sit through Emmerich's line-by-line reconciliation meetings, starts falling asleep in them -- except Emmerich notices he only sleeps through the parts that don't matter, and stays sharp the instant a real number comes up. A: Emmerich admits the tidy showcase reports are half theater -- the Baron needs the diadem line to look competent more than he needs it accurate, and Emmerich is the one stuck producing both at once, terrified of the day the gap shows. Jost's answer isn't reassurance, it's a second set of eyes: he starts double-checking Emmerich's counts himself, badly, at a bandit's honest pace, so someone besides Emmerich is watching the real number. S (romance): Jost stops treating the ledger as a thing to raid and starts treating it as Emmerich's, specifically; Emmerich stops needing the Baron's audience once Jost's sloppy, loyal recount is the one he actually trusts.",
+    "notes": "Jost=Ram is new, off his own note ('ford bandit; lucky sleeper' -- decisive the instant an ambush needs him, constitutionally unable to sit still for anything that isn't one -- the Ram's virtue/failure pair exactly). Emmerich=Lion is new, off his own note ('requisitions clerk; Baron showcase' -- a subordinate whose composure depends on being visibly valued by a superior; the Lion's failure mode, 'cannot take a demotion gracefully,' would hit him hardest of anyone on the roster). Both diadem-route (ch_d02/ch_d03), consistent with the original skeleton note."
   },
   {
     "chain_id": "sup_jost_sigrun",
@@ -542,12 +542,12 @@
     "chain_id": "sup_emmerich_waldrada",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_waldrada",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_scales",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "A different-sex option, not written this pass -- units can and do have more than one romance-eligible chain in this design, same as Emmerich/Jost above."
+    "status": "drafted",
+    "summary": "C: Emmerich's requisition reports keep crediting Waldrada's flights with cargo she never actually delivered -- an accounting shortcut, not malice -- and she calls him on it in front of the Baron, which he does not forgive quickly. B: Waldrada, still weighing whether the diadem's own bookkeeping is any more honest than the assembly's she defected from, starts actually reading Emmerich's ledgers instead of just resenting them, and finds he flags his own errors before anyone else catches them -- more than was ever asked of her under the assembly. A: Emmerich admits the showcase reports are half theater -- the Baron needs the diadem line to look competent more than he needs it accurate, and Emmerich is stuck producing both truths at once. Waldrada recognizes the position exactly: performing loyalty while the real math tells a different story. S (romance): Waldrada stops weighing whether the diadem deserves any more trust than the assembly did; Emmerich gets one ledger he doesn't have to cook -- hers, kept scrupulously, on his side, for reasons that have nothing to do with the Baron.",
+    "notes": "Both signs reused verbatim from their own established chains above (Emmerich=Lion from Jost/Emmerich, Waldrada=Scales from Waldrada/Edda) -- same unit, same sign, not reassigned per pairing, the same convention as Kest/Rinsa's fixed unit signs. Both diadem-route (ch_d02), consistent with the original skeleton note -- a different-sex option distinct from Waldrada's cross-route pairing with Edda above."
   },
   {
     "chain_id": "sup_emmerich_tancred",
@@ -883,12 +883,12 @@
     "chain_id": "sup_waldrada_edda",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "Both assembly-route women -- Waldrada (resentful Assembly flier; loyalty subplot) and Edda (village reciter) -- not written this pass, flagged so the romance-eligible set has real breadth beyond the 3 flagship chains, not just a token pair."
+    "status": "drafted",
+    "summary": "C: They meet only after the routes converge -- Edda, assembly's own reciter, wants Waldrada's defection for the record, not gossip, history. Waldrada refuses to be anyone's cautionary verse. B: Reconciling the diadem and assembly muster-rolls (the two sides name things differently) forces them into real proximity. Waldrada catches Edda quietly correcting the diadem clerks' errors without taking credit for it, and reads it as a reciter's habit, not pettiness. A: Waldrada explains the resentment was never about doctrine -- the assembly demanded loyalty run one direction only. Edda, whose entire craft is getting the record right, refuses to let Waldrada's defection get smoothed into either faction's flattering version; she writes it exactly as it happened, unflinching about the parts that make the assembly look bad too. It's the first true account anyone's given her back. S (romance): Waldrada stops flinching when someone asks which side she's really on. Edda's answer is on record, precise, and doesn't require her to pick -- the record just states the truth, in both books.",
+    "notes": "Waldrada=Scales is new, off her own note ('resentful Assembly flier; loyalty subplot') read as backstory affiliation, not current playable route -- her units.route field is diadem, so she is a defector FROM the assembly, which resolves the apparent contradiction rather than being a data error. The Scales' own failure mode ('delay disguised as deliberation') is the shape of a years-long refusal to say outright which side she actually serves. Edda=Maiden is new, off her own note ('village reciter' -- keeps the record, notices the discrepancy nobody else did -- the Maiden's virtue/failure pair exactly). This chain only makes sense post-convergence: chapter numbering jumps from d10/a10 to shared b/c/k/m-prefixed chapters starting around ch_b15, and Waldrada joins diadem (ch_d02) while Edda joins assembly (ch_a02) -- flagged so a future writer doesn't place this scene inside either Act 1 branch."
   },
   {
     "chain_id": "sup_waldrada_anselm",
@@ -1191,12 +1191,12 @@
     "chain_id": "sup_brandt_solveig",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "A different-sex option distinct from Brandt's own already-referenced chain with Maren (units.u_brandt's note: 'Great shield via Maren support' -- that chain unlocks a class change and is preserved as its own thing, not overwritten or assumed romantic here; this row gives Brandt a separate, actually-romance-flagged option)."
+    "status": "drafted",
+    "summary": "C: Solveig's courier runs land her at Brandt's gate on a fixed schedule. He starts timing his own rounds to be the one who opens it, which he tells himself is just efficient gatekeeping. B: Solveig admits the schedule isn't fixed at all -- she reroutes to make Brandt's gate the last stop, because it's the only post on her circuit where nobody expects her to already know how things turn out. Brandt, who has held the same gate for years without needing to be more than reliable, doesn't know what to do with being someone's exception. A: Solveig explains the family holds her prophecy in trust the way a garrison holds a gate -- not hers to decide, only to carry until it's needed -- and that no one has ever once asked what she wants instead. Brandt, who measures his own worth in whether the gate held, tells her the gate was never the whole job; someone still has to decide, every day, that it's worth holding. It's the first time being wanted for something other than the outcome has been put to her plainly. S (romance): Solveig starts flying the long way around just to land somewhere nobody's waiting on a prophecy from; Brandt gets a reason to be more than the gate that held -- someone on the other side of it who chooses to keep coming back.",
+    "notes": "Brandt=Bull is new, off his own note ('gate sergeant', cls_tr_lance/gp_armor) -- a defensive tank who literally holds a gate, the most literal possible read of the Bull's 'will not be moved,' chosen deliberately over a more oblique match. Solveig=Vessel is new, off her own note ('highland pegasus courier; living-prophecy family' -- inherited into a role she didn't choose and carries for others, the Vessel's failure mode 'belongs to everyone and therefore to nobody' read as family inheritance rather than Rinsa's professional/oracular version of the same sign). Brandt's existing 'Great shield via Maren support' note (units.u_brandt) is a separate class-unlock chain, preserved as-is and not folded into this pairing -- this is Brandt's distinct, actually-romance-flagged option, per the original skeleton note."
   },
   {
     "chain_id": "sup_brandt_gunnar",
@@ -1378,12 +1378,12 @@
     "chain_id": "sup_gunnar_edda",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "yes",
-    "status": "unwritten",
-    "summary": null,
-    "notes": "A different-sex option, not written this pass."
+    "status": "drafted",
+    "summary": "C: Edda's recitations keep getting Gunnar's own hunting stories wrong in small, specific ways. He corrects her once, gruffly, expecting that to be the end of it. B: Edda keeps coming back for more corrections -- not because the poem needs to be accurate, but because she's cataloguing which details he insists on, and they turn out to be the parts he actually cares about, not the ones that make the best verse. A: Gunnar admits he doesn't care whether the recitation is accurate for its own sake; he cares that someone still bothers to ask a huntsman his age which parts of his life were real. Edda, whose whole craft is preserving things exactly as they were before they're gone, tells him the corrections were never charity -- the record is better for them, and so is she. S (romance): Gunnar stops treating her questions as an old man being humored; Edda gets a source who argues with her draft instead of accepting whatever she writes -- the collaboration neither expected to need turns out to be the one that lasts.",
+    "notes": "Gunnar=Goat is new, off his own note ('old huntsman; crossbow-certified' -- decades of solitary, unglamorous, exacting work, the Goat's own virtue read as sustained craft rather than Tancred's institutional-climb version of the same sign). Edda=Maiden reused from the Waldrada/Edda chain above -- same unit, same sign, not reassigned."
   },
   {
     "chain_id": "sup_gunnar_anselm",
