@@ -256,23 +256,23 @@
     "chain_id": "sup_jost_brandt",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Jost, newly diadem, meets Brandt on a joint assembly-diadem detail and clocks him immediately as the kind of soldier who'd have made his old ford ambushes a lot harder. Brandt, unbothered by being sized up by a reformed bandit, agrees, and asks if that's a compliment or a complaint. B: Jost admits it's a compliment, mostly -- he respects competence he can't get around, more than he respects competence he can. Brandt, who's used to being underestimated rather than flattered, doesn't quite know what to do with being professionally admired by a man who used to rob people for a living. A: Jost explains the respect plainly: Brandt's the kind of obstacle that would have made him actually plan instead of just getting lucky and sleeping through the rest, and Jost's spent his whole life avoiding exactly that kind of pressure. Brandt tells him that's not nothing -- most people never find out what they'd be if the easy way stopped working, and Jost's at least honest enough to know he never found out either. It's not quite a friendship. It's two men being plainly useful to each other's self-assessment, which for both of them is rarer than friendship.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Brandt=Bull from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_solveig",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Jost, half-asleep as usual, asks Solveig what it's like to already know how a flight's going to go before you take off. Solveig, prickly about the prophecy, tells him it isn't like that at all -- then admits she's never actually been asked the honest version of that question before. B: Solveig watches Jost sleep through the parts of a briefing that don't matter and snap awake the instant something does, and asks how he decides which is which without ever seeming to decide anything. Jost's answer -- he doesn't decide, it just arrives -- sounds uncomfortably close to her own family's account of the prophecy, except his always seems to serve him and hers never asks what she wants. A: Jost admits the sleeping isn't really about instinct, it's that deciding things in advance never worked out for him, so he stopped bothering and let the moment do the deciding instead -- which is either wisdom or the same trap her family's in, and he's honestly not sure which. Solveig, who has spent her whole life being handed an answer she didn't get to earn, tells him that not-deciding is a kind of freedom she's never once had, prophecy or no prophecy -- and asks him, seriously this time, to teach her how he does it, on purpose, instead of by accident.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Solveig=Vessel from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence. Ram's virtue read as decisiveness-without-premeditation, set directly against Vessel's failure mode ('belongs to everyone and therefore to nobody') -- inherited certainty vs earned spontaneity. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_gunnar",
@@ -498,12 +498,12 @@
     "chain_id": "sup_ricberta_torvald",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Ricberta, sizing up the assembly's last old-order knight the way she sizes up every soldier who might outrank her competence, asks Torvald plainly why he still takes orders from officers half his age. Torvald's answer is short: someone has to hold the post, rank was never the point. B: Ricberta needles at that -- rank is always the point, she's built a whole second life managing exactly how much competence she can afford to show without it costing her the post -- and Torvald, who has never once had to hide anything about what he's capable of, doesn't understand the calculation until she spells it out. A: Torvald admits her calculation is the harder discipline -- his own loyalty cost him grief, not strategy, because there was never anyone left to manage the appearance for. Ricberta hears, for the first time, an answer to 'what happens once the hiding isn't necessary anymore' that isn't a threat: it's just a man who outlived the need for it, and still chose to keep serving anyway. She doesn't stop hiding. She starts believing there's a version of not having to.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Torvald=Crab from Dietmar/Torvald). Deliberately paired as a second Crab mirror (after Solveig/Rinsa's Vessel mirror) -- argued as distinct temporal positions on the same failure mode: Ricberta's loyalty protects a future inside a system that still exists, Torvald's preserves a past system that's already gone. Cross-route (diadem/assembly), post-convergence. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_rinsa",
@@ -652,12 +652,12 @@
     "chain_id": "sup_emmerich_torvald",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's requisition math keeps assuming Torvald's unit needs resupply at the same rate as everyone else's; Torvald corrects him -- there's almost no unit left to supply, and the numbers should say so plainly instead of politely rounding up. B: Emmerich admits the rounding is deliberate -- an accurate line for 'one aging knight and no order behind him' would draw exactly the kind of attention that gets a unit quietly retired, and he's been protecting Torvald's post without asking. Torvald, who has never once let anyone manage his situation for him, is more unsettled by the kindness than he'd be by the threat. A: Torvald tells him plainly he'd rather be an accurate line than a flattered one -- being seen honestly and cut is still being seen, and Emmerich's whole fear is the opposite of that, being erased quietly instead of honestly. Emmerich, whose entire anxiety runs on being visibly valued, starts entering Torvald's numbers straight, no rounding, and finds the Baron never even notices. Neither of their fears turn out to be about the ledger at all.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Torvald=Crab from Ricberta/Torvald above). Cross-route (diadem/assembly), post-convergence. Direct mechanical tie: Emmerich's own note ('requisitions clerk') applied literally to Torvald's own note ('last of a plague-gutted order') -- what an honest requisition line for a unit of one actually looks like. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_rinsa",
@@ -718,12 +718,12 @@
     "chain_id": "sup_sigrun_brandt",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun's dispatches keep arriving at Brandt's gate faster than his own watch rotation can process them; he tells her, without much heat, that speed isn't the same as usefulness if nobody's ready to act on the news. B: Sigrun takes the correction harder than he means it -- being fast and right is the whole of her value, and being told it doesn't land clean is the worst thing anyone's said to her about the job. Brandt, who has never once needed to be fast at anything, admits he only meant his own gate crew is slow, not that her riding wasn't good; the fault was never hers. A: Sigrun admits what actually stung: she says the true thing at the worst moment more often than she'd like, and 'your speed doesn't help if we're not ready' landed exactly like every other time that's cost her. Brandt, whose whole competence is being ready for a hit whenever it lands, tells her that's a gate's job, not a courier's -- she rides it in, he holds what she brings, and neither one has to be the whole system alone. It's the first time being fast has felt like half a job instead of the whole one she has to defend by herself.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Brandt=Bull from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence. Archer's failure mode ('says the true thing at the worst moment') as the literal friction, resolved by Bull's virtue ('holds ground nobody else could') reframed as complementary rather than competing roles. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_solveig",
@@ -828,12 +828,12 @@
     "chain_id": "sup_waldrada_tancred",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_tancred",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, deep in the Pardoner line's early discipline, tells Waldrada plainly that defection is exactly the kind of thing his order exists to forgive. Waldrada, who has spent years weighing the defection rather than confessing it, finds being pre-forgiven for a decision she hasn't finished making almost insulting. B: Tancred admits he offered the absolution because it's the only tool he has, not because he understood what she actually needed; Waldrada, who has never once had anyone ask instead of judge, tells him the weighing itself is the thing, not the verdict at the end of it -- she needs someone to sit in the deliberation with her, not skip to forgiving its outcome. A: Waldrada explains what the years of deliberation actually cost her -- not doubt about the choice, but the particular loneliness of a decision nobody else was willing to take as seriously as she did. Tancred, who measures people by what they build rather than by verdicts handed down on them, stops offering absolution and starts just asking good questions about the actual weighing -- which turns out to be the only thing that ever helped. Neither calls it forgiveness. It's closer to being taken seriously, which for Waldrada was always the harder ask.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Tancred=Goat from Tancred/Anselm). Both diadem-route. Scales' failure mode ('delay disguised as deliberation') met directly by Goat's virtue (measures people by what they build, not by snap verdicts) -- a support about being taken seriously in the weighing, not absolved of its outcome. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_maren",
@@ -1202,12 +1202,12 @@
     "chain_id": "sup_brandt_gunnar",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Brandt holds the gate; Gunnar covers it from the wall above with a crossbow, and after the first real assault they compare notes on whose position actually mattered more. Neither backs down. B: Gunnar admits, grudgingly, that his aim's only as good as the time the gate buys him to line up a shot -- Brandt's stubbornness isn't just holding ground, it's manufacturing the seconds Gunnar's whole craft depends on. Brandt, who's spent his career being underestimated as simple muscle, hadn't considered that the gate was ever anyone's clock. A: Brandt admits he measures his own worth purely in whether the gate held, nothing more complicated than that; Gunnar, decades further into the same kind of unglamorous, solitary discipline, tells him that's the wrong measure for either of them -- the gate holding is what the standard produces, not what it is. Two men who each assumed they were the whole defense find out, plainly, neither one of them was ever meant to be.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Gunnar=Goat from Gunnar/Edda). Both assembly-route. Bull's virtue ('holds ground nobody else could') and Goat's virtue ('will do the unglamorous work for years') read as literally complementary combat roles (gate + overwatch) before becoming a philosophical point about measuring one's own worth. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_edda",
@@ -1466,23 +1466,23 @@
     "chain_id": "sup_edda_kheldar",
     "unit_a_id": "u_edda",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_maiden",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants Kheldar's story for the record -- smuggler-spy, unkillable, escapes everything -- and he politely declines to be recorded at all, on the professional grounds that a documented man is a traceable one. B: Edda points out she already has half his story from everyone else's accounts of him, badly, secondhand, and getting it wrong; if he won't correct the record, the record stays wrong, which she finds more insulting on his behalf than he seems to. Kheldar, who has never once cared what anyone thinks they know about him, is oddly needled by the idea of a bad, inaccurate account of himself outliving the accurate one nobody has. A: Kheldar strikes a deal, characteristically: he'll correct exactly the parts that are wrong, on the record, on the condition she never writes down where he actually is at the time of telling. Edda agrees, and gets the strangest, most carefully redacted true account in her whole collection -- accurate about everything except the one thing that would matter to anyone trying to catch him. It's the closest thing to being honestly known that Kheldar's ever allowed anyone.",
+    "notes": "Both signs reused verbatim (Edda=Maiden from Waldrada/Edda, Kheldar=Scorpion from Kheldar/Kest). Direct tie: Edda's own note ('village reciter,' keeper of the record) applied to Kheldar's own note ('manifest discrepancy thread,' a man who exists to not be pinned down) -- the negotiation over what gets recorded is the whole chain. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_edda_dietmar",
     "unit_a_id": "u_edda",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_maiden",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants Dietmar's account of the revolution for the record, the real one, not the version already circulating as legend. Dietmar gives her the legend anyway, out of old habit, and she calls him on the substitution immediately. B: Dietmar admits the legend is easier to tell because the real account doesn't have a shape yet that ends well -- he's still in it, still trying to be useful, and a record only really works once the story's finished. Edda tells him plainly that's not how any record she's ever kept actually works; half of them are unfinished, and the unfinished ones are usually the most honest. A: Dietmar gives her the real account -- not the revolution's, just his own, obsolescence and all, admitting he doesn't know yet whether the gate-holding deed will read as a last good chapter or a footnote nobody needed. Edda writes it down exactly as given, unfinished, and tells him that's precisely what makes it worth keeping: a legend already knows how it ends, a true record doesn't, and his is still being written whether he likes it or not.",
+    "notes": "Both signs reused verbatim (Edda=Maiden from Waldrada/Edda, Dietmar=Lion from Dietmar/Torvald). Lion's failure mode ('cannot take a demotion gracefully') read as a preference for legend over an unfinished, unflattering true account; Maiden's virtue ('notices the discrepancy nobody else did') is the literal mechanism that catches him substituting one for the other. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_edda_torvald",
@@ -1664,12 +1664,12 @@
     "chain_id": "sup_torvald_kest",
     "unit_a_id": "u_torvald",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Torvald catches Kest lifting a coin off a dead man's belt during a battlefield sweep and says nothing about the theft, only that the dead don't need it argued over. Kest, mid-argument with herself as usual, is unsettled that he clocked the argument and not the theft. B: Kest needles him about outliving an entire order -- doesn't he argue with himself about why he's the one left. Torvald says no, flatly; the arguing stopped being useful a long time ago, it's just grief now, and grief doesn't need two sides. Kest goes quiet in a way that isn't her usual quiet. A: Kest admits, closer to the truth than she's told anyone, that her own arguing used to be a real second voice and isn't anymore, and she doesn't know if losing the argument or losing the reason for it hurt worse. Torvald, who has exactly one answer to that question and has had years to sit with it, tells her it's both, always both, and that the day it stops being both is the day to worry. It's the closest anyone in the roster comes to naming what's actually wrong with her, without either of them saying her brother's name.",
+    "notes": "Torvald=Crab reused from Ricberta/Torvald above. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Direct thematic tie to Kest's own note (grieving a twin brother, hidden until supports 'earn the reveal') and Torvald's own note (sole survivor of a wiped order) -- both carry an unspoken grief the chain gestures at without cashing in the full reveal, consistent with her own note that the reveal is meant to surface gradually across her support web, not in any single chain. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_rinsa_kest",
