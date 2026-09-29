@@ -80,12 +80,12 @@
     "chain_id": "sup_avatar_brandt",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar keeps proposing improvements to Brandt's gate rotation, in detail, repeatedly, each version slightly different; Brandt holds the gate the same way regardless and lets the proposals pile up unread. B: The avatar, unused to being simply ignored rather than argued with, corners him about it. Brandt's answer is plain: the gate's held every time so far, and a new rotation on paper doesn't hold anything until it's tested, so he's not going to trade a working method for an untested one just because it's newer. A: The avatar admits the proposals were never really about the gate -- it's the habit, improving things whether or not they're broken, because standing still on a decided question feels like negligence. Brandt tells them plainly that's not negligence, that's most of what holding actually is -- deciding once, correctly, and then not needing to keep re-deciding it every day. The avatar doesn't stop proposing improvements everywhere else. They do let Brandt's gate alone, and start noticing which of their own decisions might already be as solid as his.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Brandt=Bull from Brandt/Solveig). Scorpion's failure mode ('carries it long after it stopped being useful') meets Bull's virtue ('holds ground nobody else could') as a direct model of a decision that doesn't need reopening. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_solveig",
@@ -157,12 +157,12 @@
     "chain_id": "sup_avatar_torvald",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar keeps trying to formally reassign Torvald to somewhere with an actual current mission, citing efficiency; Torvald keeps declining, politely, without explanation, every time it comes up. B: The avatar, unable to let an unresolved assignment sit, pushes for the reasoning. Torvald finally gives it: his post isn't a mission he was assigned, it's the last thing connecting him to men who don't exist anymore, and reassigning him would sever that on paper the way the plague already severed it in fact. A: The avatar, whose whole method is arguing a thing until it resolves, doesn't argue with this one. They admit efficiency was never actually the point of the proposal, it was the same compulsion that makes them re-litigate everything -- an unclosed assignment nagged at them the way an unclosed question always does. Torvald tells them some things aren't inefficiency, they're just what's left, and not everything left needs resolving into a cleaner shape. The avatar leaves the assignment as it is. It's one of the only unresolved things on record they've ever let stay that way on purpose.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Torvald=Crab from Dietmar/Torvald). Scorpion's compulsion to resolve everything meets the one situation where resolving it would be the actual harm -- Crab's loyalty read as something that shouldn't be optimized away. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_rinsa",
@@ -223,12 +223,12 @@
     "chain_id": "sup_jost_waldrada",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_waldrada",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_scales",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Waldrada, still weighing a decision from years back, asks Jost how he ever manages to just act without running the whole calculation first. Jost's answer -- he doesn't run any calculation, ever -- sounds to her like either the freest thing she's heard or the most reckless. B: Jost admits the not-calculating isn't really freedom, it's that the one time he did calculate carefully, it went wrong anyway, so he stopped trusting the math. Waldrada, whose whole method is trusting the math forever without ever finishing it, recognizes a version of her own problem running in the opposite direction -- both of them let one bad outcome decide how they'd handle every decision after. A: Waldrada admits she's never actually let the defection be finished because finishing it would mean living with whichever answer she picked, good or bad, same as Jost avoiding the calculation because he can't stand living with a wrong one. Jost tells her plainly that a decided thing, even a wrong one, is still lighter to carry than an undecided one forever -- he knows, because he's spent years proving it by carrying nothing at all. Neither fixes the other's method. Waldrada starts letting some smaller questions actually close. Jost starts running the calculation on the ones that are worth it.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Waldrada=Scales from Waldrada/Edda). Ram's virtue (decisive, doesn't look back) and Scales' failure mode ('delay disguised as deliberation') both traced back to the same root: a single bad outcome that taught each of them the wrong lesson about deciding at all. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_tancred",
@@ -311,12 +311,12 @@
     "chain_id": "sup_jost_kheldar",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar, cataloguing which recruits might be useful contacts later, marks Jost down as a dead end -- a reformed bandit with nothing left to leverage, no debts, no angles. Jost, hearing about the assessment secondhand, is oddly pleased to be considered useless to a professional manipulator. B: Kheldar, curious despite the assessment, asks how a man builds up literally nothing worth holding over him. Jost's answer: he never kept anything long enough to owe for it, not money, not loyalty, not grudges -- travel light, nothing to lose, nothing anyone can take. A: Kheldar admits, almost enviously, that his own whole trade depends on everyone having something to lose, and he's never met anyone who genuinely doesn't. Jost tells him plainly it isn't a trick, it cost him the chance to actually want anything too, same as it cost him the ability to be leveraged -- the emptiness cuts both ways. Kheldar, who has spent his career being the one thing nobody can pin down, recognizes the same nothing looking back at him from a totally different angle, and for once doesn't try to find the angle in it.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Kheldar=Scorpion from Kheldar/Kest). Ram's own decisiveness read as an absence of anything to lose, directly undermining Scorpion's whole professional method (leverage via grudges and debts) -- two versions of having nothing held over you, one costly, one useful. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_dietmar",
@@ -575,12 +575,12 @@
     "chain_id": "sup_emmerich_brandt",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's showcase reports keep describing Brandt's gate crew in glowing, exaggerated terms for the Baron's benefit; Brandt reads one, eventually, and tells him flatly to stop -- the exaggeration makes the real thing look like it needs dressing up. B: Emmerich admits he dresses up every report that way, not just Brandt's -- it's not really about the gate, it's that plain, accurate competence has never once been enough to keep him safe from scrutiny, so he inflates everything as a hedge. Brandt, who's never once needed to be seen as more than he is to feel secure in his post, doesn't understand the hedge but doesn't dismiss it either. A: Brandt tells him plainly that his own gate has held on exactly the reputation it deserves, no more, and that's been enough for years -- maybe the hedge is costing Emmerich more than the risk it's protecting against. Emmerich admits the fear's bigger than any single report; still, for Brandt specifically, he starts writing it straight, no inflation, just to see what it feels like. Nothing goes wrong. Brandt gets an honest line in the record. Emmerich gets one report he doesn't lie awake over.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Brandt=Bull from Brandt/Solveig). Lion's failure mode ('cannot take a demotion gracefully') tested directly against Bull's own security in being exactly what he is, no more -- one honest report as a small, controlled experiment. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_solveig",
@@ -663,12 +663,12 @@
     "chain_id": "sup_emmerich_rinsa",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich, curious about a job stranger than requisitions, asks Rinsa if she ever worries about being good enough at the descent. Rinsa tells him the question doesn't apply -- there's no scoring, no audience, just whether the person comes back up, and they always do. B: Emmerich admits he doesn't understand doing something that thoroughly without anyone grading it; his whole anxiety runs on the grading. Rinsa tells him plainly that the grading is the thing making him anxious, not the work itself -- and asks what his actual numbers look like without the Baron attached to them. A: Emmerich admits, when he actually separates the two, his numbers are fine -- good, even -- and the anxiety was never about competence, only about being watched while doing it. Rinsa, who has never once had an audience for the thing she's genuinely best at in the world, tells him that's a trade she'd take gladly: her own work disappears completely, no credit, no witness, and some days she'd like just one person to notice. Emmerich starts writing one report a month with nobody's name on it but his own, for practice, the way she works every day without anyone's at all.",
+    "notes": "Emmerich=Lion reused from Jost/Emmerich. Rinsa's own already-stated sign, the Vessel, reused verbatim. Lion's failure mode ('cannot take a demotion gracefully') isolated from actual competence by Vessel's own total lack of an audience -- each envies what the other has too much or too little of. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_kest",
@@ -894,23 +894,23 @@
     "chain_id": "sup_waldrada_anselm",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm, doubting everything these days, asks Waldrada how she's managed to keep re-litigating one decision for years without it dissolving into total uncertainty about everything else too. Waldrada tells him it hasn't dissolved -- if anything it's the only thing she's certain is still unresolved, which is its own kind of stability. B: Anselm admits that's the opposite of his own experience -- his doubt about one question spread until nothing felt solid anymore. Waldrada asks what the original question even was, and Anselm realizes, saying it out loud for the first time in a while, that he's lost track; the doubt outlived the question that started it. A: Waldrada tells him plainly that's the actual danger in what they're both doing, not the doubting itself -- hers has stayed contained because she's never let it spread past the one decision, and his has swallowed everything because he let it. Anselm, hearing the difference named clearly for the first time, starts trying to locate which specific questions are actually open and which ones he's just been carrying out of habit. Waldrada doesn't resolve her own question by the end. She does help him get his back down to a size that might actually be answerable.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Anselm=Fishes from Tancred/Anselm). Scales' failure mode ('delay disguised as deliberation') held contained to one question, contrasted with Fishes' failure mode ('understands the enemy too well to fight them') having spread to swallow everything -- the same doubt, differently bounded. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_kheldar",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar, professionally curious about defectors, asks Waldrada whether she ever regrets that the diadem hasn't turned out to be worth what she gave up for it. Waldrada, still weighing that exact question years later, doesn't have a clean answer, which he finds more interesting than either yes or no would have been. B: Kheldar admits he's never once looked back at a choice the way she does -- he just adjusts, continuously, and the idea of being stuck re-litigating one decision for years sounds close to a nightmare. Waldrada tells him that's easy for a man who's never actually committed to a side; she gave something up permanently, and he's never given up anything he couldn't smuggle back out again. A: Kheldar concedes the point -- his whole trade is built on never being pinned to one position, and he's never had to find out what it costs to actually choose and live inside the choice. Waldrada admits what it costs is exactly what he'd expect: years of wondering, with no way to test the alternative. Neither one envies the other's method by the end. They do agree, for once, that the other one's found a genuinely different way to survive the same uncertain world, and neither is obviously the wrong way.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Kheldar=Scorpion from Kheldar/Kest). Scales' failure mode ('delay disguised as deliberation') set against a man built entirely around never being pinned to one position -- committed permanence vs perpetual adjustability, neither one resolved as superior. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_dietmar",
@@ -1246,12 +1246,12 @@
     "chain_id": "sup_brandt_dietmar",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar, inspecting the assembly's defenses, singles out Brandt's gate as unglamorous but solid, meant as a compliment; Brandt takes it as one, flatly, without the gratitude Dietmar's used to getting for noticing someone. B: Dietmar, who has spent the obsolescence arc needing his praise to actually land, is thrown by a man who receives it and just goes back to work. He asks, almost accusingly, whether Brandt even cares whether anyone notices the gate holds. Brandt's answer: the gate cares, in the sense that it either holds or it doesn't, and that was always going to be true whether Dietmar noticed or not. A: Dietmar admits that's exactly the thing he's lost and can't get back -- a measure of worth that doesn't depend on an audience. Brandt tells him plainly it's not lost, it's just buried under needing the audience for so long that the actual measure's hard to find underneath it -- but the gate's still there, holding, whether Dietmar's watching himself hold it or not. Dietmar doesn't stop wanting to be seen. He does start checking his own work against the plainer measure first, before he checks it against anyone's opinion of it.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Dietmar=Lion from Dietmar/Torvald). Bull's virtue (holds ground, needs no audience to know it held) offered as a model to Lion's failure mode ('cannot take a demotion gracefully') -- a plainer measure of worth underneath the need to be watched. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_torvald",
@@ -1598,12 +1598,12 @@
     "chain_id": "sup_kheldar_rinsa",
     "unit_a_id": "u_kheldar",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar, professionally curious about anyone who can't be bought, tries to find Rinsa's price out of habit -- what would make her talk about who's actually gone down to the oracle and what they asked. She tells him the question's not for sale; it was never hers to sell in the first place. B: Kheldar, unused to a flat no that isn't posturing for a better offer, tests it twice more and gets the same answer, unchanged, unbothered. He admits, grudgingly, that he can usually find the angle in anyone's refusal, and can't find one in hers. A: Rinsa tells him plainly there isn't an angle, because she's not protecting herself, she's protecting what the descent actually is for the people who need it -- there's nothing in it for her to leverage since none of it was ever hers to begin with. Kheldar, whose entire trade runs on everyone having a self-interest to work with, sits with the genuinely strange experience of a person with none, at least not here, and finds it more unsettling than any hard bargain would have been. He stops asking. It's one of the only doors he's ever walked away from without checking twice for another way in.",
+    "notes": "Kheldar=Scorpion reused from Kheldar/Kest. Rinsa's own already-stated sign, the Vessel, reused verbatim. Scorpion's whole method (leverage via what someone has to lose) meets Vessel's failure mode ('belongs to everyone and therefore to nobody') from the one angle it can't work: nothing personal left to leverage. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_kheldar_kest",
