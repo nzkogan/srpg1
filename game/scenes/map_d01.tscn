@@ -6,7 +6,7 @@
 position = Vector2(48, 48)
 script = ExtResource("1")
 map_id = "map_d01"
-deploy_unit_ids = Array[String](["u_jost", "u_avatar", "u_emmerich", "u_sigrun", "u_torvald", "u_dietmar"])
+deploy_unit_ids = Array[String](["u_avatar", "u_sigrun", "u_torvald", "u_dietmar"])
 deploy_row = 9
 deploy_col_start = 1
 deploy_col_step = 2
