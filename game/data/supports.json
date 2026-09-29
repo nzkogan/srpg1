@@ -113,12 +113,12 @@
     "chain_id": "sup_avatar_edda",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar wants their own decisions recorded in the archive alongside everyone else's, formally, the way Edda records units' histories; Edda points out that's not really what the archive's for -- it's for the roster, not the administration. B: The avatar, who never lets a boundary like that sit unquestioned, pushes on why the distinction matters. Edda tells them plainly: a record of the decision-maker starts shaping the decisions to look good in the record, and she's not going to be party to that, even accidentally. A: The avatar admits, after arguing it six different ways, that she's right, and that the impulse to be recorded was itself a version of the thing she's protecting against -- wanting the archive to already have an opinion about them before the actual history's finished happening. Edda offers a compromise instead: she'll record the decisions, not the decider, no names attached until much later, when there's enough distance to write it honestly. The avatar, for once, stops arguing and takes the compromise exactly as given.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Edda=Maiden from Waldrada/Edda). Scorpion's compulsion to keep re-raising a settled question meets Maiden's own discipline (accuracy over flattery) directly -- one of the only chains where the avatar loses an argument cleanly and accepts it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_anselm",
@@ -399,12 +399,12 @@
     "chain_id": "sup_ricberta_tancred",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_tancred",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, deep in his order's discipline about honesty, asks Ricberta -- not unkindly, just directly -- whether hiding her literacy from her superiors counts as a kind of lie she should be confessing to someone. Ricberta tells him flatly it's none of his order's business. B: Tancred admits the question was clumsy, but the concern under it wasn't -- he's watched enough people in the diadem get quietly punished for competence to understand the hiding, he just wondered if it cost her something to keep confessing it to no one. Ricberta, expecting a lecture and getting an actual question instead, admits it does cost something, just not the thing his order would call sin. A: Ricberta tells him plainly what it costs: not guilt, just the specific loneliness of a secret with nobody keeping it alongside her, only for her. Tancred, whose whole practice is unglamorous, witnessed work, offers the one thing he actually has to give -- witnessing, no confession, no absolution required, just someone who knows and doesn't report it. Ricberta doesn't confess anything new. She does let one more person carry the knowing, which turns out to be most of what she needed.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Tancred=Goat from Tancred/Anselm). Crab's failure mode (a secret carried entirely alone) met by Goat's virtue (unglamorous, witnessed work) reframed as simple witnessing rather than confession -- Tancred's class instinct corrected by Ricberta's actual need. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_maren",
@@ -971,12 +971,12 @@
     "chain_id": "sup_tancred_brandt",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred asks Brandt, admiringly, how he got so solid in his post so young; Brandt, who's never thought of himself as solid, just present, doesn't have a good answer beyond showing up. B: Tancred admits he's been treating 'solid' as a destination, something the Pardoner line's climb is supposed to arrive at eventually; Brandt tells him plainly he's never arrived anywhere, he's just held the same spot long enough that it started looking like arrival from outside. A: Tancred sits with the reframe -- maybe the climb was never going anywhere in particular, maybe it was just showing up, repeated, the same as Brandt's gate. Brandt, who's never had anyone examine his own steadiness this closely, admits it's made him look at it too -- and finds, a little surprised, that he likes it better as a practice than as a fact about himself. Neither changes what they do. Both change what they think they're doing it for.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Brandt=Bull from Brandt/Solveig). Goat's virtue (unglamorous work, sustained) recognized directly in Bull's own virtue (holds ground) as the same practice from two different classes -- climbing reframed as showing up, repeated. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_solveig",
@@ -1037,12 +1037,12 @@
     "chain_id": "sup_tancred_dietmar",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar, watching Tancred grind through the Pardoner line's early, unglamorous requirements, tells him plainly that nobody remembers the grinding, only the finished thing -- advice meant kindly, from a man whose own finished thing is starting to be forgotten anyway. B: Tancred asks, carefully, whether that's actually true, since Dietmar himself seems to be finding out it isn't. Dietmar admits the finished thing fades faster than the grinding ever did in his own memory -- the revolution's a name now, the years of actual work before it are the part he still remembers clearly, alone, since nobody else was there for that part either. A: Dietmar tells him, revising his own advice: remember the grinding on purpose, keep it for yourself, because it may be the only part that's still yours once the finished thing becomes everyone else's story to tell. Tancred, who measures people by what they build, realizes Dietmar's obsolescence isn't really about the revolution fading, it's about losing ownership of his own history to the legend of it. He starts asking Dietmar for the ungrinded version, the real one, specifically so someone besides Dietmar has it too.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Dietmar=Lion from Dietmar/Torvald). Goat's virtue (measured by what's built, the unglamorous middle) offered as the corrective to Lion's failure mode ('cannot take a demotion gracefully') -- ownership of one's own unglamorous history as a hedge against becoming someone else's legend. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_torvald",
@@ -1290,12 +1290,12 @@
     "chain_id": "sup_solveig_gunnar",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Solveig's courier route crosses Gunnar's hunting grounds regularly enough that he starts leaving a marker where he wants her to land instead of just complaining about the noise. She's surprised to be accommodated rather than scolded. B: Gunnar admits the marker isn't really about the noise -- it's that watching her fly the same route on the same schedule, prophecy-bound, reminds him of tracking game on a set circuit, and he finds himself curious what it's like to be the thing being tracked instead of the tracker. Solveig tells him it's exactly what it sounds like: always known where you'll be next, by someone else's expectation. A: Gunnar admits decades of solitary tracking never once made him feel watched, only watchful; Solveig's whole life has been the reverse. He offers her something he's never offered anyone: teach her the parts of the land that aren't on the family's expected circuit, the blind spots even a prophecy hasn't mapped. Solveig takes him up on it, not to escape the route, just to know there's more of the world than the part she's expected to fly through.",
+    "notes": "Both signs reused verbatim (Solveig=Vessel from Brandt/Solveig, Gunnar=Goat from Gunnar/Edda). Vessel's failure mode ('belongs to everyone and therefore to nobody,' always known, always expected) met by Goat's own solitary expertise -- mapping the blind spots a prophecy never accounted for. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_edda",
@@ -1367,12 +1367,12 @@
     "chain_id": "sup_solveig_kest",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kest, casing a delivery Solveig's about to make out of old habit, gets caught before she even decides whether to actually take anything. Solveig, used to being watched by people with an agenda, finds being cased by someone still arguing with herself almost restful by comparison. B: Kest asks how Solveig stands always being watched, expected, accounted for; Solveig admits she doesn't really stand it, she's just never had the option to be anything else. Kest, whose whole life is options she argues herself out of, doesn't know what to say to someone who never had any to argue about in the first place. A: Solveig admits she envies the arguing, actually -- even a bad option chosen freely sounds better than a good one handed down. Kest, still withholding her real reason for the double-voiced habit, offers something close to honest: the arguing isn't really freedom either, it just feels like it from outside. Neither trades places. They do agree, quietly, that the other's cage looks better from the wrong angle, and that's almost a comfort -- proof that neither one's imagining the whole problem.",
+    "notes": "Solveig=Vessel reused from Brandt/Solveig. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Vessel's failure mode (inherited, always expected) set against Twins' failure mode (won't commit while a better argument exists) -- inherited certainty envying earned indecision, and vice versa. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_gunnar_edda",
@@ -1400,12 +1400,12 @@
     "chain_id": "sup_gunnar_kheldar",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar, scouting who on the roster might be useful to know, tries to place Gunnar and can't -- no debts, no ambitions, no visible angle, just a man who does his job and goes home. He asks Gunnar outright what he actually wants, expecting the answer to reveal the angle. B: Gunnar's answer -- nothing Kheldar's got to offer -- isn't evasion, it's just true, and it unsettles Kheldar more than a lie would have. Gunnar, curious in turn, asks what Kheldar actually wants, and gets an answer that surprises them both: to stop needing to find everyone's angle, just once, and not have it cost him anything to relax. A: Gunnar tells him plainly that not needing anything from someone might be the closest he can offer to that -- there's nothing to extract from a conversation with a huntsman who doesn't want in on the smuggling and doesn't want him caught either, just company on a quiet watch. Kheldar takes him up on it, warily, and finds the quiet harder to sit in than any negotiation -- and, eventually, easier. Neither becomes the other's angle. That turns out to be the whole point.",
+    "notes": "Both signs reused verbatim (Gunnar=Goat from Gunnar/Edda, Kheldar=Scorpion from Kheldar/Kest). Goat's own lack of ambition or debt makes him the one person Scorpion's whole leverage-based method can't read -- not a puzzle to solve, just company with nothing at stake. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_gunnar_dietmar",
@@ -1488,12 +1488,12 @@
     "chain_id": "sup_edda_torvald",
     "unit_a_id": "u_edda",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_maiden",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants to record the names of Torvald's whole order, the dead ones, properly, before nobody's left who remembers them accurately. Torvald gives her the list. She notices, reciting it back, that he's left one name off. B: Torvald admits the omission is deliberate -- one name he's not ready to say out loud yet, not because he's forgotten, because saying it makes the list final in a way he isn't prepared for. Edda tells him the record can wait; she's not in the business of forcing a discrepancy closed before its time. A: Torvald gives her the name eventually, weeks later, unprompted, once he's ready, and Edda adds it exactly where it belongs without comment on the wait. Torvald tells her that's the first time anyone's let him finish something on his own schedule instead of needing it finished for their own sake. Edda tells him that's the whole difference between a record and a demand -- one of them can actually wait for the truth.",
+    "notes": "Both signs reused verbatim (Edda=Maiden from Waldrada/Edda, Torvald=Crab from Dietmar/Torvald). Maiden's virtue ('notices the discrepancy nobody else did') deliberately not forced to closure, respecting Crab's own pace on a wound that's still his to carry. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_edda_rinsa",
@@ -1510,12 +1510,12 @@
     "chain_id": "sup_edda_kest",
     "unit_a_id": "u_edda",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_maiden",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants to record one of Kest's jobs for the archive -- an ordinary theft, properly documented, the kind of small history nobody else bothers to keep. Kest finds the request stranger than being caught. B: Edda explains she's not interested in judging the theft, just getting the account right -- who, what, why, the actual reasoning, not the moralized version. Kest, unused to anyone wanting her reasoning instead of just her guilt or innocence, gives it to her carefully, half-expecting a trap that never comes. A: Edda, reading the account back, notices the discrepancy immediately -- the reasoning doesn't fully explain the target, there's a gap Kest hasn't accounted for even to herself. Kest, cornered by the one thing she can't out-argue -- someone else's careful reading of her own story -- admits there's a piece she's not telling, and won't, not yet. Edda doesn't push. She records the account with the gap marked honestly as a gap, not papered over, and tells Kest some records stay incomplete a long time before they're ready to be finished -- that's not a flaw in the archive, it's just where this one is.",
+    "notes": "Edda=Maiden reused from Waldrada/Edda. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Maiden's virtue ('notices the discrepancy nobody else did') brushes directly against Kest's own withheld reveal (her twin brother's grief, per her own note, 'never at recruitment... only once a support earns the reveal') -- this chain notices the gap without claiming it, consistent with that note's own instruction. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_anselm_kheldar",
@@ -1565,12 +1565,12 @@
     "chain_id": "sup_anselm_kest",
     "unit_a_id": "u_anselm",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_fishes",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm, doubting everything these days, watches Kest argue herself in and out of a decision in real time and asks if it's exhausting, living inside a debate that never fully resolves. Kest tells him it used to be two people arguing, not one -- which she doesn't explain further, and he doesn't push. B: Anselm admits his own doubt used to feel like a single voice losing an argument with itself; lately it's started to feel more like several voices, none of them his exactly, all equally convincing. Kest, recognizing the shape of that more than she lets on, tells him the multiple voices aren't necessarily a bad sign -- sometimes it just means more than one thing in you actually has a stake in the answer. A: Anselm asks, gently, whether that's been true for her too. Kest doesn't give him the whole answer, but gives him more than she's given almost anyone: yes, once, there were two people arguing, and now there's just her doing both parts, and she's never decided if that's grief or just what 's left. Anselm, whose whole practice is sitting in an unresolved multiplicity without forcing it into one voice, tells her she doesn't have to decide that either -- some arguments stay two-voiced a long time after the second voice is gone, and that's not something to fix.",
+    "notes": "Anselm=Fishes reused from Tancred/Anselm. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. This chain approaches the edge of Kest's withheld reveal (her twin brother's grief) more closely than most, but stops short of naming it outright, consistent with her own note that the reveal surfaces gradually across her support web and is 'never at recruitment' -- here it's Anselm's own doctrine of sitting in unresolved multiplicity that lets the gesture happen without forcing the confession. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_kheldar_dietmar",
