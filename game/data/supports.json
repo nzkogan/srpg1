@@ -410,12 +410,12 @@
     "chain_id": "sup_ricberta_maren",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Maren needs Ricberta's levy roster locked in for dole allotments; Ricberta, protective of exactly how much information about her men gets shared upward, gives her a partial list and calls it complete. B: Maren, running triage on scarce winter supplies, catches the gap immediately -- a partial roster means someone on that levy is going without, and she says so plainly, without accusation, just arithmetic. Ricberta admits the omission: one of her men is quietly sick in a way that would get him reassigned off her levy if it reached the wrong desk, and she'd rather he go hungry a week than lose his post. A: Maren tells her flatly that's not a choice she gets to make on his behalf, and asks to see him herself, off the official books, so the dole gets to him without the reassignment risk. Ricberta, whose entire discipline is deciding exactly what gets seen and by whom, finds someone willing to work inside that same discretion instead of overriding it. The man gets fed. Nobody upstream ever sees the gap in the roster, and Maren doesn't ask Ricberta to trust the system with it again.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Maren=Crab from Avatar/Maren). A second Crab-Crab pairing (after Ricberta/Torvald) -- distinct angle: a sergeant's discipline-loyalty (what gets hidden to protect a position) meeting a healer's triage-loyalty (who gets fed), both practicing loyalty as discretion rather than disclosure. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_brandt",
@@ -487,12 +487,12 @@
     "chain_id": "sup_ricberta_dietmar",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar, sizing up the diadem's junior sergeants, singles out Ricberta as unusually sharp for her rank and asks why she hasn't been pushed toward promotion. Ricberta gives him a deflection so smooth he almost doesn't notice it's one. B: Dietmar, revolution-generation and used to reading soldiers for exactly this kind of evasion, notices anyway, and tells her plainly he's not going to report whatever she's protecting -- he's spent his whole career being visibly exceptional and has some idea what it costs the people who choose not to be. Ricberta, who's never had a superior officer volunteer that trade, doesn't confirm anything, but stops deflecting quite so hard. A: Ricberta admits, carefully, that visibility was never safe for someone with her particular secret; Dietmar tells her his own visibility hasn't been safe either, lately, just for the opposite reason -- his is fading and hers is a choice, and he's not sure anymore which is the worse position to be in. Neither trades secrets outright. They do end up with something like an understanding: two soldiers, one hiding what she can do and one losing what he's known for, checking in on each other's particular kind of exposure.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Dietmar=Lion from Dietmar/Torvald). Crab's failure mode (competence hidden to protect a position) recognized by a man on the opposite end of the same axis -- Lion's failure mode being visibility he can't control losing instead of visibility she won't risk gaining. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_torvald",
@@ -520,12 +520,12 @@
     "chain_id": "sup_ricberta_kest",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Ricberta's levy loses a small requisition to what looks like ordinary pilferage; she tracks it, methodically, the way she tracks everything, and it leads her straight to Kest. B: Kest, cornered, runs the usual argument in her head about whether to talk or bolt, and Ricberta -- reading the hesitation, not the theft -- asks flatly what she was actually arguing about. Kest, thrown by the precision of the question, admits it wasn't really about the requisition; she takes small things sometimes just to prove she still decides something, since so much else about her life was decided for her. A: Ricberta recognizes the shape of that more than she expects to -- her own literacy is the one thing about her life she's kept entirely to her own decision, hidden specifically so nobody else gets to decide what happens to it. She doesn't report the theft. She tells Kest, plainly, that deciding something small and keeping it yours is a real thing to protect, and offers her a legitimate version of it instead: a standing arrangement to flag whatever the levy's about to lose anyway, so Kest gets to keep deciding, on the record, instead of hiding it.",
+    "notes": "Ricberta=Crab reused from Ricberta/Sigrun. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Crab's own failure mode (hiding a decision to keep it entirely one's own) recognized directly in Kest's compulsive small thefts -- read as the same need for an undecided-by-anyone-else act, given a legitimate outlet instead of a moral lecture. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_sigrun",
@@ -740,34 +740,34 @@
     "chain_id": "sup_sigrun_gunnar",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun's dispatch routes keep crossing Gunnar's hunting grounds; he tells her, without much patience, that a courier riding loud through a stalking line ruins a day's work in about ten seconds. B: Sigrun, stung, points out the dispatch has to get there regardless of whose hunt it interrupts; Gunnar admits that's fair and softens, some, once she asks what a quieter route would actually look like instead of just apologizing and doing the same thing again. Sigrun, who prides herself on getting there fast, finds herself genuinely curious about getting there quiet instead. A: Gunnar teaches her the quiet route, which costs her time she's not used to spending; Sigrun admits speed was never actually the requirement, just her own habit of assuming it was. Gunnar, who's spent decades being exact about which approach a moment actually calls for, tells her that's the whole skill -- not being fast, being right about what the moment needs -- and she's got the instincts for it, just never had a reason to use them before. Sigrun starts riding the quiet route when speed isn't the actual ask. Gunnar stops losing a day's stalking to a courier who used to ride through it loud.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Gunnar=Goat from Gunnar/Edda). Archer's own habit (ranges out fast, returns with news) checked by Goat's virtue (exacting, patient craft) -- speed reframed as a habit rather than a requirement. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_edda",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants Sigrun's dispatch routes documented for the archive -- the actual geography of who learned what, when, since news arriving late or early has decided outcomes before. Sigrun's never thought of her routes as history, just as the job. B: Edda points out the discrepancy: Sigrun's own account of a given ride never quite matches what the recipients later claim they heard, and that gap is worth recording too. Sigrun, defensive at first, admits the gap's real -- she compresses, cuts corners in the telling, because the ride mattered more to her than the report of it. A: Edda tells her plainly that the compressed version is the one that survives, and if it's wrong, the record's wrong along with it -- she'd rather have the slower, accurate account than the fast one. Sigrun, whose whole professional identity runs on speed, sits with someone asking her to be careful instead, for once, and gives Edda the longer version, the real one, corners uncut. Edda gets a more honest archive. Sigrun gets the odd experience of being asked to go slow and finding out she's good at that too.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Edda=Maiden from Waldrada/Edda). Maiden's virtue ('notices the discrepancy nobody else did') catches a compression Sigrun didn't know she was making -- speed as a habit that costs the record accuracy. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_anselm",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun brings Anselm the news from every corner of the convergence, all of it, unfiltered -- exactly what he doesn't need while doctrine's already dissolved into understanding every side of everything at once. He asks her, politely, to stop. B: Sigrun, whose whole worth is in bringing back everything she finds, doesn't know how to do the job smaller; Anselm admits it's not the news itself, it's that he can't stop weighing every angle of it once he has it, and more news is just more weight. Sigrun, whose failure mode is saying the true thing at the worst moment, tells him the true thing now: he doesn't have to weigh it, he's allowed to just receive news without resolving what it means. A: Anselm admits that's the one thing his whole theology never taught him -- receiving without resolving. Sigrun offers a deal: she'll keep bringing him everything, and he doesn't owe her or himself an opinion on any of it, just acknowledgment that it arrived. Anselm takes the deal, and finds the news lighter once it isn't also an assignment. Sigrun gets to keep doing her job the way she actually does it, for the one person on the roster who needed permission to just let it land.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Anselm=Fishes from Tancred/Anselm). Archer's failure mode ('says the true thing at the worst moment') turned into the exact permission Fishes' failure mode ('understands the enemy too well to fight them') needed -- news without the obligation to resolve it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_kheldar",
@@ -1092,12 +1092,12 @@
     "chain_id": "sup_maren_solveig",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Solveig's courier runs keep clipping the dole line's schedule, forcing Maren to reorganize around whenever the prophecy family needs the sky. Maren complains once, sharply, about being reorganized around someone else's inheritance. B: Solveig, who's never once had anyone push back against the prophecy's scheduling before, doesn't get defensive -- she asks what Maren actually needs, timing-wise, and starts working her own routes around the dole line instead of the other way around. Maren, expecting an argument about family obligation, gets accommodation instead, and doesn't know what to do with it. A: Maren admits she picked the fight expecting to lose it, the way every fight with an institution above her usually goes; Solveig tells her that's exactly the assumption she's spent her whole life resenting other people making about her own family's authority, and she'd rather not be one more thing people assume they can't push back against. Maren gets her schedule. Solveig gets the strange, small satisfaction of being the exception to her own pattern, on purpose, for someone who just asked plainly instead of deferring.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Solveig=Vessel from Brandt/Solveig). Crab's loyalty to people over institutions pushes back against Vessel's failure mode ('belongs to everyone and therefore to nobody') and gets a real accommodation instead of the deference either expected. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_gunnar",
@@ -1158,12 +1158,12 @@
     "chain_id": "sup_maren_torvald",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Torvald's post gets folded into Maren's dole rounds almost by accident -- one more stop on a route that keeps growing as the assembly's resources keep shrinking. Maren treats him like any other ration point; Torvald, unused to being on anyone's list at all, doesn't know how to be included in something so ordinary. B: Maren notices he never actually takes the full ration, always leaves some back for 'whoever needs it more,' and tells him plainly that's not how triage works -- if he's on the list, he's on the list, and shorting himself just moves the math around instead of fixing it. Torvald admits the habit's old: an order used to share everything down to nothing, and he's never unlearned dividing his own share smaller. A: Torvald explains what's actually left of the order isn't men anymore, it's the habit -- and giving that up feels like losing the last piece of them. Maren, whose whole practice is deciding who gets her real, undivided attention, tells him the habit doesn't have to end, it just doesn't have to be a subtraction: take the full share, and if he wants to give something back, give it to someone who's actually asking, not to an assumption. Torvald starts taking the full ration. He starts actually looking for someone specific to help with what he used to just subtract away.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Torvald=Crab from Dietmar/Torvald). A third Crab-Crab pairing -- distinct angle: a healer's scarcity-triage meets a survivor's inherited habit of self-erasure, both forms of loyalty to something numerically dwindling (the dole line's resources, a dead order's men), resolved by making the loyalty additive instead of subtractive. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_rinsa",
@@ -1345,12 +1345,12 @@
     "chain_id": "sup_solveig_torvald",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Solveig's courier route takes her past Torvald's post regularly enough that she starts dropping the family's spare bread there without being asked; Torvald, who never requests anything, doesn't know how to refuse a gift nobody's making him justify. B: Solveig admits the bread isn't really charity -- it's practice, the one part of the prophecy's constant giving she gets to choose the target of herself, instead of the family choosing it for her. Torvald, who has spent his whole remaining service giving to an order that can't receive it anymore, recognizes someone else discovering what it means to actually choose where the giving goes. A: Torvald tells her plainly that a gift someone actually chose to give is worth more than any amount handed down as obligation, his own service included -- he'd give anything to have chosen even one act of it freely instead of all of it being duty. Solveig, hearing her own small act of choice named as something rare rather than trivial, keeps bringing the bread, and starts telling him, each time, that it's not for the post, it's for him specifically. It's the first gift either of them has given or received that wasn't inherited from somewhere else.",
+    "notes": "Both signs reused verbatim (Solveig=Vessel from Brandt/Solveig, Torvald=Crab from Dietmar/Torvald). Vessel's failure mode ('belongs to everyone and therefore to nobody') practicing its way toward a chosen, specific act of giving, met by Crab's own duty-bound giving finally naming what it's missing: choice. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_rinsa",
@@ -1653,12 +1653,12 @@
     "chain_id": "sup_torvald_rinsa",
     "unit_a_id": "u_torvald",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Torvald, near the end of his own service, asks Rinsa plainly whether the dead ever say anything worth the climb back up. Rinsa gives him her standard answer: that's not a question she can answer, only the one who descends can. B: Torvald admits he's not actually asking about the oracle -- he's asking whether holding a post for a dead order this long has been worth anything, and she's the closest thing to someone who'd know what 'worth it, afterward' even means. Rinsa tells him she doesn't get that answer either, professionally; she only ever brings people down and back, she's never once gotten to ask her own question. A: Torvald offers her something in trade: if she ever wants to actually ask a question instead of only ever guiding someone else's, he'll stand watch at the top for as long as it takes, no charge, soldier's word. Rinsa, who pours herself out for strangers hundreds of times over and has never once had anyone offer to hold the door for her specifically, doesn't take him up on it right away. She does tell him, for the first time in her whole career, what she thinks might actually be down there -- not the answer, just a guess, offered to the one person who asked what it cost her to never get to ask.",
+    "notes": "Torvald=Crab reused from Dietmar/Torvald. Rinsa's own already-stated sign, the Vessel, reused verbatim. Crab's loyalty (duty held past reason) offered concretely to Vessel's failure mode ('belongs to everyone and therefore to nobody') -- an offer to hold the door for the one person who holds it for everyone else. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_torvald_kest",
