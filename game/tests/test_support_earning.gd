@@ -149,12 +149,22 @@ func _settle_tests() -> void:
 	var line: String = _sup.describe_raise(_sup.settle_map("map_line")[0])
 	check(line == "Support: Jost and Ricberta reach rank C.", "describe_raise reads well (got '%s')" % line)
 
-## End to end: load the real map_d05 scene (survive, 10 turns, ten units in a
-## row two columns apart, mixed routes on a diadem chapter), play its turns,
-## and check the rule fired through the real turn/win hooks.
+## The roster this test pins onto map_d05, so it doesn't depend on whatever
+## the production scene currently deploys: ten units in a row two columns
+## apart, in this order, with the diadem/assembly boundary between Tancred
+## and Maren.
+const TEST_ROSTER: Array[String] = [
+	"u_jost", "u_ricberta", "u_emmerich", "u_sigrun", "u_waldrada",
+	"u_tancred", "u_maren", "u_brandt", "u_torvald", "u_rinsa",
+]
+
+## End to end: load the real map_d05 scene (survive, 10 turns; mixed routes on
+## a diadem chapter) with TEST_ROSTER deployed, play its turns, and check the
+## rule fired through the real turn/win hooks.
 func _map_integration_test() -> void:
 	var packed: PackedScene = load("res://scenes/map_d05.tscn")
 	var map: Node = packed.instantiate()
+	map.deploy_unit_ids = TEST_ROSTER.duplicate()
 	root.add_child(map)
 	await process_frame
 
@@ -188,6 +198,7 @@ func _map_integration_test() -> void:
 	map.queue_free()
 	await process_frame
 	var again: Node = packed.instantiate()
+	again.deploy_unit_ids = TEST_ROSTER.duplicate()
 	root.add_child(again)
 	await process_frame
 	guard = 0
