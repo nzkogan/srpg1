@@ -432,12 +432,12 @@
     "chain_id": "sup_ricberta_solveig",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Solveig's courier route clips past Ricberta's levy on a fixed schedule; Ricberta, protective of her men's drill time, complains that the flyovers spook the recruits. Solveig, used to complaints about the prophecy, is almost relieved this one's just about noise. B: Ricberta admits, once the actual complaint's addressed, that the flyovers aren't really the problem -- it's that Solveig gets to be visibly exceptional at her job in a way Ricberta's spent years making sure she never looks like. Solveig, who's never once gotten to choose how visible her own competence is, doesn't know what to do with someone envying the choice she never had. A: Solveig admits the visibility isn't a choice, it's inheritance -- the family's prophecy makes sure everyone's always watching, whether she's earned it that day or not. Ricberta, whose whole discipline is deciding exactly how much competence gets shown, tells her that's the one thing she'd never trade her hiding for: at least the hiding is hers to manage. Neither envies the other by the end. They do start comparing notes on managing an audience neither one asked for.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Solveig=Vessel from Brandt/Solveig). Crab's failure mode (competence deliberately hidden) set against Vessel's failure mode ('belongs to everyone and therefore to nobody') -- two different relationships to being watched, neither one chosen. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_gunnar",
@@ -476,12 +476,12 @@
     "chain_id": "sup_ricberta_kheldar",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Ricberta's levy reports keep tripping over the same manifest discrepancies Emmerich's already flagged; she corners Kheldar herself, expecting a smuggler to be easier to intimidate than a clerk. B: Kheldar isn't intimidated, but he is curious -- a sergeant hiding her own literacy has more in common with a man who hides his own trail than either would admit outright, and he says so. Ricberta doesn't confirm it, which he takes, correctly, as confirmation. A: Ricberta admits the parallel's fair and she hates it -- hiding competence and hiding a trail aren't the same crime, but they're the same posture, always calculating what gets seen. Kheldar, who has never once been caught out by someone reading his own tells back at him, offers her something closer to respect than a threat: he'll route his discrepancies around her levy specifically, professional courtesy, one hider of things to another. Ricberta doesn't thank him. She does stop reporting the ones that don't cost her men anything.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Kheldar=Scorpion from Kheldar/Kest). Crab's failure mode (competence hidden to protect a position) recognized by Scorpion's own trade (a man built around not being pinned down) as the same posture from two different professions. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_dietmar",
@@ -641,12 +641,12 @@
     "chain_id": "sup_emmerich_dietmar",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's showcase reports keep quietly using Dietmar's gate-holding deed as proof the diadem's old guard still delivers; Dietmar, who hasn't seen the actual language, is furious to learn he's being cited without being asked. B: Emmerich admits he needed a legend more than he needed permission -- the Baron wanted proof the diadem's past still justifies its present, and Dietmar's deed was the only material he had. Dietmar, whose entire crisis is needing to still be seen as relevant, discovers being used for exactly that purpose feels worse than being ignored would have. A: Dietmar admits what's actually under the fury: being cited as a legend and being seen as a person aren't the same thing, and Emmerich's showcase does the first while doing nothing for the second. Emmerich, whose own fear is being reduced to a number in someone else's report, recognizes the complaint as his own, aimed back at him for once. He starts asking Dietmar what to actually write, instead of writing what's convenient and citing him after. Two men who each need to be seen accurately, not just seen, finally being that for each other instead of the Baron.",
+    "notes": "Both units already carry the Lion sign from their own established chains (Emmerich from Jost/Emmerich, Dietmar from Dietmar/Torvald) -- a third sign-mirror pairing (after the Crab and Vessel mirrors), deliberately leaned into: two men whose shared failure mode ('cannot take a demotion gracefully') collide directly when one uses the other as material instead of treating him as a person. Both diadem-route. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_torvald",
@@ -674,12 +674,12 @@
     "chain_id": "sup_emmerich_kest",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's ledgers have a Kest-shaped gap in them too, smaller than Kheldar's, sloppier, obviously amateur; he corners her about it mostly out of professional irritation at the imprecision. B: Kest, mid-argument with herself about whether admitting anything to a diadem clerk is smart, ends up telling him the truth almost by accident: she only takes what the count's already lost, same as always, and the imprecision he's annoyed by is just her not caring enough about his ledger to be careful. Emmerich, who cares about almost nothing as much as he cares about his ledger, finds this stranger than a real thief would be. A: Emmerich admits what's actually bothering him isn't the theft, it's being so easy to steal from without her even trying -- it means the showcase he's terrified of losing was never that impressive to begin with. Kest, whose whole method is arguing both sides until one wins, surprises herself by taking his side: she tells him the ledger's fine, she's just very good, and offers -- unprompted, a first for her -- to flag the actual gaps he should worry about instead. Emmerich gets a better auditor than he had. Kest gets the strange experience of being useful to someone without an angle.",
+    "notes": "Emmerich=Lion reused from Jost/Emmerich. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. A smaller-scale echo of the Kest/Kheldar rivalry chain, deliberately: same thief, different discrepancy-professional, different resolution (help instead of a working peace). Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_waldrada",
@@ -707,12 +707,12 @@
     "chain_id": "sup_sigrun_maren",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun's dispatches keep arriving at the dole line with bad news -- shortages, delays -- and Maren's started associating her specifically with things getting worse, unfairly, since Sigrun's only ever the messenger. B: Sigrun, stung by being blamed for news she didn't make, tells Maren plainly that shooting the courier doesn't fix the shortage. Maren admits she knows that and does it anyway, because Sigrun's the only part of the bad news she can actually see arrive, and the dole line needs somewhere to put the feeling that isn't the shortage itself. A: Sigrun offers a trade instead of an argument: she'll start bringing Maren the numbers a day early, off the record, so the dole line has more time to plan instead of just react to bad news landing on top of it. Maren, whose whole practice is deciding who gets her real attention, recognizes the offer for what it is -- not an apology, a fix -- and gives Sigrun the thing she actually wants back: being seen as useful instead of as the shape bad news happens to arrive in.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Maren=Crab from Avatar/Maren). Archer's own function (the scout who comes back with the thing you needed) complicated by Crab's failure mode (loyalty to people that shows as blame when the news is bad) -- resolved practically, not just emotionally. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_brandt",
@@ -795,12 +795,12 @@
     "chain_id": "sup_sigrun_torvald",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun's dispatches keep routing past Torvald's assembly post without stopping, since officially there's nothing left there worth delivering to. Torvald doesn't complain about being skipped; he just keeps standing the post anyway, dispatch or no dispatch. B: Sigrun, curious despite herself, starts actually stopping, and asks why he holds a post nobody's sending him orders for. Torvald's answer is the same one he gives everyone: someone has to, and there's no one left to relieve him of deciding that. A: Sigrun admits she's spent her whole career being the one who ranges out and comes back with news that matters, and doesn't know what she'd do at a post where the news stopped coming. Torvald tells her plainly it's not nothing -- the standing is the news, some days; a post held is its own kind of dispatch, delivered to no one, and still worth riding past to confirm. Sigrun starts routing an actual stop past his post from then on, not because headquarters asks her to, but because somebody should still be the one who checks.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Torvald=Crab from Dietmar/Torvald). Archer's own function (ranges out, returns with news) set against a post that generates none -- Torvald's Crab loyalty read as its own form of unreceived dispatch. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_rinsa",
@@ -1257,12 +1257,12 @@
     "chain_id": "sup_brandt_torvald",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Brandt, gate sergeant, and Torvald, last of a dead order, hold adjacent posts on the same wall; Brandt asks him once why he never requests relief, and Torvald asks him right back why he'd ever want it. B: Brandt admits he's never actually wanted relief either -- he just assumed everyone did, and asking felt like the polite thing rather than the honest one. Torvald tells him there's no politeness left in his own case, just the plain fact that holding the post is the only shape his loyalty has left to take, and he'd rather take that shape than none. A: Brandt admits his own gate isn't so different -- he measures his whole worth in whether it holds, same as Torvald measures his in showing up for an order that can't order him anymore. Torvald tells him that's not nothing, and it's not the same as his own case either: Brandt's gate still has a Baron behind it who'd notice if it fell; Torvald's post doesn't, and he holds it anyway. Two men who both mistook holding for the whole job find, side by side on the same wall, that the mistake was smaller than they thought -- the post was never the whole job, but it also was never nothing.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Torvald=Crab from Dietmar/Torvald). Both assembly-route. Bull's virtue ('holds ground nobody else could') set beside Crab's virtue (loyal past reason) as two adjacent, structurally similar postures on the same wall, differentiated by what's still watching. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_rinsa",
@@ -1301,12 +1301,12 @@
     "chain_id": "sup_solveig_edda",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants the family prophecy recited to her exactly as Solveig's house tells it, word for word, for the record. Solveig gives her the official version, flawless, rehearsed -- the one she's recited a hundred times for people who wanted exactly that. B: Edda, whose whole craft is catching discrepancies, notices the recitation's too flawless, too rehearsed, and asks what the unofficial version sounds like. Solveig admits there isn't one, not because it doesn't exist, but because she's never been asked for it before -- only ever the official one, by everyone, always. A: Solveig gives her the real version, halting, unrehearsed, full of the parts the family edits out -- what it actually felt like to be handed a destiny before she could talk. Edda writes it down exactly as given and tells her that's the first honest account of a prophecy she's ever gotten, since every other one she's recorded came pre-smoothed by whoever was reciting it. Solveig doesn't stop performing the official version when it's asked for. She does, for the first time, have an unofficial one on record somewhere that isn't just hers to carry alone.",
+    "notes": "Both signs reused verbatim (Solveig=Vessel from Brandt/Solveig, Edda=Maiden from Waldrada/Edda). Maiden's virtue ('notices the discrepancy nobody else did') applied directly to Vessel's failure mode ('belongs to everyone and therefore to nobody') -- catching that even Solveig's own account of herself has been edited for an audience. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_anselm",
@@ -1389,12 +1389,12 @@
     "chain_id": "sup_gunnar_anselm",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm, doctrine gone loose with doubt, asks Gunnar how a huntsman squares killing game with whatever faith he keeps. Gunnar's answer is short: he doesn't keep one, and the game doesn't need him to. B: Anselm presses -- surely decades of it wears a mark on a man -- and Gunnar admits it does, just not a doctrinal one; he's just gotten exact about which kills are necessary and which aren't, and stopped needing a theology to tell him the difference. Anselm, whose whole crisis is that doctrine's stopped telling him the difference either, hears something like an answer he wasn't expecting from a huntsman. A: Gunnar tells him plainly that forty years of exactness is its own kind of faith, whatever you call it, and Anselm's caveats might be the same thing arriving from the other direction -- not a faith collapsing, a faith getting exact. Anselm, who's spent the whole crisis assuming the doubt was failure, takes the reframe seriously for the first time: not a theology dissolving, a theology narrowing down to what actually holds. Neither converts the other. Gunnar gets a monk who stops asking him for absolution he never needed; Anselm gets a model for what exactness looks like without a doctrine attached.",
+    "notes": "Both signs reused verbatim (Gunnar=Goat from Gunnar/Edda, Anselm=Fishes from Tancred/Anselm). Goat's virtue (sustained, exacting, unglamorous craft) offered as an alternate model to Fishes' failure mode ('understands the enemy too well to fight them') -- exactness without doctrine as an answer to doctrine dissolving into ambivalence. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_gunnar_kheldar",
@@ -1433,12 +1433,12 @@
     "chain_id": "sup_gunnar_rinsa",
     "unit_a_id": "u_gunnar",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar, curious about a profession stranger than his own, asks Rinsa how she tracks a customer's nerve on the way down -- what she's watching for. Rinsa's answer sounds uncannily like his own hunting method: not the person, the pattern; not this trip, the hundreds before it. B: Rinsa admits the comparison's apt -- both of them do the same unglamorous, exacting thing for decades, alone, and get good at it precisely because nobody's there to perform for. Gunnar, whose whole craft has never once needed an audience, recognizes a kindred discipline in a job that looks nothing like his own from the outside. A: Gunnar admits the part nobody asks him about is what forty years of that solitary exactness costs -- not the skill, the isolation the skill requires. Rinsa, who pours herself out for strangers professionally and has never had the cost of it named back to her by someone doing the same trade from a different direction, tells him plainly: it costs exactly what he thinks, and it's still worth doing right. Two people who do the same private, exacting work in completely different fields end up being the only ones who actually understand what the other one does all day.",
+    "notes": "Gunnar=Goat reused from Gunnar/Edda. Rinsa's own already-stated sign, the Vessel, reused verbatim. Goat's virtue (unglamorous, solitary, exacting craft) recognized directly in Vessel's own professional practice (the descent, done hundreds of times, for strangers) -- two very different jobs built on the same discipline. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_gunnar_kest",
