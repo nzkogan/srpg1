@@ -135,12 +135,12 @@
     "chain_id": "sup_avatar_kheldar",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar finds out Kheldar keeps a private ledger of who owes him what, and demands to see it. Kheldar says nobody sees it. The avatar says everything on the roster gets audited, and points out that the demand is not a request. B: Kheldar shows it, mostly to see the avatar's face. It holds surprisingly few debts he has ever collected; most he has never called in. The avatar recognizes the habit at once: a grudge kept as a safeguard rather than a weapon, held so that nobody around him can afford to lie. A: They argue about the point at which a grudge stops being useful. The avatar admits a couple of theirs went bad long ago and they keep carrying them anyway. Kheldar admits the oldest debt in the ledger is one he would rather have forgiven than collected. They agree to audit each other's books once a season: two people who never let a debt go are the only ones qualified to tell when one should be.",
+    "notes": "Both units already carry the Scorpion sign (Avatar from Avatar/Maren, Kheldar from Kheldar/Kest) -- a fifth sign-mirror pairing, argued as one grudge-keeper who keeps them for accountability and one who keeps them for leverage. Both route 'both'. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_dietmar",
@@ -333,12 +333,12 @@
     "chain_id": "sup_jost_torvald",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Jost falls asleep against the wall at Torvald's post. Torvald doesn't wake him. Nobody has ever let Jost sleep somewhere it wasn't his own risk. B: Torvald says his order kept the watch for a living, and he can't stop keeping it. Jost says nobody has ever guarded his sleep, not once, and he hadn't known that was a thing people did for each other. A: Torvald keeps watch while Jost sleeps, and Jost sleeps deeper than he has in years. Afterward he admits the napping was never laziness; it was never safe to do anywhere. Torvald says a watch is the only thing he still knows how to do properly, and he'd rather do it for someone than for no one.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Torvald=Crab from Dietmar/Torvald). Cross-route (diadem/assembly), post-convergence. Torvald's inherited habit of keeping watch finally has a use; Jost's 'lucky sleeper' note is recast as an unmet need. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_rinsa",
@@ -355,12 +355,12 @@
     "chain_id": "sup_jost_kest",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kest tries to talk Jost into a plan, arguing both sides of it out loud, at length. Jost sleeps through most of it. B: He wakes, asks which side she meant, and she admits she hasn't decided. Jost points out, not unkindly, that she always ends up doing whichever side she argued last, so the arguing has never changed what she does. A: Jost offers a deal: on the small things he'll decide for her, and she can veto. Kest, who has never let anyone take a decision off her, tries it for a week. The arguing goes quieter. She doesn't say why, and Jost doesn't ask. Sleeping through it turns out to have been the only patient thing anyone had done for her in a long while.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Kest's own already-stated sign, the Twins). Both diadem-route. Ram's decisiveness offered as a small, revocable loan to Twins' failure mode; deliberately does not touch Kest's withheld reveal, per her own note. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_emmerich",
@@ -553,12 +553,12 @@
     "chain_id": "sup_emmerich_tancred",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_tancred",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich waves off the Pardoner line's requisitions as trivia and asks Tancred to consolidate them. Tancred asks him, politely, to file them as they are. B: Emmerich notices the requests are always the same three items, week after week, for years. It is the steadiest line in his ledger and he had never looked at it. A: Tancred says being in the ledger at all means someone counted him, and that's worth more than being noticed. Emmerich, whose whole fear is not being counted, hears that as a thing he has been doing for other people without knowing it. He starts writing Tancred's line first on each page, and the Baron's showcase quietly begins to include steady work alongside the impressive kind.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Tancred=Goat from Tancred/Anselm). Both diadem-route. Goat's unglamorous, repeated work is exactly what a Lion clerk's ledger never used to reward. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_maren",
@@ -784,12 +784,12 @@
     "chain_id": "sup_sigrun_dietmar",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar demands formal salutes when Sigrun delivers dispatches to his post. She skips them; the ride matters more than the ceremony, and she says so. B: Sigrun says the true thing at the worst moment: nobody is watching the salutes anymore. Dietmar goes very quiet. She regrets the timing, though not the content, and rides off without softening it. A: She comes back a week later, dismounts, salutes properly, and reports something she'd gathered on the road: his gate-holding deed is told at three outposts, with details he doesn't remember giving. Dietmar learns the story has travelled without him. It isn't the audience he wanted, but it exists, and a courier brought the proof.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Dietmar=Lion from Dietmar/Torvald). Both diadem-route. Archer's failure mode is the wound and her virtue ('comes back with the thing you needed') is the repair; ties to Dietmar's one Act 3 gate-holding deed map. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_torvald",
@@ -1059,12 +1059,12 @@
     "chain_id": "sup_tancred_rinsa",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred asks whether Rinsa needs penance for taking money to lead people down to the dead. She says no, and asks what his order charges for absolution. He says nothing. B: She points out that makes him the only cleric she has ever met who doesn't charge, and asks who pays for his lamp. He has no answer. Tancred admits the Pardoner line runs on other people's coin more than he likes. A: Rinsa says her fee is what keeps the stairs lit and the rope sound, and that there is nothing shameful in it. Tancred offers to carry oil and rope for the stairs as his own penance work. She accepts. It's the first time anyone has done the dull part of her job for her instead of asking her to pour herself out for theirs.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Rinsa's own already-stated sign, the Vessel). Tancred is diadem; Rinsa is route 'both'. Goat's unglamorous work given a concrete target, and Vessel's pouring-out given a small relief. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_kest",
@@ -1103,12 +1103,12 @@
     "chain_id": "sup_maren_gunnar",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar starts leaving game at the dole line. Maren asks what he wants for it. He says nothing. She doesn't believe free things and says so. B: She notices his portions always go to the same three households. He admits it: forty years of hunting means he knows who is thin before the healer does, because thin people leave less trail. A: Maren lays her triage lists beside his kill routes and finds they overlap almost exactly. She asks him to tell her who isn't being fed, and he does, unglamorously, week after week. He becomes her scout for hunger. Neither calls it loyalty. Maren says it's a habit, and Gunnar says habits are what loyalty is when nobody is watching.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Gunnar=Goat from Gunnar/Edda). Both assembly-route. Goat's sustained exacting craft applied to Crab's scarcity triage; a hunter's tracking skill turned into a way of finding the unfed. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_edda",
@@ -1169,12 +1169,12 @@
     "chain_id": "sup_maren_rinsa",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Rinsa comes up to the dole line asking why the crown stopped sending the parish lists; the oracle's waiting list is full of plague dead and she can't match them to anyone. Maren, without a word, hands her a folded sheaf. B: Maren has been recording the dead by name herself, by hand, every winter, because nobody else was. Rinsa compares them against the oracle's list. They match almost exactly. A: Rinsa says the dead keep arriving with the same question, and she has never been able to answer it properly because she never had their names. Maren gives her the sheaf to carry down, so the dead can be asked for by name. Maren says loyalty to people doesn't stop at the grave, only the dole does. Rinsa takes the lists down on the next descent, and comes back up with one name Maren didn't have.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Rinsa's own already-stated sign, the Vessel). Assembly framing per Rinsa's own note ('the oracle's waiting list is full of your plague dead... why the crown stopped sending the parish lists'). Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_kest",
@@ -1213,12 +1213,12 @@
     "chain_id": "sup_brandt_edda",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda asks to see Brandt's gate log. He keeps none; he holds every watch by memory, and has for years. B: Edda offers to write it down for him. Brandt refuses: if it's on paper he'll start leaning on the paper, and the gate will stop being the thing that holds. Edda, who spends her life preserving what people won't write, understands the objection better than she'd like. A: They compromise. Once a season Edda will recite his gate's history back to him from what he tells her, in her own words, as a record made of him and not by him. Brandt hears his own years told as a story for the first time, and finds that some of it was harder than he remembered, and some of it better. He still refuses to write it down, and starts telling her the parts he'd normally leave out.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Edda=Maiden from Waldrada/Edda). Both assembly-route. Bull's failure mode (mistakes stubbornness for principle) softened into a workable rule by Maiden's record-keeping. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_anselm",
@@ -1587,12 +1587,12 @@
     "chain_id": "sup_kheldar_torvald",
     "unit_a_id": "u_kheldar",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar sees value in the seals and papers of Torvald's dead order and offers to buy them. Torvald says they are not for sale. Kheldar says everything is. B: Torvald tells him to name a price that brings one man back. Kheldar opens his mouth, closes it, and for once has no counter-offer. He says some debts can't be priced and he doesn't like being reminded. A: He offers something else, unpaid: to smuggle the order's last relics somewhere safe, out of a post that won't hold forever. Torvald agrees, and has them carried to the archive Edda keeps. Kheldar keeps no copy and asks for nothing. It is the first thing he has ever moved without keeping leverage on it, and he doesn't mention it to anyone.",
+    "notes": "Both signs reused verbatim (Kheldar=Scorpion from Kheldar/Kest, Torvald=Crab from Dietmar/Torvald). Kheldar is route 'both'; Torvald is assembly. Scorpion's leverage habit refused at the one moment a debt cannot be priced; ties to the Edda/Torvald record chain. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_kheldar_rinsa",
