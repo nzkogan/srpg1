@@ -102,12 +102,12 @@
     "chain_id": "sup_avatar_gunnar",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar drafts a plan for a hunting-line patrol and briefs it at length. Gunnar walks off mid-briefing, comes back with a dead hare, and says the plan puts the hare on the left. It was on the right. B: The avatar argues. Gunnar says he isn't disagreeing with the plan; the ground is. The avatar realizes they have spent their whole career arguing with people who can be argued with, and here is someone who doesn't argue at all. A: Gunnar shows how he reads a treeline: look first, then decide, and not the other way around. The avatar starts a field notebook with a rule -- observations first, arguments after. Some of their old disputes turn out to have been settled by looking the whole time. Gunnar says nothing about it. He just starts leaving the hare on the right.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Gunnar=Goat from Gunnar/Edda). Avatar is route 'both'; Gunnar is assembly. Scorpion's habit of re-litigating meets Goat's exacting craft: some questions close when observed. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_edda",
@@ -454,23 +454,23 @@
     "chain_id": "sup_ricberta_edda",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda notices Ricberta silently correcting the misspellings in the levy's reports, her mouth twitching each time. She says nothing and keeps watching. B: Edda finally says she's a reciter who keeps everything in memory and has never learned to write. Ricberta is the only literate person she has met who isn't a clerk or a monk. Ricberta goes very still, and then, slowly, doesn't deny it. A: Ricberta teaches her letters in secret, a few a night, using the levy's own requisition slips. Edda writes her first line in her own hand: that Ricberta taught her this and she won't say where. Ricberta, who has spent years hiding what she can do, finds one place where it is the thing that gets asked for.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Edda=Maiden from Waldrada/Edda). Cross-route (diadem/assembly), post-convergence. Ricberta's secret literacy becomes a gift to a keeper of the record who can't write. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_anselm",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm finds Ricberta reading a psalter alone, in the corner of a supply tent, a beat too fast for someone who isn't supposed to be able to. He says nothing. She sees him see. B: She asks him to read the parts in the old liturgical language that she can't parse. Anselm hesitates -- he hasn't trusted a text in a long while -- and reads it with every caveat he can think of. Ricberta says she prefers it that way: she can tell what's true. A: Anselm becomes her tutor in a language she has never told anyone she is studying. A literate soldier who can't be seen reading and a monk who can't trust what he reads share one book, quietly, one page an evening. Neither mentions it to anyone. It is the only reading either of them has done in years that wasn't for an audience.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Anselm=Fishes from Tancred/Anselm). Cross-route (diadem/assembly), post-convergence. Ricberta's secret literacy finds a second safe audience; Anselm's dissolved doctrine is useful as a text-critic. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_kheldar",
@@ -586,12 +586,12 @@
     "chain_id": "sup_emmerich_solveig",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich needs Solveig's family to countersign a manifest, and discovers they sign everything as prophecy-blessed without reading it. He is horrified. B: Solveig admits she has never read what she has signed for. Nobody ever asked her to. Emmerich, whose whole life is reading what other people sign, doesn't know what to say. A: He offers to read the manifests aloud before she signs. For once she signs what she actually knows. Emmerich realizes that someone is finally listening to his ledger the way it was meant to be heard, which the Baron never will. Solveig starts asking questions before she signs. Her family notices, and says nothing.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Solveig=Vessel from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence. Lion's need to be seen doing careful work meets Vessel's habit of signing over what she was handed. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_gunnar",
@@ -608,12 +608,12 @@
     "chain_id": "sup_emmerich_edda",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda notices a discrepancy in one of Emmerich's showcase reports and tells him privately, at the end of a long day, rather than in front of anyone. He goes pale. B: He waits for the correction to become public. It doesn't. Edda says the record exists to be right, not to shame whoever got it wrong. Emmerich, who has spent his career expecting the opposite, doesn't quite believe her. A: He asks her to check the reports before the Baron sees them. Edda, whose failure mode is correcting people who didn't ask, is oddly pleased to be asked. She becomes his quiet proofreader, and the showcase becomes accurate without either of them mentioning it. Emmerich admits he sleeps better. Edda admits she likes being useful before the error, not after.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Edda=Maiden from Waldrada/Edda). Cross-route (diadem/assembly), post-convergence. Maiden's failure mode ('corrects people who did not ask') inverted by an invitation. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_anselm",
@@ -817,12 +817,12 @@
     "chain_id": "sup_sigrun_kest",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun's dispatches have to cross Nikaia's abandoned quarters, and Kest is the only one who really knows them. Sigrun hires her as a guide, and Kest, arguing with herself over the price, undercharges. B: They walk the route together on foot. Kest shows her the dead houses one by one: who lived here, what was taken, what wasn't. Sigrun says the true thing at the worst moment -- it's like riding through a city's ghost. Kest says it's home. A: Sigrun apologizes, badly, and asks what Kest would call it. Kest doesn't have a word. Sigrun starts leaving dispatches at a window Kest keeps, and Kest becomes her relay in Nikaia. It is the first regular work either of them has taken that neither argued their way out of.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Kest's own already-stated sign, the Twins). Both diadem-route. Ties to Kest's own note (Nikaia, 'six hundred people inside walls built for twenty thousand'). Does not touch her withheld reveal. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_tancred",
@@ -850,12 +850,12 @@
     "chain_id": "sup_waldrada_brandt",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_brandt",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_bull",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Waldrada, who defected from the assembly, arrives at an assembly gate. Brandt, the gate sergeant, recognizes her as a former flier. She has no papers. B: He doesn't turn her away. He asks what she's carrying and where she's going, and logs it truthfully: Waldrada, returning, no papers. She waits for the rest of it, the accusation. It doesn't come. A: Brandt says the gate doesn't judge which side you're on, only who's standing in front of it. She asks whether he'd have let her through if it cost him something. He says he has asked himself the same thing and the answer is yes. Waldrada, who has spent years weighing whether she betrayed anyone, hears that returning isn't betrayal for the first time from someone with no reason to flatter her.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Brandt=Bull from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence. Bull's 'holds ground nobody else could' answers Scales' years of deliberation with a plain rule. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_solveig",
@@ -949,12 +949,12 @@
     "chain_id": "sup_waldrada_kest",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kest and Waldrada end up on the same night watch and each notices the other is quietly planning exit routes. Neither says so. B: They laugh about it, finally. Both keep every option open by habit, and neither has ever committed to anything without a way out. They compare exits, the way other people compare wounds. A: They agree, half joking, to name the one thing each would stay for. Waldrada says the levy. Kest can't answer. She says she'll owe it. Waldrada says a debt of an answer is its own kind of anchor. Kest doesn't argue the point, which, for Kest, is agreement.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Kest's own already-stated sign, the Twins). Both diadem-route. Scales and Twins are two flavours of delayed commitment; deliberately does not touch Kest's withheld reveal. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_maren",
@@ -1224,12 +1224,12 @@
     "chain_id": "sup_brandt_anselm",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm asks Brandt whether he wants the gate blessed. Brandt says he isn't the one to ask. Anselm says he isn't the one to give it, either. B: They sit at the gate together and try anyway. Anselm blesses it with every caveat he owns; Brandt listens. The gate holds through the night, the same as it always does, and Brandt says so. A: Brandt says he doesn't need the blessing to be certain, only said. Anselm says it once more, plainly, with no caveat, for the gate alone. Brandt says it holds. It isn't a theology. It is the first thing Anselm has said in months that he didn't immediately take back.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Anselm=Fishes from Tancred/Anselm). Both assembly-route. Bull's need for a plain thing said against Fishes' habit of qualifying everything. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_kheldar",
@@ -1334,12 +1334,12 @@
     "chain_id": "sup_solveig_dietmar",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar assumes Solveig, as a prophecy family's daughter, wants the pageantry and treats her with ceremony. Solveig assumes Dietmar, as a hero of the revolution, expects to be treated as a ballad. Both bristle. B: They compare which is heavier. Dietmar says a legend at least ends. Solveig says a legend gets told when the teller wants; a prophecy gets told to her, whether she wants it or not. Neither wins. A: Each admits envying the other's burden -- his has a story he chose to be in once; hers never had a first page. They make a pact: one hour a day they're only themselves, no ballad, no prophecy, no ceremony. It turns out to be the hardest hour either of them keeps, and neither breaks it.",
+    "notes": "Both signs reused verbatim (Solveig=Vessel from Brandt/Solveig, Dietmar=Lion from Dietmar/Torvald). Cross-route (assembly/diadem), post-convergence. Two people raised inside a story bigger than themselves, one chosen and one inherited. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_torvald",
