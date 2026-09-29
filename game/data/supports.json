@@ -124,12 +124,12 @@
     "chain_id": "sup_avatar_anselm",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar demands Anselm state a position on the schism. Anselm gives three, each with its strongest objection attached, and declines to rank them. B: The avatar cross-examines all three and finds every answer full, honest, and impossible to pin. They have argued with obstinate people and evasive people; they have never argued with someone who concedes everything and still cannot be moved. A: The avatar admits, with some irritation, that it's an unfamiliar feeling. Anselm says he does hold exactly one position: that the argument should go on. The avatar realizes that's their own creed, arrived at from the opposite direction -- they keep arguing because nothing is closed, he because nothing is certain. They agree to keep disagreeing, on the record, and both find it restful.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Anselm=Fishes from Tancred/Anselm). Cross-route (avatar is route 'both'; Anselm is assembly). Scorpion's habit of re-raising a question meets Fishes' refusal to close one -- the same creed from opposite failure modes. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_kheldar",
@@ -212,12 +212,12 @@
     "chain_id": "sup_jost_sigrun",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_sigrun",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_archer",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun keeps trying to wake Jost with urgent dispatches and he sleeps through every one -- until the single dispatch that actually matters, at which point he is up before she's finished the sentence. She can't work out how he knows. B: Jost admits he doesn't know either; he only wakes for the ones with people in them. Sigrun realizes she's been sorting her riding by urgency and he's been sorting by stakes, and neither of them ever compared notes. A: Sigrun, who says the true thing at the worst moment, tells him his sleeping is a bet that someone else will hold the line while he's out. Jost doesn't deny it -- he says the bet mostly pays because her dispatches are honest about which ones matter, and he's never had a courier he trusted that much. She starts tagging her dispatches by who's in them instead of how fast they need to go. He stops sleeping through the ones she tags.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Sigrun=Archer from Ricberta/Sigrun). Both diadem-route (ch_d03/ch_d01). Ram's decisive-under-pressure virtue read as a filter for stakes rather than speed; Archer's failure mode ('says the true thing at the worst moment') is the mechanism that names the bet. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_waldrada",
@@ -245,12 +245,12 @@
     "chain_id": "sup_jost_maren",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Jost turns up at the dole line and falls asleep on the crates. Maren, running triage on thin supplies, has no patience for anyone who is neither working nor queuing, and says so. B: The first time a child collapses in the queue, Jost is on his feet and across the yard before Maren has finished turning around. She files the timing away -- nobody on her staff moves that fast, and nobody on her staff sleeps that well between. A: Maren tells him triage is exactly what he already does by instinct, minus the name for it, and offers him a place on the emergency rota only: on call, sleeping allowed between. Jost admits it's the first job that fits the way he actually is instead of the way anyone wanted him to be. Maren, whose loyalty shows in who she gives her real attention to, finds she's given a bandit her second key to the stores.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Maren=Crab from Avatar/Maren). Cross-route (diadem/assembly), post-convergence. Ram's virtue (decisive under pressure) meets Crab's practical loyalty: an on-call role that turns the 'lucky sleeper' note into a working asset. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_brandt",
@@ -388,12 +388,12 @@
     "chain_id": "sup_ricberta_waldrada",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_waldrada",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_scales",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Waldrada watches Ricberta read a requisition slip a beat too fast for someone who's supposed to need it read aloud, and says nothing. Ricberta notices her noticing. B: Waldrada offers a trade nobody asked for: as a defector, everyone already distrusts her, so any suspicion in the levy can be made to stick to her instead. Ricberta refuses flatly -- she won't spend a colleague as cover. A: Ricberta admits she has hidden her literacy from everyone, including people exactly like Waldrada, because she assumed no one could be trusted with it. Waldrada says her own loyalty was never settled because nobody had ever asked her plainly. Ricberta asks her, plainly, which side she's on. Waldrada answers: the people in this levy. It is the first time either has said their loyalty aloud to someone who won't use it against them.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Waldrada=Scales from Waldrada/Edda). Both diadem-route (ch_d02). Crab's loyalty-to-people failure mode and Scales' deliberation-as-delay resolve into the same answer from two directions. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_tancred",
@@ -443,12 +443,12 @@
     "chain_id": "sup_ricberta_gunnar",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar trains recruits on the crossbow and Ricberta's levy needs the instruction; the two work out a schedule and mostly grunt at each other. B: Gunnar sees Ricberta read the maker's stamp on a new case without moving her lips and says nothing. She sees him see. Neither mentions it, and each starts being slightly more careful around the other. A: Gunnar admits he can't read; he learned the crossbow by feel and has carried a certification paper for years without knowing what it says. He asks her to read it, privately. She does, aloud, quietly -- the first time she has read aloud to anyone. It says he is competent, and names a rank he never claimed. Both of them keep the other's secret, and neither has to ask.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Gunnar=Goat from Gunnar/Edda). Cross-route (diadem/assembly), post-convergence. Gunnar's own note ('crossbow-certified') turned into a paper he cannot read; Ricberta's secret literacy finally has one safe audience. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_edda",
@@ -531,12 +531,12 @@
     "chain_id": "sup_emmerich_sigrun",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_sigrun",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_archer",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun's dispatches reach Emmerich's desk unsigned, and he needs receipts for the Baron. She refuses to sign for them; stopping to sign costs the very minutes the dispatch exists to save. B: Emmerich admits an unsigned dispatch is one nobody gets credited for, which is most of what his job is: anonymous work that only becomes visible when it goes wrong. Sigrun, who has never once been credited in a report, realizes he's describing her life from the other side of the desk. A: Emmerich starts logging her rides in the showcase as her own line item. Sigrun tells him the true thing at the worst moment: the Baron doesn't read that page. Emmerich says he knows, and writes it anyway, for the person named in it. It's the first time in years her name has appeared on anything, and neither of them mentions that it isn't for the Baron.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Sigrun=Archer from Ricberta/Sigrun). Both diadem-route. Lion's need to be seen redirected into seeing someone else; Archer's failure mode supplies the blunt line that stops the gesture being about the Baron. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_waldrada",
@@ -564,12 +564,12 @@
     "chain_id": "sup_emmerich_maren",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_maren",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Maren's dole ledger doesn't reconcile with Emmerich's requisition figures, and he audits it with the thoroughness of a man who dreads being wrong more than anything. Maren tells him the numbers are people and he should be careful with them. B: Emmerich finds her ledger has a second column he has never seen in any ledger: names. He asks why, and Maren says a shortage with a name attached gets fixed faster than one without. He checks, and she's right. A: He begins adding a names column to the dole requisitions, and the Baron's showcase suddenly shows humans in it instead of totals. Maren says it's the first audit that made her line bigger instead of smaller. Emmerich admits that being seen to do it well matters less when the name in the column is real -- and that he'd rather be right about forty names than impressive about four thousand.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Maren=Crab from Avatar/Maren). Cross-route (diadem/assembly), post-convergence. Crab's loyalty to people over allotment logic gives Lion's need for visible competence something concrete to be competent about. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_brandt",
@@ -861,12 +861,12 @@
     "chain_id": "sup_waldrada_solveig",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Waldrada and Solveig, both fliers, keep landing at the same dispatch post and squabble over who has priority on the roost. It's a rivalry built on nothing except being the only two people who understand each other's job. B: Solveig asks how it felt to leave -- Waldrada is the only person she knows who has. Waldrada admits leaving was permitted; Solveig's family would not permit it, and that's a different kind of leaving. A: Waldrada says it felt like nothing for a year, then like grief, and was still worth it -- and that she isn't offering that as advice. Solveig asks whether an inherited thing allows defection at all. Waldrada says prophecy families get defected from too, quietly, and nobody talks about it. Solveig doesn't leave. She does start thinking of leaving as an actual verb rather than a thing that happens to other people.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Solveig=Vessel from Brandt/Solveig). Cross-route (diadem/assembly), post-convergence; both fliers (gp_flier). Scales' years of deliberation set against Vessel's inherited impossibility of deliberating at all. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_gunnar",
@@ -1312,12 +1312,12 @@
     "chain_id": "sup_solveig_anselm",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm asks what the family prophecy actually says. Solveig tells him it isn't for telling. He says he isn't asking to know it; he's asking how it feels to carry a certainty when he carries none. B: Solveig admits certainty is heavier than it looks -- nobody ever asks whether she wants it, only whether she will deliver it. Anselm says doubt is lighter but has no floor: nothing to stand on when the ground moves. A: They trade. She gives him one fixed thing: a line that isn't about the future at all, only about the family's promise to keep a lamp lit. He gives her one honest caveat: she doesn't know the prophecy will come true; her family only knows that they believe it, and those are different things. Neither is comforted. Both are somewhat less alone with the weight they were handed.",
+    "notes": "Both signs reused verbatim (Solveig=Vessel from Brandt/Solveig, Anselm=Fishes from Tancred/Anselm). Both assembly-route. Vessel's inherited certainty and Fishes' dissolved certainty traded rather than reconciled. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_kheldar",
@@ -1631,12 +1631,12 @@
     "chain_id": "sup_dietmar_rinsa",
     "unit_a_id": "u_dietmar",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar asks Rinsa whether the dead of the revolution are down there. She tells him everyone asks, and it doesn't work like a muster roll. B: He asks whether they judge. She says the dark isn't a jury; nothing down there is taking attendance. Dietmar admits it's not the answer he hoped for. A: Dietmar confesses he half hoped to be summoned -- an audience of the dead who would remember what he did. Rinsa tells him nobody down there is watching, which means he is the only one keeping the record, and that's heavier but it's his. He asks her to lead him down someday, not for an answer, only to see the place his comrades might be. She says she'll walk the stairs with him, which she has never offered anyone as a favour.",
+    "notes": "Both signs reused verbatim (Dietmar=Lion from Dietmar/Torvald, Rinsa's own already-stated sign, the Vessel). Both-route/diadem convergence. Lion's need for an audience meets the one place with none; ties to Rinsa's own note ('the only unit who has BEEN down there'). Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_dietmar_kest",
