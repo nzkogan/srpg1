@@ -872,12 +872,12 @@
     "chain_id": "sup_waldrada_gunnar",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar notices that Waldrada leaves no trail at all when she flies, and a very clear one when she's forced to walk. She avoids walking. He says so, mildly, the way he would remark on a track. B: He tells her he has tracked runners all his life and they always do the same thing: they look back. Waldrada looks back constantly. She says she isn't running. Gunnar says he didn't say she was; he said she looks back. A: He teaches her to leave a trail on purpose: one honest route home, marked so that she alone could follow it. Waldrada, who has spent years refusing to close any option, marks it and doesn't say whether she'll use it. Gunnar doesn't ask. He says a trail you can walk back along is the only kind that lets you stop looking over your shoulder.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Gunnar=Goat from Gunnar/Edda). Cross-route (diadem/assembly), post-convergence. Scales' kept-open option made into an actual marked route by Goat's exacting craft. Platonic chain, capped at A. Final-batch chain: with this one the 153-chain grid is fully drafted."
   },
   {
     "chain_id": "sup_waldrada_edda",
@@ -1048,12 +1048,12 @@
     "chain_id": "sup_tancred_torvald",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Torvald watches Tancred doing penance work for other people's sins and says his own order had a saying: the dead don't need absolution, the living need company. Tancred asks what the order did about the difference. Torvald says they sat with people. B: Tancred admits he is the only Pardoner from his village and there is nobody to witness the steps he takes in the line; the rank is only real if someone of standing sees it taken. He has been putting that off. A: Torvald offers to stand as his witness. An order that no longer exists has very little standing left to give, but Tancred accepts, and Torvald stands through the whole rite at attention. It is the last thing his order ever witnessed, and he says it was worth being the one left to do it.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Torvald=Crab from Dietmar/Torvald). Tancred is diadem; Torvald is assembly. Goat's climb through the Pardoner line finally gets a witness; Crab's dead order gets a last act. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_rinsa",
@@ -1642,12 +1642,12 @@
     "chain_id": "sup_dietmar_kest",
     "unit_a_id": "u_dietmar",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar catches Kest casing his post and gives her a lecture on honour, at length. Kest argues both sides of it out loud while he is still talking. B: He stops. He says he once did worse for a better cause, and from the outside it looked exactly the same. Kest, who was ready to be lectured and not to be answered, doesn't argue either side of that. A: Dietmar asks her to argue the case against him: is he obsolete? She can, and does, both ways. She argues for him harder than against. Dietmar hears the whole thing without needing a verdict. Kest doesn't give one. It is the first time either has asked for an argument and been glad not to be told how it ended.",
+    "notes": "Both signs reused verbatim (Dietmar=Lion from Dietmar/Torvald, Kest's own already-stated sign, the Twins). Both diadem-route. Lion's need for a verdict on whether he still matters met by Twins' talent for arguing both sides. Deliberately does not touch Kest's withheld reveal or the decan token, per her own note. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_torvald_rinsa",
