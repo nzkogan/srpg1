@@ -91,12 +91,12 @@
     "chain_id": "sup_avatar_solveig",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_solveig",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar asks what the family prophecy actually says, on the grounds that a plan needs inputs. Solveig refuses. The avatar argues that refusing is itself a constraint they should be told about. B: Solveig explains it has never been useful for planning: it names a lamp, not an outcome. The avatar, who never lets a question drop, drops this one, which they notice and dislike. A: They ask her instead what she would want planned around. Nobody has ever asked. She names one small thing: a day off the route once a month. The avatar writes it into the schedule as a fixed constraint and treats it as immovable -- the only input in the whole roster they never revise.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Solveig=Vessel from Brandt/Solveig). Avatar is route 'both'; Solveig is assembly. Scorpion's habit of reopening every input meets the one input that is protected on principle. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_gunnar",
@@ -289,12 +289,12 @@
     "chain_id": "sup_jost_edda",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda recites one of the long village histories to a small audience and Jost falls asleep in the middle of it, audibly. She stops. B: She is insulted; he isn't apologetic. He says he only sleeps through the parts where nobody's in danger. Edda, who keeps records for a living, asks him to say exactly which parts woke him. A: He lists them, and it's the same every time: the moments with a person at risk. Edda starts using him as an audience gauge, and finds which stories are actually about someone and which are only about the past. She cuts the second kind down. Jost sleeps through a shorter recital and wakes for the rest.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Edda=Maiden from Waldrada/Edda). Cross-route (diadem/assembly), post-convergence. Ram's stakes-sensitive waking (see Jost/Sigrun) turned into a method for the Maiden's record. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_anselm",
@@ -344,12 +344,12 @@
     "chain_id": "sup_jost_rinsa",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Jost dozes off on the oracle's stairs while waiting his turn. Rinsa doesn't wake him. Everyone else who waits there is afraid. B: She asks whether he's afraid of the dark. He says it's the only place nobody asks him for anything. Rinsa says that's very nearly what the dark is for. A: She lets him sleep at the foot of the stairs while she waits for the next customer. He wakes rested, and she says he is the first person to treat the descent as rest. Jost says it's the first place he's slept without listening for anything. Rinsa says that's what she's been trying to give people for years and never quite managed.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Rinsa's own already-stated sign, the Vessel). Jost is diadem; Rinsa is route 'both'. Ram's 'lucky sleeper' note meets Rinsa's own job. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_kest",
@@ -509,12 +509,12 @@
     "chain_id": "sup_ricberta_rinsa",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Ricberta hires Rinsa to guide her levy across the wall at the Throat; there's no crossing it without a guide. She counts her men going down and again coming up. B: Rinsa notices, and says she counts too, every trip, silently, hundreds of times. She has never told anyone. Ricberta says nobody's ever asked her either. A: They compare numbers at the top. They match to the head. Neither has ever had a second person who counts the way they do -- someone for whom the count is the whole point, not a formality. Ricberta says her levy will never be counted wrong again. Rinsa says neither will anyone who comes down with her.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Rinsa's own already-stated sign, the Vessel). Ricberta is diadem; Rinsa is route 'both'. Ties to Rinsa's own diadem note ('you cannot cross the wall at the Throat without a guide'). Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_kest",
@@ -597,12 +597,12 @@
     "chain_id": "sup_emmerich_gunnar",
     "unit_a_id": "u_emmerich",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_lion",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's requisition for crossbow bolts doesn't match Gunnar's own count, which he keeps by feel and nowhere else. Emmerich is horrified that any number is unrecorded. B: Gunnar says his count is exact. Emmerich, who has never trusted a number nobody wrote down, decides to test it. He writes down what he thinks the number is and compares. A: Gunnar is right every time. Emmerich tests him over a week and can't catch him once. He finally lets the count stand as a number and enters it in the ledger, in Gunnar's name. For the first time the ledger and the man agree, and neither had to change.",
+    "notes": "Both signs reused verbatim (Emmerich=Lion from Jost/Emmerich, Gunnar=Goat from Gunnar/Edda). Cross-route (diadem/assembly), post-convergence. Goat's exacting craft meets Lion's ledger anxiety. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_emmerich_edda",
@@ -696,12 +696,12 @@
     "chain_id": "sup_sigrun_tancred",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_tancred",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun and Tancred travel together to a village and she is visibly impatient with his pace. She has a dispatch to deliver and he keeps stopping. B: He stops to fix a well rope, which she calls a delay. Tancred says it's what the village will remember. Sigrun says the true thing at the worst moment: nobody remembers a rope. Tancred says they do, all winter. A: She stays to help with the rope. The dispatch arrives two hours late and nobody minds. It is the first late delivery of her career, and she does not apologize for it. Tancred says nothing. He hands her the other end of the rope.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Tancred=Goat from Tancred/Anselm). Both diadem-route. Archer's speed against Goat's unglamorous repeated work. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_maren",
@@ -927,12 +927,12 @@
     "chain_id": "sup_waldrada_torvald",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Torvald recognizes Waldrada's old assembly flier badge, which she keeps despite everything. He doesn't call her a defector. He asks which side the dead order belongs to. B: She doesn't know. Torvald says his order never had a side, only a post, and its loyalty was to the post. Waldrada says she's spent years wanting a post that doesn't require a side. A: He tells her there is one: wherever she's standing when someone needs holding. She takes a watch with him that night. It doesn't settle anything about which side she's on. It does give her somewhere to stand while she keeps deciding.",
+    "notes": "Both signs reused verbatim (Waldrada=Scales from Waldrada/Edda, Torvald=Crab from Dietmar/Torvald). Cross-route (diadem/assembly), post-convergence. Crab's loyalty to a post rather than a side answers Scales' years of deliberation about sides. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_rinsa",
@@ -1114,12 +1114,12 @@
     "chain_id": "sup_maren_edda",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda asks Maren for the history of the dole line and Maren says nobody has ever written it. Edda says that's exactly why she is asking. B: She spends a winter learning the names in Maren's ledger by heart, one at a time, and asks about each. Maren answers more than she intended to. A: At midwinter Edda recites the year's names to the assembled queue. The line hears itself said aloud. Maren has never seen it stand still for anything, and it stands still for that. Nobody claps. Maren writes down that nobody did, and that it was right.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Edda=Maiden from Waldrada/Edda). Both assembly-route, so no convergence framing needed. Maiden's record-keeping applied to Crab's hand-kept names. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_anselm",
@@ -1235,12 +1235,12 @@
     "chain_id": "sup_brandt_kheldar",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar's goods keep passing Brandt's gate, and Brandt inspects everything. Kheldar keeps offering small bribes that Brandt refuses and logs. B: Kheldar raises the offer. Brandt logs that too. He says he'll pass anything that's on the manifest. Kheldar, unable to find the angle, asks what the angle is. Brandt says there isn't one. A: Kheldar writes a true manifest to get through, the first he has ever written. It turns out to be faster than any bribe: no delays, no questions. He keeps writing them. Brandt says the gate wants nothing from him but the truth, and Kheldar notes, with real irritation, that it is also the cheapest way through.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Kheldar=Scorpion from Kheldar/Kest). Brandt is assembly; Kheldar is route 'both'. Bull's immovability against Scorpion's leverage, resolved in the one place where honesty is the shortest route. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_dietmar",
@@ -1532,12 +1532,12 @@
     "chain_id": "sup_anselm_dietmar",
     "unit_a_id": "u_anselm",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_fishes",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar asks Anselm to confirm that the revolution was righteous. Anselm gives him three caveats and a genuine admiration. Dietmar wants the first without the rest. B: He is angry. Anselm says the revolution was a thing people did, with reasons and costs, and that both are true. Dietmar has spent decades defending it as one and it has never occurred to him that it can be both. A: Dietmar asks for the true account and not the righteous one. Anselm gives it. Dietmar can bear it, because it is accurate, in a way the righteous version never was. Anselm says he is grateful someone can hear his caveats as a gift instead of an evasion.",
+    "notes": "Both signs reused verbatim (Anselm=Fishes from Tancred/Anselm, Dietmar=Lion from Dietmar/Torvald). Cross-route (assembly/diadem), post-convergence. Fishes' understanding both sides meets Lion's need for a flattering account; the honest one turns out to be survivable. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_anselm_torvald",
