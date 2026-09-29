@@ -25,12 +25,12 @@
     "chain_id": "sup_avatar_emmerich",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_emmerich",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar keeps re-auditing Emmerich's own audits, on principle, which Emmerich reads -- correctly -- as a vote of no confidence in his single most anxious competency. B: The avatar admits the re-auditing isn't about Emmerich specifically, they do it to everyone's work, everywhere, always -- which Emmerich finds almost worse, since it means the scrutiny he's been dreading personally was never personal at all, just weather. A: The avatar concedes the point and tries something new: they ask Emmerich to flag his own uncertainties up front instead of waiting to be caught, which turns the audit from a test into a conversation. Emmerich, who has spent his whole tenure terrified of exactly this kind of scrutiny, discovers being asked is different from being checked on -- and starts actually volunteering the numbers he's least sure of, since for once nobody's using them against him.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Emmerich=Lion from Jost/Emmerich). Scorpion's habit of relentless scrutiny turned from adversarial to collaborative, directly defusing Lion's failure mode ('cannot take a demotion gracefully') by changing what being watched means. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_sigrun",
@@ -47,12 +47,12 @@
     "chain_id": "sup_avatar_waldrada",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_waldrada",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_scales",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar wants Waldrada's defection formally on record, decided, filed -- loyal to diadem, full stop, so the roster stops flagging her as a question mark. Waldrada tells them the filing would be a lie; she's still deciding, and has been for years. B: The avatar, who never lets a settled question stay settled, finds this almost funny -- they'd assumed endless deliberation was Waldrada's flaw and their own habit of reopening closed questions was the opposite problem. Waldrada points out it isn't the opposite at all: neither of them can leave a question alone, they just picked different questions to never finish. A: The avatar admits they reopen decided things because closing them feels like giving up the chance to get it right; Waldrada admits she's never closed hers because closing it feels like giving up the chance it was ever going to matter which way she chose. Neither one finishes deciding anything by the end. They do start comparing notes on how to live functionally inside a question that never resolves, since apparently that's both their whole method now.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Waldrada=Scales from Waldrada/Edda). Scorpion's failure mode ('carries it long after it stopped being useful') recognized as the same shape as Scales' failure mode ('delay disguised as deliberation') from the opposite direction -- reopening vs never closing. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_tancred",
@@ -300,12 +300,12 @@
     "chain_id": "sup_jost_anselm",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_anselm",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_fishes",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm, working through a crisis of total ambivalence, asks Jost how he ever decides anything without agonizing over it first. Jost's honest answer -- he doesn't decide, mostly, he just reacts when it counts and ignores the rest -- sounds to Anselm less like an answer and more like a diagnosis of his own condition from a totally different angle. B: Anselm admits the caveats that used to feel like honesty now just feel like never landing anywhere; Jost, unbothered by landing or not landing, tells him that's the difference between them -- Anselm's still trying to get the whole picture right before acting, and Jost gave up on the whole picture a long time ago, which is either freedom or failure and he's genuinely not sure which either. A: Jost admits the not-deciding cost him things he still doesn't examine closely; Anselm, whose whole practice right now is examining things closely and finding no bottom, tells him that not examining it might be the more honest response to a question with no bottom, not a lesser one. Neither converts the other. Jost starts asking one more question before reacting, some of the time; Anselm starts letting a caveat go unspoken, some of the time. Neither one calls it progress. Both notice it anyway.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Anselm=Fishes from Tancred/Anselm). Ram's virtue (decisive, doesn't look back) offered as an unintentional answer to Fishes' failure mode ('understands the enemy too well to fight them') -- not resolving the doubt, just modeling a different relationship to acting inside it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_kheldar",
@@ -322,12 +322,12 @@
     "chain_id": "sup_jost_dietmar",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Dietmar, reviewing the diadem's new recruits, is visibly unimpressed that a reformed bandit made the roster; Jost, unbothered, sleeps through the inspection instead of defending himself. B: Dietmar, expecting either an argument or an apology, gets neither, and finds himself oddly rattled by a man who simply doesn't perform for his approval. He asks Jost outright why he doesn't bother trying to impress him. Jost's answer: trying to impress people who've already decided about you never once changed the outcome, so why spend the energy. A: Dietmar admits that's the exact opposite of his own entire method -- he's spent the obsolescence arc trying to impress people into remembering he still matters, and it's cost him more than Jost's indifference ever could. Jost tells him plainly some audiences were never going to change their minds regardless, and the trick isn't winning them, it's noticing which ones are actually worth the energy. Dietmar doesn't stop trying to matter. He does start being pickier about who he's trying to matter to.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Dietmar=Lion from Dietmar/Torvald). Ram's virtue (decisive, doesn't look back, doesn't perform) as an implicit rebuke of Lion's failure mode ('cannot take a demotion gracefully') -- indifference to an audience as an alternative to needing one. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_torvald",
@@ -938,12 +938,12 @@
     "chain_id": "sup_waldrada_rinsa",
     "unit_a_id": "u_waldrada",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scales",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Waldrada, still weighing whether her defection was right years after making it, asks Rinsa -- half joking -- if the oracle takes questions about decisions already made. Rinsa tells her the oracle only takes one question per visit, ever, and asking about a done decision would be a waste of the one she gets. B: Waldrada admits that's exactly her problem -- she can't tell anymore whether she's still deciding or just refusing to let a decided thing be decided. Rinsa, who spends her whole professional life watching people descend with exactly one real question and come back changed by finally asking it, tells her the weighing itself might be the tell: people with an actual open question don't usually take years circling it. A: Waldrada admits, plainly, for the first time, that the defection was decided a long time ago and the circling since has been about something else entirely -- not knowing what to do with a choice that can't be undone. Rinsa tells her that's not indecision, that's grief for a version of herself who might have chosen differently, and grief doesn't resolve by more deliberation, only by being let alone to run its course. Waldrada doesn't stop thinking about it. She stops treating the thinking as a decision still in progress.",
+    "notes": "Waldrada=Scales reused from Waldrada/Edda. Rinsa's own already-stated sign, the Vessel, reused verbatim. Scales' failure mode ('delay disguised as deliberation') correctly diagnosed by Rinsa's professional expertise (someone who watches people actually resolve questions for a living) as something other than deliberation entirely. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_waldrada_kest",
@@ -993,23 +993,23 @@
     "chain_id": "sup_tancred_gunnar",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, still early in the Pardoner line's ranked structure, asks Gunnar how he's stayed so good at his work for so long without ever climbing toward anything -- no rank, no title, just the same post for decades. Gunnar doesn't understand the question; the work was always the point, not what it led to. B: Tancred admits the distinction unsettles him -- his whole discipline is measured in steps upward, and a man who's just as disciplined without any steps at all makes him wonder what the steps were actually for. Gunnar tells him plainly that climbing and improving aren't the same thing, and it's worth being honest with himself about which one he's actually doing. A: Tancred sits with it and admits some of the climbing was never about the work getting better, just about being seen to have moved. Gunnar, who has never needed to be seen moving to know he'd gotten better, offers the only correction he has: keep climbing if the climbing's real, just check the math against the work itself, not the rank, the way an old huntsman checks a shot against where it actually lands, not where it was aimed. Tancred keeps climbing. He starts keeping his own private ledger of the work itself, separate from the rank, to make sure the two don't quietly drift apart.",
+    "notes": "Both units already carry the Goat sign from their own established chains (Tancred from Tancred/Anselm, Gunnar from Gunnar/Edda) -- a fourth sign-mirror pairing (after Crab, Vessel, and Lion), argued as two different expressions of the same virtue: institutional climb vs solitary craft, each checking the other's blind spot. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_edda",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_edda",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_maiden",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Edda wants to record Tancred's progress through the Pardoner line for the archive, the way she records everyone's; Tancred, still early and unsure any of it's worth recording yet, asks her to wait until he's actually built something worth writing down. B: Edda tells him that's not how any record she's ever kept has worked -- she doesn't wait for the finished version, she records the climb itself, including the parts that don't look like progress yet. Tancred admits he's been treating the record as a reward for arriving somewhere, not an account of the getting there. A: Edda starts recording him anyway, unglamorous entry by unglamorous entry, years before there's a clean story to tell. Tancred, watching his own unfinished climb get taken seriously as material worth keeping rather than waiting to be earned, tells her it's changed how the climb itself feels -- less like a debt owed to some future version of himself, more like something that already counts. Edda tells him that was always the point of an honest record: it counts the whole way, not just at the top.",
+    "notes": "Both signs reused verbatim (Tancred=Goat from Tancred/Anselm, Edda=Maiden from Waldrada/Edda). Maiden's virtue ('notices the discrepancy nobody else did') applied to Goat's own failure mode (measures people, including himself, by what's already built) -- the record-keeper insisting the unglamorous middle counts, not just the finished climb. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_tancred_anselm",
@@ -1070,12 +1070,12 @@
     "chain_id": "sup_tancred_kest",
     "unit_a_id": "u_tancred",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_goat",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Tancred, deep in his order's discipline, tells Kest plainly that a life of theft is exactly the kind of thing that needs building away from, one honest job at a time. Kest, mid-argument with herself as always, surprises him by agreeing with half of it out loud before catching herself. B: Tancred asks which half she agreed with. Kest admits it's not really about theft, it's the 'building away from' part -- she doesn't know how to build toward anything, only away from things, and has never once let herself imagine what an honest life would actually look like day to day instead of just what it wouldn't be. A: Tancred, who measures people by what they build rather than what they've fled, offers her something concrete instead of a sermon: come watch what his own building actually looks like, day to day, unglamorous, nothing like the redemption story she's picturing. Kest does, expecting to be unmoved, and finds the boredom of it more convincing than any argument would have been -- an honest life turns out to be smaller and less dramatic than the thing she's been arguing herself out of. She doesn't take it up. She stops arguing herself out of it being possible.",
+    "notes": "Tancred=Goat reused from Tancred/Anselm. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Goat's virtue (unglamorous work, measured by what's built) offered as a concrete counter-example to Twins' failure mode ('won't commit while a better argument exists') -- showing rather than arguing. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_brandt",
@@ -1279,12 +1279,12 @@
     "chain_id": "sup_brandt_kest",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kest, casing the assembly gate out of old habit, gets caught immediately -- Brandt doesn't move fast, he just doesn't move at all, which turns out to be enough. She's more annoyed at herself than at him. B: Brandt, who has never once needed a plan B for holding a gate, asks why she didn't just pick a different approach when the first one clearly wasn't working. Kest admits she was still arguing with herself about whether the job was worth doing at all, and got caught mid-argument, same as always -- the indecision costs her more jobs than any guard does. A: Brandt tells her plainly that he's never once had two minds about anything, holding the gate is the whole of what he is, and he doesn't understand the argument she's describing well enough to advise her on it -- but he does understand standing still long enough for a decision to catch up to you, since that's most of his job. Kest, who's spent her life moving fast enough to outrun the argument instead of resolving it, tries his method once, out of curiosity, and finds that standing still is worse and better than she expected -- worse because the argument catches up, better because it's finally forced to actually finish.",
+    "notes": "Brandt=Bull reused from Brandt/Solveig. Kest's sign (the Twins) is her own already-stated sign, reused verbatim. Bull's virtue ('holds ground nobody else could') read literally as an answer to Twins' failure mode ('won't commit while a better argument exists') -- standing still long enough for a decision to resolve, rather than running from it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_gunnar",
@@ -1521,12 +1521,12 @@
     "chain_id": "sup_anselm_kheldar",
     "unit_a_id": "u_anselm",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_fishes",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm, whose doctrine has dissolved into understanding every side of everything, tells Kheldar he can't even condemn smuggling anymore -- he sees exactly why the discrepancies exist and who they actually feed. Kheldar, who has never once needed anyone's absolution, finds this more unsettling than condemnation would have been. B: Kheldar admits, grudgingly, that being understood is worse for business than being judged -- judgment he can route around, understanding has nowhere to put the usual defenses. Anselm, whose whole crisis is that understanding everyone has cost him the ability to actually stand anywhere, recognizes a man discovering the same problem from the opposite side: too well understood is its own kind of exposure. A: Anselm admits he envies, slightly, a man who's never once needed to be understood to function; Kheldar admits, just as slightly, that being seen this clearly by someone with nothing to gain from it is the closest thing to being known he's let happen in years. Neither absolves the other of anything. Both leave the conversation less alone in a very specific, narrow way that neither one asked for and neither one minds.",
+    "notes": "Both signs reused verbatim (Anselm=Fishes from Tancred/Anselm, Kheldar=Scorpion from Kheldar/Kest). Fishes' virtue ('understands the enemy too well to hate them') turned on a man whose whole trade depends on not being understood at all -- Scorpion's failure mode ('carries the grudge that keeps everyone honest') recontextualized as a man who's never had anyone hold him accountable without an angle. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_anselm_dietmar",
