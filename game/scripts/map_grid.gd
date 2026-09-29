@@ -141,7 +141,16 @@ var statue_max_hp := 0
 var statue_destroyed := false
 var attacked_this_turn: Dictionary = {} # punit_id -> true, reset every turn
 var moved_this_turn: Dictionary = {} # punit_id -> true, reset every turn
-var map_won := false
+## Setter rather than a call at each of the four places a map can be won
+## (seize, escape, survive, boss-defend): any false -> true transition banks
+## this map's support points. See Supports.settle_map().
+var map_won := false:
+	set(value):
+		var newly_won: bool = value and not map_won
+		map_won = value
+		if newly_won:
+			_on_map_won()
+var chapter_route := ""  # this map's chapter route ("diadem"/"assembly"/"both"); gates cross-route supports
 
 var highlight_layer: Node2D
 var info_label: Label
@@ -155,6 +164,9 @@ func _ready() -> void:
 	_index_weapons()
 	_index_enemy_archetypes()
 	_index_map_row()
+	var chapter = Canon.find_by("chapters", "chapter_id", map_row.get("chapter_id", ""))
+	chapter_route = chapter["route"] if chapter != null else ""
+	Supports.begin_map()
 	units = _build_units()
 	if map_id == "map_f00":
 		_index_structures()
@@ -657,6 +669,11 @@ func _recolor_symbol(symbol: String, color: Color) -> void:
 ## choice, so it just happens when turn 1 begins rather than needing an
 ## attack action. map_f00-only.
 func _next_turn() -> void:
+	# unit_positions holds only living units (hazard deaths erase their entry),
+	# so this is exactly "who was standing where when the turn ended". Turn 0
+	# is the pre-game deploy screen, not a played turn.
+	if turn > 0:
+		Supports.record_turn_end(unit_positions, chapter_route)
 	turn += 1
 	attacked_this_turn.clear()
 	moved_this_turn.clear()
@@ -672,6 +689,21 @@ func _next_turn() -> void:
 	if not map_won:
 		_update_status_label()
 		_update_info_label()
+
+var _support_lines: Array[String] = []
+
+func _on_map_won() -> void:
+	_support_lines.clear()
+	for entry in Supports.settle_map(map_id):
+		_support_lines.append(Supports.describe_raise(entry))
+	if not _support_lines.is_empty():
+		# The win sites set info_label.text right after assigning map_won,
+		# which would overwrite anything written here -- append after they run.
+		call_deferred("_show_support_lines")
+
+func _show_support_lines() -> void:
+	if info_label != null:
+		info_label.text += "\n" + "\n".join(_support_lines)
 
 ## map_a03's cold drain (and any future hazard tile): any unit or living
 ## enemy standing on a tile with hazard_dmg > 0 at turn end loses that much

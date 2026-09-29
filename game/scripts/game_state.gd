@@ -16,6 +16,14 @@ var flags: Dictionary = {}
 ## Supports.raise_rank() rather than calling set_support_rank() directly.
 var support_ranks: Dictionary = {}
 
+## chain_id -> support points banked this playthrough. Points are earned per
+## map and only committed here when that map is won (see Supports.settle_map).
+var support_points: Dictionary = {}
+
+## map_id -> true once that map's support points have been banked, so
+## replaying a won map can't farm points a second time.
+var support_settled_maps: Dictionary = {}
+
 func set_flag(flag_id: String, value: String) -> void:
 	flags[flag_id] = value
 

@@ -10,9 +10,24 @@ extends Node
 ##   - S exists only on chains flagged romance_eligible == "yes"; every other
 ##     chain tops out at A (see supports!A2 in canon.xlsx)
 ##
-## Deliberately NOT here, because canon.xlsx does not define them: how support
-## points are earned, what a rank does in combat, or when a scene plays. Call
-## raise_rank() from whatever system ends up owning that decision.
+## EARNING RULE (see "Earning" below). canon.xlsx does not define one, so this
+## is a design proposal, not canon: every number is a const at the top of that
+## section and expected to move after playtesting. Summary:
+##   1. At the end of each turn, every pair of living deployed units standing
+##      within PROXIMITY_RANGE tiles of each other earns their chain +1 point,
+##      up to MAP_POINT_CAP points per chain per map.
+##   2. Points are banked only when the map is WON, once per map per
+##      playthrough (no farming by replaying, none for abandoned maps).
+##   3. When banked points reach the next rank's threshold the chain ranks up
+##      -- at most one rank per chain per map, so a bond deepens over
+##      chapters rather than all at once.
+##   4. Diadem x assembly pairs only earn on chapters whose route is "both"
+##      (canon's own convergence point); same-route pairs, and anyone with
+##      route "both", earn anywhere.
+##
+## Still not defined anywhere: what a rank does in combat, and how a scene is
+## presented. Callers of settle_map() get the list of ranks raised and can
+## show scene_text() however they like.
 ##
 ## Text: canon stores each chain's scenes as one string,
 ## "C: ... B: ... A: ... [S (romance): ...]". _parse_summary() splits it once
@@ -196,3 +211,128 @@ func support_status(unit_id: String, exclude_partners: Array = []) -> Dictionary
 		"romantic": tier == "S",
 		"chain_id": best_chain,
 	}
+
+# ------------------------------------------------------------------ Earning
+# Design proposal -- tune these after playtesting.
+
+## Cumulative banked points needed to reach each rank. With MAP_POINT_CAP = 3
+## and one rank per map, a pair that is together every turn of every map
+## reaches C after 1 map, B after 3, A after 5, S after 9; a pair that is
+## together on half its maps takes about twice as long.
+const POINTS_FOR_RANK := {"C": 3, "B": 8, "A": 15, "S": 25}
+
+## Manhattan distance, in tiles, at which two units count as "together" at
+## turn end. 2 rather than 1 because non-boss maps deploy units in a row two
+## columns apart, and support should not depend on a strict hug.
+const PROXIMITY_RANGE := 2
+
+## Most points one chain can earn on a single map.
+const MAP_POINT_CAP := 3
+
+var _map_points: Dictionary = {}  # chain_id -> points earned this map, not yet banked
+
+## Call when a map starts. Discards any points from an unfinished map.
+func begin_map() -> void:
+	_map_points.clear()
+
+## Whether two units may earn together on a chapter of the given route
+## ("diadem", "assembly" or "both"). Opposed-route units only meet once the
+## routes converge; canon marks that with chapters.route == "both".
+func pair_allowed(unit_x: String, unit_y: String, chapter_route: String) -> bool:
+	var ux = Canon.find_by("units", "unit_id", unit_x)
+	var uy = Canon.find_by("units", "unit_id", unit_y)
+	if ux == null or uy == null:
+		return false
+	var rx: String = ux["route"]
+	var ry: String = uy["route"]
+	if rx == ry or rx == "both" or ry == "both":
+		return true
+	return chapter_route == "both"
+
+## Whether a chain can still gain points: it exists, has text, and hasn't
+## reached its maximum rank.
+func chain_can_earn(chain_id: String) -> bool:
+	var top := max_rank(chain_id)
+	return top != "" and current_rank(chain_id) != top
+
+## Applies the proximity rule for one turn end. positions maps unit_id ->
+## Vector2i for every LIVING deployed unit (units with no chain, such as the
+## prologue roster, are ignored). Returns how many points were awarded.
+func record_turn_end(positions: Dictionary, chapter_route: String) -> int:
+	var ids: Array = positions.keys()
+	ids.sort()
+	var awarded := 0
+	for i in ids.size():
+		for j in range(i + 1, ids.size()):
+			var chain: Dictionary = get_chain(ids[i], ids[j])
+			if chain.is_empty():
+				continue
+			var chain_id: String = chain["chain_id"]
+			if not chain_can_earn(chain_id):
+				continue
+			if _map_points.get(chain_id, 0) >= MAP_POINT_CAP:
+				continue
+			var a: Vector2i = positions[ids[i]]
+			var b: Vector2i = positions[ids[j]]
+			if abs(a.x - b.x) + abs(a.y - b.y) > PROXIMITY_RANGE:
+				continue
+			if not pair_allowed(ids[i], ids[j], chapter_route):
+				continue
+			_map_points[chain_id] = _map_points.get(chain_id, 0) + 1
+			awarded += 1
+	return awarded
+
+## Points earned on the current map so far (not yet banked).
+func map_points(chain_id: String) -> int:
+	return _map_points.get(chain_id, 0)
+
+## Banked points for a chain this playthrough.
+func points(chain_id: String) -> int:
+	return GameState.support_points.get(chain_id, 0)
+
+## Points still needed for the next rank, or -1 if there is none.
+func points_to_next(chain_id: String) -> int:
+	var nxt := next_rank(chain_id)
+	if nxt == "":
+		return -1
+	return max(0, POINTS_FOR_RANK[nxt] - points(chain_id))
+
+## Call when a map is won. Banks this map's points (once per map_id per
+## playthrough), then ranks up every chain whose banked points have reached
+## its next threshold -- at most one rank per chain. Returns one entry per
+## rank-up: {"chain_id", "rank", "unit_a", "unit_b"}. Returns [] if this map
+## was already settled.
+func settle_map(map_id: String) -> Array:
+	var results: Array = []
+	if GameState.support_settled_maps.has(map_id):
+		_map_points.clear()
+		return results
+	GameState.support_settled_maps[map_id] = true
+	for chain_id in _map_points:
+		GameState.support_points[chain_id] = points(chain_id) + _map_points[chain_id]
+	_map_points.clear()
+	var chain_ids: Array = GameState.support_points.keys()
+	chain_ids.sort()
+	for chain_id in chain_ids:
+		var nxt := next_rank(chain_id)
+		if nxt == "" or points(chain_id) < POINTS_FOR_RANK[nxt]:
+			continue
+		var rank := raise_rank(chain_id)
+		var row: Dictionary = _by_id[chain_id]
+		results.append({
+			"chain_id": chain_id,
+			"rank": rank,
+			"unit_a": row["unit_a_id"],
+			"unit_b": row["unit_b_id"],
+		})
+	return results
+
+## One line of player-facing text for a settle_map() entry.
+func describe_raise(entry: Dictionary) -> String:
+	var na = Canon.find_by("units", "unit_id", entry["unit_a"])
+	var nb = Canon.find_by("units", "unit_id", entry["unit_b"])
+	return "Support: %s and %s reach rank %s." % [
+		na["name"] if na != null else entry["unit_a"],
+		nb["name"] if nb != null else entry["unit_b"],
+		entry["rank"],
+	]
