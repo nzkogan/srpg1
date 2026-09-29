@@ -36,12 +36,12 @@
     "chain_id": "sup_avatar_sigrun",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_sigrun",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_archer",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar's dispatches keep being re-sent with revisions. Sigrun ends up riding the original and the correction on the same road, one behind the other. B: She tells them the true thing at the worst moment: the ride was never the delay, the decision is. Half the couriers on the roster carry a revised copy of the same order, and the recipients don't know which to trust. A: The avatar agrees to a rule: one dispatch per decision, and any revision must be marked as a reversal. It is the first time they have committed to a decision in writing before it was final. Sigrun rides faster the next day and doesn't mention why.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Sigrun=Archer from Ricberta/Sigrun). Avatar is route 'both'; Sigrun is diadem. Scorpion's habit of reopening a decision costs real time once a courier is carrying it. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_waldrada",
@@ -58,12 +58,12 @@
     "chain_id": "sup_avatar_tancred",
     "unit_a_id": "u_avatar",
     "unit_b_id": "u_tancred",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_scorpion",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: The avatar asks Tancred to rule on whether one of their old decisions was a sin. Tancred says his order forgives choices; it doesn't judge them. B: The avatar argues that the decision is still unresolved. Tancred says it isn't unresolved, it's finished, and those are different things. The avatar has been treating the two as one for years. A: The avatar writes the decision down once, names it plainly, and hands it to Tancred to hold. He files it in his ledger of work done, next to the levy that decision eventually fed. The avatar stops reopening that one. It is the first decision they have ever agreed to leave finished on someone else's authority.",
+    "notes": "Both signs reused verbatim (Avatar=Scorpion from Avatar/Maren, Tancred=Goat from Tancred/Anselm). Avatar is route 'both'; Tancred is diadem. Goat's habit of measuring by what was built gives Scorpion's carried grudge a place to be put down. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_avatar_maren",
@@ -278,12 +278,12 @@
     "chain_id": "sup_jost_gunnar",
     "unit_a_id": "u_jost",
     "unit_b_id": "u_gunnar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_ram",
+    "sign_b": "sgn_goat",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Gunnar recognizes Jost's old ford ambushes from reports he read years ago, and says so. Jost cheerfully confirms it. B: Jost admits he lucked into most of them. Gunnar says luck is usually patience under a different name, and asks how long Jost can stay still. Jost, who sleeps through most things, says he doesn't know. A: Gunnar takes him out to teach waiting. Jost turns out to be very good at stillness; they both fall asleep in the blind and wake to a deer well inside arrow range. Gunnar says quietly that isn't luck. Jost, for once, doesn't have a joke ready.",
+    "notes": "Both signs reused verbatim (Jost=Ram from Jost/Emmerich, Gunnar=Goat from Gunnar/Edda). Cross-route (diadem/assembly), post-convergence. Ram's 'lucky sleeper' note recast as an untrained talent for stillness. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_jost_edda",
@@ -366,12 +366,12 @@
     "chain_id": "sup_ricberta_emmerich",
     "unit_a_id": "u_ricberta",
     "unit_b_id": "u_emmerich",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Emmerich's requisitions don't match the levy's real numbers, and Ricberta knows it. He pads them, and she tells him plainly. B: He admits the Baron demands the padding, and that the shortfall then falls on men like hers. Ricberta says she'll keep a second, true count and pass it to him. He doesn't ask how she keeps one. A: He uses her count for actual supply and pads only the showcase. He notices she reads his figures faster than a sergeant should, and says nothing. Two people now keep two ledgers each: one for the Baron, one for the levy. Neither has ever trusted anyone that much.",
+    "notes": "Both signs reused verbatim (Ricberta=Crab from Ricberta/Sigrun, Emmerich=Lion from Jost/Emmerich). Both diadem-route (ch_d02). Crab's loyalty to her men and Lion's showcase padding meet in a shared, quiet second ledger. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_ricberta_sigrun",
@@ -773,12 +773,12 @@
     "chain_id": "sup_sigrun_kheldar",
     "unit_a_id": "u_sigrun",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_archer",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Sigrun catches Kheldar reading her sealed dispatches and reseating the wax. He isn't embarrassed. B: He offers a trade -- what he learns for faster routes through country he knows. Sigrun refuses. She says the true thing at the wrong moment: he has never carried anything so that it would arrive, only so that he could hold it. Kheldar doesn't deny it. A: She hands him a single dispatch, sealed, and says nothing else. He delivers it unread. It is the first thing he has carried for the sake of its arriving, and he mentions it to nobody, though he checks twice that she knows.",
+    "notes": "Both signs reused verbatim (Sigrun=Archer from Ricberta/Sigrun, Kheldar=Scorpion from Kheldar/Kest). Sigrun is diadem; Kheldar is route 'both'. Archer's failure mode is the accusation and her virtue is the test. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_sigrun_dietmar",
@@ -1147,12 +1147,12 @@
     "chain_id": "sup_maren_dietmar",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_dietmar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_lion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Maren notices Dietmar favouring one leg and asks about it. He says it's nothing. She says it's old. He refuses treatment out of pride: the revolution is over and so are its wounds, in his account. B: She tells him the revolution's wounds are still arriving at her line every winter, whether anyone counts them or not. Dietmar has never thought of himself as one of them. A: He lets her treat it, at the dole line, in the queue with everyone else. A woman two places behind him says her husband fought at his side; Dietmar hears the legend from someone who paid for it. Maren says the line is where the revolution's bill arrives, and he is entitled to be on it. He comes back the next week, for the leg, and stays to carry crates.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Dietmar=Lion from Dietmar/Torvald). Cross-route (assembly/diadem), post-convergence. Lion's need for an audience is met, unexpectedly, by a queue of people the revolution cost. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_maren_torvald",
@@ -1180,12 +1180,12 @@
     "chain_id": "sup_maren_kest",
     "unit_a_id": "u_maren",
     "unit_b_id": "u_kest",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_crab",
+    "sign_b": "sgn_twins",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kest steals medicine from the dole stores, and Maren catches her at it. Kest expects to be reported. B: Maren notes she has never once taken any for herself. Kest argues both sides of whether to explain, out loud, and Maren waits through the whole thing without interrupting. Kest doesn't explain. A: Maren gives her a standing allotment instead, with one line left blank in the ledger, a name she can fill in whenever she wants. Kest never does. The allotment goes out every week. Maren says a blank in the ledger is still a place she can keep for someone.",
+    "notes": "Both signs reused verbatim (Maren=Crab from Avatar/Maren, Kest's own already-stated sign, the Twins). Cross-route (assembly/diadem), post-convergence. Deliberately leaves Kest's withheld reveal unspoken -- the blank line gestures at it without claiming it, per her own note. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_solveig",
@@ -1268,12 +1268,12 @@
     "chain_id": "sup_brandt_rinsa",
     "unit_a_id": "u_brandt",
     "unit_b_id": "u_rinsa",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_bull",
+    "sign_b": "sgn_vessel",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Rinsa asks to cross at Brandt's gate. He logs her, asks the usual questions, and lets her through without any of the wariness she usually gets from soldiers. B: She asks why he holds a gate against the dead. He says only against the living; the dead have never asked to come in. Rinsa says she has spent years with them and they never do. A: Brandt asks what it's like on the other side. Rinsa says the same as here, only quieter. He says he'll leave the gate on the latch for her at night, whenever she comes back up. Rinsa has crossed thousands of thresholds for other people. Nobody has ever kept one open for her.",
+    "notes": "Both signs reused verbatim (Brandt=Bull from Brandt/Solveig, Rinsa's own already-stated sign, the Vessel). Brandt is assembly; Rinsa is route 'both'. Bull's 'holds ground nobody else could' turned into holding a door for the one person who holds it for everyone else. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_brandt_kest",
@@ -1323,12 +1323,12 @@
     "chain_id": "sup_solveig_kheldar",
     "unit_a_id": "u_solveig",
     "unit_b_id": "u_kheldar",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_vessel",
+    "sign_b": "sgn_scorpion",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Kheldar tries to trade in what Solveig's family prophesies, and she tells him she knows nothing usable. He doesn't believe her. B: She says she can't lie in a way that makes money. He has never met someone unwilling to sell a gift, and says so. She says the gift isn't hers to sell. He says he hasn't owned anything outright in years. A: They trade one true thing each, neither of them sellable. Solveig tells him what the lamp in the family promise is for. Kheldar tells her what he did with his first debt. Both keep the other's, and neither puts a price on it.",
+    "notes": "Both signs reused verbatim (Solveig=Vessel from Brandt/Solveig, Kheldar=Scorpion from Kheldar/Kest). Solveig is assembly; Kheldar is route 'both'. Vessel's inherited gift and Scorpion's leverage economy meet at the one thing neither can monetize. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_solveig_dietmar",
@@ -1543,12 +1543,12 @@
     "chain_id": "sup_anselm_torvald",
     "unit_a_id": "u_anselm",
     "unit_b_id": "u_torvald",
-    "sign_a": null,
-    "sign_b": null,
+    "sign_a": "sgn_fishes",
+    "sign_b": "sgn_crab",
     "romance_eligible": "no",
-    "status": "unwritten",
-    "summary": null,
-    "notes": null
+    "status": "drafted",
+    "summary": "C: Anselm offers to say a requiem for Torvald's dead order. Torvald refuses. B: He says the order's rites had a fixed shape, and a hedged version of them would be an insult to men who never hedged anything. Anselm, who has hedged every prayer for a year, concedes the point. A: Anselm asks Torvald to teach him the order's rite exactly, word for word, and performs it with no caveats, as taught. Torvald says it was right. Anselm learns that exact repetition needs no belief behind it, only fidelity. He keeps the rite. Torvald has, for the first time since the plague, heard it said by someone else.",
+    "notes": "Both signs reused verbatim (Anselm=Fishes from Tancred/Anselm, Torvald=Crab from Dietmar/Torvald). Both assembly-route. Crab's loyalty to a dead order finds a carrier in Fishes' dissolved doctrine, which is at least willing to repeat exactly. Platonic chain, capped at A."
   },
   {
     "chain_id": "sup_anselm_rinsa",
