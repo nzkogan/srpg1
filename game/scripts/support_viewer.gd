@@ -9,15 +9,21 @@ extends Control
 ## rank's text, for reading the writing before the earning rule has produced
 ## any ranks (and for review).
 ##
+## Ranks raised by the most recently won map (GameState.support_recent) are
+## tagged NEW, and N steps through them. The win screen's S key opens the
+## viewer straight onto the first one (GameState.support_focus).
+##
 ## Controls: Up/Down move in the active column, Left/Right switch between the
-## unit and partner columns, PageUp/PageDown scroll the scene text, R toggles
-## reveal-all, Escape returns to the overworld. The lists also take the mouse.
+## unit and partner columns, N next new scene, PageUp/PageDown scroll the scene
+## text, R toggles reveal-all, Escape returns to the overworld. The lists also
+## take the mouse.
 
 const OVERWORLD_SCENE := "res://scenes/overworld.tscn"
 const COLUMN_UNITS := 0
 const COLUMN_PARTNERS := 1
 const INACTIVE_TINT := Color(1, 1, 1, 0.6)
 const LOCKED_COLOR := "#8a8a92"
+const NEW_COLOR := "#e8c14a"
 
 var unit_ids: Array[String] = []
 var _unit_names: Dictionary = {}
@@ -27,6 +33,7 @@ var reveal_all := false
 var _column := COLUMN_UNITS
 var _unit_index := 0
 var _partner_index := 0
+var _rank_paragraph: Dictionary = {}   # rank -> paragraph index of its header in the detail text
 
 var _title: Label
 var _units_list: ItemList
@@ -41,6 +48,9 @@ func _ready() -> void:
 		_unit_names[row["unit_id"]] = row.get("name", row["unit_id"])
 	_build_ui()
 	select_unit(0)
+	if GameState.support_focus != "":
+		focus_chain(GameState.support_focus)
+		GameState.support_focus = ""
 
 func _build_ui() -> void:
 	var margin := MarginContainer.new()
@@ -116,6 +126,35 @@ func select_partner(index: int) -> void:
 	_partners_list.ensure_current_is_visible()
 	_refresh()
 
+## Jumps to a chain: selects its first unit, then the partner row, and scrolls
+## the detail pane to the newest rank reached. False if there is no such chain.
+func focus_chain(chain_id: String) -> bool:
+	var row: Dictionary = Supports.get_chain_by_id(chain_id)
+	if row.is_empty():
+		return false
+	select_unit(unit_ids.find(row["unit_a_id"]))
+	var idx := _partner_chains.find(chain_id)
+	_column = COLUMN_PARTNERS
+	select_partner(maxi(idx, 0))
+	var newest: String = Supports.current_rank(chain_id)
+	if _rank_paragraph.has(newest):
+		_detail.call_deferred("scroll_to_paragraph", _rank_paragraph[newest])
+	return true
+
+## Chains raised by the last won map, in a stable order.
+func recent_chains() -> Array:
+	var ids: Array = GameState.support_recent.keys()
+	ids.sort()
+	return ids
+
+## N: the next NEW scene after the current selection, wrapping round.
+func next_recent() -> void:
+	var ids := recent_chains()
+	if ids.is_empty():
+		return
+	var cur := ids.find(selected_chain())
+	focus_chain(ids[(cur + 1) % ids.size()])
+
 func selected_unit() -> String:
 	return unit_ids[_unit_index] if not unit_ids.is_empty() else ""
 
@@ -160,6 +199,8 @@ func partner_row_text(chain_id: String, unit_id: String) -> String:
 		rank if rank != "" else "--", Supports.points(chain_id)]
 	if Supports.is_romance_eligible(chain_id):
 		text += "   romance"
+	if GameState.support_recent.has(chain_id):
+		text += "   NEW"
 	return text
 
 func _name_of(unit_id: String) -> String:
@@ -173,8 +214,9 @@ func _refresh() -> void:
 	_title.text = "Supports -- %s" % _name_of(selected_unit())
 	_detail.text = view_text(selected_chain())
 	_detail.scroll_to_line(0)
-	_footer.text = "Up/Down choose   Left/Right switch column   PgUp/PgDn scroll   R reveal all: %s   Esc back" % \
-		("ON" if reveal_all else "off")
+	var new_hint := "   N next new scene (%d)" % GameState.support_recent.size() if not GameState.support_recent.is_empty() else ""
+	_footer.text = "Up/Down choose   Left/Right switch column%s   PgUp/PgDn scroll   R reveal all: %s   Esc back" % \
+		[new_hint, "ON" if reveal_all else "off"]
 
 ## BBCode for one chain: names, signs, progress, then each rank's scene --
 ## the text if reached (or reveal_all), otherwise a locked line with the
@@ -186,6 +228,7 @@ func view_text(chain_id: String) -> String:
 	var a: String = row.get("unit_a_id", "")
 	var b: String = row.get("unit_b_id", "")
 	var lines: Array[String] = []
+	_rank_paragraph.clear()
 	lines.append("[b]%s & %s[/b]" % [_esc(_name_of(a)), _esc(_name_of(b))])
 	var signs: Array = Supports.sign_names(chain_id)
 	if signs.size() == 2 and signs[0] != "" and signs[1] != "":
@@ -202,6 +245,10 @@ func view_text(chain_id: String) -> String:
 			continue
 		if i <= reached or reveal_all:
 			var tag := "" if i <= reached else "  [color=%s](not reached yet)[/color]" % LOCKED_COLOR
+			var is_new: bool = GameState.support_recent.get(chain_id, "") == rank
+			if is_new:
+				tag = "  [color=%s]NEW[/color]" % NEW_COLOR
+			_rank_paragraph[rank] = lines.size()
 			lines.append("[b]Rank %s[/b]%s" % [rank, tag])
 			lines.append(_esc(text))
 		else:
@@ -254,6 +301,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_RIGHT: switch_column(COLUMN_PARTNERS)
 		KEY_PAGEUP: _scroll(-1)
 		KEY_PAGEDOWN: _scroll(1)
+		KEY_N: next_recent()
 		KEY_R: toggle_reveal()
 		KEY_ESCAPE: leave()
 		_: return

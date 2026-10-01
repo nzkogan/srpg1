@@ -24,6 +24,15 @@ var support_points: Dictionary = {}
 ## replaying a won map can't farm points a second time.
 var support_settled_maps: Dictionary = {}
 
+## chain_id -> rank raised by the most recently won map (set by
+## Supports.settle_map). The support viewer tags these NEW and can jump
+## between them. Replaced each time a new map is won.
+var support_recent: Dictionary = {}
+
+## One-shot: a chain id for the support viewer to open on, then clear. Set by
+## the win screen's S key.
+var support_focus: String = ""
+
 func set_flag(flag_id: String, value: String) -> void:
 	flags[flag_id] = value
 

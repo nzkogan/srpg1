@@ -30,6 +30,8 @@ func _initialize() -> void:
 	quit(1 if _failures > 0 else 0)
 
 func _reset() -> void:
+	_gs.support_recent.clear()
+	_gs.support_focus = ""
 	_gs.support_ranks.clear()
 	_gs.support_points.clear()
 	_gs.support_settled_maps.clear()
@@ -148,11 +150,51 @@ func _run() -> void:
 			all_ok = false
 	check(all_ok, "all 18 units show 17 partners and a non-empty detail pane")
 
+	# --- NEW tags, N key, jump-to-chain
+	_reset()
+	_gs.support_recent.clear()
+	check(not v._footer.text.contains("N next"), "no NEW hint when nothing was raised")
+	var c1 := "sup_avatar_maren"
+	var c2 := "sup_dietmar_torvald"
+	_sup.raise_rank(c1); _sup.raise_rank(c2)
+	_gs.support_recent = {c1: "C", c2: "C"}
+	v.select_unit(0)
+	check(v._partners_list.get_item_text(0).ends_with("NEW"), "a recently raised chain is tagged NEW in the partner list")
+	check(v.view_text(c1).contains("Rank C[/b]  [color=%s]NEW" % v.NEW_COLOR), "its newest rank header is tagged NEW")
+	check(v._footer.text.contains("N next new scene (2)"), "footer offers N with the count")
+	check(v.focus_chain(c2) and v.selected_chain() == c2 and v.selected_unit() == "u_dietmar" and v._column == 1,
+		"focus_chain selects the first unit, then the partner row")
+	check(v._rank_paragraph.get("C", -1) >= 0, "the newest rank's paragraph is known for scrolling")
+	check(not v.focus_chain("sup_nobody_nobody"), "focus_chain refuses an unknown chain")
+	v._unhandled_input(_key(KEY_N))
+	check(v.selected_chain() == c1, "N steps to the next recent chain (sorted order, wrapping)")
+	v._unhandled_input(_key(KEY_N))
+	check(v.selected_chain() == c2, "N wraps back round")
+	_gs.support_recent.clear()
+	v._unhandled_input(_key(KEY_N))
+	check(v.selected_chain() == c2, "N does nothing when there is nothing new")
+	_reset()
+
+	# opening with a focus request lands on that chain, once
+	v.queue_free()
+	await process_frame
+	_gs.support_focus = "sup_ricberta_sigrun"
+	var v2: Control = load("res://scenes/support_viewer.tscn").instantiate()
+	root.add_child(v2)
+	await process_frame
+	check(v2.selected_chain() == "sup_ricberta_sigrun" and _gs.support_focus == "",
+		"the viewer opens on the requested chain and clears the request")
+	v2.queue_free()
+	v = load("res://scenes/support_viewer.tscn").instantiate()
+	root.add_child(v)
+	await process_frame
+	check(v.selected_unit() == v.unit_ids[0], "with no request it opens on the first unit")
+
 	# --- the overworld opens the viewer
 	v.queue_free()
 	var ow: Node = load("res://scenes/overworld.tscn").instantiate()
 	root.add_child(ow)
 	await process_frame
-	check(ow.SUPPORT_VIEWER_SCENE == "res://scenes/support_viewer.tscn" and ResourceLoader.exists(ow.SUPPORT_VIEWER_SCENE),
-		"overworld points at an existing viewer scene")
+	check(ResourceLoader.exists(root.get_node("Supports").VIEWER_SCENE),
+		"the viewer scene the overworld and win screen open exists")
 	ow.queue_free()

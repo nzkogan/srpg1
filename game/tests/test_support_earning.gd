@@ -33,6 +33,8 @@ func _initialize() -> void:
 	quit(1 if _failures > 0 else 0)
 
 func _reset() -> void:
+	_gs.support_recent.clear()
+	_gs.support_focus = ""
 	_gs.support_ranks.clear()
 	_gs.support_points.clear()
 	_gs.support_settled_maps.clear()
@@ -88,6 +90,12 @@ func _rule_tests() -> void:
 	_sup.begin_map()
 	check(_sup.map_points(jr) == 0, "begin_map discards points from an unfinished map")
 
+func _s_key(code: int) -> InputEventKey:
+	var e := InputEventKey.new()
+	e.keycode = code
+	e.pressed = true
+	return e
+
 func _earn_full_map(chain_a: String, chain_b: String, chapter_route: String) -> void:
 	for i in 3:
 		_sup.record_turn_end({chain_a: Vector2i(0, 0), chain_b: Vector2i(0, 1)}, chapter_route)
@@ -124,6 +132,16 @@ func _settle_tests() -> void:
 	var again: Array = _sup.settle_map("map_once")
 	check(again.is_empty() and _sup.points(jr) == 3, "settling the same map again banks nothing")
 	check(_sup.map_points(jr) == 0, "and discards that replay's points")
+
+	# recent = this map's rank-ups only; a win that raises nothing clears it
+	_reset()
+	_gs.support_points[jr] = 3
+	_sup.settle_map("map_recent_1")
+	check(_gs.support_recent == {jr: "C"}, "settle_map records what it raised as recent")
+	_sup.settle_map("map_recent_2")
+	check(_gs.support_recent.is_empty(), "a new win that raises nothing clears the recent list")
+	_sup.settle_map("map_recent_1")
+	check(_gs.support_recent.is_empty(), "settling an already-settled map leaves recent alone")
 
 	# an unfinished map banks nothing
 	_reset()
@@ -191,8 +209,29 @@ func _map_integration_test() -> void:
 	check(_sup.points("sup_tancred_maren") == 0 and _sup.current_rank("sup_tancred_maren") == "",
 		"Tancred (diadem) next to Maren (assembly) earned nothing on a diadem chapter")
 	check(_sup.points("sup_jost_emmerich") == 0, "units four tiles apart earned nothing")
-	check(map.info_label.text.contains("Support: Jost and Ricberta reach rank C."),
-		"the win screen tells the player about the rank-ups")
+	check(map._support_lines.size() == 8 and map.info_label.text.contains(map._support_lines[0]),
+		"the win screen lists the first rank-up (of %d)" % map._support_lines.size())
+	check(map.info_label.text.contains("Press S to read the new support scenes (8)"),
+		"the win screen offers the viewer when ranks were raised")
+	var win_lines: PackedStringArray = map.info_label.text.split("\n")
+	check(win_lines.size() <= 6 and map.info_label.text.contains("...and 6 more."),
+		"the win text stays short: hint, two raises, a count of the rest (got %d lines)" % win_lines.size())
+	check(map.info_label.text.find("Press S") < map.info_label.text.find("Support: "),
+		"the viewer hint comes before the list, where a tall list can't push it off screen")
+	check(_gs.support_recent.size() == 8 and _gs.support_recent["sup_jost_ricberta"] == "C",
+		"the map's rank-ups are recorded as recent (got %d)" % _gs.support_recent.size())
+
+	# S on the win screen opens the viewer on the first raised chain
+	var first_raised: String = _gs.support_recent.keys().min()
+	map._unhandled_input(_s_key(KEY_S))
+	await process_frame
+	await process_frame
+	var viewer: Node = root.get_node_or_null("SupportViewer")
+	check(viewer != null, "S on the win screen opens the support viewer")
+	if viewer != null:
+		check(viewer.selected_chain() == first_raised and _gs.support_focus == "",
+			"the viewer opens on the first raised chain (%s) and the focus request is consumed" % first_raised)
+		viewer.queue_free()
 
 	# replaying the same map can't farm
 	map.queue_free()
@@ -208,5 +247,18 @@ func _map_integration_test() -> void:
 	await process_frame
 	check(_sup.points("sup_jost_ricberta") == 3 and _sup.current_rank("sup_jost_ricberta") == "C",
 		"replaying a won map banks nothing more")
-	again.queue_free()
+	check(again.info_label.text.contains("Victory") and not again.info_label.text.contains("Press S"),
+		"a replayed win raises nothing, so no viewer link")
+	check(_gs.support_recent.size() == 8, "a replay leaves the recent list alone")
+
+	# Escape still works once the battle is won (it used to be swallowed)
+	again._unhandled_input(_s_key(KEY_ESCAPE))
+	await process_frame
+	await process_frame
+	var ow: Node = root.get_node_or_null("Overworld")
+	check(ow != null, "Escape on the win screen returns to the overworld")
+	if ow != null:
+		ow.queue_free()
+	if is_instance_valid(again):
+		again.queue_free()
 	await process_frame

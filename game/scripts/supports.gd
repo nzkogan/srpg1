@@ -36,6 +36,9 @@ extends Node
 const RANKS: Array[String] = ["C", "B", "A", "S"]
 const S_MARKER := " S (romance): "
 
+## Where the win screen and the overworld send the player to read supports.
+const VIEWER_SCENE := "res://scenes/support_viewer.tscn"
+
 var _by_id: Dictionary = {}     # chain_id -> supports row
 var _by_pair: Dictionary = {}   # "unit_x|unit_y" (sorted) -> chain_id
 var _by_unit: Dictionary = {}   # unit_id -> Array[chain_id]
@@ -325,6 +328,10 @@ func settle_map(map_id: String) -> Array:
 			"unit_a": row["unit_a_id"],
 			"unit_b": row["unit_b_id"],
 		})
+	# What the viewer calls NEW: this map's rank-ups (none, if it raised nothing).
+	GameState.support_recent = {}
+	for entry in results:
+		GameState.support_recent[entry["chain_id"]] = entry["rank"]
 	return results
 
 ## One line of player-facing text for a settle_map() entry.

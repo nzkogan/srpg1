@@ -86,8 +86,6 @@ const SPECIAL_SCENES := {
 	"ch_h32": "res://scenes/trial.tscn",
 }
 
-const SUPPORT_VIEWER_SCENE := "res://scenes/support_viewer.tscn"
-
 const HIEROPHANT_FLAG := "flag_hierophant_verdict"
 ## chapter_id -> the verdict value that unlocks it.
 const HIEROPHANT_GATED := {
@@ -209,7 +207,7 @@ func _draw_nodes() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
-		get_tree().change_scene_to_file(SUPPORT_VIEWER_SCENE)
+		get_tree().change_scene_to_file(Supports.VIEWER_SCENE)
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mp := get_local_mouse_position()

@@ -26,6 +26,7 @@ extends Node2D
 ##   F   = selected unit fights the nearest living enemy in weapon range
 ##   N / Enter = advance to the next turn
 ##   Escape = return to the overworld
+##   S (after a win that raised a support rank) = read the new scene(s)
 
 ## Which map this scene instance plays. Drives the terrain file, unit roster,
 ## encounter_spawns filter, and objective logic below.
@@ -460,6 +461,13 @@ func _add_label(text: String, pos: Vector2) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if map_won:
+		# The battle is over: only the way out, and the support link, still work.
+		if event is InputEventKey and event.pressed:
+			var key := (event as InputEventKey).keycode
+			if key == KEY_ESCAPE:
+				get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+			elif key == KEY_S and not _support_entries.is_empty():
+				open_support_viewer()
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var local := get_local_mouse_position()
@@ -691,19 +699,40 @@ func _next_turn() -> void:
 		_update_info_label()
 
 var _support_lines: Array[String] = []
+var _support_entries: Array = []   # this win's Supports.settle_map() results
 
 func _on_map_won() -> void:
 	_support_lines.clear()
-	for entry in Supports.settle_map(map_id):
+	_support_entries = Supports.settle_map(map_id)
+	for entry in _support_entries:
 		_support_lines.append(Supports.describe_raise(entry))
 	if not _support_lines.is_empty():
 		# The win sites set info_label.text right after assigning map_won,
 		# which would overwrite anything written here -- append after they run.
 		call_deferred("_show_support_lines")
 
+## The window is only ~650px tall and a map can raise many ranks at once (nine
+## on d05 in testing), so the way into the viewer comes first and the list is
+## capped to what fits under the map; the viewer's NEW tags carry the rest.
+const MAX_SUPPORT_LINES_SHOWN := 2
+
 func _show_support_lines() -> void:
-	if info_label != null:
-		info_label.text += "\n" + "\n".join(_support_lines)
+	if info_label == null:
+		return
+	var shown := _support_lines.slice(0, MAX_SUPPORT_LINES_SHOWN)
+	var extra := _support_lines.size() - shown.size()
+	var out: Array[String] = ["Press S to read the new support %s, Escape to leave." % \
+		("scene" if _support_entries.size() == 1 else "scenes (%d)" % _support_entries.size())]
+	out.append_array(shown)
+	if extra > 0:
+		out.append("...and %d more." % extra)
+	info_label.text += "\n" + "\n".join(out)
+
+## Opens the support viewer on the first rank this win raised; N there steps
+## through the rest.
+func open_support_viewer() -> void:
+	GameState.support_focus = _support_entries[0]["chain_id"]
+	get_tree().change_scene_to_file(Supports.VIEWER_SCENE)
 
 ## map_a03's cold drain (and any future hazard tile): any unit or living
 ## enemy standing on a tile with hazard_dmg > 0 at turn end loses that much
