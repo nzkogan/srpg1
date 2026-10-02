@@ -183,6 +183,7 @@ func _map_integration_test() -> void:
 	var packed: PackedScene = load("res://scenes/map_d05.tscn")
 	var map: Node = packed.instantiate()
 	map.deploy_unit_ids = TEST_ROSTER.duplicate()
+	map.enemy_phase_enabled = false   # these tests are about the support rule, not survival
 	root.add_child(map)
 	await process_frame
 
@@ -238,6 +239,7 @@ func _map_integration_test() -> void:
 	await process_frame
 	var again: Node = packed.instantiate()
 	again.deploy_unit_ids = TEST_ROSTER.duplicate()
+	again.enemy_phase_enabled = false
 	root.add_child(again)
 	await process_frame
 	guard = 0

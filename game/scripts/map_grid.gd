@@ -52,6 +52,7 @@ extends Node2D
 const ForecastView := preload("res://scripts/forecast_view.gd")
 const ARTS := ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 const FORECAST_X_GAP := 36
+const MAX_ENEMY_LOG_SHOWN := 3
 
 const CELL_SIZE := 32
 const IMPASSABLE := 90 # terrain_costs uses 99 as its impassable sentinel
@@ -143,6 +144,11 @@ var forecast_label: RichTextLabel
 var _targets: Array = []       # living enemies in the selected unit's weapon range, nearest first
 var _target_idx := 0
 var map_lost := false          # every player unit gone: no win is possible
+## Test seam: the support tests play whole maps by calling _next_turn() and
+## need the player's units to survive; they switch the enemy phase off. Always
+## true in play.
+var enemy_phase_enabled := true
+var enemy_log: Array[String] = []  # what the last enemy phase did, newest last
 var enemies: Array = [] # {inst_id, kind, archetype, pos, hp, max_hp, defeated, token}
 var dens: Array = [] # {spawn_row (Dictionary), waves_spawned: int}
 var map_row: Dictionary = {} # this map_id's own row from the maps table
@@ -715,6 +721,9 @@ func _next_turn() -> void:
 	# is the pre-game deploy screen, not a played turn.
 	if turn > 0:
 		Supports.record_turn_end(unit_positions, chapter_route)
+		_enemy_phase()
+		if map_lost:
+			return
 	turn += 1
 	attacked_this_turn.clear()
 	moved_this_turn.clear()
@@ -903,19 +912,15 @@ func _attack_enemy() -> void:
 		info["distance"], rng, int(unit_hp.get(pid, 0)), int(target.hp))
 	attacked_this_turn[pid] = true
 	var ename: String = target.archetype.get("name")
-	var lines := _describe_exchange(result, unit.get("name"), ename)
+	var lines := _describe_exchange(result, unit.get("name"), "the %s" % ename)
 	target.hp = int(result["def_hp"])
 	unit_hp[pid] = int(result["atk_hp"])
 	info_label.text = lines + _support_note(info["support"])
 
 	if target.hp == 0:
-		target.defeated = true
-		_remove_enemy_token(target)
 		info_label.text += " The %s falls." % ename
-		if target.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
-			map_won = true
-			status_label.text = "The %s falls. Threat neutralized." % ename
-			info_label.text = "Victory."
+		_defeat_enemy(target)
+		if map_won:
 			return
 	if int(unit_hp[pid]) == 0:
 		_kill_unit(pid)
@@ -925,25 +930,31 @@ func _attack_enemy() -> void:
 	_update_status_label()
 	_update_forecast()
 
-## "Sigrun hits the Looter for 7 damage. The Looter counters and misses. ..." --
-## one sentence per strike, in the order they happened, then both HP totals.
-func _describe_exchange(result: Dictionary, atk_name: String, def_name: String) -> String:
+## "Sigrun hits the Looter for 7 damage. The Looter counters, hitting Sigrun for
+## 3 damage. ..." -- one sentence per strike, in the order they happened.
+## Labels are as they read mid-sentence ("Sigrun", "the Looter").
+func _describe_exchange(result: Dictionary, atk_label: String, def_label: String) -> String:
 	var parts: Array[String] = []
 	for s in result["strikes"]:
-		var who: String = atk_name if s["by"] == "atk" else "The %s" % def_name
-		var whom: String = "the %s" % def_name if s["by"] == "atk" else atk_name
-		var verb := "counters" if s["by"] == "def" else "attacks"
+		var by_atk: bool = s["by"] == "atk"
+		var subject: String = atk_label if by_atk else def_label
+		var object: String = def_label if by_atk else atk_label
+		subject = subject.substr(0, 1).to_upper() + subject.substr(1)
+		var verb := "attacks" if by_atk else "counters"
 		if not s["hit"]:
-			parts.append("%s %s %s and misses." % [who, verb, whom])
+			parts.append("%s %s %s and misses." % [subject, verb, object])
 		else:
 			var crit := " CRITICAL HIT!" if s["crit"] else ""
-			parts.append("%s %s %s for %d damage.%s" % [who, "hits" if s["by"] == "atk" else "counters, hitting", whom, s["damage"], crit])
+			parts.append("%s %s %s for %d damage.%s" % [subject, "hits" if by_atk else "counters, hitting", object, s["damage"], crit])
 	return " ".join(parts)
 
 # ---------------------------------------------------------- forecast & targets
 
 func _arts_of(unit: Dictionary) -> Array:
-	return unit.get("arts", [])
+	if unit.has("arts"):
+		return unit["arts"]
+	var art = unit.get("weapon_art")   # prologue_roster rows have one art and no class
+	return [art] if art != null and art != "" else []
 
 ## The weapon a player unit fights with: their class art's basic weapon, or a
 ## `weapon_id` on the unit (future equipment), but only if they are proficient
@@ -1062,6 +1073,137 @@ func _try_target_click(pos: Vector2i) -> bool:
 			return true
 	return false
 
+## An enemy is defeated: off the map, and a boss falling ends a 'defend' map.
+func _defeat_enemy(inst: Dictionary) -> void:
+	inst.defeated = true
+	_remove_enemy_token(inst)
+	if inst.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
+		map_won = true
+		status_label.text = "The %s falls. Threat neutralized." % inst.archetype.get("name")
+		info_label.text = "Victory."
+
+# ------------------------------------------------------------------ enemy phase
+#
+# After each played turn every living enemy acts once, in spawn order:
+#   - a boss holds its tile (it guards something) and strikes only what is in
+#     reach from where it stands;
+#   - everyone else looks at every tile it can reach this turn and every player
+#     unit it could hit from there, and takes the best trade (expected damage
+#     dealt, plus a bonus for a kill, less half the expected counter damage --
+#     so it prefers a matchup the triangle favours); if nothing is reachable
+#     it walks toward the nearest unit.
+# The attack is a full exchange: the unit counters if the enemy is inside its
+# weapon range, and a side 4+ speed ahead follows up. Behaviours described in
+# enemy_archetypes.behavior (fleeing, looting, converting) are not modelled.
+# Units still don't block movement, but enemies never END a move on an
+# occupied tile.
+
+const KILL_BONUS := 1000.0
+const COUNTER_WEIGHT := 0.5
+
+func _enemy_phase() -> void:
+	enemy_log.clear()
+	if not enemy_phase_enabled:
+		return
+	var rng := rng_override
+	if rng == null:
+		rng = RandomNumberGenerator.new()
+		rng.randomize()
+	for inst in enemies:
+		if inst.defeated or map_won or map_lost:
+			continue
+		_enemy_act(inst, rng)
+		_check_defeat()
+
+## Expected damage dealt minus the weighted expected damage taken, from a forecast.
+func _exchange_score(fc: Dictionary, target_hp: int) -> float:
+	var a: Dictionary = fc["atk"]
+	var dealt: float = a["hit"] / 100.0 * a["damage"] * a["hits"]
+	var taken := 0.0
+	if not fc["def"].is_empty():
+		var d: Dictionary = fc["def"]
+		taken = d["hit"] / 100.0 * d["damage"] * d["hits"]
+	var score := dealt - COUNTER_WEIGHT * taken
+	if dealt >= target_hp:
+		score += KILL_BONUS
+	return score
+
+func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
+	var weapon := _enemy_weapon(inst)
+	if weapon.is_empty() or unit_positions.is_empty():
+		return
+	var mtype: String = inst.archetype.get("movement_type", "infantry")
+	var budget := 0 if inst.kind == "boss" else int(MOVEMENT_TYPE_DEFAULT_MOVE.get(mtype, 5))
+	var reach := _compute_reachable(inst.pos, budget, mtype)
+	var occupied := {}
+	for pid in unit_positions:
+		occupied[unit_positions[pid]] = true
+	for other in enemies:
+		if other != inst and not other.defeated:
+			occupied[other.pos] = true
+	var attacker: Dictionary = inst.archetype.duplicate()
+
+	var best := {}
+	var best_score := -INF
+	for dest in reach:
+		if dest != inst.pos and occupied.has(dest):
+			continue
+		for pid in unit_positions:
+			var d := _distance(dest, unit_positions[pid])
+			if d < int(weapon.get("range_min", 1)) or d > int(weapon.get("range_max", 1)):
+				continue
+			var defender := _combatant_for_unit(pid)
+			var fc := Combat.forecast(attacker, defender, weapon, _weapon_for_unit(defender), d)
+			var score := _exchange_score(fc, int(unit_hp.get(pid, 0))) - 0.01 * int(reach[dest])  # tie-break: shorter walk
+			if score > best_score:
+				best_score = score
+				best = {"dest": dest, "pid": pid, "distance": d}
+
+	if best.is_empty():
+		if budget > 0:
+			_enemy_advance(inst, reach, occupied)
+		return
+	_enemy_move(inst, best["dest"])
+
+	var pid: String = best["pid"]
+	var defender := _combatant_for_unit(pid)
+	var def_weapon := _weapon_for_unit(defender)
+	var result := Combat.resolve_exchange(attacker, defender, weapon, def_weapon, best["distance"],
+		rng, inst.hp, int(unit_hp.get(pid, 0)))
+	inst.hp = int(result["atk_hp"])
+	unit_hp[pid] = int(result["def_hp"])
+	var uname: String = defender.get("name", pid)
+	var ename: String = inst.archetype.get("name", "enemy")
+	enemy_log.append(_describe_exchange(result, "the %s" % ename, uname))
+	if int(unit_hp[pid]) == 0:
+		_kill_unit(pid)
+		enemy_log.append("%s falls." % uname)
+	if inst.hp == 0:
+		enemy_log.append("The %s falls." % ename)
+		_defeat_enemy(inst)
+
+## No target within reach this turn: walk to the reachable free tile closest
+## (by straight-line tiles) to the nearest player unit.
+func _enemy_advance(inst: Dictionary, reach: Dictionary, occupied: Dictionary) -> void:
+	var best_dest: Vector2i = inst.pos
+	var best_d := 999999
+	for dest in reach:
+		if dest != inst.pos and occupied.has(dest):
+			continue
+		for pid in unit_positions:
+			var d := _distance(dest, unit_positions[pid])
+			if d < best_d or (d == best_d and reach[dest] < reach.get(best_dest, 0)):
+				best_d = d
+				best_dest = dest
+	_enemy_move(inst, best_dest)
+
+func _enemy_move(inst: Dictionary, dest: Vector2i) -> void:
+	if dest == inst.pos:
+		return
+	inst.pos = dest
+	if inst.token.has("container"):
+		inst.token.container.position = Vector2(dest.x * CELL_SIZE, dest.y * CELL_SIZE)
+
 ## A player unit leaves play (dead): token, position and all.
 func _kill_unit(pid: String) -> void:
 	var token = unit_tokens.get(pid)
@@ -1150,4 +1292,6 @@ func _update_info_label(reachable_count := -1) -> void:
 		lines.append("At (%d, %d) -- already moved this turn." % [origin.x, origin.y])
 	elif origin != Vector2i(-1, -1):
 		lines.append("At (%d, %d) -- %d tiles reachable" % [origin.x, origin.y, reachable_count])
+	if not enemy_log.is_empty():
+		lines.append("Enemy phase: " + " ".join(enemy_log.slice(maxi(0, enemy_log.size() - MAX_ENEMY_LOG_SHOWN))))
 	info_label.text = "\n".join(lines)
