@@ -25,9 +25,14 @@ extends Node
 ##      (canon's own convergence point); same-route pairs, and anyone with
 ##      route "both", earn anywhere.
 ##
-## Still not defined anywhere: what a rank does in combat, and how a scene is
-## presented. Callers of settle_map() get the list of ranks raised and can
-## show scene_text() however they like.
+## RANK EFFECTS (see "Effects" at the end of this file) are also a design
+## proposal, not canon. A unit standing within EFFECT_RANGE tiles of the
+## partner they share the highest rank with gets that rank's hit/crit bonus,
+## and the same again as avoid/crit-avoid when attacked. One partner only --
+## bonuses never stack across partners.
+##
+## Not defined anywhere: how a scene is presented. Callers of settle_map() get
+## the list of ranks raised and can show scene_text() however they like.
 ##
 ## Text: canon stores each chain's scenes as one string,
 ## "C: ... B: ... A: ... [S (romance): ...]". _parse_summary() splits it once
@@ -343,3 +348,77 @@ func describe_raise(entry: Dictionary) -> String:
 		nb["name"] if nb != null else entry["unit_b"],
 		entry["rank"],
 	]
+
+# ---------------------------------------------------------------- Effects
+
+## Manhattan distance, in tiles, within which a partner's support counts in
+## combat. Same reach as earning: units deploy two columns apart.
+const EFFECT_RANGE := PROXIMITY_RANGE
+
+## What each rank gives, as flat additions to the combat formulas (Combat.gd):
+## hit/crit when this unit attacks, avoid/dodge (crit avoid) when it is
+## attacked. Calibrated 2026-10-02 against the 240 real player-unit x enemy
+## matchups (weapons.json, unit_base_stats.json, enemy_archetypes.json):
+## base hit is already high (mean 76.6%, 20.8% guaranteed), so hit grows
+## slowly -- +10 at S lifts the mean to 84.1% and the guaranteed share to
+## 37.9%, which is why it tops out there; base crit is rare (mean 2.3%), so
+## crit starts at B and S roughly triples it (+4). Platonic chains stop at A
+## (+7 hit, +2 crit), so S is a real, romance-only step up.
+const RANK_EFFECTS := {
+	"C": {"hit": 3, "avoid": 3, "crit": 0, "dodge": 0},
+	"B": {"hit": 5, "avoid": 5, "crit": 1, "dodge": 1},
+	"A": {"hit": 7, "avoid": 7, "crit": 2, "dodge": 2},
+	"S": {"hit": 10, "avoid": 10, "crit": 4, "dodge": 4},
+}
+const NO_EFFECT := {"hit": 0, "avoid": 0, "crit": 0, "dodge": 0}
+
+## The bonuses for a rank ("" or unknown -> all zero).
+func rank_effect(rank: String) -> Dictionary:
+	return RANK_EFFECTS.get(rank, NO_EFFECT)
+
+## "+5 hit/avoid, +1 crit/dodge", or "" when the effect is all zero.
+func effect_text(effect: Dictionary) -> String:
+	var parts: Array[String] = []
+	if effect.get("hit", 0) != 0 or effect.get("avoid", 0) != 0:
+		parts.append("+%d hit/avoid" % effect["hit"])
+	if effect.get("crit", 0) != 0 or effect.get("dodge", 0) != 0:
+		parts.append("+%d crit/dodge" % effect["crit"])
+	return ", ".join(parts)
+
+## The one partner whose support applies to unit_id right now: among the other
+## units in `positions` (unit_id -> Vector2i, living deployed units only) that
+## are within EFFECT_RANGE, allowed to pair on this chapter's route, and share
+## a ranked chain with it, the one with the highest rank -- ties go to the
+## lowest chain_id, so the answer is deterministic. Returns {} if none, else
+## {"partner", "chain_id", "rank", "effect"}.
+func best_partner(unit_id: String, positions: Dictionary, chapter_route: String) -> Dictionary:
+	if not positions.has(unit_id):
+		return {}
+	var here: Vector2i = positions[unit_id]
+	var best: Dictionary = {}
+	var best_idx := -1
+	for other in positions:
+		if other == unit_id:
+			continue
+		var there: Vector2i = positions[other]
+		if abs(here.x - there.x) + abs(here.y - there.y) > EFFECT_RANGE:
+			continue
+		var chain_id: String = get_chain(unit_id, other).get("chain_id", "")
+		if chain_id == "" or not pair_allowed(unit_id, other, chapter_route):
+			continue
+		var rank := current_rank(chain_id)
+		var idx := RANKS.find(rank)
+		if idx < 0:
+			continue
+		if idx > best_idx or (idx == best_idx and chain_id < best["chain_id"]):
+			best_idx = idx
+			best = {"partner": other, "chain_id": chain_id, "rank": rank, "effect": rank_effect(rank)}
+	return best
+
+## The keys Combat.hit_chance / crit_chance read, from an effect dictionary:
+## attacker side (sup_hit, sup_crit) and defender side (sup_avoid, sup_dodge).
+func combat_keys(effect: Dictionary) -> Dictionary:
+	return {
+		"sup_hit": effect.get("hit", 0), "sup_crit": effect.get("crit", 0),
+		"sup_avoid": effect.get("avoid", 0), "sup_dodge": effect.get("dodge", 0),
+	}

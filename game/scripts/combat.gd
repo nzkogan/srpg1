@@ -40,6 +40,10 @@ class_name Combat
 ## needed to resolve the triangle from their side). Weapon dicts (the
 ## attacker's weapon, passed separately): {art: String, might: int,
 ## hit: int, crit: int}.
+##
+## Support effects (Supports.RANK_EFFECTS) arrive as optional keys on the
+## stat dicts, all default 0 when absent: sup_hit / sup_crit on the attacker,
+## sup_avoid / sup_dodge on the defender. Supports.combat_keys() builds them.
 
 ## sword > axe > lance > sword. Bow/brawl/reason/faith sit outside the
 ## triangle entirely (including against each other) -- with only two magic
@@ -72,8 +76,9 @@ static func triangle_modifier(attacker_art: String, defender_art: String) -> Dic
 ## plus the triangle's hit modifier. Clamped to [0, 100].
 static func hit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dictionary) -> int:
 	var mod := triangle_modifier(weapon.get("art", ""), defender.get("weapon_art", ""))
-	var atk_hit: float = weapon.get("hit", 0) + attacker.get("dex", 0) * 2 + attacker.get("lck", 0) / 2.0
-	var def_avoid: float = defender.get("spd", 0) * 2 + defender.get("lck", 0)
+	var atk_hit: float = weapon.get("hit", 0) + attacker.get("dex", 0) * 2 + attacker.get("lck", 0) / 2.0 \
+		+ attacker.get("sup_hit", 0)
+	var def_avoid: float = defender.get("spd", 0) * 2 + defender.get("lck", 0) + defender.get("sup_avoid", 0)
 	return clampi(int(round(atk_hit - def_avoid + mod.hit)), 0, 100)
 
 ## crit = weapon_crit + dex, minus defender's lck as crit avoid. Clamped
@@ -92,8 +97,8 @@ static func hit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dicti
 ## staying at 0 everywhere is a separate, not-yet-addressed calibration
 ## question (weapons.json data, not this formula).
 static func crit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dictionary) -> int:
-	var atk_crit: float = weapon.get("crit", 0) + attacker.get("dex", 0)
-	var def_crit_avoid: float = defender.get("lck", 0)
+	var atk_crit: float = weapon.get("crit", 0) + attacker.get("dex", 0) + attacker.get("sup_crit", 0)
+	var def_crit_avoid: float = defender.get("lck", 0) + defender.get("sup_dodge", 0)
 	return clampi(int(round(atk_crit - def_crit_avoid)), 0, 100)
 
 ## Physical arts use str/def; reason/faith use mag/res. Triangle adds a flat

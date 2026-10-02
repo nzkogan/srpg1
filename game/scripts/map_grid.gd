@@ -130,6 +130,9 @@ var escaped_count := 0
 
 var weapons_by_id: Dictionary = {} # weapon_id -> weapons row
 var enemy_archetypes_by_id: Dictionary = {} # enemy_id -> enemy_archetypes row
+## Test seam: when set, _attack_enemy rolls with this RNG instead of a freshly
+## randomized one, so tests can pin the outcome. Always null in play.
+var rng_override: RandomNumberGenerator = null
 var enemies: Array = [] # {inst_id, kind, archetype, pos, hp, max_hp, defeated, token}
 var dens: Array = [] # {spawn_row (Dictionary), waves_spawned: int}
 var map_row: Dictionary = {} # this map_id's own row from the maps table
@@ -863,19 +866,25 @@ func _attack_enemy() -> void:
 		info_label.text = "No enemy in range for %s." % unit.get("name")
 		return
 
-	var rng := RandomNumberGenerator.new()
-	rng.randomize()
-	var result := Combat.resolve_attack(unit, target.archetype, weapon, rng)
+	var rng := rng_override
+	if rng == null:
+		rng = RandomNumberGenerator.new()
+		rng.randomize()
+	var support := Supports.best_partner(pid, unit_positions, chapter_route)
+	var attacker := unit.duplicate()
+	attacker.merge(Supports.combat_keys(support.get("effect", {})))
+	var result := Combat.resolve_attack(attacker, target.archetype, weapon, rng)
 	attacked_this_turn[pid] = true
 
 	var ename: String = target.archetype.get("name")
+	var support_text := _support_note(support)
 	if not result.hit:
-		info_label.text = "%s attacks the %s and misses." % [unit.get("name"), ename]
+		info_label.text = "%s attacks the %s and misses.%s" % [unit.get("name"), ename, support_text]
 	else:
 		target.hp = max(0, target.hp - int(result.damage))
 		var crit_text := " CRITICAL HIT!" if result.crit else ""
-		info_label.text = "%s hits the %s for %d damage.%s %d/%d HP remaining." % [
-			unit.get("name"), ename, result.damage, crit_text, target.hp, target.max_hp
+		info_label.text = "%s hits the %s for %d damage.%s %d/%d HP remaining.%s" % [
+			unit.get("name"), ename, result.damage, crit_text, target.hp, target.max_hp, support_text
 		]
 		if target.hp == 0:
 			target.defeated = true
@@ -888,6 +897,15 @@ func _attack_enemy() -> void:
 				return
 
 	_update_status_label()
+
+## " (Support with Maren, rank B: +5 hit/avoid, +1 crit/dodge)" when a partner's
+## support applied to this attack, else "".
+func _support_note(support: Dictionary) -> String:
+	if support.is_empty() or Supports.effect_text(support["effect"]) == "":
+		return ""
+	var row = Canon.find_by("units", "unit_id", support["partner"])
+	var partner_name: String = row["name"] if row != null else support["partner"]
+	return " (Support with %s, rank %s: %s)" % [partner_name, support["rank"], Supports.effect_text(support["effect"])]
 
 func _nearest_enemy_in_range(pos: Vector2i, weapon: Dictionary) -> Dictionary:
 	var range_min := int(weapon.get("range_min", 1))

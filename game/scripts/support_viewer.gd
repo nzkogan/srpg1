@@ -24,6 +24,7 @@ const COLUMN_PARTNERS := 1
 const INACTIVE_TINT := Color(1, 1, 1, 0.6)
 const LOCKED_COLOR := "#8a8a92"
 const NEW_COLOR := "#e8c14a"
+const EFFECT_COLOR := "#7fc8a0"
 
 var unit_ids: Array[String] = []
 var _unit_names: Dictionary = {}
@@ -250,12 +251,24 @@ func view_text(chain_id: String) -> String:
 				tag = "  [color=%s]NEW[/color]" % NEW_COLOR
 			_rank_paragraph[rank] = lines.size()
 			lines.append("[b]Rank %s[/b]%s" % [rank, tag])
+			lines.append(_effect_line(rank))
 			lines.append(_esc(text))
 		else:
-			lines.append("[color=%s]Rank %s -- locked (%d points)[/color]" % [
-				LOCKED_COLOR, rank, Supports.POINTS_FOR_RANK[rank]])
+			lines.append("[color=%s]Rank %s -- locked (%d points)%s[/color]" % [
+				LOCKED_COLOR, rank, Supports.POINTS_FOR_RANK[rank], _effect_suffix(rank)])
 		lines.append("")
 	return "\n".join(lines).strip_edges()
+
+## "Effect: +5 hit/avoid, +1 crit/dodge within 2 tiles" under a rank's header.
+func _effect_line(rank: String) -> String:
+	var text := Supports.effect_text(Supports.rank_effect(rank))
+	if text == "":
+		return "[color=%s]Effect: none at this rank[/color]" % LOCKED_COLOR
+	return "[color=%s]Effect: %s within %d tiles[/color]" % [EFFECT_COLOR, text, Supports.EFFECT_RANGE]
+
+func _effect_suffix(rank: String) -> String:
+	var text := Supports.effect_text(Supports.rank_effect(rank))
+	return " -- %s" % text if text != "" else ""
 
 func _progress_line(chain_id: String) -> String:
 	var rank := Supports.current_rank(chain_id)
@@ -264,9 +277,12 @@ func _progress_line(chain_id: String) -> String:
 	var kind := "romance-eligible (can reach S)" if Supports.is_romance_eligible(chain_id) \
 		else "platonic (tops out at A)"
 	var status := "No rank yet" if rank == "" else "Rank %s" % rank
+	var now := Supports.effect_text(Supports.rank_effect(rank))
+	var effect := "\nIn battle now: %s within %d tiles of each other" % [now, Supports.EFFECT_RANGE] if now != "" \
+		else "\nIn battle now: no bonus yet"
 	if left < 0:
-		return "%s -- maximum reached, %d points banked -- %s" % [status, pts, kind]
-	return "%s -- %d points banked, %d to rank %s -- %s" % [status, pts, left, Supports.next_rank(chain_id), kind]
+		return "%s -- maximum reached, %d points banked -- %s%s" % [status, pts, kind, effect]
+	return "%s -- %d points banked, %d to rank %s -- %s%s" % [status, pts, left, Supports.next_rank(chain_id), kind, effect]
 
 ## BBCode would read a "[" in scene text as a tag; escape it.
 func _esc(text: String) -> String:

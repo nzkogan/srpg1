@@ -70,12 +70,17 @@ func _run() -> void:
 		"romance chain lists S as locked")
 	check(v.view_text("") == "", "no chain selected -> empty text")
 
+	check(t0.contains("In battle now: no bonus yet"), "a fresh chain says it gives no bonus yet")
+	check(t0.contains("Rank B -- locked (8 points) -- +5 hit/avoid, +1 crit/dodge"), "locked ranks preview their battle effect")
+
 	# --- reached ranks show; later ones stay locked
 	_sup.raise_rank(plat)
 	_gs.support_points[plat] = 3
 	var t1: String = v.view_text(plat)
 	check(t1.contains(c_text.substr(0, 40)), "reached rank C shows its text")
 	check(t1.contains("Rank B -- locked (8 points)"), "rank B still locked")
+	check(t1.contains("In battle now: +3 hit/avoid within 2 tiles of each other"), "a ranked chain states its current battle effect")
+	check(t1.contains("Effect: +3 hit/avoid within 2 tiles"), "a reached rank shows its effect under the header")
 	check(t1.contains("5 to rank B"), "progress counts down to the next rank")
 	_sup.raise_rank(plat); _sup.raise_rank(plat)
 	var t2: String = v.view_text(plat)
