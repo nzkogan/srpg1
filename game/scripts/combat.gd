@@ -216,7 +216,7 @@ static func _side(me: Dictionary, foe: Dictionary, my_weapon: Dictionary, foe_we
 
 ## Everything a forecast panel needs, for `attacker` striking `defender` from
 ## `distance` tiles: {"distance", "atk": side, "def": side or {} if the defender
-## can't answer}. A side's "hits" is 2 when its speed beats the other's by
+## can't answer, "def_speed": the defender's attack speed either way}. A side's "hits" is 2 when its speed beats the other's by
 ## DOUBLE_SPEED_GAP or more (only a side that can actually strike can double).
 static func forecast(attacker: Dictionary, defender: Dictionary, atk_weapon: Dictionary,
 		def_weapon: Dictionary, distance: int) -> Dictionary:
@@ -231,7 +231,7 @@ static func forecast(attacker: Dictionary, defender: Dictionary, atk_weapon: Dic
 		atk["hits"] = 2
 	elif counters and def_speed - atk["speed"] >= DOUBLE_SPEED_GAP:
 		def["hits"] = 2
-	return {"distance": distance, "atk": atk, "def": def}
+	return {"distance": distance, "atk": atk, "def": def, "def_speed": def_speed}
 
 static func _strike(side: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
 	var hit_roll := rng.randi_range(1, 100)

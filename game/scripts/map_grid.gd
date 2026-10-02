@@ -23,7 +23,9 @@ extends Node2D
 ##   1-9 = select a unit (shows their range from their current tile)
 ##   click a highlighted tile = move the selected unit there (once/turn)
 ##   A   = selected unit attacks the statue (map_f00 only)
-##   F   = selected unit fights the nearest living enemy in weapon range
+##   F   = selected unit attacks the targeted enemy in weapon range (the
+##         forecast panel shows damage / hit / crit / speed first; Tab or a
+##         click on an enemy chooses the target)
 ##   N / Enter = advance to the next turn
 ##   Escape = return to the overworld
 ##   S (after a win that raised a support rank) = read the new scene(s)
@@ -46,6 +48,10 @@ extends Node2D
 ## stays a per-scene override rather than a general data field, same
 ## reasoning as the original WET const.
 @export var wet: bool = false
+
+const ForecastView := preload("res://scripts/forecast_view.gd")
+const ARTS := ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
+const FORECAST_X_GAP := 36
 
 const CELL_SIZE := 32
 const IMPASSABLE := 90 # terrain_costs uses 99 as its impassable sentinel
@@ -133,6 +139,10 @@ var enemy_archetypes_by_id: Dictionary = {} # enemy_id -> enemy_archetypes row
 ## Test seam: when set, _attack_enemy rolls with this RNG instead of a freshly
 ## randomized one, so tests can pin the outcome. Always null in play.
 var rng_override: RandomNumberGenerator = null
+var forecast_label: RichTextLabel
+var _targets: Array = []       # living enemies in the selected unit's weapon range, nearest first
+var _target_idx := 0
+var map_lost := false          # every player unit gone: no win is possible
 var enemies: Array = [] # {inst_id, kind, archetype, pos, hp, max_hp, defeated, token}
 var dens: Array = [] # {spawn_row (Dictionary), waves_spawned: int}
 var map_row: Dictionary = {} # this map_id's own row from the maps table
@@ -204,6 +214,14 @@ func _ready() -> void:
 	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	add_child(info_label)
 
+	forecast_label = RichTextLabel.new()
+	forecast_label.bbcode_enabled = true
+	forecast_label.scroll_active = false
+	forecast_label.position = Vector2(grid[0].length() * CELL_SIZE + FORECAST_X_GAP, 0)
+	forecast_label.size = Vector2(maxf(300.0, 1152.0 - forecast_label.position.x - 8.0), 440)
+	forecast_label.visible = false
+	add_child(forecast_label)
+
 	_update_status_label()
 	if not units.is_empty():
 		_select_unit(0)
@@ -255,6 +273,13 @@ func _build_units() -> Array:
 		base["movement_type"] = movement_type
 		base["move"] = MOVEMENT_TYPE_DEFAULT_MOVE.get(movement_type, 5)
 		base["weapon_art"] = art
+		# proficient arts: the class's primary and (if it is an art, not a movement
+		# type) secondary -- what a weapon's req_arts is checked against
+		var arts: Array = []
+		for key in ["art_primary", "art_secondary"]:
+			if ARTS.has(class_row.get(key)):
+				arts.append(class_row[key])
+		base["arts"] = arts
 		base["dmg_vs_statue"] = 0
 		base["what_they_do"] = "no weapon_art on their class (%s)" % class_row.get("name", "?")
 
@@ -463,13 +488,13 @@ func _add_label(text: String, pos: Vector2) -> void:
 	add_child(label)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if map_won:
-		# The battle is over: only the way out, and the support link, still work.
+	if map_won or map_lost:
+		# The battle is over: only the way out, and (after a win) the support link, still work.
 		if event is InputEventKey and event.pressed:
 			var key := (event as InputEventKey).keycode
 			if key == KEY_ESCAPE:
 				get_tree().change_scene_to_file("res://scenes/overworld.tscn")
-			elif key == KEY_S and not _support_entries.is_empty():
+			elif key == KEY_S and map_won and not _support_entries.is_empty():
 				open_support_viewer()
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -477,13 +502,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		var col := int(floor(local.x / CELL_SIZE))
 		var row := int(floor(local.y / CELL_SIZE))
 		if row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
-			_try_move_to(Vector2i(col, row))
+			if not _try_target_click(Vector2i(col, row)):
+				_try_move_to(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
 		var key_event := event as InputEventKey
 		if key_event.keycode == KEY_A and map_id == "map_f00":
 			_attack_statue()
 		elif key_event.keycode == KEY_F:
 			_attack_enemy()
+		elif key_event.keycode == KEY_TAB:
+			_cycle_target()
 		elif key_event.keycode == KEY_N or key_event.keycode == KEY_ENTER:
 			_next_turn()
 		elif key_event.keycode == KEY_ESCAPE:
@@ -584,6 +612,7 @@ func _recompute_and_draw() -> void:
 	current_reachable.clear()
 	if origin == Vector2i(-1, -1) or units.is_empty():
 		_update_info_label()
+		_update_forecast()
 		return
 
 	var unit: Dictionary = units[selected_unit_index]
@@ -606,6 +635,7 @@ func _recompute_and_draw() -> void:
 		highlight_layer.add_child(rect)
 
 	_update_info_label(current_reachable.size())
+	_update_forecast()
 
 ## Symbol lookup, overridden by structure state -- once a structure falls
 ## its tile behaves like plain court, both visually (see _recolor_symbol)
@@ -751,11 +781,7 @@ func _apply_hazard_damage() -> void:
 			continue
 		unit_hp[pid] = max(0, unit_hp.get(pid, 0) - dmg)
 		if unit_hp[pid] == 0:
-			var token = unit_tokens.get(pid)
-			if token:
-				token.container.queue_free()
-			unit_tokens.erase(pid)
-			unit_positions.erase(pid)
+			_kill_unit(pid)
 			info_label.text = "%s succumbs to the cold." % unit.get("name")
 	for inst in enemies:
 		if inst.defeated:
@@ -767,6 +793,7 @@ func _apply_hazard_damage() -> void:
 		if inst.hp == 0:
 			inst.defeated = true
 			_remove_enemy_token(inst)
+	_check_defeat()
 
 func _hazard_at(pos: Vector2i) -> int:
 	var symbol := _effective_symbol(pos)
@@ -833,13 +860,13 @@ func _attack_statue() -> void:
 
 	_update_status_label()
 
-## Auto-targets the nearest living enemy within the selected unit's weapon
-## range -- there's no enemy-selection UI, just like there was never a
-## unit-selection UI beyond "closest in range" would need. Resolved through
-## Combat.gd (weapon triangle, hit/crit/damage RNG and all), one-directional:
-## no counterattack (no enemy phase yet), same shape as attacking the statue.
+## Attacks the enemy the forecast panel is showing (nearest in weapon range
+## unless Tab or a click picked another). Resolved through Combat.resolve_exchange:
+## the attacker strikes, the enemy counters if the attacker is inside its weapon
+## range, and whichever side is 4+ attack speed faster follows up. A unit at 0 HP
+## leaves the map.
 func _attack_enemy() -> void:
-	if units.is_empty() or enemies.is_empty():
+	if units.is_empty() or enemies.is_empty() or map_won or map_lost:
 		return
 	var unit: Dictionary = units[selected_unit_index]
 	var pid: String = unit.get("punit_id", "")
@@ -857,49 +884,208 @@ func _attack_enemy() -> void:
 	if pos == Vector2i(-1, -1):
 		return
 
-	var weapon := _weapon_for_art(weapon_art)
+	var weapon := _weapon_for_unit(unit)
 	if weapon.is_empty():
+		info_label.text = "%s has no weapon they are proficient with." % unit.get("name")
 		return
 
-	var target := _nearest_enemy_in_range(pos, weapon)
+	var target := _current_target(pos, weapon)
 	if target.is_empty():
 		info_label.text = "No enemy in range for %s." % unit.get("name")
 		return
 
+	var info := _forecast_info(unit, target)
 	var rng := rng_override
 	if rng == null:
 		rng = RandomNumberGenerator.new()
 		rng.randomize()
-	var support := Supports.best_partner(pid, unit_positions, chapter_route)
-	var attacker := unit.duplicate()
-	attacker.merge(Supports.combat_keys(support.get("effect", {})))
-	var result := Combat.resolve_attack(attacker, target.archetype, weapon, rng)
+	var result := Combat.resolve_exchange(info["attacker"], info["defender"], weapon, info["def_weapon"],
+		info["distance"], rng, int(unit_hp.get(pid, 0)), int(target.hp))
 	attacked_this_turn[pid] = true
-
 	var ename: String = target.archetype.get("name")
-	var support_text := _support_note(support)
-	if not result.hit:
-		info_label.text = "%s attacks the %s and misses.%s" % [unit.get("name"), ename, support_text]
-	else:
-		target.hp = max(0, target.hp - int(result.damage))
-		var crit_text := " CRITICAL HIT!" if result.crit else ""
-		info_label.text = "%s hits the %s for %d damage.%s %d/%d HP remaining.%s" % [
-			unit.get("name"), ename, result.damage, crit_text, target.hp, target.max_hp, support_text
-		]
-		if target.hp == 0:
-			target.defeated = true
-			_remove_enemy_token(target)
-			info_label.text += " The %s falls." % ename
-			if target.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
-				map_won = true
-				status_label.text = "The %s falls. Threat neutralized." % ename
-				info_label.text = "Victory."
-				return
+	var lines := _describe_exchange(result, unit.get("name"), ename)
+	target.hp = int(result["def_hp"])
+	unit_hp[pid] = int(result["atk_hp"])
+	info_label.text = lines + _support_note(info["support"])
+
+	if target.hp == 0:
+		target.defeated = true
+		_remove_enemy_token(target)
+		info_label.text += " The %s falls." % ename
+		if target.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
+			map_won = true
+			status_label.text = "The %s falls. Threat neutralized." % ename
+			info_label.text = "Victory."
+			return
+	if int(unit_hp[pid]) == 0:
+		_kill_unit(pid)
+		info_label.text += " %s falls." % unit.get("name")
+		_check_defeat()
 
 	_update_status_label()
+	_update_forecast()
+
+## "Sigrun hits the Looter for 7 damage. The Looter counters and misses. ..." --
+## one sentence per strike, in the order they happened, then both HP totals.
+func _describe_exchange(result: Dictionary, atk_name: String, def_name: String) -> String:
+	var parts: Array[String] = []
+	for s in result["strikes"]:
+		var who: String = atk_name if s["by"] == "atk" else "The %s" % def_name
+		var whom: String = "the %s" % def_name if s["by"] == "atk" else atk_name
+		var verb := "counters" if s["by"] == "def" else "attacks"
+		if not s["hit"]:
+			parts.append("%s %s %s and misses." % [who, verb, whom])
+		else:
+			var crit := " CRITICAL HIT!" if s["crit"] else ""
+			parts.append("%s %s %s for %d damage.%s" % [who, "hits" if s["by"] == "atk" else "counters, hitting", whom, s["damage"], crit])
+	return " ".join(parts)
+
+# ---------------------------------------------------------- forecast & targets
+
+func _arts_of(unit: Dictionary) -> Array:
+	return unit.get("arts", [])
+
+## The weapon a player unit fights with: their class art's basic weapon, or a
+## `weapon_id` on the unit (future equipment), but only if they are proficient
+## in every art it requires. {} if they can't wield it.
+func _weapon_for_unit(unit: Dictionary) -> Dictionary:
+	var wid: String = unit.get("weapon_id", "")
+	var art = unit.get("weapon_art")   # null for the unarmed (Edda, Kheldar)
+	var weapon: Dictionary = {}
+	if wid != "":
+		weapon = weapons_by_id.get(wid, {})
+	elif art != null and art != "":
+		weapon = _weapon_for_art(art)
+	if weapon.is_empty() or not Combat.can_wield(_arts_of(unit), weapon):
+		return {}
+	return weapon
+
+## An enemy's weapon: its archetype's weapon_id when set (overlap weapons),
+## else the weapon_art/weapon_tier pattern. Enemies are proficient by definition.
+func _enemy_weapon(inst: Dictionary) -> Dictionary:
+	var arch: Dictionary = inst.archetype
+	var wid = arch.get("weapon_id")
+	if wid == null or wid == "":
+		wid = "wpn_%s_%s" % [arch.get("weapon_art", ""), arch.get("weapon_tier", "")]
+	return weapons_by_id.get(wid, {})
+
+func _distance(a: Vector2i, b: Vector2i) -> int:
+	return abs(a.x - b.x) + abs(a.y - b.y)
+
+## A player unit's combat stats plus whatever its best nearby partner adds.
+func _combatant_for_unit(pid: String) -> Dictionary:
+	var row: Dictionary = {}
+	for u in units:
+		if u.get("punit_id", "") == pid:
+			row = u
+			break
+	var c: Dictionary = row.duplicate()
+	c.merge(Supports.combat_keys(Supports.best_partner(pid, unit_positions, chapter_route).get("effect", {})))
+	return c
+
+## Everything the forecast panel and an exchange need for `unit` attacking `inst`.
+func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
+	var pid: String = unit.get("punit_id", "")
+	var weapon := _weapon_for_unit(unit)
+	var def_weapon := _enemy_weapon(inst)
+	var attacker := _combatant_for_unit(pid)
+	var defender: Dictionary = inst.archetype.duplicate()
+	var distance := _distance(unit_positions[pid], inst.pos)
+	var support := Supports.best_partner(pid, unit_positions, chapter_route)
+	return {
+		"attacker": attacker, "defender": defender, "weapon": weapon, "def_weapon": def_weapon,
+		"distance": distance, "support": support, "support_text": _support_line(support),
+		"atk": {"name": unit.get("name"), "weapon": weapon.get("name", "none"), "hp": int(unit_hp.get(pid, 0)), "max_hp": int(unit.get("hp", 0))},
+		"def": {"name": inst.archetype.get("name"), "weapon": def_weapon.get("name", "none"), "hp": int(inst.hp), "max_hp": int(inst.max_hp)},
+		"forecast": Combat.forecast(attacker, defender, weapon, def_weapon, distance),
+	}
+
+## Living enemies the weapon can reach from `pos`, nearest first (ties by id).
+func _enemies_in_range(pos: Vector2i, weapon: Dictionary) -> Array:
+	var range_min := int(weapon.get("range_min", 1))
+	var range_max := int(weapon.get("range_max", 1))
+	var found: Array = []
+	for inst in enemies:
+		if inst.defeated:
+			continue
+		var d := _distance(pos, inst.pos)
+		if d >= range_min and d <= range_max:
+			found.append(inst)
+	found.sort_custom(func(a, b):
+		var da := _distance(pos, a.pos)
+		var db := _distance(pos, b.pos)
+		return da < db if da != db else str(a.inst_id) < str(b.inst_id)
+	)
+	return found
+
+## The enemy an attack will hit: the one the forecast shows, else the nearest.
+func _current_target(pos: Vector2i, weapon: Dictionary) -> Dictionary:
+	var in_range := _enemies_in_range(pos, weapon)
+	if in_range.is_empty():
+		return {}
+	if _target_idx < _targets.size() and in_range.has(_targets[_target_idx]):
+		return _targets[_target_idx]
+	return in_range[0]
+
+func _update_forecast() -> void:
+	if forecast_label == null:
+		return
+	forecast_label.visible = false
+	if map_won or map_lost or units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not unit_positions.has(pid) or attacked_this_turn.has(pid):
+		return
+	var weapon := _weapon_for_unit(unit)
+	if weapon.is_empty():
+		return
+	var previous: Dictionary = _targets[_target_idx] if _target_idx < _targets.size() else {}
+	_targets = _enemies_in_range(unit_positions[pid], weapon)
+	if _targets.is_empty():
+		return
+	_target_idx = maxi(0, _targets.find(previous))
+	forecast_label.text = ForecastView.bbcode(_forecast_info(unit, _targets[_target_idx]))
+	forecast_label.visible = true
+
+func _cycle_target() -> void:
+	if _targets.size() > 1:
+		_target_idx = (_target_idx + 1) % _targets.size()
+		_update_forecast()
+
+## Clicking an enemy standing in range makes it the forecast target.
+func _try_target_click(pos: Vector2i) -> bool:
+	for i in _targets.size():
+		if _targets[i].pos == pos:
+			_target_idx = i
+			_update_forecast()
+			return true
+	return false
+
+## A player unit leaves play (dead): token, position and all.
+func _kill_unit(pid: String) -> void:
+	var token = unit_tokens.get(pid)
+	if token:
+		token.container.queue_free()
+	unit_tokens.erase(pid)
+	unit_positions.erase(pid)
+
+## With every player unit gone no win is possible. Units that escaped no
+## longer count as on the map, so this also ends a map where too few escaped.
+func _check_defeat() -> void:
+	if map_won or map_lost or units.is_empty() or not unit_positions.is_empty():
+		return
+	map_lost = true
+	status_label.text = "DEFEAT. No units are left on the map."
+	info_label.text = "Defeat. Press Escape to leave."
+	_update_forecast()
 
 ## " (Support with Maren, rank B: +5 hit/avoid, +1 crit/dodge)" when a partner's
 ## support applied to this attack, else "".
+## "Support with Maren, rank B: +5 hit/avoid, +1 crit/dodge" for the forecast panel.
+func _support_line(support: Dictionary) -> String:
+	return _support_note(support).strip_edges().trim_prefix("(").trim_suffix(")")
+
 func _support_note(support: Dictionary) -> String:
 	if support.is_empty() or Supports.effect_text(support["effect"]) == "":
 		return ""
@@ -940,14 +1126,14 @@ func _update_status_label() -> void:
 		alive, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()
 	]
 	lines.append(header)
-	var controls := "[F] fight nearest enemy in range -- [N] / Enter: next turn -- click a highlighted tile to move"
+	var controls := "[F] attack -- [Tab] retarget -- [N] / Enter: next turn -- click a tile to move"
 	if map_id == "map_f00":
 		controls = "[A] attack statue -- " + controls
 	lines.append(controls)
 	status_label.text = "\n".join(lines)
 
 func _update_info_label(reachable_count := -1) -> void:
-	if map_won:
+	if map_won or map_lost:
 		return
 	if units.is_empty():
 		info_label.text = "No units loaded."
