@@ -60,8 +60,63 @@ const TRIANGLE_DAMAGE_BONUS := 1
 
 const MAGIC_ARTS := ["reason", "faith"]
 
+## Overlap (hybrid) weapons -- weapons.req_arts lists 2+ arts a wielder must
+## ALL be proficient in. The weapon's own `art` still decides physical vs
+## magic damage; for the triangle it counts as HYBRID_ART, which beats and
+## loses to nothing: a weapon that hedges two faces gets neither the edge nor
+## the penalty of either. Drafted 2026-10-02, not canon.
+const HYBRID_ART := "hybrid"
+
+## A unit whose attack speed is at least this much higher than its opponent's
+## strikes twice (the classic follow-up attack).
+const DOUBLE_SPEED_GAP := 4
+
+## weapons.effective_vs: might is multiplied by this against the listed
+## movement types ("riding" for the halberd, "armor" for the maul).
+const EFFECTIVE_MULT := 2
+
 static func is_magic_art(art: String) -> bool:
 	return MAGIC_ARTS.has(art)
+
+static func _pipe(value) -> Array:
+	if value == null or str(value) == "":
+		return []
+	var out: Array = []
+	for part in str(value).split("|"):
+		out.append(part.strip_edges())
+	return out
+
+## The arts a wielder needs: req_arts when set, otherwise just the weapon's own.
+static func required_arts(weapon: Dictionary) -> Array:
+	var req := _pipe(weapon.get("req_arts"))
+	return req if not req.is_empty() else [weapon.get("art", "")]
+
+static func is_hybrid(weapon: Dictionary) -> bool:
+	return required_arts(weapon).size() > 1
+
+## True if every art the weapon requires is among the unit's proficient arts.
+static func can_wield(unit_arts: Array, weapon: Dictionary) -> bool:
+	for art in required_arts(weapon):
+		if not unit_arts.has(art):
+			return false
+	return true
+
+## What the triangle sees: the weapon's art, or HYBRID_ART for overlap weapons.
+static func triangle_art(weapon: Dictionary) -> String:
+	return HYBRID_ART if is_hybrid(weapon) else String(weapon.get("art", ""))
+
+## True if the weapon is effective against this defender's movement type.
+static func is_effective(weapon: Dictionary, defender: Dictionary) -> bool:
+	return _pipe(weapon.get("effective_vs")).has(defender.get("movement_type", ""))
+
+## Attack speed = spd, less whatever the weapon's weight exceeds the wielder's
+## strength by (magic weapons burden against mag instead). The weights in
+## weapons.json (5 / 8 / 10, 12-13 for the overlap melee weapons) against
+## typical str 5-8 mean basic weapons cost nothing and heavy ones bite.
+static func attack_speed(unit: Dictionary, weapon: Dictionary) -> int:
+	var stat := "mag" if is_magic_art(String(weapon.get("art", ""))) else "str"
+	var burden := maxi(0, int(weapon.get("weight", 0)) - int(unit.get(stat, 0)))
+	return int(unit.get("spd", 0)) - burden
 
 ## Returns {hit: int, damage: int} modifiers for attacker_art vs defender_art
 ## -- positive for advantage, negative for disadvantage, zero otherwise.
@@ -75,7 +130,7 @@ static func triangle_modifier(attacker_art: String, defender_art: String) -> Dic
 ## Classic FE-style: hit = weapon_hit + dex*2 + lck/2, avoid = spd*2 + lck,
 ## plus the triangle's hit modifier. Clamped to [0, 100].
 static func hit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dictionary) -> int:
-	var mod := triangle_modifier(weapon.get("art", ""), defender.get("weapon_art", ""))
+	var mod := triangle_modifier(triangle_art(weapon), defender.get("weapon_art", ""))
 	var atk_hit: float = weapon.get("hit", 0) + attacker.get("dex", 0) * 2 + attacker.get("lck", 0) / 2.0 \
 		+ attacker.get("sup_hit", 0)
 	var def_avoid: float = defender.get("spd", 0) * 2 + defender.get("lck", 0) + defender.get("sup_avoid", 0)
@@ -106,10 +161,11 @@ static func crit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dict
 ## (classic FE convention) before defense is subtracted. Floored at 0.
 static func damage(attacker: Dictionary, defender: Dictionary, weapon: Dictionary, is_crit: bool) -> int:
 	var art: String = weapon.get("art", "")
-	var mod := triangle_modifier(art, defender.get("weapon_art", ""))
+	var mod := triangle_modifier(triangle_art(weapon), defender.get("weapon_art", ""))
 	var atk_power: float = attacker.get("mag", 0) if is_magic_art(art) else attacker.get("str", 0)
 	var mitigation: float = defender.get("res", 0) if is_magic_art(art) else defender.get("def", 0)
-	var might: float = weapon.get("might", 0) + mod.damage
+	var base_might: float = weapon.get("might", 0) * (EFFECTIVE_MULT if is_effective(weapon, defender) else 1)
+	var might: float = base_might + mod.damage
 	var power := atk_power + might
 	if is_crit:
 		power *= 3
@@ -127,3 +183,90 @@ static func resolve_attack(attacker: Dictionary, defender: Dictionary, weapon: D
 	var did_crit := crit_roll <= crit_chance(attacker, defender, weapon)
 	var dmg := damage(attacker, defender, weapon, did_crit)
 	return {"hit": true, "crit": did_crit, "damage": dmg}
+
+# --------------------------------------------------------- forecast & exchange
+
+## Whether a defender's weapon can answer an attack from `distance` tiles.
+static func can_counter(def_weapon: Dictionary, distance: int) -> bool:
+	if def_weapon.is_empty():
+		return false
+	return distance >= int(def_weapon.get("range_min", 1)) and distance <= int(def_weapon.get("range_max", 1))
+
+## One fighter's side of an exchange: what each of their strikes does, how
+## often it lands, how many strikes they get, and how the triangle and
+## effectiveness treat them. `me`/`foe` are stat dicts (movement_type and the
+## sup_* keys optional); the weapon_art key is overridden here from the
+## weapons themselves so overlap weapons read as triangle-neutral.
+static func _side(me: Dictionary, foe: Dictionary, my_weapon: Dictionary, foe_weapon: Dictionary) -> Dictionary:
+	var me_view := me.duplicate()
+	me_view["weapon_art"] = triangle_art(my_weapon)
+	var foe_view := foe.duplicate()
+	foe_view["weapon_art"] = triangle_art(foe_weapon) if not foe_weapon.is_empty() else ""
+	var tri := triangle_modifier(triangle_art(my_weapon), foe_view["weapon_art"])
+	return {
+		"damage": damage(me_view, foe_view, my_weapon, false),
+		"crit_damage": damage(me_view, foe_view, my_weapon, true),
+		"hit": hit_chance(me_view, foe_view, my_weapon),
+		"crit": crit_chance(me_view, foe_view, my_weapon),
+		"speed": attack_speed(me, my_weapon),
+		"triangle": signi(int(tri.hit)),
+		"effective": is_effective(my_weapon, foe),
+		"hits": 1,
+	}
+
+## Everything a forecast panel needs, for `attacker` striking `defender` from
+## `distance` tiles: {"distance", "atk": side, "def": side or {} if the defender
+## can't answer}. A side's "hits" is 2 when its speed beats the other's by
+## DOUBLE_SPEED_GAP or more (only a side that can actually strike can double).
+static func forecast(attacker: Dictionary, defender: Dictionary, atk_weapon: Dictionary,
+		def_weapon: Dictionary, distance: int) -> Dictionary:
+	var atk := _side(attacker, defender, atk_weapon, def_weapon)
+	var counters := can_counter(def_weapon, distance)
+	var def := _side(defender, attacker, def_weapon, atk_weapon) if counters else {}
+	# A defender who can't answer still has a speed (unarmed ones just use spd),
+	# so the attacker can follow up on speed alone.
+	var def_speed: int = def["speed"] if counters else \
+		(attack_speed(defender, def_weapon) if not def_weapon.is_empty() else int(defender.get("spd", 0)))
+	if atk["speed"] - def_speed >= DOUBLE_SPEED_GAP:
+		atk["hits"] = 2
+	elif counters and def_speed - atk["speed"] >= DOUBLE_SPEED_GAP:
+		def["hits"] = 2
+	return {"distance": distance, "atk": atk, "def": def}
+
+static func _strike(side: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
+	var hit_roll := rng.randi_range(1, 100)
+	if hit_roll > int(side["hit"]):
+		return {"hit": false, "crit": false, "damage": 0}
+	var crit_roll := rng.randi_range(1, 100)
+	var did_crit := crit_roll <= int(side["crit"])
+	return {"hit": true, "crit": did_crit, "damage": int(side["crit_damage"] if did_crit else side["damage"])}
+
+## Plays a forecast out with real rolls. Order: attacker, defender's counter,
+## then the follow-up for whichever side doubles. A fighter at 0 HP stops the
+## exchange. Returns {"strikes": [{by: "atk"|"def", hit, crit, damage,
+## target_hp}], "atk_hp", "def_hp"}.
+static func resolve_exchange(attacker: Dictionary, defender: Dictionary, atk_weapon: Dictionary,
+		def_weapon: Dictionary, distance: int, rng: RandomNumberGenerator,
+		atk_hp: int, def_hp: int) -> Dictionary:
+	var fc := forecast(attacker, defender, atk_weapon, def_weapon, distance)
+	var order: Array[String] = ["atk"]
+	if not fc["def"].is_empty():
+		order.append("def")
+	if fc["atk"]["hits"] > 1:
+		order.append("atk")
+	elif not fc["def"].is_empty() and fc["def"]["hits"] > 1:
+		order.append("def")
+	var strikes: Array = []
+	for who in order:
+		if atk_hp <= 0 or def_hp <= 0:
+			break
+		var res := _strike(fc[who], rng)
+		if who == "atk":
+			def_hp = maxi(0, def_hp - int(res["damage"]))
+			res["target_hp"] = def_hp
+		else:
+			atk_hp = maxi(0, atk_hp - int(res["damage"]))
+			res["target_hp"] = atk_hp
+		res["by"] = who
+		strikes.append(res)
+	return {"strikes": strikes, "atk_hp": atk_hp, "def_hp": def_hp}
