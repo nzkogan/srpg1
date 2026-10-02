@@ -115,6 +115,7 @@ FKS = {
     ("guest_units", "growth_profile_id"): ("growths", "profile_id"),
     ("unit_base_stats", "unit_id"): ("units", "unit_id"),
     ("enemy_archetypes", "first_seen_map_id"): ("maps", "map_id"),
+    ("enemy_archetypes", "weapon_id"): ("weapons", "weapon_id"),
     ("encounter_spawns", "map_id"): ("maps", "map_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
     ("supports", "unit_a_id"): ("units", "unit_id"),

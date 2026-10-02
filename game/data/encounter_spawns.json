@@ -1306,5 +1306,29 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Opportunists near the other column's own camp."
+  },
+  {
+    "spawn_id": "spn_tp19_billman",
+    "map_id": "map_tp19",
+    "kind": "mook",
+    "enemy_id": "ea_billman",
+    "row": 6,
+    "col": 10,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "A halberd line behind the pass's captain -- the pass is 'held by whoever taxes it', and a toll garrison keeps polearm infantry against riders. Drafted 2026-10-02."
+  },
+  {
+    "spawn_id": "spn_rf20_billman",
+    "map_id": "map_rf20",
+    "kind": "mook",
+    "enemy_id": "ea_billman",
+    "row": 6,
+    "col": 13,
+    "spawn_interval": null,
+    "max_waves": null,
+    "wave_size": 1,
+    "notes": "One halberd-bearer with the contesting force at the reunion point; see spn_tp19_billman. Drafted 2026-10-02."
   }
 ]

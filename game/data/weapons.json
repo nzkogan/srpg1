@@ -11,7 +11,9 @@
     "uses": 45,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_sword_mid",
@@ -25,7 +27,9 @@
     "uses": 30,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_sword_high",
@@ -39,7 +43,9 @@
     "uses": 20,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_lance_basic",
@@ -53,7 +59,9 @@
     "uses": 45,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_lance_mid",
@@ -67,7 +75,9 @@
     "uses": 30,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_lance_high",
@@ -81,7 +91,9 @@
     "uses": 20,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_axe_basic",
@@ -95,7 +107,9 @@
     "uses": 45,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_axe_mid",
@@ -109,7 +123,9 @@
     "uses": 30,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_axe_high",
@@ -123,7 +139,9 @@
     "uses": 20,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_bow_basic",
@@ -137,7 +155,9 @@
     "uses": 45,
     "range_min": 2,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_bow_mid",
@@ -151,7 +171,9 @@
     "uses": 30,
     "range_min": 2,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_bow_high",
@@ -165,7 +187,9 @@
     "uses": 20,
     "range_min": 2,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_brawl_basic",
@@ -179,7 +203,9 @@
     "uses": 45,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_brawl_mid",
@@ -193,7 +219,9 @@
     "uses": 30,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_brawl_high",
@@ -207,7 +235,9 @@
     "uses": 20,
     "range_min": 1,
     "range_max": 1,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_reason_basic",
@@ -221,7 +251,9 @@
     "uses": 45,
     "range_min": 1,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_reason_mid",
@@ -235,7 +267,9 @@
     "uses": 30,
     "range_min": 1,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_reason_high",
@@ -249,7 +283,9 @@
     "uses": 20,
     "range_min": 1,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_faith_basic",
@@ -263,7 +299,9 @@
     "uses": 45,
     "range_min": 1,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_faith_mid",
@@ -277,7 +315,9 @@
     "uses": 30,
     "range_min": 1,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_faith_high",
@@ -291,7 +331,9 @@
     "uses": 20,
     "range_min": 1,
     "range_max": 2,
-    "notes": null
+    "notes": null,
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_sword_worn",
@@ -305,7 +347,9 @@
     "uses": 15,
     "range_min": 1,
     "range_max": 1,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_lance_worn",
@@ -319,7 +363,9 @@
     "uses": 15,
     "range_min": 1,
     "range_max": 1,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_axe_worn",
@@ -333,7 +379,9 @@
     "uses": 15,
     "range_min": 1,
     "range_max": 1,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_bow_worn",
@@ -347,7 +395,9 @@
     "uses": 15,
     "range_min": 2,
     "range_max": 2,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_brawl_worn",
@@ -361,7 +411,9 @@
     "uses": 15,
     "range_min": 1,
     "range_max": 1,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_reason_worn",
@@ -375,7 +427,9 @@
     "uses": 15,
     "range_min": 1,
     "range_max": 2,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
   },
   {
     "weapon_id": "wpn_faith_worn",
@@ -389,6 +443,56 @@
     "uses": 15,
     "range_min": 1,
     "range_max": 2,
-    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high."
+    "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
+    "req_arts": null,
+    "effective_vs": null
+  },
+  {
+    "weapon_id": "wpn_halberd",
+    "name": "Halberd",
+    "art": "axe",
+    "tier": "mid",
+    "might": 9,
+    "hit": 70,
+    "crit": 0,
+    "weight": 12,
+    "uses": 25,
+    "range_min": 1,
+    "range_max": 1,
+    "notes": "OVERLAP WEAPON (drafted 2026-10-02). Wielder needs BOTH axe and lance proficiency (req_arts) -- no class has that pair yet, cls_billman is the drafted one. Triangle-neutral (it hedges both faces, so no advantage and no penalty). Deliberately slow: weight 12 against a typical str of 7 costs 5 attack speed, so most wielders get doubled. Effective vs riding (might x2 in Combat.EFFECTIVE_MULT) -- the answer to cavalry that the plain triangle doesn't have.",
+    "req_arts": "axe|lance",
+    "effective_vs": "riding"
+  },
+  {
+    "weapon_id": "wpn_maul",
+    "name": "Maul",
+    "art": "axe",
+    "tier": "mid",
+    "might": 10,
+    "hit": 65,
+    "crit": 5,
+    "weight": 13,
+    "uses": 25,
+    "range_min": 1,
+    "range_max": 1,
+    "notes": "OVERLAP WEAPON (drafted 2026-10-02). Needs axe AND brawl (cls_jaguar_knight today). Triangle-neutral. Heavy and inaccurate but hits hard; effective vs armor (heavy-armor movement type), the mirror of the halberd's anti-cavalry role.",
+    "req_arts": "axe|brawl",
+    "effective_vs": "armor"
+  },
+  {
+    "weapon_id": "wpn_censer",
+    "name": "Censer",
+    "art": "reason",
+    "tier": "mid",
+    "might": 9,
+    "hit": 75,
+    "crit": 0,
+    "weight": 7,
+    "uses": 25,
+    "range_min": 1,
+    "range_max": 2,
+    "notes": "OVERLAP WEAPON (drafted 2026-10-02). Needs reason AND faith (cls_miasma_warden today). Magic (mag/res), range 1-2, triangle-neutral. No effectiveness trait: its edge is that one weapon spans both magic arts. Attack speed burdens against mag, not str, like every magic weapon.",
+    "req_arts": "reason|faith",
+    "effective_vs": null
   }
 ]

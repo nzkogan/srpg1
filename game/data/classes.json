@@ -658,5 +658,17 @@
     "signature_skill": "Corrosion",
     "provenance": "founded in-game",
     "notes": "lv30+, deed-gated"
+  },
+  {
+    "class_id": "cls_billman",
+    "name": "Billman",
+    "tier": "hybrid",
+    "art_primary": "axe",
+    "art_secondary": "lance",
+    "movement": "infantry",
+    "promotes_from": "cls_tr_axe",
+    "signature_skill": null,
+    "provenance": "setting-new",
+    "notes": "DRAFTED, not placed on any unit. The axe+lance pair the halberd needs (weapons.wpn_halberd req_arts) -- no existing class has it. Added 2026-10-02 so the overlap-weapon proficiency rule has a wielder; the first user is the enemy archetype ea_billman."
   }
 ]

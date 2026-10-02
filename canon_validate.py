@@ -223,6 +223,37 @@ def main():
             fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
                  f"first_seen_map_id '{map_id}' does not exist")
 
+    # --- c07g overlap weapons: req_arts / effective_vs / enemy weapon_id -----
+    weapon_by_id = {w["weapon_id"]: w for w in tabs["weapons"]}
+    def _pipe(v):
+        return [x.strip() for x in str(v).split("|")] if v not in (None, "") else []
+    for r in tabs["weapons"]:
+        req = _pipe(r.get("req_arts"))
+        for art in req:
+            if art not in MATRIX_ARTS:
+                fail("c07", "blocking", f"weapons.{r['weapon_id']}",
+                     f"req_arts entry '{art}' is not one of {MATRIX_ARTS}")
+        if req and r.get("art") not in req:
+            fail("c07", "blocking", f"weapons.{r['weapon_id']}",
+                 f"art '{r.get('art')}' must be one of its own req_arts {req} (it decides physical vs magic damage)")
+        if len(req) == 1:
+            fail("c07", "warning", f"weapons.{r['weapon_id']}",
+                 "req_arts lists a single art -- leave it blank for a one-art weapon")
+        for mv in _pipe(r.get("effective_vs")):
+            if mv not in MATRIX_MOVES:
+                fail("c07", "blocking", f"weapons.{r['weapon_id']}",
+                     f"effective_vs entry '{mv}' is not one of {MATRIX_MOVES}")
+    for r in tabs["enemy_archetypes"]:
+        wid = r.get("weapon_id")
+        if wid in (None, ""):
+            continue
+        w = weapon_by_id.get(wid)
+        if w is None:
+            fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}", f"weapon_id '{wid}' does not exist")
+        elif r.get("weapon_art") not in (_pipe(w.get("req_arts")) or [w.get("art")]):
+            fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
+                 f"weapon_art '{r.get('weapon_art')}' is not one of {wid}'s arts {_pipe(w.get('req_arts')) or [w.get('art')]}")
+
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
     for r in tabs["prologue_roster"]:
