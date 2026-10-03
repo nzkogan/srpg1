@@ -21,6 +21,9 @@ const CombatScript := preload("res://scripts/combat.gd")
 const ARTS := ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 const INVENTORY_SIZE := 5
 
+## The between-maps screen for managing all of this (opened with C on the overworld).
+const SCREEN_SCENE := "res://scenes/convoy_screen.tscn"
+
 var _weapons: Dictionary = {}   # weapon_id -> weapons row
 var _indexed := false
 
