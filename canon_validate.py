@@ -254,6 +254,16 @@ def main():
             fail("c07", "blocking", f"enemy_archetypes.{r['enemy_id']}",
                  f"weapon_art '{r.get('weapon_art')}' is not one of {wid}'s arts {_pipe(w.get('req_arts')) or [w.get('art')]}")
 
+    # --- c07h equipment: convoy_qty is a non-negative integer, drop_weapon_id resolves
+    for r in tabs["weapons"]:
+        q = r.get("convoy_qty")
+        if q is not None and (not isinstance(q, (int, float)) or q < 0 or int(q) != q):
+            fail("c07", "blocking", f"weapons.{r['weapon_id']}", f"convoy_qty '{q}' must be a non-negative integer")
+    for r in tabs["encounter_spawns"]:
+        d = r.get("drop_weapon_id")
+        if d not in (None, "") and d not in weapon_by_id:
+            fail("c07", "blocking", f"encounter_spawns.{r['spawn_id']}", f"drop_weapon_id '{d}' does not exist")
+
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
     for r in tabs["prologue_roster"]:

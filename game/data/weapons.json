@@ -13,7 +13,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_sword_mid",
@@ -29,7 +30,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_sword_high",
@@ -45,7 +47,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_lance_basic",
@@ -61,7 +64,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_lance_mid",
@@ -77,7 +81,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_lance_high",
@@ -93,7 +98,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_axe_basic",
@@ -109,7 +115,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_axe_mid",
@@ -125,7 +132,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_axe_high",
@@ -141,7 +149,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_bow_basic",
@@ -157,7 +166,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_bow_mid",
@@ -173,7 +183,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_bow_high",
@@ -189,7 +200,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_brawl_basic",
@@ -205,7 +217,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_brawl_mid",
@@ -221,7 +234,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_brawl_high",
@@ -237,7 +251,8 @@
     "range_max": 1,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_reason_basic",
@@ -253,7 +268,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_reason_mid",
@@ -269,7 +285,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_reason_high",
@@ -285,7 +302,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_faith_basic",
@@ -301,7 +319,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_faith_mid",
@@ -317,7 +336,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 1
   },
   {
     "weapon_id": "wpn_faith_high",
@@ -333,7 +353,8 @@
     "range_max": 2,
     "notes": null,
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_sword_worn",
@@ -349,7 +370,8 @@
     "range_max": 1,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_lance_worn",
@@ -365,7 +387,8 @@
     "range_max": 1,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_axe_worn",
@@ -381,7 +404,8 @@
     "range_max": 1,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_bow_worn",
@@ -397,7 +421,8 @@
     "range_max": 2,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_brawl_worn",
@@ -413,7 +438,8 @@
     "range_max": 1,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_reason_worn",
@@ -429,7 +455,8 @@
     "range_max": 2,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_faith_worn",
@@ -445,7 +472,8 @@
     "range_max": 2,
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_halberd",
@@ -461,7 +489,8 @@
     "range_max": 1,
     "notes": "OVERLAP WEAPON (drafted 2026-10-02). Wielder needs BOTH axe and lance proficiency (req_arts) -- no class has that pair yet, cls_billman is the drafted one. Triangle-neutral (it hedges both faces, so no advantage and no penalty). Deliberately slow: weight 12 against a typical str of 7 costs 5 attack speed, so most wielders get doubled. Effective vs riding (might x2 in Combat.EFFECTIVE_MULT) -- the answer to cavalry that the plain triangle doesn't have.",
     "req_arts": "axe|lance",
-    "effective_vs": "riding"
+    "effective_vs": "riding",
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_maul",
@@ -477,7 +506,8 @@
     "range_max": 1,
     "notes": "OVERLAP WEAPON (drafted 2026-10-02). Needs axe AND brawl (cls_jaguar_knight today). Triangle-neutral. Heavy and inaccurate but hits hard; effective vs armor (heavy-armor movement type), the mirror of the halberd's anti-cavalry role.",
     "req_arts": "axe|brawl",
-    "effective_vs": "armor"
+    "effective_vs": "armor",
+    "convoy_qty": 0
   },
   {
     "weapon_id": "wpn_censer",
@@ -493,6 +523,7 @@
     "range_max": 2,
     "notes": "OVERLAP WEAPON (drafted 2026-10-02). Needs reason AND faith (cls_miasma_warden today). Magic (mag/res), range 1-2, triangle-neutral. No effectiveness trait: its edge is that one weapon spans both magic arts. Attack speed burdens against mag, not str, like every magic weapon.",
     "req_arts": "reason|faith",
-    "effective_vs": null
+    "effective_vs": null,
+    "convoy_qty": 0
   }
 ]

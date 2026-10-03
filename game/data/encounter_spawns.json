@@ -9,7 +9,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Stands on the defend-point tile (D) -- literally where the crowd/townsfolk are."
+    "notes": "Stands on the defend-point tile (D) -- literally where the crowd/townsfolk are.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a02_mook1",
@@ -21,7 +22,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Pre-placed on the narrow street, west side."
+    "notes": "Pre-placed on the narrow street, west side.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a02_mook2",
@@ -33,7 +35,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Pre-placed on the narrow street, east side."
+    "notes": "Pre-placed on the narrow street, east side.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a02_den",
@@ -45,7 +48,8 @@
     "spawn_interval": 2,
     "max_waves": 4,
     "wave_size": 1,
-    "notes": "Wide-street edge. Interval/cap (every 2 turns, 4 waves max) are invented -- map_a02's own design_note doesn't state a cadence the way map_a03's does; chosen to fit turn_limit=8 without becoming unwinnable attrition."
+    "notes": "Wide-street edge. Interval/cap (every 2 turns, 4 waves max) are invented -- map_a02's own design_note doesn't state a cadence the way map_a03's does; chosen to fit turn_limit=8 without becoming unwinnable attrition.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a03_boss",
@@ -57,7 +61,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Guards the reliquary from one tile north."
+    "notes": "Guards the reliquary from one tile north.",
+    "drop_weapon_id": "wpn_bow_mid"
   },
   {
     "spawn_id": "spn_a03_mook1",
@@ -69,7 +74,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Pre-placed near the reliquary, west side."
+    "notes": "Pre-placed near the reliquary, west side.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a03_mook2",
@@ -81,7 +87,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Pre-placed further into the open ward, south-east."
+    "notes": "Pre-placed further into the open ward, south-east.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a03_den",
@@ -93,7 +100,8 @@
     "spawn_interval": 3,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Adjacent to the reliquary. Interval/wave size taken directly from map_a03's own design_note: 'reinforces every 3 turns forever' -- max_waves is null (unlimited), the one den where that's literal text, not an invented cap."
+    "notes": "Adjacent to the reliquary. Interval/wave size taken directly from map_a03's own design_note: 'reinforces every 3 turns forever' -- max_waves is null (unlimited), the one den where that's literal text, not an invented cap.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_f00_garrison",
@@ -105,7 +113,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Migrated from map_grid.gd's old hardcoded ENEMY_SPAWN_POS=Vector2i(9,11) (x=col, y=row) -- same tile, now data-driven like every other map's spawns, instead of a second parallel enemy-spawn code path."
+    "notes": "Migrated from map_grid.gd's old hardcoded ENEMY_SPAWN_POS=Vector2i(9,11) (x=col, y=row) -- same tile, now data-driven like every other map's spawns, instead of a second parallel enemy-spawn code path.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d01_mook1",
@@ -117,7 +126,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "No named enemy identity in map_d01's design_note -- reusing an existing grounded archetype rather than inventing one. Docks-at-night opportunists fit ea_looter's own flavor."
+    "notes": "No named enemy identity in map_d01's design_note -- reusing an existing grounded archetype rather than inventing one. Docks-at-night opportunists fit ea_looter's own flavor.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d01_mook2",
@@ -129,7 +139,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d01_mook1."
+    "notes": "See spn_d01_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d03_den",
@@ -141,7 +152,8 @@
     "spawn_interval": 8,
     "max_waves": 1,
     "wave_size": 1,
-    "notes": "'turn 8 NE reinforcements' (map_d03's own design_note) -- a single wave (max_waves=1), not a recurring cadence, matching the note's singular framing. ea_looter reused for the same reason as d01 -- wagon/cargo threat, no named identity."
+    "notes": "'turn 8 NE reinforcements' (map_d03's own design_note) -- a single wave (max_waves=1), not a recurring cadence, matching the note's singular framing. ea_looter reused for the same reason as d01 -- wagon/cargo threat, no named identity.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d03_mook1",
@@ -153,7 +165,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "No named identity; generic escort-threat mook."
+    "notes": "No named identity; generic escort-threat mook.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d03_mook2",
@@ -165,7 +178,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d03_mook1."
+    "notes": "See spn_d03_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_x11_captain_west",
@@ -177,7 +191,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Reuses the generic miniboss template (not a new named character -- no identity is named in map_x11's design_note) at the west crossing, matching 'two simultaneous timed objectives at opposite edges.'"
+    "notes": "Reuses the generic miniboss template (not a new named character -- no identity is named in map_x11's design_note) at the west crossing, matching 'two simultaneous timed objectives at opposite edges.'",
+    "drop_weapon_id": "wpn_lance_high"
   },
   {
     "spawn_id": "spn_x11_captain_east",
@@ -189,7 +204,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Same template, east crossing. Two instances of the same archetype, not two distinct characters -- consistent with nothing being named in the source text."
+    "notes": "Same template, east crossing. Two instances of the same archetype, not two distinct characters -- consistent with nothing being named in the source text.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_x11_mook1",
@@ -201,7 +217,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Act 2 escalation over Act 1's commoner-tier mooks -- ea_privateer (trained tier) reused."
+    "notes": "Act 2 escalation over Act 1's commoner-tier mooks -- ea_privateer (trained tier) reused.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_x11_mook2",
@@ -213,7 +230,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_x11_mook1."
+    "notes": "See spn_x11_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_x11_den",
@@ -225,7 +243,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "Interval/cap invented (map_x11's design_note gives no cadence, only reinforcement_source=den) -- 3 turns/3 waves chosen to fit turn_limit=9 without becoming unwinnable attrition, same reasoning as spn_a02_den."
+    "notes": "Interval/cap invented (map_x11's design_note gives no cadence, only reinforcement_source=den) -- 3 turns/3 waves chosen to fit turn_limit=9 without becoming unwinnable attrition, same reasoning as spn_a02_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_b15_mook1",
@@ -237,7 +256,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "'preachers convert green levies' (map_b15's own design_note) -- green levies ARE ea_conscript_levy, per that archetype's own note. The preacher itself still isn't modeled as combat (same call made for map_a02)."
+    "notes": "'preachers convert green levies' (map_b15's own design_note) -- green levies ARE ea_conscript_levy, per that archetype's own note. The preacher itself still isn't modeled as combat (same call made for map_a02).",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_b15_mook2",
@@ -249,7 +269,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_b15_mook1."
+    "notes": "See spn_b15_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d02_den",
@@ -261,7 +282,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "Interval/cap invented (map_d02's design_note describes flee-below-half-HP behavior, not a reinforcement cadence) -- 3 turns/3 waves, same default used elsewhere for an unstated den. ea_conscript_levy is ITS first_seen_map_id."
+    "notes": "Interval/cap invented (map_d02's design_note describes flee-below-half-HP behavior, not a reinforcement cadence) -- 3 turns/3 waves, same default used elsewhere for an unstated den. ea_conscript_levy is ITS first_seen_map_id.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d02_mook1",
@@ -273,7 +295,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d02_den."
+    "notes": "See spn_d02_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d02_mook2",
@@ -285,7 +308,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d02_den."
+    "notes": "See spn_d02_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a01_mook1",
@@ -297,7 +321,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "ea_looter's own first_seen_map_id is map_a01 -- 'looters kill them if unshielded' is this map's own design_note. No den (reinforcement_source=none)."
+    "notes": "ea_looter's own first_seen_map_id is map_a01 -- 'looters kill them if unshielded' is this map's own design_note. No den (reinforcement_source=none).",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a01_mook2",
@@ -309,7 +334,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_a01_mook1."
+    "notes": "See spn_a01_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d05_den_port",
@@ -321,7 +347,8 @@
     "spawn_interval": 2,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "'Privateers board from the map edges... GRAPPLE LINES ARE THE DENS' (map_d05's own design_note) -- port-side den. Interval invented (2 turns), max_waves null (unlimited) since the note frames this as an ongoing voyage threat, not a one-off; turn_limit=10 caps total spawns naturally."
+    "notes": "'Privateers board from the map edges... GRAPPLE LINES ARE THE DENS' (map_d05's own design_note) -- port-side den. Interval invented (2 turns), max_waves null (unlimited) since the note frames this as an ongoing voyage threat, not a one-off; turn_limit=10 caps total spawns naturally.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d05_den_starboard",
@@ -333,7 +360,8 @@
     "spawn_interval": 2,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Starboard-side den, same grounding as spn_d05_den_port -- 'the map edges' is plural."
+    "notes": "Starboard-side den, same grounding as spn_d05_den_port -- 'the map edges' is plural.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d05_mook1",
@@ -345,7 +373,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Already-boarded privateers, same archetype as the dens produce."
+    "notes": "Already-boarded privateers, same archetype as the dens produce.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d05_mook2",
@@ -357,7 +386,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d05_mook1."
+    "notes": "See spn_d05_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_v21_den",
@@ -369,7 +399,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "No named identity in ch_v21's own notes beyond 'complicit hands' generally -- ea_hardened_veteran (the generic sidequest-tier template) reused as the lord's household guard, an Act2 step up from Act1's commoner mooks."
+    "notes": "No named identity in ch_v21's own notes beyond 'complicit hands' generally -- ea_hardened_veteran (the generic sidequest-tier template) reused as the lord's household guard, an Act2 step up from Act1's commoner mooks.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_v21_mook1",
@@ -381,7 +412,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_v21_den."
+    "notes": "See spn_v21_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_v21_mook2",
@@ -393,7 +425,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_v21_den."
+    "notes": "See spn_v21_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_v22_den",
@@ -405,7 +438,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "No named identity; ea_conscript_levy reused as a mob disrupting the ritual, the same archetype used for crowd-adjacent threats at map_d02/map_b15."
+    "notes": "No named identity; ea_conscript_levy reused as a mob disrupting the ritual, the same archetype used for crowd-adjacent threats at map_d02/map_b15.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_v22_mook1",
@@ -417,7 +451,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_v22_den."
+    "notes": "See spn_v22_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_v22_mook2",
@@ -429,7 +464,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_v22_den."
+    "notes": "See spn_v22_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_c21_den",
@@ -441,7 +477,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "sect_court's own notes say 'ambushes at reunion' but name no one -- ea_privateer reused for hired-mercenary ambushers, the same archetype already established as paid muscle at map_d05."
+    "notes": "sect_court's own notes say 'ambushes at reunion' but name no one -- ea_privateer reused for hired-mercenary ambushers, the same archetype already established as paid muscle at map_d05.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_c21_mook1",
@@ -453,7 +490,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_c21_den."
+    "notes": "See spn_c21_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_c21_mook2",
@@ -465,7 +503,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_c21_den."
+    "notes": "See spn_c21_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_m21_den",
@@ -477,7 +516,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "sect_march's own notes: 'Prophecy NPCs convert green levies' -- ea_conscript_levy is that archetype, reused directly."
+    "notes": "sect_march's own notes: 'Prophecy NPCs convert green levies' -- ea_conscript_levy is that archetype, reused directly.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_m21_mook1",
@@ -489,7 +529,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_m21_den."
+    "notes": "See spn_m21_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_m21_mook2",
@@ -501,7 +542,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_m21_den."
+    "notes": "See spn_m21_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_m22_den",
@@ -513,7 +555,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "sect_march's notes put 'the prophets and the crown's clerks in the same archive for opposite reasons' -- ea_hardened_veteran reused as the crown's own guards, distinct from the levies at map_m21."
+    "notes": "sect_march's notes put 'the prophets and the crown's clerks in the same archive for opposite reasons' -- ea_hardened_veteran reused as the crown's own guards, distinct from the levies at map_m21.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_m22_mook1",
@@ -525,7 +568,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_m22_den."
+    "notes": "See spn_m22_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_m22_mook2",
@@ -537,7 +581,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_m22_den."
+    "notes": "See spn_m22_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_r16_mook1",
@@ -549,7 +594,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "No named identity; reinforcement_source=none on this map itself, so mooks only, no den -- ea_looter reused for opportunists working the toll road."
+    "notes": "No named identity; reinforcement_source=none on this map itself, so mooks only, no den -- ea_looter reused for opportunists working the toll road.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_r16_mook2",
@@ -561,7 +607,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_r16_mook1."
+    "notes": "See spn_r16_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e31_den",
@@ -573,7 +620,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "No named identity; ea_war_captain (generic miniboss template) reused at Act3 scale, a step up from the Act1/2 mooks used elsewhere for this sect."
+    "notes": "No named identity; ea_war_captain (generic miniboss template) reused at Act3 scale, a step up from the Act1/2 mooks used elsewhere for this sect.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e31_mook1",
@@ -585,7 +633,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_e31_den."
+    "notes": "See spn_e31_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e31_mook2",
@@ -597,7 +646,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_e31_den."
+    "notes": "See spn_e31_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e32s_mook1",
@@ -609,7 +659,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "end_sanctified: 'NOT a boss fight against him... ranks and legions made literal and playable for the first time.' ea_war_captain reused three times to read as a legion, not a single named threat -- no real Lesser Key roster is invented here, that's separate future content."
+    "notes": "end_sanctified: 'NOT a boss fight against him... ranks and legions made literal and playable for the first time.' ea_war_captain reused three times to read as a legion, not a single named threat -- no real Lesser Key roster is invented here, that's separate future content.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e32s_mook2",
@@ -621,7 +672,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_e32s_mook1."
+    "notes": "See spn_e32s_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e32s_mook3",
@@ -633,7 +685,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_e32s_mook1."
+    "notes": "See spn_e32s_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e32s_den",
@@ -645,7 +698,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "See spn_e32s_mook1."
+    "notes": "See spn_e32s_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_e32p_boss",
@@ -657,7 +711,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "end_perverse: 'the party fights HIM directly.' ea_warlord (the generic boss-tier template) is the closest existing fit -- no unique stat line invented for him specifically, that's real future content. No den, matching this map's own design_note ('reads as a direct, personal fight... not an attritional one')."
+    "notes": "end_perverse: 'the party fights HIM directly.' ea_warlord (the generic boss-tier template) is the closest existing fit -- no unique stat line invented for him specifically, that's real future content. No den, matching this map's own design_note ('reads as a direct, personal fight... not an attritional one').",
+    "drop_weapon_id": "wpn_sword_high"
   },
   {
     "spawn_id": "spn_h31_den",
@@ -669,7 +724,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "sect_id TBD on this whole route (see ch_h31's own note) -- ea_war_captain reused as generic conquest-army muscle, no faction identity implied."
+    "notes": "sect_id TBD on this whole route (see ch_h31's own note) -- ea_war_captain reused as generic conquest-army muscle, no faction identity implied.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_h31_mook1",
@@ -681,7 +737,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_h31_den."
+    "notes": "See spn_h31_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_h31_mook2",
@@ -693,7 +750,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_h31_den."
+    "notes": "See spn_h31_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_h33_den",
@@ -705,7 +763,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "No named identity; ea_war_captain reused, same tier as ch_h31 (the same movement, now underground)."
+    "notes": "No named identity; ea_war_captain reused, same tier as ch_h31 (the same movement, now underground).",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_h33_mook1",
@@ -717,7 +776,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_h33_den."
+    "notes": "See spn_h33_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_h33_mook2",
@@ -729,7 +789,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_h33_den."
+    "notes": "See spn_h33_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw1_den",
@@ -741,7 +802,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "'costly, attritional' (endings.end_hierophant_execution) -- ea_war_captain reused per front, same as ch_h31/ch_h33_mercy."
+    "notes": "'costly, attritional' (endings.end_hierophant_execution) -- ea_war_captain reused per front, same as ch_h31/ch_h33_mercy.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw1_mook1",
@@ -753,7 +815,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_hw1_den."
+    "notes": "See spn_hw1_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw1_mook2",
@@ -765,7 +828,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_hw1_den."
+    "notes": "See spn_hw1_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw2_den",
@@ -777,7 +841,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "Same grounding and tier as spn_hw1_den -- the war's second, similarly grinding front."
+    "notes": "Same grounding and tier as spn_hw1_den -- the war's second, similarly grinding front.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw2_mook1",
@@ -789,7 +854,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_hw2_den."
+    "notes": "See spn_hw2_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw2_mook2",
@@ -801,7 +867,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_hw2_den."
+    "notes": "See spn_hw2_den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_hw3_boss",
@@ -813,7 +880,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Closing chapter of the invented War arc -- ea_warlord (boss-tier template) reused for 'where it finally stops,' the arc's toughest fight."
+    "notes": "Closing chapter of the invented War arc -- ea_warlord (boss-tier template) reused for 'where it finally stops,' the arc's toughest fight.",
+    "drop_weapon_id": "wpn_axe_high"
   },
   {
     "spawn_id": "spn_hw3_den",
@@ -825,7 +893,8 @@
     "spawn_interval": 3,
     "max_waves": 3,
     "wave_size": 1,
-    "notes": "Still attritional even at the close -- one last reinforcement den."
+    "notes": "Still attritional even at the close -- one last reinforcement den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_pmacuil_boss",
@@ -837,7 +906,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "npcs.npc_macuil: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty. Repositioned (2026-09-24) to row5/col12 -- dry shoreline ground at the map's new eastern shore, next to the regrounded seize tile, not in the lake patch the old row5/col8 coordinate now falls inside."
+    "notes": "npcs.npc_macuil: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty. Repositioned (2026-09-24) to row5/col12 -- dry shoreline ground at the map's new eastern shore, next to the regrounded seize tile, not in the lake patch the old row5/col8 coordinate now falls inside.",
+    "drop_weapon_id": "wpn_axe_high"
   },
   {
     "spawn_id": "spn_pindech_boss",
@@ -849,7 +919,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "npcs.npc_indech: 'paralogue capstone,' same treatment as map_p_macuil."
+    "notes": "npcs.npc_indech: 'paralogue capstone,' same treatment as map_p_macuil.",
+    "drop_weapon_id": "wpn_axe_high"
   },
   {
     "spawn_id": "spn_pshadhavar_boss",
@@ -861,7 +932,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_lowest_terrace / named.nmd_shadhavar: the creature itself, placed mid-terrace, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_shadhavar.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss after that map's own correction."
+    "notes": "locations.loc_lowest_terrace / named.nmd_shadhavar: the creature itself, placed mid-terrace, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_shadhavar.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss after that map's own correction.",
+    "drop_weapon_id": "wpn_reason_high"
   },
   {
     "spawn_id": "spn_psimurgh_boss",
@@ -873,7 +945,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_simurgh_nest / named.nmd_simurgh: the creature at her nest, one tile east of the seize tile at row6/col8 (see game/data/maps/map_p_simurgh.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss and spn_pshadhavar_boss."
+    "notes": "locations.loc_simurgh_nest / named.nmd_simurgh: the creature at her nest, one tile east of the seize tile at row6/col8 (see game/data/maps/map_p_simurgh.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss and spn_pshadhavar_boss.",
+    "drop_weapon_id": "wpn_faith_high"
   },
   {
     "spawn_id": "spn_pkarkadann_boss",
@@ -885,7 +958,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_dove_colony / named.nmd_karkadann: the creature guarding the clearing's center, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_karkadann.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session."
+    "notes": "locations.loc_dove_colony / named.nmd_karkadann: the creature guarding the clearing's center, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_karkadann.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session.",
+    "drop_weapon_id": "wpn_brawl_high"
   },
   {
     "spawn_id": "spn_panzu_boss",
@@ -897,7 +971,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_flats_interior / named.nmd_anzu: the creature standing alone in the open flat, one tile east of the seize tile at row6/col9 (see game/data/maps/map_p_anzu.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session."
+    "notes": "locations.loc_flats_interior / named.nmd_anzu: the creature standing alone in the open flat, one tile east of the seize tile at row6/col9 (see game/data/maps/map_p_anzu.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session.",
+    "drop_weapon_id": "wpn_bow_high"
   },
   {
     "spawn_id": "spn_phuma_mook1",
@@ -909,7 +984,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "No named identity, same reuse as map_r16's own two looter mooks -- 'opportunists working the toll road', this time the open stretch rather than the toll-city itself. reinforcement_source=none, mooks only, no den."
+    "notes": "No named identity, same reuse as map_r16's own two looter mooks -- 'opportunists working the toll road', this time the open stretch rather than the toll-city itself. reinforcement_source=none, mooks only, no den.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_phuma_mook2",
@@ -921,7 +997,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_phuma_mook1."
+    "notes": "See spn_phuma_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_pburiedworks_boss",
@@ -933,7 +1010,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "No named identity, same reuse ch_v21's own encounter_spawns row already used ea_hardened_veteran for -- 'complicit hands' generally, the works' overseer guarding the archive doorway."
+    "notes": "No named identity, same reuse ch_v21's own encounter_spawns row already used ea_hardened_veteran for -- 'complicit hands' generally, the works' overseer guarding the archive doorway.",
+    "drop_weapon_id": "wpn_sword_mid"
   },
   {
     "spawn_id": "spn_pburiedworks_mook",
@@ -945,7 +1023,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_pburiedworks_boss -- a second complicit guard on the south corridor bypass."
+    "notes": "See spn_pburiedworks_boss -- a second complicit guard on the south corridor bypass.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d04_boss",
@@ -957,7 +1036,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "The looter ringleader exploiting the dockside unrest -- see chapters.ch_d04's own note on why the protesters themselves aren't combatants."
+    "notes": "The looter ringleader exploiting the dockside unrest -- see chapters.ch_d04's own note on why the protesters themselves aren't combatants.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d04_mook",
@@ -969,7 +1049,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d04_boss."
+    "notes": "See spn_d04_boss.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d06_boss",
@@ -981,7 +1062,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "ea_garrison ('fatigued and not a threat', per its own notes) -- a skeleton crew watching a port stranded above its own water, not a real defense."
+    "notes": "ea_garrison ('fatigued and not a threat', per its own notes) -- a skeleton crew watching a port stranded above its own water, not a real defense.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d07_boss",
@@ -993,7 +1075,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Scavengers picking through the ruin -- the renunciants who live here are not combatants, see chapters.ch_d07."
+    "notes": "Scavengers picking through the ruin -- the renunciants who live here are not combatants, see chapters.ch_d07.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d08_boss",
@@ -1005,7 +1088,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "A mobile raiding party leader, matching 'punishes slow armies' by being fast itself."
+    "notes": "A mobile raiding party leader, matching 'punishes slow armies' by being fast itself.",
+    "drop_weapon_id": "wpn_lance_mid"
   },
   {
     "spawn_id": "spn_d08_mook",
@@ -1017,7 +1101,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d08_boss."
+    "notes": "See spn_d08_boss.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d09_mook1",
@@ -1029,7 +1114,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Local levies guarding the narrow lava-fan pass, no boss -- same road-map pattern as ch_p_huma."
+    "notes": "Local levies guarding the narrow lava-fan pass, no boss -- same road-map pattern as ch_p_huma.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d09_mook2",
@@ -1041,7 +1127,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_d09_mook1."
+    "notes": "See spn_d09_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_d10_boss",
@@ -1053,7 +1140,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "The gate captain -- 'the Unstained will not talk to you' means this is the answer instead."
+    "notes": "The gate captain -- 'the Unstained will not talk to you' means this is the answer instead.",
+    "drop_weapon_id": "wpn_lance_mid"
   },
   {
     "spawn_id": "spn_d10_mook",
@@ -1065,7 +1153,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Household guard, same 'complicit hands' reuse as ch_v21/ch_p_buried_works."
+    "notes": "Household guard, same 'complicit hands' reuse as ch_v21/ch_p_buried_works.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a04_boss",
@@ -1077,7 +1166,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Opportunists working the medicine trade, same framing as ch_d04's harbour."
+    "notes": "Opportunists working the medicine trade, same framing as ch_d04's harbour.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a04_mook",
@@ -1089,7 +1179,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_a04_boss."
+    "notes": "See spn_a04_boss.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a05_boss",
@@ -1101,7 +1192,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Scavengers picking through the drowned town, same framing as ch_d07."
+    "notes": "Scavengers picking through the drowned town, same framing as ch_d07.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a06_boss",
@@ -1113,7 +1205,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "A mobile Plains raiding party leader threatening the frontier city."
+    "notes": "A mobile Plains raiding party leader threatening the frontier city.",
+    "drop_weapon_id": "wpn_lance_mid"
   },
   {
     "spawn_id": "spn_a06_mook",
@@ -1125,7 +1218,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_a06_boss."
+    "notes": "See spn_a06_boss.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a07_boss",
@@ -1137,7 +1231,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Escarpment fighting -- an organized veteran force holding the cliff edge."
+    "notes": "Escarpment fighting -- an organized veteran force holding the cliff edge.",
+    "drop_weapon_id": "wpn_sword_mid"
   },
   {
     "spawn_id": "spn_a08_boss",
@@ -1149,7 +1244,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Bandits using the treeline for cover, not an organized force."
+    "notes": "Bandits using the treeline for cover, not an organized force.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a09_boss",
@@ -1161,7 +1257,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "sect_march's own 'Prophecy NPCs convert green levies' -- levies mid-conversion."
+    "notes": "sect_march's own 'Prophecy NPCs convert green levies' -- levies mid-conversion.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_a10_boss",
@@ -1173,7 +1270,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "The chapel's defender captain, mirroring ch_d10's gate captain."
+    "notes": "The chapel's defender captain, mirroring ch_d10's gate captain.",
+    "drop_weapon_id": "wpn_lance_mid"
   },
   {
     "spawn_id": "spn_a10_mook",
@@ -1185,7 +1283,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Household guard, same composition as ch_d10."
+    "notes": "Household guard, same composition as ch_d10.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_k21_boss",
@@ -1197,7 +1296,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Act3 tier per this session's own precedent (order/paragon-tier reuse, not commoner mooks) -- the district's defending captain."
+    "notes": "Act3 tier per this session's own precedent (order/paragon-tier reuse, not commoner mooks) -- the district's defending captain.",
+    "drop_weapon_id": "wpn_axe_high"
   },
   {
     "spawn_id": "spn_k21_mook",
@@ -1209,7 +1309,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_k21_boss."
+    "notes": "See spn_k21_boss.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_k22_boss",
@@ -1221,7 +1322,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Paragon-tier capstone for the district's climax, guarding the colossus's base."
+    "notes": "Paragon-tier capstone for the district's climax, guarding the colossus's base.",
+    "drop_weapon_id": "wpn_axe_high"
   },
   {
     "spawn_id": "spn_k22_mook",
@@ -1233,7 +1335,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_k22_boss."
+    "notes": "See spn_k22_boss.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_ct19_mook1",
@@ -1245,7 +1348,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Ashland locals guarding the ash crossing, no boss -- same road-map pattern as ch_p_huma/ch_d09."
+    "notes": "Ashland locals guarding the ash crossing, no boss -- same road-map pattern as ch_p_huma/ch_d09.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_ct19_mook2",
@@ -1257,7 +1361,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "See spn_ct19_mook1."
+    "notes": "See spn_ct19_mook1.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_tp19_boss",
@@ -1269,7 +1374,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "The pass's garrison captain -- 'held by whoever taxes it' reads as an organized force, not bandits."
+    "notes": "The pass's garrison captain -- 'held by whoever taxes it' reads as an organized force, not bandits.",
+    "drop_weapon_id": "wpn_lance_high"
   },
   {
     "spawn_id": "spn_rf20_boss",
@@ -1281,7 +1387,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "A contesting force at the reunion point itself."
+    "notes": "A contesting force at the reunion point itself.",
+    "drop_weapon_id": "wpn_sword_high"
   },
   {
     "spawn_id": "spn_rf20_mook1",
@@ -1293,7 +1400,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Opportunists near one column's own camp."
+    "notes": "Opportunists near one column's own camp.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_rf20_mook2",
@@ -1305,7 +1413,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "Opportunists near the other column's own camp."
+    "notes": "Opportunists near the other column's own camp.",
+    "drop_weapon_id": null
   },
   {
     "spawn_id": "spn_tp19_billman",
@@ -1317,7 +1426,8 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "A halberd line behind the pass's captain -- the pass is 'held by whoever taxes it', and a toll garrison keeps polearm infantry against riders. Drafted 2026-10-02."
+    "notes": "A halberd line behind the pass's captain -- the pass is 'held by whoever taxes it', and a toll garrison keeps polearm infantry against riders. Drafted 2026-10-02.",
+    "drop_weapon_id": "wpn_halberd"
   },
   {
     "spawn_id": "spn_rf20_billman",
@@ -1329,6 +1439,7 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "One halberd-bearer with the contesting force at the reunion point; see spn_tp19_billman. Drafted 2026-10-02."
+    "notes": "One halberd-bearer with the contesting force at the reunion point; see spn_tp19_billman. Drafted 2026-10-02.",
+    "drop_weapon_id": "wpn_halberd"
   }
 ]
