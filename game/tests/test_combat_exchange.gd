@@ -166,6 +166,21 @@ func _exchange() -> void:
 	var blind := _fighter({"sup_hit": -500})
 	r = _combat.resolve_exchange(blind, d, sword, sword, 1, _rng(7), 30, 30)
 	check(not r["strikes"][0]["hit"] and r["def_hp"] == 30, "a miss does no damage")
+	# durability: each strike spends a use; the last use breaks the weapon and ends that side's strikes
+	r = _combat.resolve_exchange(fast, d, sword, sword, 1, _rng(10), 40, 40, 5, 5)
+	check(r["atk_strikes"] == 2 and r["def_strikes"] == 1 and r["atk_uses"] == 3 and r["def_uses"] == 4, "A, D, A spends 2 and 1 uses (left %d / %d)" % [r["atk_uses"], r["def_uses"]])
+	r = _combat.resolve_exchange(fast, d, sword, sword, 1, _rng(10), 40, 40, 1, 5)
+	check(r["atk_strikes"] == 1 and r["atk_uses"] == 0 and r["strikes"][0]["broke"], "a 1-use weapon strikes once, breaks, and doesn't make its follow-up")
+	check(r["def_strikes"] == 1 and not r["strikes"][1]["broke"], "the other side's weapon is untouched")
+	r = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(11), 30, 30, 0, 5)
+	check(r["atk_strikes"] == 0 and r["def_strikes"] == 1, "an attacker whose weapon is at 0 can't strike (and is still countered)")
+	r = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(12), 30, 30, 5, 0)
+	check(r["atk_strikes"] == 1 and r["def_strikes"] == 0, "a defender whose weapon is at 0 can't counter")
+	r = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(13), 30, 30)
+	check(r["atk_uses"] == -1 and r["def_uses"] == -1 and not r["strikes"][0]["broke"], "-1 means unlimited: never spent, never breaks")
+	r = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(14), 30, 1, 3, 3)
+	check(r["atk_uses"] == 2 and r["def_strikes"] == 0, "a kill spends only the strike made")
+
 	# deterministic for a seed
 	var r1: Dictionary = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(99), 30, 30)
 	var r2: Dictionary = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(99), 30, 30)

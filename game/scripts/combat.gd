@@ -243,11 +243,15 @@ static func _strike(side: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
 
 ## Plays a forecast out with real rolls. Order: attacker, defender's counter,
 ## then the follow-up for whichever side doubles. A fighter at 0 HP stops the
-## exchange. Returns {"strikes": [{by: "atk"|"def", hit, crit, damage,
-## target_hp}], "atk_hp", "def_hp"}.
+## exchange. atk_uses / def_uses are the weapons' remaining uses (-1 =
+## unlimited, e.g. enemies): each strike spends one, and a side whose weapon is
+## at 0 can't strike -- the strike that spends the last use is flagged
+## "broke". Returns {"strikes": [{by: "atk"|"def", hit, crit, damage,
+## target_hp, broke}], "atk_hp", "def_hp", "atk_strikes", "def_strikes",
+## "atk_uses", "def_uses"}.
 static func resolve_exchange(attacker: Dictionary, defender: Dictionary, atk_weapon: Dictionary,
 		def_weapon: Dictionary, distance: int, rng: RandomNumberGenerator,
-		atk_hp: int, def_hp: int) -> Dictionary:
+		atk_hp: int, def_hp: int, atk_uses: int = -1, def_uses: int = -1) -> Dictionary:
 	var fc := forecast(attacker, defender, atk_weapon, def_weapon, distance)
 	var order: Array[String] = ["atk"]
 	if not fc["def"].is_empty():
@@ -257,16 +261,27 @@ static func resolve_exchange(attacker: Dictionary, defender: Dictionary, atk_wea
 	elif not fc["def"].is_empty() and fc["def"]["hits"] > 1:
 		order.append("def")
 	var strikes: Array = []
+	var made := {"atk": 0, "def": 0}
 	for who in order:
 		if atk_hp <= 0 or def_hp <= 0:
 			break
+		var uses: int = atk_uses if who == "atk" else def_uses
+		if uses == 0:
+			continue   # a broken weapon strikes no more
 		var res := _strike(fc[who], rng)
 		if who == "atk":
 			def_hp = maxi(0, def_hp - int(res["damage"]))
 			res["target_hp"] = def_hp
+			if atk_uses > 0:
+				atk_uses -= 1
 		else:
 			atk_hp = maxi(0, atk_hp - int(res["damage"]))
 			res["target_hp"] = atk_hp
+			if def_uses > 0:
+				def_uses -= 1
+		res["broke"] = uses > 0 and (atk_uses if who == "atk" else def_uses) == 0
 		res["by"] = who
+		made[who] += 1
 		strikes.append(res)
-	return {"strikes": strikes, "atk_hp": atk_hp, "def_hp": def_hp}
+	return {"strikes": strikes, "atk_hp": atk_hp, "def_hp": def_hp,
+		"atk_strikes": made["atk"], "def_strikes": made["def"], "atk_uses": atk_uses, "def_uses": def_uses}

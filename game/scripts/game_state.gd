@@ -33,6 +33,21 @@ var support_recent: Dictionary = {}
 ## the win screen's S key.
 var support_focus: String = ""
 
+## Player equipment (see Equipment autoload). unit_id -> Array of
+## {"weapon_id", "uses"}; the first wieldable entry is the equipped weapon.
+var inventories: Dictionary = {}
+
+## The shared convoy: Array of {"weapon_id", "uses"}. Filled once per
+## playthrough from weapons.convoy_qty, then by boss drops.
+var convoy: Array = []
+
+## True once the convoy has been seeded from canon for this playthrough.
+var equipment_ready := false
+
+## spawn_id -> true once that enemy's drop has been taken, so replaying a map
+## can't farm it.
+var drops_claimed: Dictionary = {}
+
 func set_flag(flag_id: String, value: String) -> void:
 	flags[flag_id] = value
 

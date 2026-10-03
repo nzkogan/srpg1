@@ -50,7 +50,6 @@ extends Node2D
 @export var wet: bool = false
 
 const ForecastView := preload("res://scripts/forecast_view.gd")
-const ARTS := ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 const FORECAST_X_GAP := 36
 const MAX_ENEMY_LOG_SHOWN := 3
 
@@ -279,13 +278,8 @@ func _build_units() -> Array:
 		base["movement_type"] = movement_type
 		base["move"] = MOVEMENT_TYPE_DEFAULT_MOVE.get(movement_type, 5)
 		base["weapon_art"] = art
-		# proficient arts: the class's primary and (if it is an art, not a movement
-		# type) secondary -- what a weapon's req_arts is checked against
-		var arts: Array = []
-		for key in ["art_primary", "art_secondary"]:
-			if ARTS.has(class_row.get(key)):
-				arts.append(class_row[key])
-		base["arts"] = arts
+		# proficient arts -- what a weapon's req_arts is checked against
+		base["arts"] = Equipment.unit_arts(unit_id)
 		base["dmg_vs_statue"] = 0
 		base["what_they_do"] = "no weapon_art on their class (%s)" % class_row.get("name", "?")
 
@@ -426,10 +420,12 @@ func _spawn_encounter() -> void:
 		var archetype: Dictionary = enemy_archetypes_by_id.get(row["enemy_id"], {})
 		if archetype.is_empty():
 			continue
-		next_id = _spawn_enemy_instance(archetype, Vector2i(int(row["col"]), int(row["row"])), row["kind"], next_id)
+		next_id = _spawn_enemy_instance(archetype, Vector2i(int(row["col"]), int(row["row"])), row["kind"], next_id, row)
 
-func _spawn_enemy_instance(archetype: Dictionary, pos: Vector2i, kind: String, next_id: int) -> int:
+func _spawn_enemy_instance(archetype: Dictionary, pos: Vector2i, kind: String, next_id: int, spawn_row: Dictionary = {}) -> int:
 	var inst := {
+		"spawn_id": spawn_row.get("spawn_id", ""),
+		"drop": spawn_row.get("drop_weapon_id"),   # weapon id or null; den waves never drop
 		"inst_id": "%s_%d" % [archetype["enemy_id"], next_id],
 		"kind": kind,
 		"archetype": archetype,
@@ -518,6 +514,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_attack_enemy()
 		elif key_event.keycode == KEY_TAB:
 			_cycle_target()
+		elif key_event.keycode == KEY_E:
+			_cycle_weapon()
 		elif key_event.keycode == KEY_N or key_event.keycode == KEY_ENTER:
 			_next_turn()
 		elif key_event.keycode == KEY_ESCAPE:
@@ -909,17 +907,19 @@ func _attack_enemy() -> void:
 		rng = RandomNumberGenerator.new()
 		rng.randomize()
 	var result := Combat.resolve_exchange(info["attacker"], info["defender"], weapon, info["def_weapon"],
-		info["distance"], rng, int(unit_hp.get(pid, 0)), int(target.hp))
+		info["distance"], rng, int(unit_hp.get(pid, 0)), int(target.hp), _uses_of(unit), -1)
 	attacked_this_turn[pid] = true
 	var ename: String = target.archetype.get("name")
 	var lines := _describe_exchange(result, unit.get("name"), "the %s" % ename)
 	target.hp = int(result["def_hp"])
 	unit_hp[pid] = int(result["atk_hp"])
-	info_label.text = lines + _support_note(info["support"])
+	info_label.text = lines + _support_note(info["support"]) + _spend_uses(unit, int(result["atk_strikes"]))
 
 	if target.hp == 0:
 		info_label.text += " The %s falls." % ename
-		_defeat_enemy(target)
+		var drop := _defeat_enemy(target)
+		if drop != "":
+			info_label.text += " It drops a %s (added to the convoy)." % drop
 		if map_won:
 			return
 	if int(unit_hp[pid]) == 0:
@@ -961,7 +961,11 @@ func _arts_of(unit: Dictionary) -> Array:
 ## in every art it requires. {} if they can't wield it.
 func _weapon_for_unit(unit: Dictionary) -> Dictionary:
 	var wid: String = unit.get("weapon_id", "")
-	var art = unit.get("weapon_art")   # null for the unarmed (Edda, Kheldar)
+	if wid == "" and _is_roster_unit(unit):
+		# a main-roster unit fights with whatever their inventory has equipped
+		var equipped := Equipment.equipped(unit.get("punit_id", ""))
+		return weapons_by_id.get(equipped["weapon_id"], {}) if not equipped.is_empty() else {}
+	var art = unit.get("weapon_art")   # null for the unarmed; prologue and test units use their art's basic weapon
 	var weapon: Dictionary = {}
 	if wid != "":
 		weapon = weapons_by_id.get(wid, {})
@@ -970,6 +974,30 @@ func _weapon_for_unit(unit: Dictionary) -> Dictionary:
 	if weapon.is_empty() or not Combat.can_wield(_arts_of(unit), weapon):
 		return {}
 	return weapon
+
+## True for the 18 main units, whose weapons live in Equipment.
+func _is_roster_unit(unit: Dictionary) -> bool:
+	return Canon.find_by("units", "unit_id", unit.get("punit_id", "")) != null
+
+## Uses left on the unit's equipped weapon; -1 (unlimited) for units whose
+## weapon isn't tracked (prologue and test units, or a weapon_id override).
+func _uses_of(unit: Dictionary) -> int:
+	if unit.get("weapon_id", "") != "" or not _is_roster_unit(unit):
+		return -1
+	var equipped := Equipment.equipped(unit.get("punit_id", ""))
+	return int(equipped["uses"]) if not equipped.is_empty() else -1
+
+## Charges `strikes` uses to the unit's weapon; returns " X's Y breaks!" if that
+## broke it, else "".
+func _spend_uses(unit: Dictionary, strikes: int) -> String:
+	if strikes <= 0 or unit.get("weapon_id", "") != "" or not _is_roster_unit(unit):
+		return ""
+	var broke := Equipment.spend_use(unit.get("punit_id", ""), strikes)
+	if broke.is_empty():
+		return ""
+	var next := Equipment.equipped(unit.get("punit_id", ""))
+	var tail := " They switch to the %s." % Equipment.weapon_name(next["weapon_id"]) if not next.is_empty() else " They have nothing left to fight with."
+	return " %s's %s breaks!%s" % [unit.get("name"), broke["name"], tail]
 
 ## An enemy's weapon: its archetype's weapon_id when set (overlap weapons),
 ## else the weapon_art/weapon_tier pattern. Enemies are proficient by definition.
@@ -1006,10 +1034,16 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 	return {
 		"attacker": attacker, "defender": defender, "weapon": weapon, "def_weapon": def_weapon,
 		"distance": distance, "support": support, "support_text": _support_line(support),
-		"atk": {"name": unit.get("name"), "weapon": weapon.get("name", "none"), "hp": int(unit_hp.get(pid, 0)), "max_hp": int(unit.get("hp", 0))},
+		"atk": {"name": unit.get("name"), "weapon": _weapon_label(weapon, _uses_of(unit)), "uses": _uses_of(unit),
+			"hp": int(unit_hp.get(pid, 0)), "max_hp": int(unit.get("hp", 0))},
 		"def": {"name": inst.archetype.get("name"), "weapon": def_weapon.get("name", "none"), "hp": int(inst.hp), "max_hp": int(inst.max_hp)},
 		"forecast": Combat.forecast(attacker, defender, weapon, def_weapon, distance),
 	}
+
+## "Iron Sword (45)" while the weapon's uses are tracked, else just its name.
+func _weapon_label(weapon: Dictionary, uses: int) -> String:
+	var wname: String = weapon.get("name", "none")
+	return "%s (%d)" % [wname, uses] if uses >= 0 and not weapon.is_empty() else wname
 
 ## Living enemies the weapon can reach from `pos`, nearest first (ties by id).
 func _enemies_in_range(pos: Vector2i, weapon: Dictionary) -> Array:
@@ -1059,6 +1093,25 @@ func _update_forecast() -> void:
 	forecast_label.text = ForecastView.bbcode(_forecast_info(unit, _targets[_target_idx]))
 	forecast_label.visible = true
 
+## [E]: a free action -- swap to the next weapon the selected unit can wield.
+## Not once they have attacked this turn.
+func _cycle_weapon() -> void:
+	if units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit):
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already attacked this turn." % unit.get("name")
+		return
+	var now := Equipment.cycle(pid)
+	if now.is_empty():
+		info_label.text = "%s has no other weapon they can use." % unit.get("name")
+		return
+	info_label.text = "%s equips the %s." % [unit.get("name"), Equipment.describe(now)]
+	_update_forecast()
+
 func _cycle_target() -> void:
 	if _targets.size() > 1:
 		_target_idx = (_target_idx + 1) % _targets.size()
@@ -1074,13 +1127,16 @@ func _try_target_click(pos: Vector2i) -> bool:
 	return false
 
 ## An enemy is defeated: off the map, and a boss falling ends a 'defend' map.
-func _defeat_enemy(inst: Dictionary) -> void:
+## Returns the name of the weapon it dropped into the convoy ("" if none).
+func _defeat_enemy(inst: Dictionary) -> String:
 	inst.defeated = true
 	_remove_enemy_token(inst)
+	var drop := Equipment.claim_drop(str(inst.get("spawn_id", "")), inst.get("drop"))
 	if inst.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
 		map_won = true
 		status_label.text = "The %s falls. Threat neutralized." % inst.archetype.get("name")
 		info_label.text = "Victory."
+	return drop
 
 # ------------------------------------------------------------------ enemy phase
 #
@@ -1169,18 +1225,23 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	var defender := _combatant_for_unit(pid)
 	var def_weapon := _weapon_for_unit(defender)
 	var result := Combat.resolve_exchange(attacker, defender, weapon, def_weapon, best["distance"],
-		rng, inst.hp, int(unit_hp.get(pid, 0)))
+		rng, inst.hp, int(unit_hp.get(pid, 0)), -1, _uses_of(defender))
 	inst.hp = int(result["atk_hp"])
 	unit_hp[pid] = int(result["def_hp"])
 	var uname: String = defender.get("name", pid)
 	var ename: String = inst.archetype.get("name", "enemy")
 	enemy_log.append(_describe_exchange(result, "the %s" % ename, uname))
+	var broke := _spend_uses(defender, int(result["def_strikes"]))
+	if broke != "":
+		enemy_log.append(broke.strip_edges())
 	if int(unit_hp[pid]) == 0:
 		_kill_unit(pid)
 		enemy_log.append("%s falls." % uname)
 	if inst.hp == 0:
 		enemy_log.append("The %s falls." % ename)
-		_defeat_enemy(inst)
+		var drop := _defeat_enemy(inst)
+		if drop != "":
+			enemy_log.append("It drops a %s." % drop)
 
 ## No target within reach this turn: walk to the reachable free tile closest
 ## (by straight-line tiles) to the nearest player unit.
@@ -1268,7 +1329,7 @@ func _update_status_label() -> void:
 		alive, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()
 	]
 	lines.append(header)
-	var controls := "[F] attack -- [Tab] retarget -- [N] / Enter: next turn -- click a tile to move"
+	var controls := "[F] attack -- [Tab] retarget -- [E] weapon -- [N] / Enter: next turn -- click a tile to move"
 	if map_id == "map_f00":
 		controls = "[A] attack statue -- " + controls
 	lines.append(controls)
@@ -1284,9 +1345,10 @@ func _update_info_label(reachable_count := -1) -> void:
 	var pid: String = unit.get("punit_id", "")
 	var lines: Array[String] = []
 	lines.append("[1-9] select unit -- click a highlighted tile to move there")
-	lines.append("Selected: %s -- move %s, %s, weapon_art %s, hp %s" % [
+	var weapon_text := _weapon_label(_weapon_for_unit(unit), _uses_of(unit)) if not _weapon_for_unit(unit).is_empty() else "no weapon"
+	lines.append("Selected: %s -- move %s, %s, weapon %s ([E] switch), hp %s" % [
 		unit.get("name"), unit.get("move"), unit.get("movement_type"),
-		unit.get("weapon_art"), unit_hp.get(pid, unit.get("hp"))
+		weapon_text, unit_hp.get(pid, unit.get("hp"))
 	])
 	if moved_this_turn.has(pid):
 		lines.append("At (%d, %d) -- already moved this turn." % [origin.x, origin.y])

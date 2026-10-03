@@ -100,6 +100,9 @@ static func bbcode(info: Dictionary) -> String:
 		lines.append("%s strikes twice (speed %d vs %d)." % [atk["name"], a["speed"], int(fc["def_speed"])])
 	elif counters and int(d["hits"]) > 1:
 		lines.append("[color=%s]%s strikes twice (speed %d vs %d).[/color]" % [RED, def["name"], d["speed"], a["speed"]])
+	var uses := int(atk.get("uses", -1))
+	if uses >= 0 and uses <= int(a["hits"]):
+		lines.append("[color=%s]%s's weapon will break (%d use%s left).[/color]" % [GOLD, atk["name"], uses, "" if uses == 1 else "s"])
 	if a["effective"]:
 		lines.append("[color=%s]%s's weapon is effective here (x2 might).[/color]" % [GOLD, atk["name"]])
 	if counters and d["effective"]:
