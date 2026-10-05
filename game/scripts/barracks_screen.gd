@@ -276,12 +276,14 @@ func _append_deeds(lines: Array[String], u: String) -> void:
 	lines.append("[b]Deeds that gate paragon[/b]")
 	for row in Progression.gating_epithets():
 		var id: String = row["epithet_id"]
-		var n := int(Progression.deeds(u).get(id, 0))
+		var n := Progression.deed_count(u, id)
+		var need := Progression.count_needed(id)
 		var label := str(row["deed_category"]).replace("_", " ")
-		if n > 0:
+		if Progression.has_deed(u, id):
 			lines.append("[color=%s][x] %s[/color]  [color=%s](%s) x%d[/color]" % [GOOD, label, DIM, row["trigger"], n])
 		elif Progression.is_tracked(id):
-			lines.append("[ ] %s  [color=%s](%s)[/color]" % [label, DIM, row["trigger"]])
+			var progress := " -- %d of %d" % [n, need] if need > 1 else ""
+			lines.append("[ ] %s  [color=%s](%s)%s[/color]" % [label, DIM, row["trigger"], progress])
 		else:
 			lines.append("[color=%s][ ] %s (%s) -- not recordable yet[/color]" % [DIM, label, row["trigger"]])
 

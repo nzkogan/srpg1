@@ -85,6 +85,7 @@ NUMERIC = {
     "encounter_spawns": {"row", "col", "spawn_interval", "max_waves", "wave_size"},
     "promotion_rules": {"value"},
     "abilities": {"hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"},
+    "epithets": {"count_needed"},
 }
 
 # explicit foreign keys: (table, column) -> (ref_table, ref_column)

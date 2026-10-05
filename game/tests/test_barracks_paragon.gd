@@ -50,8 +50,8 @@ func _initialize() -> void:
 	check(s._options_caption.text == "Paragon classes", "the middle column is captioned Paragon classes")
 	check(d.contains("[x] Certified") and d.contains("[x] Level 30") and d.contains("[ ] 1 deed that gates paragon") and d.contains("[x] 1000 gold"), "the checklist ticks what's met and leaves the deed open")
 	check(d.contains("Waiting adds 150 gold per level past 30") and d.contains("Deeds never expire"), "it states the cost of waiting and that deeds never expire")
-	check(d.contains("Deeds that gate paragon") and d.contains("[ ] boss kill") and d.contains("[ ] solo hold") and d.contains("[ ] no hit map"), "the three recordable deeds are listed with their triggers")
-	check(d.contains("capture") and d.contains("not recordable yet"), "capture is listed as not recordable yet")
+	check(d.contains("Deeds that gate paragon") and d.contains("[ ] boss kill") and d.contains("[ ] solo hold") and d.contains("[ ] no hit map"), "the first three recordable deeds are listed with their triggers")
+	check(d.contains("[ ] capture") and d.contains("-- 0 of 5") and not d.contains("not recordable yet"), "capture is recordable too, with its count (0 of 5)")
 	check(d.contains("kills a named boss in single combat"), "each deed shows canon's trigger text")
 	var names: Array = []
 	for o in s.options():

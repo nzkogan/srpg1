@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -90,9 +90,10 @@ moment is the cheapest, and nothing can be missed.
   recorded during play per unit, **kept for the whole playthrough and never expire**, and announced the first time
   a unit earns one. Recordable now (`epithets.tracked`): *boss kill* (the killing blow on a boss that only this
   unit damaged -- "single combat" -- by attack or counter), *solo hold* (the same tile for 3 enemy phases running,
-  attacked each time, no ally within 2 tiles) and *no-hit map* (fought, and never hit, when the map is won; a unit
-  that never fought doesn't count). *Capture* needs a Capture action, and miasma, delivery, dispersal and talk need
-  mechanics that don't exist; the barracks lists them as "not recordable yet".
+  attacked each time, no ally within 2 tiles), *no-hit map* (fought, and never hit, when the map is won; a unit
+  that never fought doesn't count) and *capture* (take 5 enemies alive; see below -- the one deed that counts up).
+  Miasma, delivery, dispersal and talk need mechanics that don't exist; the barracks lists them as "not recordable
+  yet". All four deeds that gate paragon are now recordable.
 - **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr; sword: Fianna
   (sword + bow); bow: Donso; brawl: Toa; axe: Jaguar knight (axe + brawl) or Eagle knight; reason: Tzitzimitl (which also
   needs the Simurgh paralogue won -- a drafted guess at canon's "paralogue"). A Billman, knowing axe *and* lance,
@@ -102,6 +103,29 @@ moment is the cheapest, and nothing can be missed.
 - **What it gives**: another flat **+30** stat jump, **+5 more** growth on every stat, **+1 ability slot**, the class's
   movement type and shape, and the class's canon signature skill as the first ability in its pool (Astra,
   Deadeye, Fierce Iron Fist, Colossus, Stun, Corrosion, Charge -- as passive approximations).
+
+## The Capture action
+
+Canon's `ep_capture` ("captures rather than kills 5+ times") needed an action to earn it, and canon gives that
+kit to Gunnar ("Capture + Shove mercy kit"); the Pardoner hybrid's note ("seal not kill") fits it too. Shove isn't
+built. A first pass, all drafted:
+
+- **Who**: a class with `capture` in `classes.map_actions` -- the Bounty hunter (Gunnar) and the Pardoner. It follows
+  the class, not the person.
+- **How**: **C** on a map, aimed like an attack (Tab / click picks the target, the equipped weapon's reach decides
+  what's in range -- Gunnar's bow takes range 2, not a neighbour). No dice and no exchange: if the target is
+  **at or below 50% of its max HP** (`capture_hp_pct`) and not a boss, it is taken. A boss never surrenders. A
+  refusal says why and doesn't spend the action.
+- **What it does**: the enemy leaves the map, takes the unit's action for the turn, counts as having fought (so a
+  captor can still earn a no-hit map), and earns the **EXP of a kill** -- mercy is never worse than killing. It
+  **drops nothing**, but each captive adds **25 gold** to the end-of-map income (`income_per_capture`, against 15
+  for a kill; Kheldar's x1.5 applies) -- the price of the weapon you didn't take.
+- **The deed**: each capture adds one to the unit's `ep_capture` count; the deed is earned at
+  `epithets.count_needed` = **5** and announced then ("Gunnar earns a deed: capture ('Taker')."); until then the map
+  reports "Gunnar has taken 3 of 5 captives." and the barracks shows "3 of 5". Counts are kept with the other deeds
+  and saved. `count_needed` is a new column on `epithets` (1 for every other deed).
+- **UI**: a unit with the action sees a line under the forecast -- "Capture ready: no kill, no drop, +25 gold
+  ransom. (C)" in green, or why not in grey -- and the controls line lists [C] when the squad has such a unit.
 
 ## Saving and loading
 
@@ -132,11 +156,14 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 - **B** on the overworld: the barracks (levels, certification, recertification, abilities, paragon).
 - **C**: the convoy (weapons). **S**: support conversations. **L**: save / load / new game.
-- On a map: EXP and level-ups after every fight (counters included), income and class unlocks on a win.
+- On a map: EXP and level-ups after every fight (counters included), **C** to capture (Capture units), income and class unlocks on a win.
 
 ## Not built / open
 
-- Faith has no paragon class; capture, miasma, delivery, dispersal and talk deeds aren't recordable yet.
+- Faith has no paragon class; the miasma, delivery, dispersal and talk deeds aren't recordable yet.
+- Capture: only Gunnar and the Pardoner can; Shove (the other half of Gunnar's kit) and Kheldar's bribe aren't built; the
+  50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
+  no enemy is more or less willing to surrender.
 - Mid-map state isn't saved: you save between maps (and the autosave fires after each win).
 - First-pass numbers: the fee curve, the +25 jump, the +5 growth, the EXP formula and the ability values are all
   rows in `promotion_rules` / `abilities` and want playtesting.
@@ -145,9 +172,10 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (50 parameters), `abilities` (40), `classes.unlock_map_id`, `epithets.tracked`;
+`canon.xlsx`: `promotion_rules` (52 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`epithets.tracked`, `epithets.count_needed`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
-`barracks_screen.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
+`barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, plus the ability checks in `test_combat_exchange`.

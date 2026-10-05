@@ -66,7 +66,7 @@ func _deeds() -> void:
 		gating.append(row["epithet_id"])
 	check(gating == ["ep_bosskill", "ep_solohold", "ep_nohit", "ep_capture"], "canon: four deeds gate paragon (%s)" % str(gating))
 	check(_p.is_tracked("ep_bosskill") and _p.is_tracked("ep_solohold") and _p.is_tracked("ep_nohit"), "boss kill, solo hold and no-hit are recorded")
-	check(not _p.is_tracked("ep_capture") and not _p.is_tracked("ep_talk") and not _p.is_tracked("ep_nonesuch"), "capture and talk aren't recordable yet (and unknown ones aren't)")
+	check(_p.is_tracked("ep_capture") and not _p.is_tracked("ep_talk") and not _p.is_tracked("ep_nonesuch"), "capture is recordable now; talk isn't (and unknown ones aren't)")
 	check(_p.deeds("u_jost").is_empty() and not _p.has_deed("u_jost", "ep_nohit"), "no deeds to start")
 	check(_p.record_deed("u_jost", "ep_nohit") == true, "the first time a deed is earned it says so")
 	check(_p.record_deed("u_jost", "ep_nohit") == false and _p.deeds("u_jost")["ep_nohit"] == 2, "repeats count but aren't 'new'")

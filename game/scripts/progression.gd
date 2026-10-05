@@ -272,19 +272,19 @@ func describe_levelup(unit_name: String, up: Dictionary) -> String:
 
 ## Gold for winning a map: base + per enemy defeated, x(1 + factor bonus) if
 ## Kheldar's Factor class is still on the map ("end-map income").
-func map_income(kills: int, factor_present: bool) -> int:
-	var gold := param("income_base") + param("income_per_kill") * kills
+func map_income(kills: int, factor_present: bool, captures: int = 0) -> int:
+	var gold := param("income_base") + param("income_per_kill") * kills + param("income_per_capture") * captures
 	if factor_present:
 		gold *= 1.0 + param("income_factor_bonus")
 	return int(round(gold))
 
 ## Pays a map's income once per playthrough. Returns the gold paid (0 if this
 ## map's income was already claimed).
-func award_income(map_id: String, kills: int, factor_present: bool) -> int:
+func award_income(map_id: String, kills: int, factor_present: bool, captures: int = 0) -> int:
 	if GameState.income_claimed.has(map_id):
 		return 0
 	GameState.income_claimed[map_id] = true
-	var gold := map_income(kills, factor_present)
+	var gold := map_income(kills, factor_present, captures)
 	GameState.gold += gold
 	return gold
 
@@ -605,19 +605,49 @@ func is_tracked(epithet_id: String) -> bool:
 func deeds(unit_id: String) -> Dictionary:
 	return GameState.deeds.get(unit_id, {}).duplicate()
 
-func has_deed(unit_id: String, epithet_id: String) -> bool:
-	return int(GameState.deeds.get(unit_id, {}).get(epithet_id, 0)) > 0
+## How many times a deed must be recorded before it counts as earned
+## (epithets.count_needed: 1 for most, 5 for a capture deed).
+func count_needed(epithet_id: String) -> int:
+	var n = epithet_row(epithet_id).get("count_needed")
+	return maxi(1, int(n)) if n != null else 1
 
-## Records a deed for a unit. Returns true the FIRST time they earn it (so the
-## caller can announce it), false for repeats, unknown epithets and unknown units.
+## Times this deed has been recorded for the unit (progress, earned or not).
+func deed_count(unit_id: String, epithet_id: String) -> int:
+	return int(GameState.deeds.get(unit_id, {}).get(epithet_id, 0))
+
+func has_deed(unit_id: String, epithet_id: String) -> bool:
+	return deed_count(unit_id, epithet_id) >= count_needed(epithet_id)
+
+## Records a deed for a unit. Returns true the moment they EARN it -- the record
+## that takes the count up to epithets.count_needed -- so the caller can announce
+## it once; false for repeats, earlier steps, unknown epithets and unknown units.
 func record_deed(unit_id: String, epithet_id: String, count: int = 1) -> bool:
 	if not is_known_unit(unit_id) or epithet_row(epithet_id).is_empty() or count <= 0:
 		return false
 	var mine: Dictionary = GameState.deeds.get(unit_id, {})
-	var first := int(mine.get(epithet_id, 0)) == 0
-	mine[epithet_id] = int(mine.get(epithet_id, 0)) + count
+	var before := int(mine.get(epithet_id, 0))
+	var need := count_needed(epithet_id)
+	mine[epithet_id] = before + count
 	GameState.deeds[unit_id] = mine
-	return first
+	return before < need and before + count >= need
+
+# ------------------------------------------------------------------- capture
+
+## Whether the unit's current class carries the Capture action
+## (classes.map_actions): Gunnar's bounty hunter, and the Pardoner hybrid.
+func can_capture(unit_id: String) -> bool:
+	var acts = class_row(unit_id).get("map_actions")
+	return acts != null and "capture" in String(acts).split("|", false)
+
+## Whether an enemy can be captured right now. Bosses never can; anyone else
+## must be at or below capture_hp_pct of their maximum HP. -> {"ok", "reason"}.
+func capture_check(hp: int, max_hp: int, is_boss: bool) -> Dictionary:
+	if is_boss:
+		return {"ok": false, "reason": "a boss will not surrender"}
+	var limit := int(floor(max_hp * param("capture_hp_pct") / 100.0))
+	if hp > limit:
+		return {"ok": false, "reason": "too strong to take (HP %d, needs %d or less)" % [hp, limit]}
+	return {"ok": true, "reason": ""}
 
 ## The unit's earned deeds that gate paragon, as epithet ids in table order.
 func gating_deeds_earned(unit_id: String) -> Array:

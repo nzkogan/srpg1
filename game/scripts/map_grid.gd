@@ -26,6 +26,8 @@ extends Node2D
 ##   F   = selected unit attacks the targeted enemy in weapon range (the
 ##         forecast panel shows damage / hit / crit / speed first; Tab or a
 ##         click on an enemy chooses the target)
+##   C   = Capture (units with the Capture action): take the targeted enemy
+##         alive once it is weakened -- it leaves the map, no kill, no drop
 ##   N / Enter = advance to the next turn
 ##   Escape = return to the overworld
 ##   S (after a win that raised a support rank) = read the new scene(s)
@@ -520,6 +522,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_attack_statue()
 		elif key_event.keycode == KEY_F:
 			_attack_enemy()
+		elif key_event.keycode == KEY_C:
+			_capture_enemy()
 		elif key_event.keycode == KEY_TAB:
 			_cycle_target()
 		elif key_event.keycode == KEY_E:
@@ -771,17 +775,21 @@ func _on_map_won() -> void:
 ## capped to what fits under the map; the viewer's NEW tags carry the rest.
 const MAX_SUPPORT_LINES_SHOWN := 2
 
-## Income and class unlocks for a win. Gold: 200 + 15 per enemy defeated (x1.5 if
-## Kheldar is still on the map), paid once per map. Returns the line to show.
+## Income and class unlocks for a win. Gold: 200 + 15 per enemy defeated + 25 per
+## enemy captured (x1.5 if Kheldar is still on the map), paid once per map. Returns the line to show.
 func _settle_rewards() -> String:
 	if map_id == "map_f00":
 		return ""     # the prologue has no income and none of the main roster
 	var kills := 0
+	var captures := 0
 	for e in enemies:
 		if e.defeated:
-			kills += 1
+			if e.get("captured", false):
+				captures += 1
+			else:
+				kills += 1
 	var factor := unit_positions.has("u_kheldar")
-	var gold := Progression.award_income(map_id, kills, factor)
+	var gold := Progression.award_income(map_id, kills, factor, captures)
 	var parts: Array[String] = []
 	if gold > 0:
 		parts.append("Income: +%d gold%s." % [gold, " (Kheldar's cut)" if factor else ""])
@@ -977,6 +985,66 @@ func _attack_enemy() -> void:
 	_update_status_label()
 	_update_forecast()
 
+## [C]: the selected unit takes the targeted enemy ALIVE. Only units whose class
+## carries the Capture action (classes.map_actions) may, the enemy must be at or
+## below capture_hp_pct of its HP and not a boss, and it takes the unit's action
+## for the turn. No exchange happens: the enemy simply leaves the map. It counts
+## as a fight (so it can't be a no-hit-map spoiler) and earns the EXP of a kill,
+## but drops nothing and pays a ransom at the end of the map instead
+## (income_per_capture). Each capture is one step toward the capture deed.
+func _capture_enemy() -> void:
+	if units.is_empty() or enemies.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or not Progression.can_capture(pid):
+		info_label.text = "%s has no Capture action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1):
+		return
+	var weapon := _weapon_for_unit(unit)
+	if weapon.is_empty():
+		info_label.text = "%s has no weapon to hold a captive with." % unit.get("name")
+		return
+	var target := _current_target(pos, weapon)
+	if target.is_empty():
+		info_label.text = "No enemy in range for %s." % unit.get("name")
+		return
+	var ename: String = target.archetype.get("name")
+	var check := Progression.capture_check(int(target.hp), int(target.max_hp), target.kind == "boss")
+	if not check["ok"]:
+		info_label.text = "The %s cannot be captured: %s." % [ename, check["reason"]]
+		return
+	var rng := rng_override
+	if rng == null:
+		rng = RandomNumberGenerator.new()
+		rng.randomize()
+	attacked_this_turn[pid] = true
+	fought_units[pid] = true
+	target.defeated = true
+	target["captured"] = true
+	_remove_enemy_token(target)
+	info_label.text = "%s takes the %s alive. It leaves the map and drops nothing." % [unit.get("name"), ename]
+	var more := _award_exp(unit, target, true, rng)
+	more.append_array(_capture_deed(pid, unit.get("name")))
+	info_label.text += "\n" + " ".join(more)
+	_update_status_label()
+	_update_forecast()
+
+## One more capture for `pid`: announces the deed when it is earned, else how far along it is.
+func _capture_deed(pid: String, unit_name: String) -> Array[String]:
+	var lines := _earn_deed(pid, "ep_capture", unit_name)
+	if lines.is_empty() and Progression.is_known_unit(pid) and map_id != "map_f00":
+		var need := Progression.count_needed("ep_capture")
+		var got := Progression.deed_count(pid, "ep_capture")
+		if got < need:
+			lines.append("%s has taken %d of %d captives." % [unit_name, got, need])
+	return lines
+
 ## "Sigrun hits the Looter for 7 damage. The Looter counters, hitting Sigrun for
 ## 3 damage. ..." -- one sentence per strike, in the order they happened.
 ## Labels are as they read mid-sentence ("Sigrun", "the Looter").
@@ -1096,6 +1164,7 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 	return {
 		"attacker": attacker, "defender": defender, "weapon": weapon, "def_weapon": def_weapon,
 		"distance": distance, "support": support, "support_text": _support_line(support),
+		"capture_text": _capture_text(pid, inst),
 		"atk": {"name": unit.get("name"), "weapon": _weapon_label(weapon, _uses_of(unit)), "uses": _uses_of(unit),
 			"level": unit.get("level", -1),
 			"hp": int(unit_hp.get(pid, 0)), "max_hp": int(unit.get("hp", 0))},
@@ -1103,6 +1172,16 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 			"level": int(inst.archetype.get("level", -1))},
 		"forecast": Combat.forecast(attacker, defender, weapon, def_weapon, distance),
 	}
+
+## The forecast panel's Capture line for a unit that has the action: "" for one
+## that doesn't, otherwise whether this enemy can be taken now, and why not.
+func _capture_text(pid: String, inst: Dictionary) -> String:
+	if not Progression.can_capture(pid):
+		return ""
+	var check := Progression.capture_check(int(inst.hp), int(inst.max_hp), inst.kind == "boss")
+	if not check["ok"]:
+		return "Capture: %s." % check["reason"]
+	return "Capture ready: no kill, no drop, +%d gold ransom." % int(Progression.param("income_per_capture"))
 
 ## "Iron Sword (45)" while the weapon's uses are tracked, else just its name.
 func _weapon_label(weapon: Dictionary, uses: int) -> String:
@@ -1508,6 +1587,10 @@ func _update_status_label() -> void:
 	]
 	lines.append(header)
 	var controls := "[F] attack -- [Tab] retarget -- [E] weapon -- [N] / Enter: next turn -- click a tile to move"
+	for u in units:
+		if _is_roster_unit(u) and Progression.can_capture(u.get("punit_id", "")):
+			controls = controls.replace("[Tab] retarget", "[C] capture -- [Tab] retarget")
+			break
 	if map_id == "map_f00":
 		controls = "[A] attack statue -- " + controls
 	lines.append(controls)

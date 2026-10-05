@@ -298,5 +298,17 @@
     "value": 3,
     "text": null,
     "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_capture_hp_pct",
+    "value": 50,
+    "text": null,
+    "notes": "Capture: an enemy can be captured once its HP is at or below this percent of its maximum. Bosses cannot be captured."
+  },
+  {
+    "param_id": "prm_income_per_capture",
+    "value": 25,
+    "text": null,
+    "notes": "Ransom: extra gold per enemy captured rather than defeated (a defeat is worth income_per_kill, so mercy pays better but drops no weapon)."
   }
 ]

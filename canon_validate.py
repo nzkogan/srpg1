@@ -28,6 +28,8 @@ from collections import Counter, defaultdict
 from openpyxl import load_workbook
 
 # Which column on which tab is the primary key, and what prefix its IDs must use.
+MAP_ACTIONS = {"capture"}   # actions a class adds on the battle map (classes.map_actions)
+
 PRIMARY_KEYS = {
     "sects": ("sect_id", "sect_"),
     "classes": ("class_id", "cls_"),
@@ -306,6 +308,13 @@ def main():
     for r in tabs["epithets"]:
         if r.get("tracked") not in ("yes", "no"):
             fail("c07", "blocking", f"epithets.{r['epithet_id']}", f"tracked '{r.get('tracked')}' must be yes or no")
+        cn = r.get("count_needed")
+        if not isinstance(cn, int) or cn < 1:
+            fail("c07", "blocking", f"epithets.{r['epithet_id']}", f"count_needed '{cn}' must be a whole number of at least 1")
+    for c in tabs["classes"]:
+        for act in split_multi(c.get("map_actions")):
+            if act not in MAP_ACTIONS:
+                fail("c07", "blocking", f"classes.{c['class_id']}", f"map_actions '{act}' is not one of {sorted(MAP_ACTIONS)}")
     for c in tabs["classes"]:
         um = c.get("unlock_map_id")
         if um in (None, ""):

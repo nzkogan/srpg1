@@ -6,7 +6,8 @@
     "telemetry_source": "combat log",
     "gates_paragon": "yes",
     "forge_vocab_token": "Slayer of",
-    "tracked": "yes"
+    "tracked": "yes",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_solohold",
@@ -15,7 +16,8 @@
     "telemetry_source": "position log",
     "gates_paragon": "yes",
     "forge_vocab_token": "of the Ford",
-    "tracked": "yes"
+    "tracked": "yes",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_nohit",
@@ -24,7 +26,8 @@
     "telemetry_source": "combat log",
     "gates_paragon": "yes",
     "forge_vocab_token": "Untouched",
-    "tracked": "yes"
+    "tracked": "yes",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_miasma",
@@ -33,7 +36,8 @@
     "telemetry_source": "terrain log",
     "gates_paragon": "no",
     "forge_vocab_token": "Ash-walker",
-    "tracked": "no"
+    "tracked": "no",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_delivery",
@@ -42,7 +46,8 @@
     "telemetry_source": "objective log",
     "gates_paragon": "no",
     "forge_vocab_token": "Carter",
-    "tracked": "no"
+    "tracked": "no",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_dispersal",
@@ -51,7 +56,8 @@
     "telemetry_source": "combat log",
     "gates_paragon": "no",
     "forge_vocab_token": "Merciful",
-    "tracked": "no"
+    "tracked": "no",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_talk",
@@ -60,7 +66,8 @@
     "telemetry_source": "dialogue log",
     "gates_paragon": "no",
     "forge_vocab_token": "Peacemaker",
-    "tracked": "no"
+    "tracked": "no",
+    "count_needed": 1
   },
   {
     "epithet_id": "ep_capture",
@@ -69,6 +76,7 @@
     "telemetry_source": "combat log",
     "gates_paragon": "yes",
     "forge_vocab_token": "Taker",
-    "tracked": "no"
+    "tracked": "yes",
+    "count_needed": 5
   }
 ]
