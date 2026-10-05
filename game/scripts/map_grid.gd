@@ -280,6 +280,8 @@ func _build_units() -> Array:
 		base["weapon_art"] = art
 		# proficient arts -- what a weapon's req_arts is checked against
 		base["arts"] = Equipment.unit_arts(unit_id)
+		if Progression.is_known_unit(unit_id):
+			_apply_progression(base, unit_id)
 		base["dmg_vs_statue"] = 0
 		base["what_they_do"] = "no weapon_art on their class (%s)" % class_row.get("name", "?")
 
@@ -741,8 +743,13 @@ func _next_turn() -> void:
 var _support_lines: Array[String] = []
 var _support_entries: Array = []   # this win's Supports.settle_map() results
 
+var _reward_text := ""
+
 func _on_map_won() -> void:
 	_support_lines.clear()
+	_reward_text = _settle_rewards()
+	if _reward_text != "":
+		call_deferred("_show_rewards")
 	_support_entries = Supports.settle_map(map_id)
 	for entry in _support_entries:
 		_support_lines.append(Supports.describe_raise(entry))
@@ -755,6 +762,29 @@ func _on_map_won() -> void:
 ## on d05 in testing), so the way into the viewer comes first and the list is
 ## capped to what fits under the map; the viewer's NEW tags carry the rest.
 const MAX_SUPPORT_LINES_SHOWN := 2
+
+## Income and class unlocks for a win. Gold: 200 + 15 per enemy defeated (x1.5 if
+## Kheldar is still on the map), paid once per map. Returns the line to show.
+func _settle_rewards() -> String:
+	if map_id == "map_f00":
+		return ""     # the prologue has no income and none of the main roster
+	var kills := 0
+	for e in enemies:
+		if e.defeated:
+			kills += 1
+	var factor := unit_positions.has("u_kheldar")
+	var gold := Progression.award_income(map_id, kills, factor)
+	var parts: Array[String] = []
+	if gold > 0:
+		parts.append("Income: +%d gold%s." % [gold, " (Kheldar's cut)" if factor else ""])
+	var unlocked := Progression.on_map_won(map_id)
+	if not unlocked.is_empty():
+		parts.append("Class unlocked: %s." % ", ".join(unlocked))
+	return " ".join(parts)
+
+func _show_rewards() -> void:
+	if status_label != null and _reward_text != "":
+		status_label.text += "\n" + _reward_text
 
 func _show_support_lines() -> void:
 	if info_label == null:
@@ -926,6 +956,10 @@ func _attack_enemy() -> void:
 		_kill_unit(pid)
 		info_label.text += " %s falls." % unit.get("name")
 		_check_defeat()
+	else:
+		var gained := _award_exp(unit, target, target.hp == 0, rng)
+		if not gained.is_empty():
+			info_label.text += "\n" + " ".join(gained)
 
 	_update_status_label()
 	_update_forecast()
@@ -975,6 +1009,19 @@ func _weapon_for_unit(unit: Dictionary) -> Dictionary:
 		return {}
 	return weapon
 
+## Copies a main unit's CURRENT stats, level and abilities (Progression) into
+## its roster row, replacing the starting values from unit_base_stats. Also the
+## way a level-up reaches the map. Returns the HP gained (for the live HP bar).
+func _apply_progression(row: Dictionary, unit_id: String) -> int:
+	Progression.ensure(unit_id)
+	var old_hp := int(row.get("hp", 0))
+	var stats := Progression.stats_for(unit_id)
+	for s in Progression.STATS:
+		row[s] = stats[s]
+	row["level"] = Progression.level(unit_id)
+	row["abilities"] = Progression.ability_effects(unit_id)
+	return int(row["hp"]) - old_hp
+
 ## True for the 18 main units, whose weapons live in Equipment.
 func _is_roster_unit(unit: Dictionary) -> bool:
 	return Canon.find_by("units", "unit_id", unit.get("punit_id", "")) != null
@@ -1019,6 +1066,8 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 			row = u
 			break
 	var c: Dictionary = row.duplicate()
+	c["cur_hp"] = int(unit_hp.get(pid, 0))     # for the abilities' HP conditions
+	c["max_hp"] = int(row.get("hp", 0))
 	c.merge(Supports.combat_keys(Supports.best_partner(pid, unit_positions, chapter_route).get("effect", {})))
 	return c
 
@@ -1035,8 +1084,10 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 		"attacker": attacker, "defender": defender, "weapon": weapon, "def_weapon": def_weapon,
 		"distance": distance, "support": support, "support_text": _support_line(support),
 		"atk": {"name": unit.get("name"), "weapon": _weapon_label(weapon, _uses_of(unit)), "uses": _uses_of(unit),
+			"level": unit.get("level", -1),
 			"hp": int(unit_hp.get(pid, 0)), "max_hp": int(unit.get("hp", 0))},
-		"def": {"name": inst.archetype.get("name"), "weapon": def_weapon.get("name", "none"), "hp": int(inst.hp), "max_hp": int(inst.max_hp)},
+		"def": {"name": inst.archetype.get("name"), "weapon": def_weapon.get("name", "none"), "hp": int(inst.hp), "max_hp": int(inst.max_hp),
+			"level": int(inst.archetype.get("level", -1))},
 		"forecast": Combat.forecast(attacker, defender, weapon, def_weapon, distance),
 	}
 
@@ -1171,6 +1222,13 @@ func _enemy_phase() -> void:
 		_enemy_act(inst, rng)
 		_check_defeat()
 
+## The live roster row for a player unit id ({} if none).
+func defender_row_for(pid: String) -> Dictionary:
+	for u in units:
+		if u.get("punit_id", "") == pid:
+			return u
+	return {}
+
 ## Expected damage dealt minus the weighted expected damage taken, from a forecast.
 func _exchange_score(fc: Dictionary, target_hp: int) -> float:
 	var a: Dictionary = fc["atk"]
@@ -1237,6 +1295,9 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	if int(unit_hp[pid]) == 0:
 		_kill_unit(pid)
 		enemy_log.append("%s falls." % uname)
+	elif int(result["def_strikes"]) > 0:
+		# the unit fought (countered): it earns EXP, though the log only shows level-ups
+		enemy_log.append_array(_award_exp(defender_row_for(pid), inst, inst.hp == 0, rng, false))
 	if inst.hp == 0:
 		enemy_log.append("The %s falls." % ename)
 		var drop := _defeat_enemy(inst)
@@ -1264,6 +1325,24 @@ func _enemy_move(inst: Dictionary, dest: Vector2i) -> void:
 	inst.pos = dest
 	if inst.token.has("container"):
 		inst.token.container.position = Vector2(dest.x * CELL_SIZE, dest.y * CELL_SIZE)
+
+## One fight's EXP for a main unit that fought `inst`: the lines to show (EXP
+## gained, then one per level reached). Applies the level-ups to the roster row
+## and raises current HP by any HP gained. Prologue and test units earn nothing.
+func _award_exp(unit: Dictionary, inst: Dictionary, killed: bool, rng: RandomNumberGenerator, show_exp: bool = true) -> Array[String]:
+	var lines: Array[String] = []
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or not unit_positions.has(pid):
+		return lines
+	var res := Progression.award_fight(pid, int(inst.archetype.get("level", 1)), killed, rng)
+	if show_exp:
+		lines.append("%s gains %d EXP." % [unit.get("name"), res["exp"]])
+	for up in res["levelups"]:
+		lines.append(Progression.describe_levelup(unit.get("name"), up))
+	if not res["levelups"].is_empty():
+		var hp_gain := _apply_progression(unit, pid)
+		unit_hp[pid] = int(unit_hp.get(pid, 0)) + maxi(0, hp_gain)
+	return lines
 
 ## A player unit leaves play (dead): token, position and all.
 func _kill_unit(pid: String) -> void:
@@ -1346,8 +1425,9 @@ func _update_info_label(reachable_count := -1) -> void:
 	var lines: Array[String] = []
 	lines.append("[1-9] select unit -- click a highlighted tile to move there")
 	var weapon_text := _weapon_label(_weapon_for_unit(unit), _uses_of(unit)) if not _weapon_for_unit(unit).is_empty() else "no weapon"
-	lines.append("Selected: %s -- move %s, %s, weapon %s ([E] switch), hp %s" % [
-		unit.get("name"), unit.get("move"), unit.get("movement_type"),
+	lines.append("Selected: %s%s -- move %s, %s, weapon %s ([E] switch), hp %s" % [
+		unit.get("name"), " (Lv %d)" % int(unit["level"]) if unit.has("level") and _is_roster_unit(unit) else "",
+		unit.get("move"), unit.get("movement_type"),
 		weapon_text, unit_hp.get(pid, unit.get("hp"))
 	])
 	if moved_this_turn.has(pid):

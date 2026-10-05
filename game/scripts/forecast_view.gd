@@ -78,6 +78,8 @@ static func bbcode(info: Dictionary) -> String:
 	lines.append(_cell("Triangle") + _cell(tint(triangle_word(a["triangle"]), a["triangle"])) +
 		_cell(tint(triangle_word(d["triangle"]), d["triangle"]) if counters else
 			tint(triangle_word(-int(a["triangle"])), -int(a["triangle"]))))
+	if int(atk.get("level", -1)) >= 0 and int(def.get("level", -1)) >= 0:
+		lines.append(_cell("Level") + _cell(str(atk["level"])) + _cell(str(def["level"])))
 	lines.append(_cell("HP") + _cell("%d / %d" % [atk["hp"], atk["max_hp"]]) + _cell("%d / %d" % [def["hp"], def["max_hp"]]))
 	var ac := _side_cells(a)
 	if counters:

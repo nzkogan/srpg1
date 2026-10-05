@@ -202,7 +202,7 @@ func _map_tests() -> void:
 	var top_rank: String = _sup.max_rank(chain)
 	var bonus: int = _sup.rank_effect(top_rank)["hit"]
 	var base_hit: int = _combat.hit_chance(unit, enemy.archetype, weapon)
-	check(base_hit < 85, "fixture: base hit %d leaves room for the bonus" % base_hit)
+	check(base_hit + bonus < 100, "fixture: base hit %d leaves room for the +%d bonus" % [base_hit, bonus])
 	var found := -1
 	for seed_value in 2000:
 		var r := RandomNumberGenerator.new()
