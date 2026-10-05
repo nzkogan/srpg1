@@ -712,7 +712,7 @@
     "signature_skill": "Corrosion",
     "provenance": "founded in-game",
     "notes": "lv30+, deed-gated",
-    "unlock_map_id": null
+    "unlock_map_id": "map_p_simurgh"
   },
   {
     "class_id": "cls_billman",

@@ -270,10 +270,12 @@ def main():
     REQUIRED_PARAMS = ["promote_min_level", "fee_base", "fee_per_level", "recert_fraction", "growth_bonus",
         "slots_base", "slots_every", "slots_promotion", "exp_per_level", "exp_base", "exp_per_diff", "exp_min", "exp_max",
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
-        "income_base", "income_per_kill", "income_factor_bonus"]
+        "income_base", "income_per_kill", "income_factor_bonus",
+        "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
+        "solo_hold_phases", "solo_hold_radius"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
-    for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
+    for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
         if f"prm_{need}" not in param_ids:
             fail("c07", "blocking", "promotion_rules", f"required parameter prm_{need} is missing")
     for r in tabs["promotion_rules"]:
@@ -301,14 +303,17 @@ def main():
         for col in ("hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"):
             if not isinstance(r.get(col), (int, float)):
                 fail("c07", "blocking", f"abilities.{aid}", f"{col} must be a number")
+    for r in tabs["epithets"]:
+        if r.get("tracked") not in ("yes", "no"):
+            fail("c07", "blocking", f"epithets.{r['epithet_id']}", f"tracked '{r.get('tracked')}' must be yes or no")
     for c in tabs["classes"]:
         um = c.get("unlock_map_id")
         if um in (None, ""):
             continue
         if um not in ids["maps"]:
             fail("c07", "blocking", f"classes.{c['class_id']}", f"unlock_map_id '{um}' does not exist")
-        if c.get("tier") != "hybrid":
-            fail("c07", "warning", f"classes.{c['class_id']}", "unlock_map_id only applies to hybrid-tier classes")
+        if c.get("tier") not in ("hybrid", "paragon"):
+            fail("c07", "warning", f"classes.{c['class_id']}", "unlock_map_id only applies to hybrid- and paragon-tier classes")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

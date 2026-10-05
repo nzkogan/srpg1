@@ -202,5 +202,101 @@
     "value": null,
     "text": "spd:3|dex:1|def:-2|hp:-2",
     "notes": "Flat stat overlay for a promoted class of this movement type (zero-sum by design). Swapped out, not lost, when recertifying."
+  },
+  {
+    "param_id": "prm_paragon_min_level",
+    "value": 30,
+    "text": null,
+    "notes": "Level at which a certified unit may take the paragon tier (canon: classes.notes \"lv30+, deed-gated\"). Still no cap and no gate: units keep levelling past it unpromoted."
+  },
+  {
+    "param_id": "prm_paragon_deeds_required",
+    "value": 1,
+    "text": null,
+    "notes": "How many epithets flagged gates_paragon the unit must have earned. Deeds are kept for the whole playthrough and never expire, so none can be missed."
+  },
+  {
+    "param_id": "prm_paragon_fee_base",
+    "value": 1000,
+    "text": null,
+    "notes": "Gold at paragon_min_level."
+  },
+  {
+    "param_id": "prm_paragon_fee_per_level",
+    "value": 150,
+    "text": null,
+    "notes": "Extra gold per level past paragon_min_level (same \"earliest is cheapest\" rule as the first tier)."
+  },
+  {
+    "param_id": "prm_paragon_growth_bonus",
+    "value": 5,
+    "text": null,
+    "notes": "Added to every growth rate for levels gained after taking the paragon tier, on top of growth_bonus."
+  },
+  {
+    "param_id": "prm_paragon_slots",
+    "value": 1,
+    "text": null,
+    "notes": "Extra ability slots on taking the paragon tier."
+  },
+  {
+    "param_id": "prm_solo_hold_phases",
+    "value": 3,
+    "text": null,
+    "notes": "ep_solohold: consecutive enemy phases a unit must stand on the same tile, attacked, with no ally nearby (canon: \"holds a choke alone for 3+ enemy phases\")."
+  },
+  {
+    "param_id": "prm_solo_hold_radius",
+    "value": 2,
+    "text": null,
+    "notes": "ep_solohold: \"alone\" means no other player unit within this many tiles (the support range)."
+  },
+  {
+    "param_id": "prm_paragon_jump_hp",
+    "value": 5,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_str",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_mag",
+    "value": 3,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_dex",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_spd",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_lck",
+    "value": 3,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_def",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
+  },
+  {
+    "param_id": "prm_paragon_jump_res",
+    "value": 3,
+    "text": null,
+    "notes": "Flat stat jump on taking the paragon tier (total +30), on top of the first-tier jump."
   }
 ]

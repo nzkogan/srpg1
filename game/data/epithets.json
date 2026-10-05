@@ -5,7 +5,8 @@
     "trigger": "kills a named boss in single combat",
     "telemetry_source": "combat log",
     "gates_paragon": "yes",
-    "forge_vocab_token": "Slayer of"
+    "forge_vocab_token": "Slayer of",
+    "tracked": "yes"
   },
   {
     "epithet_id": "ep_solohold",
@@ -13,7 +14,8 @@
     "trigger": "holds a choke alone for 3+ enemy phases",
     "telemetry_source": "position log",
     "gates_paragon": "yes",
-    "forge_vocab_token": "of the Ford"
+    "forge_vocab_token": "of the Ford",
+    "tracked": "yes"
   },
   {
     "epithet_id": "ep_nohit",
@@ -21,7 +23,8 @@
     "trigger": "clears a map without being struck",
     "telemetry_source": "combat log",
     "gates_paragon": "yes",
-    "forge_vocab_token": "Untouched"
+    "forge_vocab_token": "Untouched",
+    "tracked": "yes"
   },
   {
     "epithet_id": "ep_miasma",
@@ -29,7 +32,8 @@
     "trigger": "ends turn on miasma tiles 5+ times",
     "telemetry_source": "terrain log",
     "gates_paragon": "no",
-    "forge_vocab_token": "Ash-walker"
+    "forge_vocab_token": "Ash-walker",
+    "tracked": "no"
   },
   {
     "epithet_id": "ep_delivery",
@@ -37,7 +41,8 @@
     "trigger": "escorts a cargo unit to its goal",
     "telemetry_source": "objective log",
     "gates_paragon": "no",
-    "forge_vocab_token": "Carter"
+    "forge_vocab_token": "Carter",
+    "tracked": "no"
   },
   {
     "epithet_id": "ep_dispersal",
@@ -45,7 +50,8 @@
     "trigger": "routs levies below half HP without killing",
     "telemetry_source": "combat log",
     "gates_paragon": "no",
-    "forge_vocab_token": "Merciful"
+    "forge_vocab_token": "Merciful",
+    "tracked": "no"
   },
   {
     "epithet_id": "ep_talk",
@@ -53,7 +59,8 @@
     "trigger": "resolves an enemy by conversation",
     "telemetry_source": "dialogue log",
     "gates_paragon": "no",
-    "forge_vocab_token": "Peacemaker"
+    "forge_vocab_token": "Peacemaker",
+    "tracked": "no"
   },
   {
     "epithet_id": "ep_capture",
@@ -61,6 +68,7 @@
     "trigger": "captures rather than kills 5+ times",
     "telemetry_source": "combat log",
     "gates_paragon": "yes",
-    "forge_vocab_token": "Taker"
+    "forge_vocab_token": "Taker",
+    "tracked": "no"
   }
 ]
