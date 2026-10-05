@@ -286,6 +286,7 @@ func _take_highlighted() -> void:
 		_message = "%s is already carrying %d weapons." % [_name_of(u), Equipment.INVENTORY_SIZE]
 
 func leave() -> void:
+	SaveGame.autosave()
 	get_tree().change_scene_to_file(OVERWORLD_SCENE)
 
 func _unhandled_input(event: InputEvent) -> void:

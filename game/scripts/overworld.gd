@@ -28,7 +28,9 @@ extends Node2D
 ## to return here (see map_grid.gd). Press S to open the support conversation
 ## viewer (support_viewer.gd); Escape there returns here. Press C to open the
 ## convoy screen (convoy_screen.gd): who carries what between maps. Press B for
-## the barracks (barracks_screen.gd): levels, certification and abilities.
+## the barracks (barracks_screen.gd): levels, certification and abilities. Press
+## L to save, load or start a new game (save_screen.gd). Maps you have won are
+## drawn green.
 
 const AVAILABLE_SCENES := {
 	"map_f00": "res://scenes/map_f00.tscn",
@@ -103,6 +105,7 @@ const NODE_RADIUS := 24.0
 const NODE_SPACING := 150.0
 const NODE_Y := 160.0
 const AVAILABLE_COLOR := Color(0.30, 0.55, 0.85, 0.95)
+const WON_COLOR := Color(0.30, 0.68, 0.40, 0.95)
 const LOCKED_COLOR := Color(0.35, 0.35, 0.38, 0.95)
 const LINE_COLOR := Color(0.5, 0.5, 0.55, 0.8)
 
@@ -172,7 +175,8 @@ func _ready() -> void:
 		else "verdict: %s" % GameState.get_flag(HIEROPHANT_FLAG)
 	info_label.text = (
 		"Click a blue node to load its map (grey = no scene built, or locked). " +
-		"Press S to read support conversations, C for the convoy, B for the barracks. " +
+		"Press S to read support conversations, C for the convoy, B for the barracks, L to save or load. " +
+		_autosave_hint() +
 		"The Kaisareia Trial (ch_h32, %s) forks ch_h33_mercy vs. ch_h34_war1-3 -- " % verdict_text +
 		"only one branch is ever reachable in a given run. " +
 		"Route note: diadem (d) and assembly (a) chapters shown here are " +
@@ -180,6 +184,16 @@ func _ready() -> void:
 		"sequential path -- interleaved by chapter number for now, see this " +
 		"script's own header comment."
 	)
+
+## "Autosave found (2026-10-06 14:03): press L to load it. " on a fresh game that
+## has one waiting; otherwise nothing.
+func _autosave_hint() -> String:
+	if not GameState.won_maps.is_empty() or not GameState.progression.is_empty():
+		return ""
+	var info := SaveGame.slot_info("auto")
+	if not info["exists"] or info["damaged"]:
+		return ""
+	return "Autosave found (%s): press L to load it. " % SaveGame.format_time(info["saved_at"])
 
 func _draw_connections() -> void:
 	for i in range(nodes.size() - 1):
@@ -195,7 +209,8 @@ func _draw_nodes() -> void:
 		var rect := ColorRect.new()
 		rect.size = Vector2(NODE_RADIUS * 2, NODE_RADIUS * 2)
 		rect.position = n.pos - Vector2(NODE_RADIUS, NODE_RADIUS)
-		rect.color = AVAILABLE_COLOR if n.has_scene else LOCKED_COLOR
+		var won: bool = GameState.won_maps.has(n.map_row.get("map_id", ""))
+		rect.color = (WON_COLOR if won else AVAILABLE_COLOR) if n.has_scene else LOCKED_COLOR
 		add_child(rect)
 
 		var label := Label.new()
@@ -210,6 +225,9 @@ func _draw_nodes() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
 		get_tree().change_scene_to_file(Supports.VIEWER_SCENE)
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_L:
+		get_tree().change_scene_to_file(SaveGame.SCREEN_SCENE)
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_B:
 		get_tree().change_scene_to_file(Progression.SCREEN_SCENE)

@@ -757,6 +757,8 @@ func _on_map_won() -> void:
 	if _reward_text != "":
 		call_deferred("_show_rewards")
 	_support_entries = Supports.settle_map(map_id)
+	GameState.won_maps[map_id] = true
+	SaveGame.autosave()
 	for entry in _support_entries:
 		_support_lines.append(Supports.describe_raise(entry))
 	if not _support_lines.is_empty():

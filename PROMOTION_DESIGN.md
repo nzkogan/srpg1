@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -79,6 +79,45 @@ that don't exist.
 Act 2 against ~3,600 to certify twelve units at 300 -- enough to certify almost everyone around level 15-17,
 not enough to do it carelessly.
 
+## The paragon tier (second certification)
+
+Canon's paragon classes are "lv30+, deed-gated". The same principles apply: no cap, no gate, the earliest
+moment is the cheapest, and nothing can be missed.
+
+- **Requirements** (the barracks shows them as a ticked checklist): already certified, **level 30**, **one deed
+  that gates paragon**, and the fee -- **1000 gold at level 30, +150 for every level after**.
+- **Deeds** are canon's epithets whose `gates_paragon` is "yes": boss kill, solo hold, no-hit map, capture. They are
+  recorded during play per unit, **kept for the whole playthrough and never expire**, and announced the first time
+  a unit earns one. Recordable now (`epithets.tracked`): *boss kill* (the killing blow on a boss that only this
+  unit damaged -- "single combat" -- by attack or counter), *solo hold* (the same tile for 3 enemy phases running,
+  attacked each time, no ally within 2 tiles) and *no-hit map* (fought, and never hit, when the map is won; a unit
+  that never fought doesn't count). *Capture* needs a Capture action, and miasma, delivery, dispersal and talk need
+  mechanics that don't exist; the barracks lists them as "not recordable yet".
+- **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr; sword: Fianna
+  (sword + bow); bow: Donso; brawl: Toa; axe: Jaguar knight (axe + brawl) or Eagle knight; reason: Tzitzimitl (which also
+  needs the Simurgh paralogue won -- a drafted guess at canon's "paralogue"). A Billman, knowing axe *and* lance,
+  sees axe and lance paragons. **Faith has no paragon class in canon**; I left that as a gap rather than invent one.
+  Personal-class units take a *milestone* that keeps their class; Kest goes Thief -> Assassin or Trickster;
+  Dietmar and Torvald, already order tier, are eligible at 30 like anyone.
+- **What it gives**: another flat **+30** stat jump, **+5 more** growth on every stat, **+1 ability slot**, the class's
+  movement type and shape, and the class's canon signature skill as the first ability in its pool (Astra,
+  Deadeye, Fierce Iron Fist, Colossus, Stun, Corrosion, Charge -- as passive approximations).
+
+## Saving and loading
+
+State is split in `GameState` into `PERSISTED` (saved, with the type each must have) and `TRANSIENT` (one-shot UI
+hand-offs); a test fails if any new variable is added to neither, so new state can't silently go unsaved.
+`SaveGame` writes JSON to `user://saves/`: slots **auto**, **1**, **2**, **3**. Writes are crash-safe (write a temp
+file, read it back, then swap; the previous save is kept as `.bak` and load falls back to it if the main file is
+damaged). Saves carry a version; a save from a newer build is refused rather than guessed at, and `_migrate()` is
+where older formats get upgraded. A load validates every field's type before touching the game, so a bad file can
+never half-load.
+
+The **autosave** is written after every won map (after income, deeds and unlocks) and when you leave the barracks or
+convoy. It's off in headless runs so the test suites don't write to a real save directory. **L** on the overworld
+opens the save screen (save, load, delete, new game; overwriting, deleting and a new game all ask for a second
+press). The overworld draws won maps green and, on a fresh game, tells you if an autosave is waiting.
+
 ## Why this removes the min-max
 
 | Rule set | What delaying promotion does |
@@ -91,15 +130,14 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## In the game
 
-- **B** on the overworld: the barracks (levels, certification, recertification, abilities).
-- **C**: the convoy (weapons). **S**: support conversations.
+- **B** on the overworld: the barracks (levels, certification, recertification, abilities, paragon).
+- **C**: the convoy (weapons). **S**: support conversations. **L**: save / load / new game.
 - On a map: EXP and level-ups after every fight (counters included), income and class unlocks on a win.
 
 ## Not built / open
 
-- Only the first tier. Canon's paragon tier (lv30+, deed-gated) and a second milestone for personal classes are
-  not implemented; deeds should never expire if they are.
-- No save/load: progress resets on restart, like supports and equipment.
+- Faith has no paragon class; capture, miasma, delivery, dispersal and talk deeds aren't recordable yet.
+- Mid-map state isn't saved: you save between maps (and the autosave fires after each win).
 - First-pass numbers: the fee curve, the +25 jump, the +5 growth, the EXP formula and the ability values are all
   rows in `promotion_rules` / `abilities` and want playtesting.
 - The unlock maps are my thematic guesses; canon doesn't say when hybrids open.
@@ -107,7 +145,9 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (34 parameters), `abilities` (34), `classes.unlock_map_id`; validator rules c07i.
-Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd` (current-class
-proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks), `barracks_screen.gd`. Tests:
-`test_progression`, `test_progression_map`, `test_barracks`, plus the ability checks in `test_combat_exchange`.
+`canon.xlsx`: `promotion_rules` (50 parameters), `abilities` (40), `classes.unlock_map_id`, `epithets.tracked`;
+validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
+(current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
+`barracks_screen.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
+`test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
+`test_save_screen`, plus the ability checks in `test_combat_exchange`.

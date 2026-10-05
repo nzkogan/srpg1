@@ -1,8 +1,10 @@
 extends Node
 ## Runtime playthrough state -- flags set by player choices during play,
 ## distinct from Canon's static canon.xlsx-derived reference data. Canon
-## never changes at runtime; this does. In-memory only for now (resets on
-## restart) -- save/load persistence is a separate, unrequested feature.
+## never changes at runtime; this does. The SaveGame autoload writes it to
+## disk: every variable below is either listed in PERSISTED (saved and
+## restored) or in TRANSIENT (deliberately not), and a test fails if a new
+## variable is added to neither -- so state can't silently go unsaved.
 ##
 ## Flag ids/allowed_values are documented in canon.xlsx's canon_flags tab;
 ## this autoload doesn't validate against that table at runtime, it just
@@ -68,6 +70,80 @@ var deeds: Dictionary = {}
 
 ## map_id -> true once won (any playthrough action that wins it).
 var won_maps: Dictionary = {}
+
+## Variables that are saved, with the type each must have in a save file.
+## Adding gameplay state here is all it takes to persist it.
+const PERSISTED := {
+	"flags": TYPE_DICTIONARY, "support_ranks": TYPE_DICTIONARY, "support_points": TYPE_DICTIONARY,
+	"support_settled_maps": TYPE_DICTIONARY, "support_recent": TYPE_DICTIONARY,
+	"inventories": TYPE_DICTIONARY, "convoy": TYPE_ARRAY, "equipment_ready": TYPE_BOOL,
+	"drops_claimed": TYPE_DICTIONARY, "progression": TYPE_DICTIONARY, "gold": TYPE_INT,
+	"unlocked_classes": TYPE_DICTIONARY, "income_claimed": TYPE_DICTIONARY,
+	"deeds": TYPE_DICTIONARY, "won_maps": TYPE_DICTIONARY,
+}
+
+## Variables that are deliberately not saved: one-shot UI hand-offs.
+const TRANSIENT: Array[String] = ["support_focus"]
+
+## Back to a brand-new playthrough.
+func reset() -> void:
+	for key in PERSISTED:
+		match PERSISTED[key]:
+			TYPE_DICTIONARY: set(key, {})
+			TYPE_ARRAY: set(key, [])
+			TYPE_BOOL: set(key, false)
+			TYPE_INT: set(key, 0)
+	support_focus = ""
+
+## Every persisted variable as one dictionary (deep copies, safe to serialize).
+func to_dict() -> Dictionary:
+	var out := {}
+	for key in PERSISTED:
+		out[key] = get(key).duplicate(true) if PERSISTED[key] in [TYPE_DICTIONARY, TYPE_ARRAY] else get(key)
+	return out
+
+## "" if `data` is a loadable state, else why not. Missing keys are fine (they
+## take their defaults), unknown keys are ignored (a newer build's extras);
+## a key of the wrong type is an error. JSON has no int type, so an integral
+## float counts as an int (see restore()).
+func validate(data: Variant) -> String:
+	if typeof(data) != TYPE_DICTIONARY:
+		return "the state is not a dictionary"
+	for key in PERSISTED:
+		if not data.has(key):
+			continue
+		var v: Variant = data[key]
+		var want: int = PERSISTED[key]
+		var ok := typeof(v) == want or (want == TYPE_INT and typeof(v) == TYPE_FLOAT and is_equal_approx(v, round(v)))
+		if not ok:
+			return "'%s' has the wrong type" % key
+	return ""
+
+## JSON gives every number back as a float; turn integral floats back into ints,
+## all the way down. (Nothing in the playthrough state is a real fraction.)
+static func restore(value: Variant) -> Variant:
+	match typeof(value):
+		TYPE_FLOAT:
+			return int(value) if is_equal_approx(value, round(value)) else value
+		TYPE_DICTIONARY:
+			var d := {}
+			for k in value:
+				d[k] = restore(value[k])
+			return d
+		TYPE_ARRAY:
+			var a := []
+			for v in value:
+				a.append(restore(v))
+			return a
+	return value
+
+## Replaces the playthrough with `data` (after validate()). Missing keys reset
+## to their defaults first, so a partial save is a valid old save.
+func from_dict(data: Dictionary) -> void:
+	reset()
+	for key in PERSISTED:
+		if data.has(key):
+			set(key, restore(data[key]))
 
 func set_flag(flag_id: String, value: String) -> void:
 	flags[flag_id] = value

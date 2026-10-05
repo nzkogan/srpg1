@@ -168,7 +168,8 @@ func _refresh() -> void:
 		if opts[i]["locked"]:
 			_options_list.set_item_custom_fg_color(i, Color(BAD))
 	_option_index = clampi(_option_index, 0, maxi(0, opts.size() - 1))
-	_units_list.select(_unit_index)
+	if _units_list.item_count > 0:
+		_units_list.select(_unit_index)
 	if opts.size() > 0:
 		_options_list.select(_option_index)
 	_units_list.modulate = Color.WHITE if _column == COLUMN_UNITS else INACTIVE_TINT
@@ -388,6 +389,7 @@ func _a(noun: String) -> String:
 	return "%s %s" % ["an" if noun.substr(0, 1).to_lower() in ["a", "e", "i", "o", "u"] else "a", noun]
 
 func leave() -> void:
+	SaveGame.autosave()
 	get_tree().change_scene_to_file(OVERWORLD_SCENE)
 
 func _unhandled_input(event: InputEvent) -> void:
