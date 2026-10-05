@@ -48,6 +48,20 @@ var equipment_ready := false
 ## can't farm it.
 var drops_claimed: Dictionary = {}
 
+## Progression (see the Progression autoload). unit_id -> {"level", "exp",
+## "gains": {stat: int}, "class_id", "promoted", "shaped", "auto", "abilities"}.
+## Created the first time a unit is needed, so late joiners can be caught up.
+var progression: Dictionary = {}
+
+## Gold: earned at the end of maps, spent on certification.
+var gold := 0
+
+## class_id -> true once its unlock map has been won (hybrid classes).
+var unlocked_classes: Dictionary = {}
+
+## map_id -> true once that map's income has been paid, so replays can't farm.
+var income_claimed: Dictionary = {}
+
 func set_flag(flag_id: String, value: String) -> void:
 	flags[flag_id] = value
 

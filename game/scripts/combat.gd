@@ -41,6 +41,10 @@ class_name Combat
 ## attacker's weapon, passed separately): {art: String, might: int,
 ## hit: int, crit: int}.
 ##
+## Abilities (Progression) arrive as an optional "abilities" array of effect
+## dictionaries on a stat dict (hit/avoid/crit/dodge/dmg/guard/speed, each with a
+## "cond"), plus "cur_hp"/"max_hp" for the HP conditions. No key = no effect.
+##
 ## Support effects (Supports.RANK_EFFECTS) arrive as optional keys on the
 ## stat dicts, all default 0 when absent: sup_hit / sup_crit on the attacker,
 ## sup_avoid / sup_dodge on the defender. Supports.combat_keys() builds them.
@@ -77,6 +81,30 @@ const EFFECTIVE_MULT := 2
 
 static func is_magic_art(art: String) -> bool:
 	return MAGIC_ARTS.has(art)
+
+## Sum of one effect (hit, avoid, crit, dodge, dmg, guard, speed) over a unit's
+## abilities whose condition holds against `foe` while wielding `weapon`.
+static func ability_bonus(unit: Dictionary, foe: Dictionary, weapon: Dictionary, key: String) -> int:
+	var total := 0
+	for ab in unit.get("abilities", []):
+		var v := int(ab.get(key, 0))
+		if v != 0 and _cond_ok(String(ab.get("cond", "always")), unit, foe, weapon):
+			total += v
+	return total
+
+static func _cond_ok(cond: String, unit: Dictionary, foe: Dictionary, weapon: Dictionary) -> bool:
+	match cond:
+		"always":
+			return true
+		"hp_full":
+			return unit.has("max_hp") and int(unit.get("cur_hp", 0)) >= int(unit["max_hp"])
+		"hp_low":
+			return unit.has("max_hp") and int(unit.get("cur_hp", 0)) * 2 <= int(unit["max_hp"])
+	if cond.begins_with("vs_"):
+		return foe.get("movement_type", "") == cond.trim_prefix("vs_")
+	if cond.begins_with("art:"):
+		return weapon.get("art", "") == cond.trim_prefix("art:")
+	return false
 
 static func _pipe(value) -> Array:
 	if value == null or str(value) == "":
@@ -116,7 +144,7 @@ static func is_effective(weapon: Dictionary, defender: Dictionary) -> bool:
 static func attack_speed(unit: Dictionary, weapon: Dictionary) -> int:
 	var stat := "mag" if is_magic_art(String(weapon.get("art", ""))) else "str"
 	var burden := maxi(0, int(weapon.get("weight", 0)) - int(unit.get(stat, 0)))
-	return int(unit.get("spd", 0)) - burden
+	return int(unit.get("spd", 0)) - burden + ability_bonus(unit, {}, weapon, "speed")
 
 ## Returns {hit: int, damage: int} modifiers for attacker_art vs defender_art
 ## -- positive for advantage, negative for disadvantage, zero otherwise.
@@ -132,8 +160,9 @@ static func triangle_modifier(attacker_art: String, defender_art: String) -> Dic
 static func hit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dictionary) -> int:
 	var mod := triangle_modifier(triangle_art(weapon), defender.get("weapon_art", ""))
 	var atk_hit: float = weapon.get("hit", 0) + attacker.get("dex", 0) * 2 + attacker.get("lck", 0) / 2.0 \
-		+ attacker.get("sup_hit", 0)
-	var def_avoid: float = defender.get("spd", 0) * 2 + defender.get("lck", 0) + defender.get("sup_avoid", 0)
+		+ attacker.get("sup_hit", 0) + ability_bonus(attacker, defender, weapon, "hit")
+	var def_avoid: float = defender.get("spd", 0) * 2 + defender.get("lck", 0) + defender.get("sup_avoid", 0) \
+		+ ability_bonus(defender, attacker, {}, "avoid")
 	return clampi(int(round(atk_hit - def_avoid + mod.hit)), 0, 100)
 
 ## crit = weapon_crit + dex, minus defender's lck as crit avoid. Clamped
@@ -152,8 +181,9 @@ static func hit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dicti
 ## staying at 0 everywhere is a separate, not-yet-addressed calibration
 ## question (weapons.json data, not this formula).
 static func crit_chance(attacker: Dictionary, defender: Dictionary, weapon: Dictionary) -> int:
-	var atk_crit: float = weapon.get("crit", 0) + attacker.get("dex", 0) + attacker.get("sup_crit", 0)
-	var def_crit_avoid: float = defender.get("lck", 0) + defender.get("sup_dodge", 0)
+	var atk_crit: float = weapon.get("crit", 0) + attacker.get("dex", 0) + attacker.get("sup_crit", 0) \
+		+ ability_bonus(attacker, defender, weapon, "crit")
+	var def_crit_avoid: float = defender.get("lck", 0) + defender.get("sup_dodge", 0) + ability_bonus(defender, attacker, {}, "dodge")
 	return clampi(int(round(atk_crit - def_crit_avoid)), 0, 100)
 
 ## Physical arts use str/def; reason/faith use mag/res. Triangle adds a flat
@@ -163,9 +193,10 @@ static func damage(attacker: Dictionary, defender: Dictionary, weapon: Dictionar
 	var art: String = weapon.get("art", "")
 	var mod := triangle_modifier(triangle_art(weapon), defender.get("weapon_art", ""))
 	var atk_power: float = attacker.get("mag", 0) if is_magic_art(art) else attacker.get("str", 0)
-	var mitigation: float = defender.get("res", 0) if is_magic_art(art) else defender.get("def", 0)
+	var mitigation: float = (defender.get("res", 0) if is_magic_art(art) else defender.get("def", 0)) \
+		+ ability_bonus(defender, attacker, {}, "guard")
 	var base_might: float = weapon.get("might", 0) * (EFFECTIVE_MULT if is_effective(weapon, defender) else 1)
-	var might: float = base_might + mod.damage
+	var might: float = base_might + mod.damage + ability_bonus(attacker, defender, weapon, "dmg")
 	var power := atk_power + might
 	if is_crit:
 		power *= 3

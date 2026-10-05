@@ -26,6 +26,7 @@ func _initialize() -> void:
 	_speed()
 	_forecast()
 	_exchange()
+	_abilities()
 	print("%d checks, %d failed" % [_checks, _failures])
 	quit(1 if _failures > 0 else 0)
 
@@ -185,3 +186,57 @@ func _exchange() -> void:
 	var r1: Dictionary = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(99), 30, 30)
 	var r2: Dictionary = _combat.resolve_exchange(a, d, sword, sword, 1, _rng(99), 30, 30)
 	check(r1 == r2, "same seed, same exchange")
+
+func _ab(cond: String, over := {}) -> Dictionary:
+	var d := {"ability_id": "ab_t", "cond": cond, "hit": 0, "avoid": 0, "crit": 0, "dodge": 0, "dmg": 0, "guard": 0, "speed": 0, "exp_pct": 0}
+	d.merge(over, true)
+	return d
+
+func _abilities() -> void:
+	var sword: Dictionary = _w["wpn_sword_basic"]
+	var axe: Dictionary = _w["wpn_axe_basic"]
+	var base := _fighter()
+	var foe := _fighter()
+	var h0: int = _combat.hit_chance(base, foe, sword)
+	var c0: int = _combat.crit_chance(base, foe, sword)
+	var d0: int = _combat.damage(base, foe, sword, false)
+	var s0: int = _combat.attack_speed(base, sword)
+	check(h0 > 10 and h0 < 90, "fixture clear of the clamps (hit %d)" % h0)
+	# each effect, with its own key
+	var u := base.merged({"abilities": [_ab("always", {"hit": 6, "crit": 3, "dmg": 2, "speed": 1})]}, true)
+	check(_combat.hit_chance(u, foe, sword) == h0 + 6, "hit ability adds to hit")
+	check(_combat.crit_chance(u, foe, sword) == c0 + 3, "crit ability adds to crit")
+	check(_combat.damage(u, foe, sword, false) == d0 + 2, "dmg ability adds to damage")
+	check(_combat.attack_speed(u, sword) == s0 + 1, "speed ability adds to attack speed")
+	var f := foe.merged({"abilities": [_ab("always", {"avoid": 5, "dodge": 2, "guard": 3})]}, true)
+	check(_combat.hit_chance(base, f, sword) == h0 - 5, "avoid on the defender lowers the attacker's hit")
+	check(_combat.crit_chance(base, f, sword) == maxi(0, c0 - 2), "dodge lowers crit")
+	check(_combat.damage(base, f, sword, false) == d0 - 3, "guard lowers damage taken")
+	check(_combat.hit_chance(foe.merged({"abilities": [_ab("always", {"avoid": 40})]}, true), base, sword) == _combat.hit_chance(foe, base, sword), "an ability's avoid does nothing when its owner is the attacker")
+	check(_combat.damage(base, foe.merged({"abilities": [_ab("always", {"guard": 99})]}, true), sword, false) == 0, "guard floors damage at 0")
+	# conditions
+	var low := base.merged({"cur_hp": 10, "max_hp": 20, "abilities": [_ab("hp_low", {"dmg": 4})]}, true)
+	check(_combat.damage(low, foe, sword, false) == d0 + 4, "hp_low: at exactly half HP it applies")
+	var above := low.merged({"cur_hp": 11}, true)
+	check(_combat.damage(above, foe, sword, false) == d0, "hp_low: at 11/20 it doesn't")
+	var full := base.merged({"cur_hp": 20, "max_hp": 20, "abilities": [_ab("hp_full", {"dmg": 3})]}, true)
+	check(_combat.damage(full, foe, sword, false) == d0 + 3, "hp_full: at full HP it applies")
+	check(_combat.damage(full.merged({"cur_hp": 19}, true), foe, sword, false) == d0, "hp_full: one HP short it doesn't")
+	check(_combat.damage(base.merged({"abilities": [_ab("hp_full", {"dmg": 3})]}, true), foe, sword, false) == d0, "HP conditions need cur_hp/max_hp (absent: off)")
+	var rider := foe.merged({"movement_type": "riding"}, true)
+	var stake := base.merged({"abilities": [_ab("vs_riding", {"dmg": 4})]}, true)
+	check(_combat.damage(stake, rider, sword, false) == _combat.damage(base, rider, sword, false) + 4, "vs_riding applies against a rider")
+	check(_combat.damage(stake, foe, sword, false) == d0, "...and not against infantry")
+	var focus := base.merged({"abilities": [_ab("art:axe", {"hit": 8})]}, true)
+	check(_combat.hit_chance(focus, foe, axe) == _combat.hit_chance(base, foe, axe) + 8, "art:axe applies while wielding an axe")
+	check(_combat.hit_chance(focus, foe, sword) == h0, "...and not with a sword")
+	check(_combat.attack_speed(base.merged({"abilities": [_ab("vs_riding", {"speed": 5})]}, true), sword) == s0, "foe-dependent conditions are off when there is no foe (speed)")
+	check(_combat.hit_chance(base.merged({"abilities": [_ab("when_sad", {"hit": 50})]}, true), foe, sword) == h0, "an unknown condition never applies")
+	# stacking and the forecast
+	var two := base.merged({"abilities": [_ab("always", {"hit": 5}), _ab("always", {"hit": 3})]}, true)
+	check(_combat.hit_chance(two, foe, sword) == h0 + 8, "abilities stack")
+	var fc: Dictionary = _combat.forecast(u, foe, sword, sword, 1)
+	check(fc["atk"]["hit"] == h0 + 6 and fc["atk"]["damage"] == d0 + 2 and fc["atk"]["speed"] == s0 + 1, "the forecast includes ability effects")
+	var doubler := base.merged({"abilities": [_ab("always", {"speed": 4})]}, true)
+	check(_combat.forecast(doubler, foe, sword, sword, 1)["atk"]["hits"] == 2, "a +4 speed ability can earn the doubling")
+	check(_combat.hit_chance(base, foe, sword) == h0 and _combat.damage(base, foe, sword, false) == d0, "no abilities key: nothing changes")

@@ -7,7 +7,8 @@ extends Node
 ## Rules (a design proposal -- canon only supplies the numbers):
 ##   - Every unit starts with the basic weapon of their class's primary art.
 ##   - A unit may only equip a weapon if they are proficient in every art it
-##     requires (Combat.can_wield), so a halberd needs axe AND lance.
+##     requires (Combat.can_wield), so a halberd needs axe AND lance, and
+##     high-tier weapons need a promoted class (Progression.can_use_tier).
 ##   - The equipped weapon is the first wieldable entry in the unit's
 ##     inventory (at most INVENTORY_SIZE entries). Swapping is free on a map,
 ##     between maps in the convoy screen.
@@ -57,7 +58,9 @@ func unit_arts(unit_id: String) -> Array:
 	var unit = Canon.find_by("units", "unit_id", unit_id)
 	if unit == null:
 		return []
-	var cls = Canon.find_by("classes", "class_id", unit.get("base_class_id", ""))
+	# the unit's CURRENT class (certification can change it), else its starting one
+	var class_id: String = Progression.class_id_of(unit_id) if Progression.is_known_unit(unit_id) else unit.get("base_class_id", "")
+	var cls = Canon.find_by("classes", "class_id", class_id)
 	if cls == null:
 		return []
 	var arts: Array = []
@@ -68,7 +71,8 @@ func unit_arts(unit_id: String) -> Array:
 
 func can_wield(unit_id: String, weapon_id: String) -> bool:
 	var row := weapon_row(weapon_id)
-	return not row.is_empty() and CombatScript.can_wield(unit_arts(unit_id), row)
+	return not row.is_empty() and CombatScript.can_wield(unit_arts(unit_id), row) \
+		and Progression.can_use_tier(unit_id, String(row.get("tier", "")))
 
 ## Seeds the convoy from canon the first time anything asks.
 func ensure_ready() -> void:
