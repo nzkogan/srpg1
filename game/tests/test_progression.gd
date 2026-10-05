@@ -188,7 +188,7 @@ func _income_and_unlocks() -> void:
 	for cls in root.get_node("Canon").get_table("classes"):
 		if cls.get("unlock_map_id") != null:
 			all_unlocks[cls["class_id"]] = cls["unlock_map_id"]
-	check(all_unlocks.size() == 5, "five hybrid classes carry an unlock map")
+	check(all_unlocks.size() == 6 and all_unlocks["cls_tzitzimitl"] == "map_p_simurgh", "five hybrid classes and the Tzitzimitl carry an unlock map")
 
 func _certification() -> void:
 	check(_p.promotion_fee(15) == 300 and _p.promotion_fee(16) == 400 and _p.promotion_fee(20) == 800, "fee: 300 at 15, +100 a level after")
