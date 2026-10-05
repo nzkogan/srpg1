@@ -30,6 +30,9 @@ const STATS: Array[String] = ["hp", "str", "mag", "dex", "spd", "lck", "def", "r
 const ARTS: Array[String] = ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 const PROMOTED_TIERS: Array[String] = ["order", "paragon", "hybrid"]
 
+## The between-maps screen for all of this (opened with B on the overworld).
+const SCREEN_SCENE := "res://scenes/barracks_screen.tscn"
+
 var _params: Dictionary = {}     # param name -> number
 var _shapes: Dictionary = {}     # movement type -> {stat: int}
 var _abilities: Array = []       # ability rows, table order
@@ -74,7 +77,7 @@ func _profile(unit_id: String) -> Dictionary:
 	return row if row != null else {}
 
 func class_row(unit_id: String) -> Dictionary:
-	var row = Canon.find_by("classes", "class_id", state(unit_id).get("class_id", ""))
+	var row = Canon.find_by("classes", "class_id", _peek(unit_id).get("class_id", ""))
 	return row if row != null else {}
 
 func is_known_unit(unit_id: String) -> bool:
@@ -82,26 +85,44 @@ func is_known_unit(unit_id: String) -> bool:
 
 # ------------------------------------------------------------------ state
 
+## A fresh state for a unit at its starting level and class (not stored).
+func _default_state(unit_id: String) -> Dictionary:
+	var base := _base_row(unit_id)
+	var cls = Canon.find_by("classes", "class_id", _unit_row(unit_id)["base_class_id"])
+	var gains := {}
+	for s in STATS:
+		gains[s] = 0
+	return {
+		"level": int(base["level"]), "exp": 0, "gains": gains,
+		"class_id": _unit_row(unit_id)["base_class_id"],
+		"promoted": cls != null and PROMOTED_TIERS.has(cls["tier"]),
+		"shaped": false, "auto": true, "abilities": [],
+	}
+
+## The unit's state WITHOUT creating it: the stored one, else a fresh default.
+## Read-only accessors use this so merely looking at a unit (the convoy or
+## barracks screens) never "joins" them to the squad early.
+func _peek(unit_id: String) -> Dictionary:
+	_index()
+	if GameState.progression.has(unit_id):
+		return GameState.progression[unit_id]
+	return _default_state(unit_id) if is_known_unit(unit_id) else {}
+
+## True once the unit has been fielded (its state exists).
+func has_state(unit_id: String) -> bool:
+	return GameState.progression.has(unit_id)
+
 ## The unit's progression state, created on first use. Creation is when
-## late-joiner catch-up happens, so call ensure() (or any accessor) when a unit
-## first becomes available -- the battle map does so for everyone it deploys.
+## late-joiner catch-up happens, so the battle map calls ensure() for everyone
+## it deploys; anything that changes a unit (EXP, certification, abilities) goes
+## through here too.
 func state(unit_id: String) -> Dictionary:
 	_index()
 	if GameState.progression.has(unit_id):
 		return GameState.progression[unit_id]
 	if not is_known_unit(unit_id):
 		return {}
-	var base := _base_row(unit_id)
-	var cls = Canon.find_by("classes", "class_id", _unit_row(unit_id)["base_class_id"])
-	var gains := {}
-	for s in STATS:
-		gains[s] = 0
-	var st := {
-		"level": int(base["level"]), "exp": 0, "gains": gains,
-		"class_id": _unit_row(unit_id)["base_class_id"],
-		"promoted": cls != null and PROMOTED_TIERS.has(cls["tier"]),
-		"shaped": false, "auto": true, "abilities": [],
-	}
+	var st := _default_state(unit_id)
 	var median := squad_median()
 	GameState.progression[unit_id] = st      # registered before catch-up so growth bonuses read its state
 	if median >= 0 and median - st["level"] > int(param("catchup_gap")):
@@ -112,16 +133,16 @@ func ensure(unit_id: String) -> Dictionary:
 	return state(unit_id)
 
 func level(unit_id: String) -> int:
-	return int(state(unit_id).get("level", 0))
+	return int(_peek(unit_id).get("level", 0))
 
 func exp_of(unit_id: String) -> int:
-	return int(state(unit_id).get("exp", 0))
+	return int(_peek(unit_id).get("exp", 0))
 
 func is_promoted(unit_id: String) -> bool:
-	return bool(state(unit_id).get("promoted", false))
+	return bool(_peek(unit_id).get("promoted", false))
 
 func class_id_of(unit_id: String) -> String:
-	return String(state(unit_id).get("class_id", ""))
+	return String(_peek(unit_id).get("class_id", ""))
 
 func class_name_of(unit_id: String) -> String:
 	return String(class_row(unit_id).get("name", ""))
@@ -146,7 +167,7 @@ func squad_median(exclude: String = "") -> int:
 ## Base stats (at the unit's starting level) + everything gained since + the
 ## flat shape of a certified class's movement type. HP never below 1.
 func stats_for(unit_id: String) -> Dictionary:
-	var st := state(unit_id)
+	var st := _peek(unit_id)
 	var base := _base_row(unit_id)
 	if st.is_empty() or base.is_empty():
 		return {}
@@ -286,7 +307,7 @@ func recert_fee(at_level: int) -> int:
 ## Personal-class units have a milestone instead (one entry: their own class);
 ## shadow units advance along their own line.
 func promotion_options(unit_id: String) -> Array:
-	var st := state(unit_id)
+	var st := _peek(unit_id)
 	var out: Array = []
 	if st.is_empty() or st["promoted"]:
 		return out
@@ -354,9 +375,25 @@ func promote(unit_id: String, class_id: String) -> Dictionary:
 	_trim_abilities(unit_id)
 	return {"ok": true, "reason": "", "fee": fee}
 
+## The stats the unit would have right after certifying into class_id: now +
+## the flat jump + that class's movement shape. Read-only; {} for an unknown
+## unit or class.
+func preview_promotion(unit_id: String, class_id: String) -> Dictionary:
+	var cls = Canon.find_by("classes", "class_id", class_id)
+	var now := stats_for(unit_id)
+	if cls == null or now.is_empty():
+		return {}
+	var shape: Dictionary = _shapes.get(String(cls["movement"]), {})
+	var cur_shape: Dictionary = _shapes.get(String(class_row(unit_id).get("movement", "")), {}) if _peek(unit_id)["shaped"] else {}
+	var out := {}
+	for s in STATS:
+		out[s] = int(now[s]) - int(cur_shape.get(s, 0)) + int(param("jump_%s" % s)) * (0 if _peek(unit_id)["promoted"] else 1) + int(shape.get(s, 0))
+	out["hp"] = maxi(1, out["hp"])
+	return out
+
 ## Order classes of the same art the unit could switch to (not its current one).
 func recertify_options(unit_id: String) -> Array:
-	var st := state(unit_id)
+	var st := _peek(unit_id)
 	var cur := class_row(unit_id)
 	var out: Array = []
 	if st.is_empty() or not st["promoted"] or not st["shaped"] or cur.is_empty() or cur["tier"] != "order":
@@ -426,7 +463,7 @@ func _tag_priority(tag: String) -> int:
 	return 4
 
 func slots(unit_id: String) -> int:
-	var st := state(unit_id)
+	var st := _peek(unit_id)
 	if st.is_empty():
 		return 0
 	var every := maxi(1, int(param("slots_every")))
@@ -438,7 +475,7 @@ func slots(unit_id: String) -> int:
 ## The ability ids the unit has equipped: the player's picks if they have made
 ## any, otherwise the pool's defaults, never more than the slots.
 func chosen(unit_id: String) -> Array:
-	var st := state(unit_id)
+	var st := _peek(unit_id)
 	if st.is_empty():
 		return []
 	var ids: Array = []

@@ -27,7 +27,8 @@ extends Node2D
 ## Controls: click a blue node to load its map. Press Escape inside any map
 ## to return here (see map_grid.gd). Press S to open the support conversation
 ## viewer (support_viewer.gd); Escape there returns here. Press C to open the
-## convoy screen (convoy_screen.gd): who carries what between maps.
+## convoy screen (convoy_screen.gd): who carries what between maps. Press B for
+## the barracks (barracks_screen.gd): levels, certification and abilities.
 
 const AVAILABLE_SCENES := {
 	"map_f00": "res://scenes/map_f00.tscn",
@@ -171,7 +172,7 @@ func _ready() -> void:
 		else "verdict: %s" % GameState.get_flag(HIEROPHANT_FLAG)
 	info_label.text = (
 		"Click a blue node to load its map (grey = no scene built, or locked). " +
-		"Press S to read support conversations, C for the convoy. " +
+		"Press S to read support conversations, C for the convoy, B for the barracks. " +
 		"The Kaisareia Trial (ch_h32, %s) forks ch_h33_mercy vs. ch_h34_war1-3 -- " % verdict_text +
 		"only one branch is ever reachable in a given run. " +
 		"Route note: diadem (d) and assembly (a) chapters shown here are " +
@@ -209,6 +210,9 @@ func _draw_nodes() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
 		get_tree().change_scene_to_file(Supports.VIEWER_SCENE)
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_B:
+		get_tree().change_scene_to_file(Progression.SCREEN_SCENE)
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_C:
 		get_tree().change_scene_to_file(Equipment.SCREEN_SCENE)

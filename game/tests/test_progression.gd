@@ -24,6 +24,7 @@ func _initialize() -> void:
 	_eq = root.get_node("Equipment")
 	await process_frame
 	_reset(); _params_and_state()
+	_reset(); _looking_does_not_join()
 	_reset(); _catchup()
 	_reset(); _exp_and_levels()
 	_reset(); _income_and_unlocks()
@@ -75,6 +76,16 @@ func _params_and_state() -> void:
 	check(_p.state("u_nobody").is_empty() and not _p.is_known_unit("u_nobody"), "unknown units have no state")
 	check(_gs.progression.has("u_jost"), "state lives in GameState")
 	check(_p.growth_rate("u_jost", "str") == 55 and _p.growth_rate("u_dietmar", "str") == 25, "growth rate = the unit's profile, +5 once promoted (Dietmar 20 + 5)")
+
+func _looking_does_not_join() -> void:
+	_squad([20])
+	check(not _p.has_state("u_rinsa"), "(Rinsa not fielded yet)")
+	_p.level("u_rinsa"); _p.stats_for("u_rinsa"); _p.chosen("u_rinsa"); _p.slots("u_rinsa"); _p.is_promoted("u_rinsa")
+	_p.promotion_options("u_rinsa"); _p.class_id_of("u_rinsa"); _p.can_use_tier("u_rinsa", "high"); _eq.unit_arts("u_rinsa"); _eq.can_wield("u_rinsa", "wpn_brawl_basic")
+	check(not _p.has_state("u_rinsa") and not _gs.progression.has("u_rinsa"), "read-only accessors never create a unit's state (so looking can't join anyone early)")
+	check(_p.level("u_rinsa") == 5 and _p.stats_for("u_rinsa")["str"] == 8, "...and report the unit's starting values")
+	_p.ensure("u_rinsa")
+	check(_p.has_state("u_rinsa") and _p.level("u_rinsa") == 17, "ensure() is what joins them, with the catch-up")
 
 func _catchup() -> void:
 	# a squad at 15: a new level-5 unit arrives at 12
@@ -291,6 +302,7 @@ func _recertification() -> void:
 	check(_p.recertify_options("u_ricberta").is_empty(), "an unpromoted unit can't recertify")
 
 func _abilities() -> void:
+	_p.state("u_jost")      # fielded (state is created by ensure/state, not by merely looking)
 	var pool_ids: Array = []
 	for row in _p.pool("u_jost"):
 		pool_ids.append(row["ability_id"])
