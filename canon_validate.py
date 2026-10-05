@@ -62,6 +62,8 @@ PRIMARY_KEYS = {
     "prologue_roster": ("punit_id", "pu_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "supports": ("chain_id", "sup_"),
+    "promotion_rules": ("param_id", "prm_"),
+    "abilities": ("ability_id", "ab_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -263,6 +265,50 @@ def main():
         d = r.get("drop_weapon_id")
         if d not in (None, "") and d not in weapon_by_id:
             fail("c07", "blocking", f"encounter_spawns.{r['spawn_id']}", f"drop_weapon_id '{d}' does not exist")
+
+    # --- c07i progression: required parameters, ability tags and conditions, class unlocks
+    REQUIRED_PARAMS = ["promote_min_level", "fee_base", "fee_per_level", "recert_fraction", "growth_bonus",
+        "slots_base", "slots_every", "slots_promotion", "exp_per_level", "exp_base", "exp_per_diff", "exp_min", "exp_max",
+        "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
+        "income_base", "income_per_kill", "income_factor_bonus"]
+    STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
+    param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
+    for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
+        if f"prm_{need}" not in param_ids:
+            fail("c07", "blocking", "promotion_rules", f"required parameter prm_{need} is missing")
+    for r in tabs["promotion_rules"]:
+        pid = r["param_id"]
+        if pid.startswith("prm_shape_"):
+            for part in split_multi(r.get("text")):
+                stat, _, amount = part.partition(":")
+                if stat not in STATS or not amount.lstrip("-").isdigit():
+                    fail("c07", "blocking", f"promotion_rules.{pid}", f"shape entry '{part}' must be <stat>:<integer>")
+        elif not isinstance(r.get("value"), (int, float)):
+            fail("c07", "blocking", f"promotion_rules.{pid}", "value must be a number")
+    class_by_id = {c["class_id"]: c for c in tabs["classes"]}
+    CONDS = ["always", "hp_full", "hp_low"] + [f"vs_{m}" for m in MATRIX_MOVES] + [f"art:{a}" for a in MATRIX_ARTS]
+    for r in tabs["abilities"]:
+        aid = r["ability_id"]
+        if r.get("cond") not in CONDS:
+            fail("c07", "blocking", f"abilities.{aid}", f"cond '{r.get('cond')}' is not one of {CONDS}")
+        for tag in split_multi(r.get("pool")):
+            kind, _, val = tag.partition(":")
+            ok = (tag == "any" or (kind == "art" and val in MATRIX_ARTS) or (kind == "move" and val in MATRIX_MOVES)
+                  or (kind == "tier" and val in ("commoner", "trained", "order", "hybrid", "paragon", "shadow", "personal"))
+                  or (kind == "class" and val in class_by_id))
+            if not ok:
+                fail("c07", "blocking", f"abilities.{aid}", f"pool tag '{tag}' does not resolve")
+        for col in ("hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"):
+            if not isinstance(r.get(col), (int, float)):
+                fail("c07", "blocking", f"abilities.{aid}", f"{col} must be a number")
+    for c in tabs["classes"]:
+        um = c.get("unlock_map_id")
+        if um in (None, ""):
+            continue
+        if um not in ids["maps"]:
+            fail("c07", "blocking", f"classes.{c['class_id']}", f"unlock_map_id '{um}' does not exist")
+        if c.get("tier") != "hybrid":
+            fail("c07", "warning", f"classes.{c['class_id']}", "unlock_map_id only applies to hybrid-tier classes")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

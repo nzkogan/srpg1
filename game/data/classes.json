@@ -9,7 +9,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "base",
-    "notes": null
+    "notes": null,
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_sword",
@@ -21,7 +22,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_lance",
@@ -33,7 +35,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_axe",
@@ -45,7 +48,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_bow",
@@ -57,7 +61,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_brawl",
@@ -69,7 +74,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_reason",
@@ -81,7 +87,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tr_faith",
@@ -93,7 +100,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "base",
-    "notes": "single aptitude, lv5+"
+    "notes": "single aptitude, lv5+",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_swordmaster",
@@ -105,7 +113,8 @@
     "promotes_from": "cls_tr_sword",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_sentinel",
@@ -117,7 +126,8 @@
     "promotes_from": "cls_tr_sword",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_cavalier",
@@ -129,7 +139,8 @@
     "promotes_from": "cls_tr_sword",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_dragoon",
@@ -141,7 +152,8 @@
     "promotes_from": "cls_tr_sword",
     "signature_skill": "jump-lunge",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_halberdier",
@@ -153,7 +165,8 @@
     "promotes_from": "cls_tr_lance",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_general",
@@ -165,7 +178,8 @@
     "promotes_from": "cls_tr_lance",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_paladin",
@@ -177,7 +191,8 @@
     "promotes_from": "cls_tr_lance",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_falcon_knight",
@@ -189,7 +204,8 @@
     "promotes_from": "cls_tr_lance",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_warrior",
@@ -201,7 +217,8 @@
     "promotes_from": "cls_tr_axe",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_housecarl",
@@ -213,7 +230,8 @@
     "promotes_from": "cls_tr_axe",
     "signature_skill": "Smite",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_axe_knight",
@@ -225,7 +243,8 @@
     "promotes_from": "cls_tr_axe",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_wyvern_lord",
@@ -237,7 +256,8 @@
     "promotes_from": "cls_tr_axe",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_sniper",
@@ -249,7 +269,8 @@
     "promotes_from": "cls_tr_bow",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_pavisier",
@@ -261,7 +282,8 @@
     "promotes_from": "cls_tr_bow",
     "signature_skill": "Stake",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_bow_knight",
@@ -273,7 +295,8 @@
     "promotes_from": "cls_tr_bow",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_sky_archer",
@@ -285,7 +308,8 @@
     "promotes_from": "cls_tr_bow",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_grappler",
@@ -297,7 +321,8 @@
     "promotes_from": "cls_tr_brawl",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_war_monk",
@@ -309,7 +334,8 @@
     "promotes_from": "cls_tr_brawl",
     "signature_skill": "Resolve",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_warlock",
@@ -321,7 +347,8 @@
     "promotes_from": "cls_tr_reason",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_baron",
@@ -333,7 +360,8 @@
     "promotes_from": "cls_tr_reason",
     "signature_skill": "casting tank (FE4 lineage)",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_mage_knight",
@@ -345,7 +373,8 @@
     "promotes_from": "cls_tr_reason",
     "signature_skill": "surveyor kit",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_bishop",
@@ -357,7 +386,8 @@
     "promotes_from": "cls_tr_faith",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_great_shield",
@@ -369,7 +399,8 @@
     "promotes_from": "cls_tr_faith",
     "signature_skill": "Pavise/Aegis",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_valkyrie",
@@ -381,7 +412,8 @@
     "promotes_from": "cls_tr_faith",
     "signature_skill": "Paragon",
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_seraph_knight",
@@ -393,7 +425,8 @@
     "promotes_from": "cls_tr_faith",
     "signature_skill": null,
     "provenance": "state certification",
-    "notes": "lv15+, pair-certified"
+    "notes": "lv15+, pair-certified",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_ferryman",
@@ -405,7 +438,8 @@
     "promotes_from": "cls_tr_axe",
     "signature_skill": null,
     "provenance": "setting-new",
-    "notes": "carry"
+    "notes": "carry",
+    "unlock_map_id": "map_p_macuil"
   },
   {
     "class_id": "cls_pardoner",
@@ -417,7 +451,8 @@
     "promotes_from": "cls_tr_bow",
     "signature_skill": null,
     "provenance": "setting-new",
-    "notes": "seal not kill"
+    "notes": "seal not kill",
+    "unlock_map_id": "map_h33_mercy"
   },
   {
     "class_id": "cls_ash_ascetic",
@@ -429,7 +464,8 @@
     "promotes_from": "cls_tr_brawl",
     "signature_skill": null,
     "provenance": "setting-new",
-    "notes": "the Stepped Coast"
+    "notes": "the Stepped Coast",
+    "unlock_map_id": "map_p_indech"
   },
   {
     "class_id": "cls_miasma_warden",
@@ -441,7 +477,8 @@
     "promotes_from": "cls_tr_reason",
     "signature_skill": null,
     "provenance": "setting-new",
-    "notes": "born of the plague; Maren's destination"
+    "notes": "born of the plague; Maren's destination",
+    "unlock_map_id": "map_p_karkadann"
   },
   {
     "class_id": "cls_footpad",
@@ -453,7 +490,8 @@
     "promotes_from": "cls_commoner",
     "signature_skill": null,
     "provenance": "uncertified",
-    "notes": "off-matrix by definition"
+    "notes": "off-matrix by definition",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_thief",
@@ -465,7 +503,8 @@
     "promotes_from": "cls_footpad",
     "signature_skill": null,
     "provenance": "uncertified",
-    "notes": "off-matrix by definition"
+    "notes": "off-matrix by definition",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_assassin",
@@ -477,7 +516,8 @@
     "promotes_from": "cls_thief",
     "signature_skill": null,
     "provenance": "uncertified",
-    "notes": "off-matrix by definition"
+    "notes": "off-matrix by definition",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_trickster",
@@ -489,7 +529,8 @@
     "promotes_from": "cls_thief",
     "signature_skill": null,
     "provenance": "uncertified",
-    "notes": "off-matrix by definition"
+    "notes": "off-matrix by definition",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_strategist",
@@ -501,7 +542,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "avatar; orders not swords"
+    "notes": "avatar; orders not swords",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_factor",
@@ -513,7 +555,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "Kheldar; end-map income, bribe one enemy to neutral"
+    "notes": "Kheldar; end-map income, bribe one enemy to neutral",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_bounty_hunter",
@@ -525,7 +568,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "Gunnar; Capture + Shove mercy kit"
+    "notes": "Gunnar; Capture + Shove mercy kit",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_quartermaster",
@@ -537,7 +581,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "Merlinus revival; one per column"
+    "notes": "Merlinus revival; one per column",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_martyr",
@@ -549,7 +594,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "Provoke + Miracle + Resolve"
+    "notes": "Provoke + Miracle + Resolve",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_skald",
@@ -561,7 +607,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "Edda; Refresh + Steal + epithet aura"
+    "notes": "Edda; Refresh + Steal + epithet aura",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_sapper",
@@ -573,7 +620,8 @@
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "IN DRAWER, not yet placed"
+    "notes": "IN DRAWER, not yet placed",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_bogatyr",
@@ -585,7 +633,8 @@
     "promotes_from": null,
     "signature_skill": "Charge",
     "provenance": "Slavic",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_fianna",
@@ -597,7 +646,8 @@
     "promotes_from": null,
     "signature_skill": "Astra",
     "provenance": "Celtic",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_donso",
@@ -609,7 +659,8 @@
     "promotes_from": null,
     "signature_skill": "Deadeye",
     "provenance": "Mande",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_toa",
@@ -621,7 +672,8 @@
     "promotes_from": null,
     "signature_skill": "Fierce Iron Fist",
     "provenance": "Polynesian",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_jaguar_knight",
@@ -633,7 +685,8 @@
     "promotes_from": null,
     "signature_skill": "Colossus",
     "provenance": "Aztec",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_eagle_knight",
@@ -645,7 +698,8 @@
     "promotes_from": null,
     "signature_skill": "Stun",
     "provenance": "Aztec",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_tzitzimitl",
@@ -657,7 +711,8 @@
     "promotes_from": null,
     "signature_skill": "Corrosion",
     "provenance": "founded in-game",
-    "notes": "lv30+, deed-gated"
+    "notes": "lv30+, deed-gated",
+    "unlock_map_id": null
   },
   {
     "class_id": "cls_billman",
@@ -669,6 +724,7 @@
     "promotes_from": "cls_tr_axe",
     "signature_skill": null,
     "provenance": "setting-new",
-    "notes": "DRAFTED, not placed on any unit. The axe+lance pair the halberd needs (weapons.wpn_halberd req_arts) -- no existing class has it. Added 2026-10-02 so the overlap-weapon proficiency rule has a wielder; the first user is the enemy archetype ea_billman."
+    "notes": "DRAFTED, not placed on any unit. The axe+lance pair the halberd needs (weapons.wpn_halberd req_arts) -- no existing class has it. Added 2026-10-02 so the overlap-weapon proficiency rule has a wielder; the first user is the enemy archetype ea_billman.",
+    "unlock_map_id": "map_tp19"
   }
 ]

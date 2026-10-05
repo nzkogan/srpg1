@@ -1,0 +1,206 @@
+[
+  {
+    "param_id": "prm_promote_min_level",
+    "value": 15,
+    "text": null,
+    "notes": "Level at which a trained unit may certify into an order or hybrid class (canon: classes.notes 'lv15+, pair-certified'). There is NO gate and NO level cap: a unit may stay unpromoted and keep levelling forever."
+  },
+  {
+    "param_id": "prm_fee_base",
+    "value": 300,
+    "text": null,
+    "notes": "Gold to certify at promote_min_level. Gold is the only thing certification costs; it is never free."
+  },
+  {
+    "param_id": "prm_fee_per_level",
+    "value": 100,
+    "text": null,
+    "notes": "Extra gold per level past promote_min_level -- the later you certify, the dearer it is, so promoting early is simply cheapest."
+  },
+  {
+    "param_id": "prm_recert_fraction",
+    "value": 0.5,
+    "text": null,
+    "notes": "Switching to another order class of the same art costs this fraction of the current promotion fee. Level and stats are kept."
+  },
+  {
+    "param_id": "prm_jump_hp",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_str",
+    "value": 3,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_mag",
+    "value": 2,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_dex",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_spd",
+    "value": 3,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_lck",
+    "value": 2,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_def",
+    "value": 4,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_jump_res",
+    "value": 3,
+    "text": null,
+    "notes": "Flat stat jump on promotion (total +25). Calibrated so a trained recruit promoted at 15 lands at the order-tier baseline (~122 vs ~124); see PROMOTION_DESIGN.md."
+  },
+  {
+    "param_id": "prm_growth_bonus",
+    "value": 5,
+    "text": null,
+    "notes": "Added to every growth rate (percentage points) for every level gained after promotion: every unpromoted level is a small standing loss."
+  },
+  {
+    "param_id": "prm_slots_base",
+    "value": 1,
+    "text": null,
+    "notes": "Ability slots every unit has."
+  },
+  {
+    "param_id": "prm_slots_every",
+    "value": 10,
+    "text": null,
+    "notes": "+1 ability slot each time the level reaches a multiple of this (10, 20, 30...)."
+  },
+  {
+    "param_id": "prm_slots_promotion",
+    "value": 1,
+    "text": null,
+    "notes": "+1 ability slot once promoted."
+  },
+  {
+    "param_id": "prm_exp_per_level",
+    "value": 100,
+    "text": null,
+    "notes": "EXP per level."
+  },
+  {
+    "param_id": "prm_exp_base",
+    "value": 10,
+    "text": null,
+    "notes": "EXP for a fight: clamp(base + per_diff x (enemy level - unit level), min, max)."
+  },
+  {
+    "param_id": "prm_exp_per_diff",
+    "value": 3,
+    "text": null,
+    "notes": "See exp_base."
+  },
+  {
+    "param_id": "prm_exp_min",
+    "value": 1,
+    "text": null,
+    "notes": "See exp_base."
+  },
+  {
+    "param_id": "prm_exp_max",
+    "value": 30,
+    "text": null,
+    "notes": "See exp_base."
+  },
+  {
+    "param_id": "prm_kill_base",
+    "value": 30,
+    "text": null,
+    "notes": "Extra EXP for a kill: clamp(kill_base + kill_per_diff x level diff, 0, kill_max)."
+  },
+  {
+    "param_id": "prm_kill_per_diff",
+    "value": 5,
+    "text": null,
+    "notes": "See kill_base."
+  },
+  {
+    "param_id": "prm_kill_max",
+    "value": 60,
+    "text": null,
+    "notes": "See kill_base."
+  },
+  {
+    "param_id": "prm_catchup_gap",
+    "value": 3,
+    "text": null,
+    "notes": "A unit joining more than this many levels under the squad median is raised to median - gap (by its own expected growth)."
+  },
+  {
+    "param_id": "prm_underdog_per_level",
+    "value": 0.25,
+    "text": null,
+    "notes": "A unit below the squad median earns this much extra EXP (a fraction) per level of deficit..."
+  },
+  {
+    "param_id": "prm_underdog_cap",
+    "value": 1,
+    "text": null,
+    "notes": "...up to this fraction (1.0 = double EXP)."
+  },
+  {
+    "param_id": "prm_income_base",
+    "value": 200,
+    "text": null,
+    "notes": "Gold earned for winning a map."
+  },
+  {
+    "param_id": "prm_income_per_kill",
+    "value": 15,
+    "text": null,
+    "notes": "Extra gold per enemy defeated on the map."
+  },
+  {
+    "param_id": "prm_income_factor_bonus",
+    "value": 0.5,
+    "text": null,
+    "notes": "Income multiplier bonus if Kheldar (cls_factor, 'end-map income') is still on the map at the win."
+  },
+  {
+    "param_id": "prm_shape_infantry",
+    "value": null,
+    "text": null,
+    "notes": "Flat stat overlay for a promoted class of this movement type (zero-sum by design). Swapped out, not lost, when recertifying."
+  },
+  {
+    "param_id": "prm_shape_armor",
+    "value": null,
+    "text": "hp:3|def:3|res:1|spd:-3|dex:-2|lck:-2",
+    "notes": "Flat stat overlay for a promoted class of this movement type (zero-sum by design). Swapped out, not lost, when recertifying."
+  },
+  {
+    "param_id": "prm_shape_riding",
+    "value": null,
+    "text": "spd:2|dex:1|str:1|def:-2|res:-1|hp:-1",
+    "notes": "Flat stat overlay for a promoted class of this movement type (zero-sum by design). Swapped out, not lost, when recertifying."
+  },
+  {
+    "param_id": "prm_shape_flying",
+    "value": null,
+    "text": "spd:3|dex:1|def:-2|hp:-2",
+    "notes": "Flat stat overlay for a promoted class of this movement type (zero-sum by design). Swapped out, not lost, when recertifying."
+  }
+]

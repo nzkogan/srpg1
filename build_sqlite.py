@@ -58,6 +58,7 @@ PK = {
     "guest_units": ("guest_id", "gst_"),
     "unit_base_stats": ("unit_id", "u_"),
     "weapons": ("weapon_id", "wpn_"),
+    "promotion_rules": ("param_id", "prm_"), "abilities": ("ability_id", "ab_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
@@ -82,6 +83,8 @@ NUMERIC = {
         "move_infantry_wet", "move_armor_wet", "hazard_dmg",
     },
     "encounter_spawns": {"row", "col", "spawn_interval", "max_waves", "wave_size"},
+    "promotion_rules": {"value"},
+    "abilities": {"hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"},
 }
 
 # explicit foreign keys: (table, column) -> (ref_table, ref_column)
@@ -117,6 +120,7 @@ FKS = {
     ("enemy_archetypes", "first_seen_map_id"): ("maps", "map_id"),
     ("enemy_archetypes", "weapon_id"): ("weapons", "weapon_id"),
     ("encounter_spawns", "map_id"): ("maps", "map_id"),
+    ("classes", "unlock_map_id"): ("maps", "map_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
     ("encounter_spawns", "drop_weapon_id"): ("weapons", "weapon_id"),
     ("supports", "unit_a_id"): ("units", "unit_id"),
