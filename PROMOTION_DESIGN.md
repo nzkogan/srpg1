@@ -1,126 +1,113 @@
-# Promotion rules -- design proposal
+# Promotion, levelling and abilities -- design and status
 
-Status: **design only, nothing implemented.** Drafted 2026-10-05. Every number here is a proposal to
-tune; the structural claims about canon are checked against `canon.xlsx` (cited inline).
+Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
+after the decisions below. Everything here is a design proposal, not setting canon.
 
-## The problem to design against
+## The goal
 
-In the GBA Fire Emblems a unit's level resets on promotion and both classes cap at 20. That makes the
-*timing* of promotion a puzzle with a right answer: promote at 20/20, because every level you skip in
-the first class is a level-up you never get back. Promoting "early" is a mistake you are punished for
-slowly, and the game never tells you. The goal here is the opposite: **promotion has no timing puzzle.
-There is one correct moment, it is the earliest one, and the game makes that moment obvious.**
+In the GBA Fire Emblems promotion has a right answer you can get wrong: level resets, both classes cap at
+20, so promoting at 20/20 banks the most levels and promoting early quietly costs you. The goal here is the
+opposite: **no timing puzzle, and no feeling of missing out.** You should never have to wonder whether to
+hold a unit back to squeeze out more levels.
 
-## What canon already gives us
+## Decisions that shaped it (yours)
 
-- Levels are one continuous scale with tier floors: `trained` **lv5+**, `order` **lv15+**, `paragon`
-  **lv30+** (`classes.notes`, `unit_base_stats` note). Nothing in canon resets a level on promotion.
-- Order classes are `art + movement type` pairs (28 cells, 3 deliberate gaps = 25 classes); hybrids are
-  `art + art`; paragon is deed-gated.
-- Dietmar and Torvald are already order tier at lv15 with the low-growth `gp_jagen` profile.
-- Growth is per *unit* (`growths`, ~315 points a level for recruits), not per class, so a class change
-  never rewrites a unit's growth rolls -- it can only add a flat overlay.
-- There is currently **no EXP, level-up or promotion system in the game at all** (a unit's class sets its
-  arts and movement and nothing else). The gate below needs a minimal EXP rule; see "Prerequisite".
+| Question | Decision |
+|---|---|
+| Gate at 14, or keep levelling unpromoted? | **Keep levelling.** No gate, no bank. |
+| Level cap | **None.** "If someone wants to solo with a character god bless 'em." |
+| Is certification free? | **No.** A gold fee that rises the later you wait. |
+| Recertification free? | **No** (half the promotion fee). |
+| Hybrid classes | **Unlocked later**, by winning a specific map. |
+| Late-joiner catch-up | **Yes**, plus flexible ability choice. |
+| Abilities | **Pick N from a class pool.** |
 
-## The rules
+## How it works
 
-1. **One continuous level, no reset, one global cap (proposed 40).** The tier floors are *gates*, not
-   separate level tracks. Total levels you can ever earn do not depend on when you promote, so there is
-   no "wasted potential" to min-max.
-2. **The gate is level 14 -> 15.** A trained unit stops at level 14 with a full EXP bar and is marked
-   *Ready to certify*. Nobody can promote earlier (canon's lv15 floor); nobody gains anything by
-   waiting. Paragon works the same way at 29 -> 30.
-3. **EXP earned while gated is banked, up to one level's worth, and credited on promotion.** Past the
-   bank it is lost. This is the only cost of dithering, and it is small and visible: at ~45 EXP a map,
-   waiting 3 maps wastes 35 EXP, 5 maps 125, 8 maps 260 (about 8 stat points). The player never has to
-   work out the trade-off; a banner on the unit says it.
-4. **Promotion is free, instant, unlimited and not a consumable.** No Master Seals, no one-per-map
-   limit, nothing to hoard or to be unlucky about. It is done between maps (the "certification" in
-   canon's order-class provenance is paperwork the home front handles, not a drop).
-5. **What you get, all at once, on promotion** -- the actual pull toward promoting immediately:
-   - **A flat stat jump of +25 total** (HP 4, Str 3, Mag 2, Dex 4, Spd 3, Lck 2, Def 4, Res 3). This is
-     calibrated from canon's own numbers: a trained recruit who levels naturally from 5 to 15 totals
-     ~97.5 stat points while the order-tier baseline for the same growth profile is ~124 (mean gap
-     26.2), so +25 puts a freshly promoted recruit at ~122-123 -- parity with the order tier, and in
-     range of Dietmar and Torvald's 115.
-   - **A movement type.** Infantry units can become riding (move 9), flying (7) or armor; this is the
-     biggest tactical change in the game, and it is immediate.
-   - **Higher growth from then on: +5 on every stat's growth rate** (about +0.4 stat per level, ~13%
-     more than a recruit's 3.1). Every level spent unpromoted is therefore a small standing loss.
-   - **High-tier weapons.** `high` weapons (silver, 13 might) need an order or paragon class; mid and
-     basic stay open to everyone. Act 2's high-tier boss drops (see the drop table) become the pull.
-   - **The class's signature skill** where canon has one (Smite, Stake, Resolve, Pavise/Aegis...).
-6. **The decision is *what*, never *when*.** The menu at 15 is the 4 movement types for the unit's art
-   (e.g. sword: Swordmaster / Sentinel / Cavalier / Dragoon), plus any hybrid siblings the unit has
-   unlocked (axe: Ferryman, Billman).
-7. **Recertification (optional, recommended).** Between maps a promoted unit may switch to another
-   order class of the *same art* for free; it keeps its level and every stat it earned, and only the
-   class's flat shape modifier and movement type change. No choice is permanent, so there is no
-   "missed the right class" regret either.
+**Levels.** One continuous scale, no reset, no cap, no gate. Canon's tier floors (trained 5+, order 15+) are
+the earliest you may *certify*, not a wall: an unpromoted unit keeps levelling forever. EXP is 100 a level; a
+fight earns `clamp(10 + 3 x (enemy level - unit level), 1, 30)`, and a kill adds `clamp(30 + 5 x diff, 0, 60)`.
+Level-ups roll the unit's own growth profile (`growths`), +5 on every stat once promoted.
+
+**Certification (promotion).** Available from level 15. It costs gold: **300 at level 15, plus 100 for every
+level after.** Because levels never reset and nothing is capped, the *only* thing waiting changes is the price
+-- the earliest moment is simply the cheapest, and the barracks screen says so ("every level you wait adds
+100"). What you get, all at once:
+
+- a flat **+25 stat jump** (HP 4, Str 3, Mag 2, Dex 4, Spd 3, Lck 2, Def 4, Res 3), calibrated from canon's own
+  numbers: a trained recruit that levels 5 -> 15 totals ~97.5 stats while the order-tier baseline for the same
+  profile is ~124 (mean gap 26.2), so a promoted recruit lands ~122 -- parity with the order tier, and in range
+  of Dietmar and Torvald's 115;
+- the class's **movement type** and a small zero-sum **shape** (armor +HP/Def -Spd, riding +Spd -Def, flying
+  +Spd -HP/Def); infantry has none;
+- **+5 growth** on every stat for every later level, so each level spent unpromoted is a small standing loss;
+- **+1 ability slot**;
+- the **high-tier weapons** (silver): `high` needs an order, paragon or hybrid class; basic/mid stay open;
+- the new class's art/proficiency (a Billman knows axe *and* lance, which is how the halberd finally gets a
+  wielder).
+
+The menu is which class, never when: the four order classes of the unit's art (one per movement type), plus any
+hybrid sibling whose unlock map you've won. Personal-class units (Avatar, Gunnar, Edda, Kheldar) have a
+*milestone* at 15 -- same cost, jump, growth and slot, no class change. Kest advances Footpad -> Thief.
+Dietmar and Torvald are already order tier and have nothing to certify.
+
+**Recertification.** A certified order-class unit may switch to another order class *of the same art* for half the
+current fee. Level and every earned stat are kept; only the class's shape overlay and movement type change, and
+ability picks the new class can't offer are dropped. Hybrids are not a recertification target.
+
+**Hybrid unlocks** (`classes.unlock_map_id`, drafted, thematic): Billman = Throat Pass (map_tp19, where the
+halberd-bearers stand), Ferryman = the Drowned March's lake (map_p_macuil), Pardoner = the mercy chapter
+(map_h33_mercy), Ash Ascetic = the Stepped Coast's lake (map_p_indech), Miasma Warden = the Dove Colony
+(map_p_karkadann). Until then they show red and locked, with the map to win.
+
+**Late joiners.** The first time a unit is fielded (not merely looked at), if it is more than 3 levels under the
+squad median it is raised to **median - 3** by its own expected growth (no dice, so it is repeatable). Units
+below the median also earn **+25% EXP per level of deficit, up to +100%**, and Quick Study adds 15% on top.
+Rinsa joining a level-15 squad arrives at 12 with a full kit, not 5 with a blank one.
+
+**Abilities.** 34 passive abilities in canon's `abilities` tab, pooled by class tags (any / art / movement /
+tier / class), seeded from canon's signature skills (Smite, Stake, Resolve, Pavise, Jump-lunge, Casting Tank,
+Surveyor Kit, Deadshot...). Slots = **1, +1 at every 10th level, +1 once promoted**; you pick which, freely and
+any time. Until you edit them a unit's kit fills itself with defaults (class skills first), so nobody arrives
+empty. Effects are flat hit / avoid / crit / dodge / damage / guard / attack speed / EXP with conditions
+(always, full HP, half HP or less, vs a movement type, wielding an art), and feed straight into the combat
+forecast. Only passive combat effects: canon's map-action skills (Shove, Steal, Refresh, Provoke) need systems
+that don't exist.
+
+**Gold.** End-map income: **200 + 15 per enemy defeated, x1.5 with Kheldar alive** (his class is canon's
+"end-map income"), once per map per playthrough. Roughly 240 a map over Acts 1-2, so ~4,800 by the end of
+Act 2 against ~3,600 to certify twelve units at 300 -- enough to certify almost everyone around level 15-17,
+not enough to do it carelessly.
 
 ## Why this removes the min-max
 
-| Rule set | What delaying promotion does | Why a min-maxer would delay |
-|---|---|---|
-| GBA-style (reset, 20/20) | extra first-class levels, up to ~6 stat points | the 20/20 build |
-| This design | wastes EXP past the bank (0 for 2 maps, ~4 stat points at 5, ~8 at 8) | nothing |
+| Rule set | What delaying promotion does |
+|---|---|
+| GBA-style (reset, 20/20 caps) | gains first-class levels (up to ~6 stat points) -- the 20/20 itch |
+| This design | gains nothing and costs +100 gold a level; stays free of any cap, so a deliberate solo build is still legal |
 
-For a unit with 35 levels of EXP by endgame, GBA-style promotion at lv10 uses only 28 of them (87.6
-stat points), lv15 uses 33 (103.3), and lv18-20 uses all 35 (109.5): that 6-point swing is the 20/20
-itch. Here every timing ends at the same level, so the only variable left is how soon you start
-collecting the +25, the movement type and the +5 growth.
+A unit that waits loses nothing it can't pay for, a unit that certifies at 15 gets the +25, the movement type,
+the +5 growth and the silver weapons immediately, and nobody has to optimise a level number to feel good about it.
 
-## Everyone who is not a plain trained recruit
+## In the game
 
-- **Dietmar, Torvald** (order, lv15, `gp_jagen`): already promoted. Their next gate is paragon at 29 -> 30
-  (deed-gated, the one place a promotion is not free; deeds should never expire so they can't be missed).
-- **Personal classes** (Avatar/Strategist, Gunnar, Edda, Kheldar): they have no tier ladder. They get a
-  *milestone* at 15 and 30 with the same +25 jump and growth bonus, no class menu, and a personal
-  signature skill instead -- same timing rules, so they are never left behind.
-- **Kest** (shadow): Footpad -> Thief at 15, Assassin or Trickster at 30; same gate and bank.
-- **Late joiners** (Rinsa, Kest, Anselm...): this is where FE's carry-the-few habit bites. Proposed:
-  a recruit joining more than 3 levels under the squad median is raised to median - 3, and units below
-  the median earn +25% EXP per level of deficit (cap +100%). It is the same anti-min/max idea: broad
-  squads, not three 20/20 carries.
+- **B** on the overworld: the barracks (levels, certification, recertification, abilities).
+- **C**: the convoy (weapons). **S**: support conversations.
+- On a map: EXP and level-ups after every fight (counters included), income and class unlocks on a win.
 
-## Suggested promotions, from each unit's own growth profile
+## Not built / open
 
-| Unit | Now | Natural fit |
-|---|---|---|
-| Sigrun | Trained (sword), cavalry growths | Cavalier |
-| Ricberta, Brandt | Trained (lance), armor growths | General |
-| Waldrada, Solveig | Trained (lance), flier growths | Falcon knight |
-| Jost | Trained (axe), bruiser | Warrior, or Housecarl (Smite) |
-| Tancred | Trained (bow), archer | Sniper or Sky archer |
-| Rinsa | Trained (brawl), bruiser | Grappler or War monk |
-| Emmerich | Trained (reason), mage | Warlock or Mage knight |
-| Maren, Anselm | Trained (faith), healer | Bishop (Valkyrie for mounted support) |
+- Only the first tier. Canon's paragon tier (lv30+, deed-gated) and a second milestone for personal classes are
+  not implemented; deeds should never expire if they are.
+- No save/load: progress resets on restart, like supports and equipment.
+- First-pass numbers: the fee curve, the +25 jump, the +5 growth, the EXP formula and the ability values are all
+  rows in `promotion_rules` / `abilities` and want playtesting.
+- The unlock maps are my thematic guesses; canon doesn't say when hybrids open.
+- Support partners don't share EXP (an easy, thematic addition).
 
-These are suggestions for the menu's default highlight, not locks.
+## Where it lives
 
-## Prerequisite: a minimal EXP rule
-
-The gate needs something to gate. Smallest thing that works, in the FE lineage the project cites:
-100 EXP a level; a strike earns `clamp(10 + 3 x (enemy level - unit level), 1, 30)`, a kill adds
-`30 + 5 x (enemy level - unit level)`, with the underdog bonus above. Enemy levels already exist
-(`enemy_archetypes.level`). Tuned so a regular deployer earns ~45 EXP a map, which takes lv5 -> lv15
-in about 20 maps -- roughly the end of Act 2.
-
-## Decisions I need from you before building this
-
-1. **Gate with bank (above), or let units keep levelling past 15 unpromoted?** The second has no gate
-   and no waste but also no pull; the bank is what makes "promote now" the obvious play.
-2. **Recertification: yes or no?** It removes class regret but makes every promotion reversible.
-3. **Are hybrid classes (Billman, Ferryman, Pardoner, Ash Ascetic, Miasma Warden) menu options at 15, or
-   unlocked later by story/sect practices?** Canon doesn't say. Unlocking them is how the halberd,
-   maul and censer finally get wielders.
-4. **Global level cap 40, or something else?** (Canon only gives paragon 30+.)
-5. **Late-joiner catch-up: in or out?**
-
-## What implementing it would touch (not done)
-
-- `canon.xlsx`: a `promotion_rules` tab (gate level, bank size, jump, growth bonus, movement modifiers);
-  a promotion-options column on classes; the second parent for hybrids (`promotes_from` holds only one).
-- Engine: EXP and level-up on the battle map, a `Promotion` autoload, a barracks screen next to the
-  convoy screen, high-tier weapon gating in `Equipment`/`Combat`, and tests for each rule above.
+`canon.xlsx`: `promotion_rules` (34 parameters), `abilities` (34), `classes.unlock_map_id`; validator rules c07i.
+Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd` (current-class
+proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks), `barracks_screen.gd`. Tests:
+`test_progression`, `test_progression_map`, `test_barracks`, plus the ability checks in `test_combat_exchange`.
