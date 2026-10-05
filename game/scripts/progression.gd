@@ -16,6 +16,14 @@ extends Node
 ##     flat stat jump, a growth bonus for every later level, an ability slot,
 ##     a movement type, and the high-tier weapons.
 ##   - Hybrid classes are only offered once their unlock map has been won.
+##   - The paragon tier is a second certification at level 30 (paragon_min_level):
+##     the unit must already be certified, have earned a deed that gates
+##     paragon (epithets.gates_paragon -- boss kill, solo hold, no-hit map,
+##     capture) and pay a bigger fee (same "earliest is cheapest" rise). It
+##     gives another flat jump, more growth, a slot and a paragon class whose
+##     primary art the unit already knows. Deeds are recorded during play and
+##     never expire. Personal-class units take a milestone (no class change);
+##     Kest's shadow line goes Thief -> Assassin / Trickster.
 ##   - Switching to another order class of the same art (recertifying) costs a
 ##     fraction of the promotion fee; level and earned stats are kept and only
 ##     the class's flat shape overlay changes.
@@ -96,7 +104,7 @@ func _default_state(unit_id: String) -> Dictionary:
 		"level": int(base["level"]), "exp": 0, "gains": gains,
 		"class_id": _unit_row(unit_id)["base_class_id"],
 		"promoted": cls != null and PROMOTED_TIERS.has(cls["tier"]),
-		"shaped": false, "auto": true, "abilities": [],
+		"shaped": false, "auto": true, "abilities": [], "paragon": false,
 	}
 
 ## The unit's state WITHOUT creating it: the stored one, else a fresh default.
@@ -141,6 +149,11 @@ func exp_of(unit_id: String) -> int:
 func is_promoted(unit_id: String) -> bool:
 	return bool(_peek(unit_id).get("promoted", false))
 
+## True once the unit has taken the paragon tier (or is natively in a paragon class).
+func is_paragon(unit_id: String) -> bool:
+	var st := _peek(unit_id)
+	return bool(st.get("paragon", false)) or class_tier(unit_id) == "paragon"
+
 func class_id_of(unit_id: String) -> String:
 	return String(_peek(unit_id).get("class_id", ""))
 
@@ -183,6 +196,8 @@ func growth_rate(unit_id: String, stat: String) -> int:
 	var rate := int(_profile(unit_id).get(stat, 0))
 	if is_promoted(unit_id):
 		rate += int(param("growth_bonus"))
+	if is_paragon(unit_id):
+		rate += int(param("paragon_growth_bonus"))
 	return rate
 
 ## Raises a unit by `levels` levels using expected growth, not dice (late-joiner
@@ -470,6 +485,8 @@ func slots(unit_id: String) -> int:
 	var n := int(param("slots_base")) + int(st["level"]) / every
 	if st["promoted"]:
 		n += int(param("slots_promotion"))
+	if st.get("paragon", false):
+		n += int(param("paragon_slots"))
 	return n
 
 ## The ability ids the unit has equipped: the player's picks if they have made
@@ -565,3 +582,158 @@ func describe_ability(row: Dictionary) -> String:
 ## High-tier weapons need a promoted class; basic, mid and worn are open.
 func can_use_tier(unit_id: String, weapon_tier: String) -> bool:
 	return weapon_tier != "high" or is_promoted(unit_id)
+
+# ------------------------------------------------------------------- deeds
+
+## Epithet rows that gate the paragon tier (epithets.gates_paragon == "yes").
+func gating_epithets() -> Array:
+	var out: Array = []
+	for row in Canon.get_table("epithets"):
+		if row.get("gates_paragon") == "yes":
+			out.append(row)
+	return out
+
+func epithet_row(epithet_id: String) -> Dictionary:
+	var row = Canon.find_by("epithets", "epithet_id", epithet_id)
+	return row if row != null else {}
+
+## Whether the game can currently record this deed (epithets.tracked).
+func is_tracked(epithet_id: String) -> bool:
+	return epithet_row(epithet_id).get("tracked") == "yes"
+
+## unit_id -> {epithet_id: count} for one unit (a copy).
+func deeds(unit_id: String) -> Dictionary:
+	return GameState.deeds.get(unit_id, {}).duplicate()
+
+func has_deed(unit_id: String, epithet_id: String) -> bool:
+	return int(GameState.deeds.get(unit_id, {}).get(epithet_id, 0)) > 0
+
+## Records a deed for a unit. Returns true the FIRST time they earn it (so the
+## caller can announce it), false for repeats, unknown epithets and unknown units.
+func record_deed(unit_id: String, epithet_id: String, count: int = 1) -> bool:
+	if not is_known_unit(unit_id) or epithet_row(epithet_id).is_empty() or count <= 0:
+		return false
+	var mine: Dictionary = GameState.deeds.get(unit_id, {})
+	var first := int(mine.get(epithet_id, 0)) == 0
+	mine[epithet_id] = int(mine.get(epithet_id, 0)) + count
+	GameState.deeds[unit_id] = mine
+	return first
+
+## The unit's earned deeds that gate paragon, as epithet ids in table order.
+func gating_deeds_earned(unit_id: String) -> Array:
+	var out: Array = []
+	for row in gating_epithets():
+		if has_deed(unit_id, row["epithet_id"]):
+			out.append(row["epithet_id"])
+	return out
+
+# ------------------------------------------------------------ paragon tier
+
+func paragon_fee(at_level: int) -> int:
+	var over := maxi(0, at_level - int(param("paragon_min_level")))
+	return int(param("paragon_fee_base")) + int(param("paragon_fee_per_level")) * over
+
+## The classes a certified unit may take at the paragon tier, as option
+## dictionaries like promotion_options. Rules: order and hybrid classes may take
+## any paragon class whose primary art they know; a personal class takes a
+## milestone (its own class); the shadow line continues to its children. Empty
+## for uncertified units and for units already paragon.
+func paragon_options(unit_id: String) -> Array:
+	var st := _peek(unit_id)
+	var out: Array = []
+	if st.is_empty() or not st["promoted"] or is_paragon(unit_id):
+		return out
+	var cur := class_row(unit_id)
+	if cur.is_empty():
+		return out
+	if cur["tier"] == "personal":
+		out.append(_option(cur))
+		return out
+	if cur["tier"] == "shadow":
+		for cls in Canon.get_table("classes"):
+			if cls.get("promotes_from") == cur["class_id"] and cls["tier"] == "shadow":
+				out.append(_option(cls))
+		return out
+	var arts: Array = []
+	for key in ["art_primary", "art_secondary"]:
+		if ARTS.has(cur.get(key)):
+			arts.append(cur[key])
+	for cls in Canon.get_table("classes"):
+		if cls["tier"] == "paragon" and arts.has(cls["art_primary"]):
+			out.append(_option(cls))
+	return out
+
+## The checklist for taking a paragon class: each item {"label", "ok", "detail"}.
+func paragon_requirements(unit_id: String) -> Array:
+	var st := _peek(unit_id)
+	var need_level := int(param("paragon_min_level"))
+	var need_deeds := int(param("paragon_deeds_required"))
+	var earned := gating_deeds_earned(unit_id)
+	var level_now := int(st.get("level", 0))
+	var fee := paragon_fee(level_now)
+	return [
+		{"label": "Certified", "ok": bool(st.get("promoted", false)), "detail": "take the first tier at level %d" % int(param("promote_min_level"))},
+		{"label": "Level %d" % need_level, "ok": level_now >= need_level, "detail": "level %d" % level_now},
+		{"label": "%d deed%s that gate%s paragon" % [need_deeds, "" if need_deeds == 1 else "s", "s" if need_deeds == 1 else ""], "ok": earned.size() >= need_deeds,
+			"detail": "%d earned" % earned.size()},
+		{"label": "%d gold" % fee, "ok": GameState.gold >= fee, "detail": "you have %d" % GameState.gold},
+	]
+
+## {"ok": bool, "reason": String} for taking class_id at the paragon tier now.
+func can_paragon(unit_id: String, class_id: String) -> Dictionary:
+	var st := state(unit_id)
+	if st.is_empty():
+		return {"ok": false, "reason": "unknown unit"}
+	if is_paragon(unit_id):
+		return {"ok": false, "reason": "already paragon"}
+	if not st["promoted"]:
+		return {"ok": false, "reason": "certify first"}
+	if int(st["level"]) < int(param("paragon_min_level")):
+		return {"ok": false, "reason": "needs level %d" % int(param("paragon_min_level"))}
+	if gating_deeds_earned(unit_id).size() < int(param("paragon_deeds_required")):
+		return {"ok": false, "reason": "needs a deed that gates paragon"}
+	var chosen := {}
+	for o in paragon_options(unit_id):
+		if o["class_id"] == class_id:
+			chosen = o
+	if chosen.is_empty():
+		return {"ok": false, "reason": "not a paragon class this unit can take"}
+	if chosen["locked"]:
+		return {"ok": false, "reason": chosen["reason"]}
+	var fee := paragon_fee(int(st["level"]))
+	if GameState.gold < fee:
+		return {"ok": false, "reason": "needs %d gold (have %d)" % [fee, GameState.gold]}
+	return {"ok": true, "reason": ""}
+
+## Takes the paragon tier: pays the fee, changes class (a personal milestone
+## keeps its class), adds the paragon jump, switches on the class's shape, and
+## raises growth and slots. Returns {"ok", "reason", "fee"}.
+func take_paragon(unit_id: String, class_id: String) -> Dictionary:
+	var check := can_paragon(unit_id, class_id)
+	if not check["ok"]:
+		check["fee"] = 0
+		return check
+	var st := state(unit_id)
+	var fee := paragon_fee(int(st["level"]))
+	GameState.gold -= fee
+	st["class_id"] = class_id
+	st["paragon"] = true
+	st["shaped"] = true
+	for s in STATS:
+		st["gains"][s] = int(st["gains"][s]) + int(param("paragon_jump_%s" % s))
+	_trim_abilities(unit_id)
+	return {"ok": true, "reason": "", "fee": fee}
+
+## The stats after taking class_id at the paragon tier. Read-only; {} if unknown.
+func preview_paragon(unit_id: String, class_id: String) -> Dictionary:
+	var cls = Canon.find_by("classes", "class_id", class_id)
+	var now := stats_for(unit_id)
+	if cls == null or now.is_empty():
+		return {}
+	var new_shape: Dictionary = _shapes.get(String(cls["movement"]), {})
+	var cur_shape: Dictionary = _shapes.get(String(class_row(unit_id).get("movement", "")), {}) if _peek(unit_id)["shaped"] else {}
+	var out := {}
+	for s in STATS:
+		out[s] = int(now[s]) - int(cur_shape.get(s, 0)) + int(param("paragon_jump_%s" % s)) + int(new_shape.get(s, 0))
+	out["hp"] = maxi(1, out["hp"])
+	return out

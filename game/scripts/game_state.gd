@@ -62,6 +62,13 @@ var unlocked_classes: Dictionary = {}
 ## map_id -> true once that map's income has been paid, so replays can't farm.
 var income_claimed: Dictionary = {}
 
+## Deeds (epithets) earned: unit_id -> {epithet_id: count}. Kept for the whole
+## playthrough; they never expire, so no deed can be missed. See Progression.
+var deeds: Dictionary = {}
+
+## map_id -> true once won (any playthrough action that wins it).
+var won_maps: Dictionary = {}
+
 func set_flag(flag_id: String, value: String) -> void:
 	flags[flag_id] = value
 
