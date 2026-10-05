@@ -141,6 +141,12 @@ var enemy_archetypes_by_id: Dictionary = {} # enemy_id -> enemy_archetypes row
 var rng_override: RandomNumberGenerator = null
 var forecast_label: RichTextLabel
 var _targets: Array = []       # living enemies in the selected unit's weapon range, nearest first
+## Deed telemetry for this map (see "Deeds" below): which units were hit, which
+## struck, and each unit's run of enemy phases holding one tile alone.
+var struck_units: Dictionary = {}   # pid -> true once an enemy strike has hit them
+var fought_units: Dictionary = {}   # pid -> true once they have made a strike
+var hold_streak: Dictionary = {}    # pid -> {"tile": Vector2i, "phases": int}
+var _phase_targets: Dictionary = {} # pids an enemy attacked in the current enemy phase
 var _target_idx := 0
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
@@ -777,6 +783,7 @@ func _settle_rewards() -> String:
 	var parts: Array[String] = []
 	if gold > 0:
 		parts.append("Income: +%d gold%s." % [gold, " (Kheldar's cut)" if factor else ""])
+	parts.append_array(_no_hit_deeds())
 	var unlocked := Progression.on_map_won(map_id)
 	if not unlocked.is_empty():
 		parts.append("Class unlocked: %s." % ", ".join(unlocked))
@@ -941,8 +948,10 @@ func _attack_enemy() -> void:
 	attacked_this_turn[pid] = true
 	var ename: String = target.archetype.get("name")
 	var lines := _describe_exchange(result, unit.get("name"), "the %s" % ename)
+	var hp_before: int = target.hp
 	target.hp = int(result["def_hp"])
 	unit_hp[pid] = int(result["atk_hp"])
+	var deed_lines := _note_exchange(pid, target, result, hp_before)
 	info_label.text = lines + _support_note(info["support"]) + _spend_uses(unit, int(result["atk_strikes"]))
 
 	if target.hp == 0:
@@ -960,6 +969,8 @@ func _attack_enemy() -> void:
 		var gained := _award_exp(unit, target, target.hp == 0, rng)
 		if not gained.is_empty():
 			info_label.text += "\n" + " ".join(gained)
+	if not deed_lines.is_empty():
+		info_label.text += "\n" + " ".join(deed_lines)
 
 	_update_status_label()
 	_update_forecast()
@@ -1210,6 +1221,7 @@ const COUNTER_WEIGHT := 0.5
 
 func _enemy_phase() -> void:
 	enemy_log.clear()
+	_phase_targets.clear()
 	if not enemy_phase_enabled:
 		return
 	var rng := rng_override
@@ -1221,6 +1233,7 @@ func _enemy_phase() -> void:
 			continue
 		_enemy_act(inst, rng)
 		_check_defeat()
+	enemy_log.append_array(_update_solo_holds())
 
 ## The live roster row for a player unit id ({} if none).
 func defender_row_for(pid: String) -> Dictionary:
@@ -1284,11 +1297,16 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	var def_weapon := _weapon_for_unit(defender)
 	var result := Combat.resolve_exchange(attacker, defender, weapon, def_weapon, best["distance"],
 		rng, inst.hp, int(unit_hp.get(pid, 0)), -1, _uses_of(defender))
+	var inst_hp_before: int = inst.hp
 	inst.hp = int(result["atk_hp"])
 	unit_hp[pid] = int(result["def_hp"])
+	_phase_targets[pid] = true
 	var uname: String = defender.get("name", pid)
 	var ename: String = inst.archetype.get("name", "enemy")
 	enemy_log.append(_describe_exchange(result, "the %s" % ename, uname))
+	# swap the result's sides: for the unit, "atk" strikes are the enemy's
+	enemy_log.append_array(_note_exchange(pid, inst, {"strikes": result["strikes"], "enemy_attacked": true,
+		"def_strikes": result["def_strikes"]}, inst_hp_before))
 	var broke := _spend_uses(defender, int(result["def_strikes"]))
 	if broke != "":
 		enemy_log.append(broke.strip_edges())
@@ -1342,6 +1360,85 @@ func _award_exp(unit: Dictionary, inst: Dictionary, killed: bool, rng: RandomNum
 	if not res["levelups"].is_empty():
 		var hp_gain := _apply_progression(unit, pid)
 		unit_hp[pid] = int(unit_hp.get(pid, 0)) + maxi(0, hp_gain)
+	return lines
+
+# ------------------------------------------------------------------------ deeds
+#
+# Three of canon's epithets gate the paragon tier and are recordable now
+# (epithets.tracked): the boss kill, the solo hold and the no-hit map. A deed is
+# kept for the whole playthrough, so none can be missed; the first time a unit
+# earns one the map says so. Capture, miasma, delivery, dispersal and talk need
+# mechanics that don't exist yet.
+
+## Records one deed for a main unit and returns the announcement lines (empty if
+## it wasn't new, or the unit isn't a main-roster unit).
+func _earn_deed(pid: String, epithet_id: String, unit_name: String) -> Array[String]:
+	var out: Array[String] = []
+	if map_id == "map_f00" or not Progression.is_known_unit(pid):
+		return out
+	if Progression.record_deed(pid, epithet_id):
+		var row := Progression.epithet_row(epithet_id)
+		out.append("%s earns a deed: %s ('%s')." % [unit_name, str(row.get("deed_category", epithet_id)).replace("_", " "), row.get("forge_vocab_token", "")])
+	return out
+
+## Bookkeeping after an exchange between player unit `pid` and enemy `inst`.
+## Works on both player attacks (result as returned by resolve_exchange) and
+## enemy attacks (flagged enemy_attacked, where "atk" strikes are the enemy's).
+## Tracks who has been struck / has struck, remembers which units damaged the
+## enemy, and awards the boss-kill deed for a lone killer. Returns announcements.
+func _note_exchange(pid: String, inst: Dictionary, result: Dictionary, enemy_hp_before: int) -> Array[String]:
+	var enemy_side := "atk" if result.get("enemy_attacked", false) else "def"
+	var unit_side := "def" if enemy_side == "atk" else "atk"
+	for s in result["strikes"]:
+		if s["by"] == enemy_side and s["hit"] and int(s["damage"]) > 0:
+			struck_units[pid] = true
+	if int(result.get("%s_strikes" % unit_side, 0)) > 0:
+		fought_units[pid] = true
+	if not inst.has("hit_by"):
+		inst["hit_by"] = {}
+	var lines: Array[String] = []
+	if int(inst.hp) < enemy_hp_before:
+		inst["hit_by"][pid] = true
+	if int(inst.hp) == 0 and inst.kind == "boss" and inst["hit_by"].size() == 1 and inst["hit_by"].has(pid):
+		var uname: String = str(Canon.find_by("units", "unit_id", pid)["name"]) if Canon.find_by("units", "unit_id", pid) != null else pid
+		lines.append_array(_earn_deed(pid, "ep_bosskill", uname))
+	return lines
+
+## At the end of an enemy phase: a unit that stood on the same tile, was attacked
+## this phase, and has no other player unit within solo_hold_radius extends its
+## run; anything else resets it. solo_hold_phases in a row earns the deed.
+func _update_solo_holds() -> Array[String]:
+	var lines: Array[String] = []
+	var need := int(Progression.param("solo_hold_phases"))
+	var radius := int(Progression.param("solo_hold_radius"))
+	for pid in unit_positions.keys():
+		var pos: Vector2i = unit_positions[pid]
+		var alone := true
+		for other in unit_positions:
+			if other != pid and _distance(pos, unit_positions[other]) <= radius:
+				alone = false
+		if not (alone and _phase_targets.has(pid)):
+			hold_streak.erase(pid)
+			continue
+		var run: Dictionary = hold_streak.get(pid, {})
+		if run.get("tile", Vector2i(-1, -1)) == pos:
+			run["phases"] = int(run["phases"]) + 1
+		else:
+			run = {"tile": pos, "phases": 1}
+		hold_streak[pid] = run
+		if int(run["phases"]) >= need:
+			var row = Canon.find_by("units", "unit_id", pid)
+			lines.append_array(_earn_deed(pid, "ep_solohold", str(row["name"]) if row != null else pid))
+	return lines
+
+## On a win: every surviving unit that fought and was never hit earns the
+## no-hit-map deed. Returns the announcement lines.
+func _no_hit_deeds() -> Array[String]:
+	var lines: Array[String] = []
+	for pid in unit_positions.keys():
+		if fought_units.has(pid) and not struck_units.has(pid):
+			var row = Canon.find_by("units", "unit_id", pid)
+			lines.append_array(_earn_deed(pid, "ep_nohit", str(row["name"]) if row != null else pid))
 	return lines
 
 ## A player unit leaves play (dead): token, position and all.

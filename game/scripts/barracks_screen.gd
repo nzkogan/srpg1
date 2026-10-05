@@ -3,7 +3,8 @@ extends Control
 ## abilities, between maps. Reads and writes the Progression autoload; owns no
 ## data.
 ##
-## Three modes (Tab, or 1/2/3): Certify, Recertify, Abilities. The left column
+## Four modes (Tab, or 1/2/3/4): Certify, Recertify, Abilities, Paragon (the
+## second certification: requirements checklist, deeds, class menu). The left column
 ## is the roster, the middle column the options for the chosen mode, and the
 ## right pane explains the highlighted one -- what it costs, what it gives, and
 ## what waiting costs.
@@ -16,7 +17,8 @@ const OVERWORLD_SCENE := "res://scenes/overworld.tscn"
 const MODE_CERTIFY := 0
 const MODE_RECERTIFY := 1
 const MODE_ABILITIES := 2
-const MODE_NAMES := ["Certify", "Recertify", "Abilities"]
+const MODE_PARAGON := 3
+const MODE_NAMES := ["Certify", "Recertify", "Abilities", "Paragon"]
 const COLUMN_UNITS := 0
 const COLUMN_OPTIONS := 1
 const INACTIVE_TINT := Color(1, 1, 1, 0.6)
@@ -119,6 +121,9 @@ func options() -> Array:
 		MODE_RECERTIFY:
 			for o in Progression.recertify_options(u):
 				out.append({"kind": "class", "id": o["class_id"], "data": o, "locked": o["locked"]})
+		MODE_PARAGON:
+			for o in Progression.paragon_options(u):
+				out.append({"kind": "class", "id": o["class_id"], "data": o, "locked": o["locked"]})
 		MODE_ABILITIES:
 			var chosen: Array = Progression.chosen(u)
 			for row in Progression.pool(u):
@@ -129,7 +134,13 @@ func _count(column: int) -> int:
 	return unit_ids.size() if column == COLUMN_UNITS else options().size()
 
 func unit_row_text(unit_id: String) -> String:
-	var tag := "" if Progression.is_promoted(unit_id) else "  *" if Progression.level(unit_id) >= int(Progression.param("promote_min_level")) and not Progression.promotion_options(unit_id).is_empty() else ""
+	var tag := ""
+	if not Progression.is_promoted(unit_id):
+		if Progression.level(unit_id) >= int(Progression.param("promote_min_level")) and not Progression.promotion_options(unit_id).is_empty():
+			tag = "  *"
+	elif not Progression.is_paragon(unit_id) and Progression.level(unit_id) >= int(Progression.param("paragon_min_level")) \
+			and not Progression.paragon_options(unit_id).is_empty() and not Progression.gating_deeds_earned(unit_id).is_empty():
+		tag = "  ^"
 	return "%s   Lv %d   %s%s" % [_name_of(unit_id), Progression.level(unit_id), Progression.class_name_of(unit_id), tag]
 
 func option_row_text(opt: Dictionary) -> String:
@@ -149,7 +160,7 @@ func _refresh() -> void:
 	_units_list.clear()
 	for id in unit_ids:
 		_units_list.add_item(unit_row_text(id))
-	_options_caption.text = ["Certify into", "Switch to", "Abilities (%d / %d slots)" % [Progression.chosen(u).size(), Progression.slots(u)]][_mode]
+	_options_caption.text = ["Certify into", "Switch to", "Abilities (%d / %d slots)" % [Progression.chosen(u).size(), Progression.slots(u)], "Paragon classes"][_mode]
 	_options_list.clear()
 	var opts := options()
 	for i in opts.size():
@@ -163,7 +174,7 @@ func _refresh() -> void:
 	_units_list.modulate = Color.WHITE if _column == COLUMN_UNITS else INACTIVE_TINT
 	_options_list.modulate = Color.WHITE if _column == COLUMN_OPTIONS else INACTIVE_TINT
 	_detail.text = detail_text()
-	_footer.text = "%s\nUp/Down choose   Left/Right column   Tab or 1/2/3 mode   Enter confirm   Esc back   (* = ready to certify)" % _message
+	_footer.text = "%s\nUp/Down choose   Left/Right column   Tab or 1-4 mode   Enter confirm   Esc back   (* = ready to certify, ^ = ready for paragon)" % _message
 
 func _stat_line(u: String) -> String:
 	var stats := Progression.stats_for(u)
@@ -195,6 +206,7 @@ func detail_text() -> String:
 	match _mode:
 		MODE_CERTIFY: lines.append_array(_certify_text(u, st, opt))
 		MODE_RECERTIFY: lines.append_array(_recertify_text(u, st, opt))
+		MODE_PARAGON: lines.append_array(_paragon_text(u, st, opt))
 		_: lines.append_array(_ability_text(u, opt))
 	return "\n".join(lines)
 
@@ -228,6 +240,49 @@ func _certify_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:
 		lines.append(_diff_line(Progression.stats_for(u), after))
 	lines.append("Plus +%d to every growth rate from then on, an ability slot, and high-tier weapons." % int(Progression.param("growth_bonus")))
 	return lines
+
+func _paragon_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:
+	var lines: Array[String] = []
+	if Progression.is_paragon(u):
+		lines.append("[color=%s]Paragon (%s).[/color] Nothing further to take." % [GOLD, Progression.class_name_of(u)])
+		_append_deeds(lines, u)
+		return lines
+	lines.append("[b]Requirements[/b]")
+	for r in Progression.paragon_requirements(u):
+		lines.append("[color=%s]%s %s[/color]  [color=%s](%s)[/color]" % [GOOD if r["ok"] else BAD, "[x]" if r["ok"] else "[ ]", r["label"], DIM, r["detail"]])
+	lines.append("Waiting adds %d gold per level past %d. Deeds never expire." % [int(Progression.param("paragon_fee_per_level")), int(Progression.param("paragon_min_level"))])
+	lines.append("")
+	_append_deeds(lines, u)
+	if Progression.paragon_options(u).is_empty():
+		lines.append("")
+		lines.append("[color=%s]%s[/color]" % [DIM, "Certify first." if not st["promoted"] else "No paragon class fits this unit's arts."])
+		return lines
+	if opt.is_empty():
+		return lines
+	var o: Dictionary = opt["data"]
+	lines.append("")
+	lines.append("[b]%s[/b] -- %s movement%s" % [o["name"], o["movement"], "  (milestone: keeps its class)" if o["class_id"] == Progression.class_id_of(u) else ""])
+	if o["locked"]:
+		lines.append("[color=%s]Locked: %s.[/color]" % [BAD, o["reason"]])
+	var after := Progression.preview_paragon(u, o["class_id"])
+	if not after.is_empty():
+		lines.append(_diff_line(Progression.stats_for(u), after))
+	lines.append("Plus +%d more to every growth rate, an ability slot, and the class's signature skill." % int(Progression.param("paragon_growth_bonus")))
+	return lines
+
+## The four deeds that gate paragon, earned ones ticked; untracked ones say so.
+func _append_deeds(lines: Array[String], u: String) -> void:
+	lines.append("[b]Deeds that gate paragon[/b]")
+	for row in Progression.gating_epithets():
+		var id: String = row["epithet_id"]
+		var n := int(Progression.deeds(u).get(id, 0))
+		var label := str(row["deed_category"]).replace("_", " ")
+		if n > 0:
+			lines.append("[color=%s][x] %s[/color]  [color=%s](%s) x%d[/color]" % [GOOD, label, DIM, row["trigger"], n])
+		elif Progression.is_tracked(id):
+			lines.append("[ ] %s  [color=%s](%s)[/color]" % [label, DIM, row["trigger"]])
+		else:
+			lines.append("[color=%s][ ] %s (%s) -- not recordable yet[/color]" % [DIM, label, row["trigger"]])
 
 func _recertify_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:
 	var lines: Array[String] = []
@@ -315,15 +370,22 @@ func activate() -> void:
 	match _mode:
 		MODE_CERTIFY:
 			var r := Progression.promote(u, opt["id"])
-			_message = "%s certifies as a %s for %d gold." % [_name_of(u), opt["data"]["name"], r["fee"]] if r["ok"] else "Can't certify: %s." % r["reason"]
+			_message = "%s certifies as %s for %d gold." % [_name_of(u), _a(opt["data"]["name"]), r["fee"]] if r["ok"] else "Can't certify: %s." % r["reason"]
 		MODE_RECERTIFY:
 			var r := Progression.recertify(u, opt["id"])
 			_message = "%s switches to %s for %d gold." % [_name_of(u), opt["data"]["name"], r["fee"]] if r["ok"] else "Can't switch: %s." % r["reason"]
+		MODE_PARAGON:
+			var r := Progression.take_paragon(u, opt["id"])
+			_message = "%s becomes %s for %d gold." % [_name_of(u), _a(opt["data"]["name"]), r["fee"]] if r["ok"] else "Can't take paragon: %s." % r["reason"]
 		_:
 			var now = Progression.toggle_ability(u, opt["id"])
 			_message = "" if now != null else "No free slot -- remove an ability first."
 	_option_index = clampi(_option_index, 0, maxi(0, options().size() - 1))
 	_refresh()
+
+## "a Warrior" / "an Axe knight".
+func _a(noun: String) -> String:
+	return "%s %s" % ["an" if noun.substr(0, 1).to_lower() in ["a", "e", "i", "o", "u"] else "a", noun]
 
 func leave() -> void:
 	get_tree().change_scene_to_file(OVERWORLD_SCENE)
@@ -340,6 +402,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_1: set_mode(MODE_CERTIFY)
 		KEY_2: set_mode(MODE_RECERTIFY)
 		KEY_3: set_mode(MODE_ABILITIES)
+		KEY_4: set_mode(MODE_PARAGON)
 		KEY_ENTER, KEY_KP_ENTER: activate()
 		KEY_ESCAPE: leave()
 		_: return

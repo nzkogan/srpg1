@@ -63,6 +63,10 @@ func _initialize() -> void:
 	check(s._mode == 1 and s._title.text.contains("[Recertify]"), "Tab cycles the mode")
 	s._unhandled_input(_key(KEY_3))
 	check(s._mode == 2 and s._title.text.contains("[Abilities]"), "3 selects Abilities")
+	s._unhandled_input(_key(KEY_4))
+	check(s._mode == 3 and s._title.text.contains("[Paragon]"), "4 selects Paragon")
+	s._unhandled_input(_key(KEY_TAB))
+	check(s._mode == 0, "Tab wraps from Paragon back to Certify")
 	s._unhandled_input(_key(KEY_1))
 	check(s._mode == 0, "1 selects Certify")
 
@@ -194,7 +198,7 @@ func _initialize() -> void:
 	var ok := true
 	for i in s.unit_ids.size():
 		s._on_clicked(0, i)
-		for m in 3:
+		for m in 4:
 			s.set_mode(m)
 			if s._detail.text == "": ok = false
 	check(ok, "every unit renders in every mode")
