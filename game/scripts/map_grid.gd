@@ -28,6 +28,8 @@ extends Node2D
 ##         click on an enemy chooses the target)
 ##   C   = Capture (units with the Capture action): take the targeted enemy
 ##         alive once it is weakened -- it leaves the map, no kill, no drop
+##   S   = Shove / Smite (Gunnar; Housecarls): then an arrow key (or a click) on
+##         an adjacent unit pushes it straight back 1 tile (Smite: 2)
 ##   N / Enter = advance to the next turn
 ##   Escape = return to the overworld
 ##   S (after a win that raised a support rank) = read the new scene(s)
@@ -150,6 +152,7 @@ var fought_units: Dictionary = {}   # pid -> true once they have made a strike
 var hold_streak: Dictionary = {}    # pid -> {"tile": Vector2i, "phases": int}
 var _phase_targets: Dictionary = {} # pids an enemy attacked in the current enemy phase
 var _target_idx := 0
+var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
 ## need the player's units to survive; they switch the enemy phase off. Always
@@ -513,12 +516,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		var local := get_local_mouse_position()
 		var col := int(floor(local.x / CELL_SIZE))
 		var row := int(floor(local.y / CELL_SIZE))
-		if row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
+		if _shove_mode:
+			_shove_click(Vector2i(col, row))
+		elif row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
 			if not _try_target_click(Vector2i(col, row)):
 				_try_move_to(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
 		var key_event := event as InputEventKey
-		if key_event.keycode == KEY_A and map_id == "map_f00":
+		if _shove_mode:
+			_shove_key(key_event.keycode)
+			return
+		if key_event.keycode == KEY_S:
+			_begin_shove()
+		elif key_event.keycode == KEY_A and map_id == "map_f00":
 			_attack_statue()
 		elif key_event.keycode == KEY_F:
 			_attack_enemy()
@@ -1034,6 +1044,137 @@ func _capture_enemy() -> void:
 	info_label.text += "\n" + " ".join(more)
 	_update_status_label()
 	_update_forecast()
+
+## [S]: the selected unit offers a Shove (or Smite): the next arrow key, or a click
+## on an adjacent tile, picks who gets pushed. Any other key cancels.
+func _begin_shove() -> void:
+	if units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or Progression.shove_distance(pid) <= 0:
+		info_label.text = "%s has no Shove action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	_shove_mode = true
+	info_label.text = "%s: push which way? Arrow key or click an adjacent unit (any other key cancels). %s pushes %d tile%s." % [
+		Progression.push_name(pid), unit.get("name"), Progression.shove_distance(pid), "" if Progression.shove_distance(pid) == 1 else "s"]
+
+func _shove_key(keycode: int) -> void:
+	var dirs := {KEY_UP: Vector2i(0, -1), KEY_DOWN: Vector2i(0, 1), KEY_LEFT: Vector2i(-1, 0), KEY_RIGHT: Vector2i(1, 0)}
+	if dirs.has(keycode):
+		_shove_toward(dirs[keycode])
+	else:
+		_shove_mode = false
+		info_label.text = "Shove cancelled."
+
+func _shove_click(tile: Vector2i) -> void:
+	if units.is_empty():
+		_shove_mode = false
+		return
+	var pos: Vector2i = unit_positions.get(units[selected_unit_index].get("punit_id", ""), Vector2i(-1, -1))
+	if _distance(pos, tile) == 1:
+		_shove_toward(tile - pos)
+	else:
+		_shove_mode = false
+		info_label.text = "Shove cancelled."
+
+## Who stands on `tile`: {"enemy": inst} for a living enemy, {"ally": pid} for a
+## player unit, {} for nobody.
+func _occupant(tile: Vector2i) -> Dictionary:
+	for inst in enemies:
+		if not inst.defeated and inst.pos == tile:
+			return {"enemy": inst}
+	for pid in unit_positions:
+		if unit_positions[pid] == tile:
+			return {"ally": pid}
+	return {}
+
+## Where a push of up to `dist` tiles from `from` along `dir` ends: it stops
+## short of the map's edge, impassable ground (for the target's movement type)
+## and any unit. Hazard ground is fine -- pushing someone onto it is the point.
+func _push_destination(from: Vector2i, dir: Vector2i, dist: int, movement_type: String) -> Vector2i:
+	var cur := from
+	for i in dist:
+		var n := cur + dir
+		if n.y < 0 or n.y >= grid.size() or n.x < 0 or n.x >= grid[0].length():
+			break
+		if _terrain_cost(n, movement_type) >= IMPASSABLE or not _occupant(n).is_empty():
+			break
+		cur = n
+	return cur
+
+## The push itself. The selected unit pushes whoever stands on the adjacent tile
+## in `dir` straight away from itself -- an enemy or a friend -- and that takes
+## its action. No damage, no counter, and a pushed unit arrives without
+## triggering the map's objective tiles. Bosses hold their ground; armor resists
+## shove_armor_resist tiles; a push that cannot move the target at all is refused
+## and costs nothing.
+func _shove_toward(dir: Vector2i) -> void:
+	_shove_mode = false
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var dist := Progression.shove_distance(pid) if _is_roster_unit(unit) else 0
+	if dist <= 0:
+		info_label.text = "%s has no Shove action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1):
+		return
+	var tile := pos + dir
+	var who := _occupant(tile)
+	if who.is_empty():
+		info_label.text = "There is nobody to push there."
+		return
+	var label := ""
+	var movement := "infantry"
+	if who.has("enemy"):
+		var inst: Dictionary = who["enemy"]
+		label = "the %s" % inst.archetype.get("name")
+		movement = str(inst.archetype.get("movement_type", "infantry"))
+		if inst.kind == "boss":
+			info_label.text = "%s holds its ground and will not be pushed." % _cap(label)
+			return
+	else:
+		for u in units:
+			if u.get("punit_id", "") == who["ally"]:
+				label = str(u.get("name"))
+				movement = str(u.get("movement_type", "infantry"))
+	var reach := Progression.push_distance_for(dist, movement)
+	var verb := "smites" if Progression.push_name(pid) == "Smite" else "shoves"
+	if reach <= 0:
+		info_label.text = "%s is too heavy to be moved by a %s." % [_cap(label), Progression.push_name(pid)]
+		return
+	var dest := _push_destination(tile, dir, reach, movement)
+	var moved := _distance(tile, dest)
+	if moved == 0:
+		info_label.text = "%s cannot be pushed that way: something is in the way." % (_cap(label))
+		return
+	if who.has("enemy"):
+		_enemy_move(who["enemy"], dest)
+	else:
+		var ally: String = who["ally"]
+		unit_positions[ally] = dest
+		var token = unit_tokens.get(ally)
+		if token:
+			token.container.position = Vector2(dest.x * CELL_SIZE, dest.y * CELL_SIZE)
+	attacked_this_turn[pid] = true
+	var note := ""
+	if moved < dist:
+		note = " (it can go no further)" if moved < reach else " (too heavy to go further)"
+	info_label.text = "%s %s %s back %d tile%s%s." % [unit.get("name"), verb, label, moved, "" if moved == 1 else "s", note]
+	_update_status_label()
+	_update_forecast()
+
+func _cap(text: String) -> String:
+	return text.substr(0, 1).to_upper() + text.substr(1)
 
 ## One more capture for `pid`: announces the deed when it is earned, else how far along it is.
 func _capture_deed(pid: String, unit_name: String) -> Array[String]:
@@ -1591,6 +1732,13 @@ func _update_status_label() -> void:
 		if _is_roster_unit(u) and Progression.can_capture(u.get("punit_id", "")):
 			controls = controls.replace("[Tab] retarget", "[C] capture -- [Tab] retarget")
 			break
+	var push_names: Array[String] = []
+	for u in units:
+		var push := Progression.push_name(u.get("punit_id", "")) if _is_roster_unit(u) else ""
+		if push != "" and not push_names.has(push):
+			push_names.append(push)
+	if not push_names.is_empty():
+		controls = controls.replace("[E] weapon", "[S] " + "/".join(push_names).to_lower() + " -- [E] weapon")
 	if map_id == "map_f00":
 		controls = "[A] attack statue -- " + controls
 	lines.append(controls)

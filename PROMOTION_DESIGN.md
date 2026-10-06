@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -127,6 +127,27 @@ built. A first pass, all drafted:
 - **UI**: a unit with the action sees a line under the forecast -- "Capture ready: no kill, no drop, +25 gold
   ransom. (C)" in green, or why not in grey -- and the controls line lists [C] when the squad has such a unit.
 
+## Shove and Smite
+
+The other half of Gunnar's canon "Capture + Shove mercy kit", and the Housecarl's canon signature skill (Smite).
+A map action, drafted:
+
+- **Who**: `classes.map_actions` -- Gunnar's Bounty hunter has **shove**; the Housecarl has **smite**. A shove unit
+  **upgrades to Smite when it certifies** (Gunnar's milestone at level 15 -- one more thing the early certification
+  buys, and the barracks says so: "Your Shove becomes Smite"). The Housecarl's older passive Smite (+3 damage) is
+  unchanged.
+- **How**: **S**, then an arrow key (or a click) on an adjacent unit. The target is pushed **straight away** from the
+  pusher: **1 tile** for Shove (`shove_distance`), **2** for Smite (`smite_distance`) -- "an additional space". Any
+  other key cancels. It needs no weapon, so Gunnar can do it with his bow in hand.
+- **What stops it**: the map's edge, impassable ground (for the target's own movement type) and any unit. A Smite
+  with a wall one tile behind the target moves it one tile; with a wall directly behind, nothing moves and the action
+  isn't spent. **Bosses are never pushed.** **Armor resists a tile** (`shove_armor_resist`): a Shove can't move armor at
+  all, a Smite moves it one. Hazard ground is fine -- shoving a unit onto miasma is the point.
+- **What it costs / does**: the unit's action. No damage, no counter, no EXP, and it doesn't count as having fought. It
+  works on **friends** as well as enemies (shove an ally out of reach or into position; they keep their own move). A
+  pushed unit doesn't trigger objective tiles by landing on them.
+- Not modelled: pushing into other units for collision damage, pushes off a ledge, and Kheldar's bribe.
+
 ## Saving and loading
 
 State is split in `GameState` into `PERSISTED` (saved, with the type each must have) and `TRANSIENT` (one-shot UI
@@ -156,14 +177,15 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 - **B** on the overworld: the barracks (levels, certification, recertification, abilities, paragon).
 - **C**: the convoy (weapons). **S**: support conversations. **L**: save / load / new game.
-- On a map: EXP and level-ups after every fight (counters included), **C** to capture (Capture units), income and class unlocks on a win.
+- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite (units with them), income and class unlocks on a win.
 
 ## Not built / open
 
 - Faith has no paragon class; the miasma, delivery, dispersal and talk deeds aren't recordable yet.
-- Capture: only Gunnar and the Pardoner can; Shove (the other half of Gunnar's kit) and Kheldar's bribe aren't built; the
+- Capture: only Gunnar and the Pardoner can; Kheldar's bribe isn't built; the
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
+- Shove/Smite: only Gunnar and the Housecarl have it; the 1/2 tile distances and the armor rule are first-pass numbers.
 - Mid-map state isn't saved: you save between maps (and the autosave fires after each win).
 - First-pass numbers: the fee curve, the +25 jump, the +5 growth, the EXP formula and the ability values are all
   rows in `promotion_rules` / `abilities` and want playtesting.
@@ -172,10 +194,10 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (52 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`canon.xlsx`: `promotion_rules` (55 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
 `epithets.tracked`, `epithets.count_needed`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
 `barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, `test_capture`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, `test_shove`, plus the ability checks in `test_combat_exchange`.

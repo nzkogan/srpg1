@@ -249,7 +249,7 @@
     "provenance": "state certification",
     "notes": "lv15+, pair-certified",
     "unlock_map_id": null,
-    "map_actions": null
+    "map_actions": "smite"
   },
   {
     "class_id": "cls_axe_knight",
@@ -613,7 +613,7 @@
     "provenance": "no paperwork exists",
     "notes": "Gunnar; Capture + Shove mercy kit",
     "unlock_map_id": null,
-    "map_actions": "capture"
+    "map_actions": "capture|shove"
   },
   {
     "class_id": "cls_quartermaster",

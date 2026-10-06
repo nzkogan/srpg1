@@ -310,5 +310,23 @@
     "value": 25,
     "text": null,
     "notes": "Ransom: extra gold per enemy captured rather than defeated (a defeat is worth income_per_kill, so mercy pays better but drops no weapon)."
+  },
+  {
+    "param_id": "prm_shove_distance",
+    "value": 1,
+    "text": null,
+    "notes": "Shove (map action): tiles an adjacent unit is pushed straight away from the shover. Gunnar starts with this; it upgrades to Smite once he is certified."
+  },
+  {
+    "param_id": "prm_smite_distance",
+    "value": 2,
+    "text": null,
+    "notes": "Smite (map action): the same push, one tile further. A class with 'smite' in classes.map_actions (the Housecarl) has it from the start; a shove unit gains it on certification."
+  },
+  {
+    "param_id": "prm_shove_armor_resist",
+    "value": 1,
+    "text": null,
+    "notes": "Tiles an armor-movement target resists a Shove/Smite (so a plain Shove cannot move armor at all, a Smite moves it one). Bosses are never pushed."
   }
 ]

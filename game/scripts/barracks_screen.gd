@@ -240,6 +240,9 @@ func _certify_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:
 	if not after.is_empty():
 		lines.append(_diff_line(Progression.stats_for(u), after))
 	lines.append("Plus +%d to every growth rate from then on, an ability slot, and high-tier weapons." % int(Progression.param("growth_bonus")))
+	var acts = Canon.find_by("classes", "class_id", o["class_id"]).get("map_actions")
+	if acts != null and "shove" in String(acts).split("|", false) and "smite" not in String(acts).split("|", false):
+		lines.append("[color=%s]Your Shove becomes Smite: it pushes %d tiles, not %d.[/color]" % [GOOD, int(Progression.param("smite_distance")), int(Progression.param("shove_distance"))])
 	return lines
 
 func _paragon_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:

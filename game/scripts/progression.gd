@@ -633,11 +633,39 @@ func record_deed(unit_id: String, epithet_id: String, count: int = 1) -> bool:
 
 # ------------------------------------------------------------------- capture
 
-## Whether the unit's current class carries the Capture action
-## (classes.map_actions): Gunnar's bounty hunter, and the Pardoner hybrid.
-func can_capture(unit_id: String) -> bool:
+## The map actions the unit's current class carries (classes.map_actions).
+func map_actions(unit_id: String) -> Array:
 	var acts = class_row(unit_id).get("map_actions")
-	return acts != null and "capture" in String(acts).split("|", false)
+	return [] if acts == null else Array(String(acts).split("|", false))
+
+## Whether the unit's current class carries the Capture action: Gunnar's
+## bounty hunter, and the Pardoner hybrid.
+func can_capture(unit_id: String) -> bool:
+	return "capture" in map_actions(unit_id)
+
+## Tiles the unit's Shove/Smite pushes a target, before the target's weight is
+## counted; 0 if the class has neither. A 'smite' class (the Housecarl) has the
+## long push from the start; a 'shove' class (Gunnar) gets it on certification.
+func shove_distance(unit_id: String) -> int:
+	var acts := map_actions(unit_id)
+	if "smite" in acts or ("shove" in acts and is_promoted(unit_id)):
+		return int(param("smite_distance"))
+	if "shove" in acts:
+		return int(param("shove_distance"))
+	return 0
+
+## "Smite" for the long push, "Shove" for the short one ("" if the unit has neither).
+func push_name(unit_id: String) -> String:
+	var d := shove_distance(unit_id)
+	if d <= 0:
+		return ""
+	return "Smite" if d >= int(param("smite_distance")) else "Shove"
+
+## How far a push of `distance` tiles actually moves a target of this movement
+## type: armor resists shove_armor_resist tiles of it.
+func push_distance_for(distance: int, target_movement: String) -> int:
+	var resist := int(param("shove_armor_resist")) if target_movement == "armor" else 0
+	return maxi(0, distance - resist)
 
 ## Whether an enemy can be captured right now. Bosses never can; anyone else
 ## must be at or below capture_hp_pct of their maximum HP. -> {"ok", "reason"}.
