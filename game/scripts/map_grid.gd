@@ -1092,26 +1092,63 @@ func _occupant(tile: Vector2i) -> Dictionary:
 			return {"ally": pid}
 	return {}
 
-## Where a push of up to `dist` tiles from `from` along `dir` ends: it stops
-## short of the map's edge, impassable ground (for the target's movement type)
-## and any unit. Hazard ground is fine -- pushing someone onto it is the point.
-func _push_destination(from: Vector2i, dir: Vector2i, dist: int, movement_type: String) -> Vector2i:
+## Where a push of up to `dist` tiles from `from` along `dir` ends, and what
+## stopped it: {"dest": tile, "stopped_by": {} if it went the whole way, else
+## {"kind": "edge" | "wall" | "unit", "who": _occupant() result for a unit}}.
+## Hazard ground is no obstacle -- pushing someone onto it is the point.
+func _push_path(from: Vector2i, dir: Vector2i, dist: int, movement_type: String) -> Dictionary:
 	var cur := from
 	for i in dist:
 		var n := cur + dir
 		if n.y < 0 or n.y >= grid.size() or n.x < 0 or n.x >= grid[0].length():
-			break
-		if _terrain_cost(n, movement_type) >= IMPASSABLE or not _occupant(n).is_empty():
-			break
+			return {"dest": cur, "stopped_by": {"kind": "edge"}}
+		if _terrain_cost(n, movement_type) >= IMPASSABLE:
+			return {"dest": cur, "stopped_by": {"kind": "wall"}}
+		var occ := _occupant(n)
+		if not occ.is_empty():
+			return {"dest": cur, "stopped_by": {"kind": "unit", "who": occ}}
 		cur = n
-	return cur
+	return {"dest": cur, "stopped_by": {}}
+
+## Display name of an _occupant() result, as it reads mid-sentence.
+func _occupant_label(who: Dictionary) -> String:
+	if who.has("enemy"):
+		return "the %s" % who["enemy"].archetype.get("name")
+	for u in units:
+		if u.get("punit_id", "") == who["ally"]:
+			return str(u.get("name"))
+	return str(who["ally"])
+
+## A collision hurts `who` for collision_pct of its own max HP (never lethal) and
+## returns the damage. An enemy hurt this way counts as damaged by `pusher`, so
+## a boss stays "single combat" only if nobody else has touched it.
+func _collide(who: Dictionary, pusher: String) -> int:
+	if who.has("enemy"):
+		var inst: Dictionary = who["enemy"]
+		var dmg := Progression.collision_damage(int(inst.hp), int(inst.max_hp))
+		inst.hp = int(inst.hp) - dmg
+		if dmg > 0:
+			if not inst.has("hit_by"):
+				inst["hit_by"] = {}
+			inst["hit_by"][pusher] = true
+		return dmg
+	var ally: String = who["ally"]
+	var max_hp := 0
+	for u in units:
+		if u.get("punit_id", "") == ally:
+			max_hp = int(u.get("hp", 0))
+	var dmg := Progression.collision_damage(int(unit_hp.get(ally, 0)), max_hp)
+	unit_hp[ally] = int(unit_hp.get(ally, 0)) - dmg
+	return dmg
 
 ## The push itself. The selected unit pushes whoever stands on the adjacent tile
 ## in `dir` straight away from itself -- an enemy or a friend -- and that takes
-## its action. No damage, no counter, and a pushed unit arrives without
-## triggering the map's objective tiles. Bosses hold their ground; armor resists
-## shove_armor_resist tiles; a push that cannot move the target at all is refused
-## and costs nothing.
+## its action. No counter, and a pushed unit arrives without triggering the
+## map's objective tiles. Bosses hold their ground; armor resists
+## shove_armor_resist tiles (a push resisted to nothing is refused, free). A push
+## that meets a wall, the map's edge or another unit COLLIDES: the pushed unit
+## takes collision_pct of its max HP, and so does a unit it hits -- never enough
+## to kill. There are no ledges to be pushed off.
 func _shove_toward(dir: Vector2i) -> void:
 	_shove_mode = false
 	if units.is_empty() or map_won or map_lost:
@@ -1133,11 +1170,10 @@ func _shove_toward(dir: Vector2i) -> void:
 	if who.is_empty():
 		info_label.text = "There is nobody to push there."
 		return
-	var label := ""
+	var label := _occupant_label(who)
 	var movement := "infantry"
 	if who.has("enemy"):
 		var inst: Dictionary = who["enemy"]
-		label = "the %s" % inst.archetype.get("name")
 		movement = str(inst.archetype.get("movement_type", "infantry"))
 		if inst.kind == "boss":
 			info_label.text = "%s holds its ground and will not be pushed." % _cap(label)
@@ -1145,31 +1181,43 @@ func _shove_toward(dir: Vector2i) -> void:
 	else:
 		for u in units:
 			if u.get("punit_id", "") == who["ally"]:
-				label = str(u.get("name"))
 				movement = str(u.get("movement_type", "infantry"))
 	var reach := Progression.push_distance_for(dist, movement)
 	var verb := "smites" if Progression.push_name(pid) == "Smite" else "shoves"
 	if reach <= 0:
 		info_label.text = "%s is too heavy to be moved by a %s." % [_cap(label), Progression.push_name(pid)]
 		return
-	var dest := _push_destination(tile, dir, reach, movement)
+	var path := _push_path(tile, dir, reach, movement)
+	var dest: Vector2i = path["dest"]
 	var moved := _distance(tile, dest)
-	if moved == 0:
-		info_label.text = "%s cannot be pushed that way: something is in the way." % (_cap(label))
-		return
-	if who.has("enemy"):
-		_enemy_move(who["enemy"], dest)
-	else:
-		var ally: String = who["ally"]
-		unit_positions[ally] = dest
-		var token = unit_tokens.get(ally)
-		if token:
-			token.container.position = Vector2(dest.x * CELL_SIZE, dest.y * CELL_SIZE)
+	if moved > 0:
+		if who.has("enemy"):
+			_enemy_move(who["enemy"], dest)
+		else:
+			var ally: String = who["ally"]
+			unit_positions[ally] = dest
+			var token = unit_tokens.get(ally)
+			if token:
+				token.container.position = Vector2(dest.x * CELL_SIZE, dest.y * CELL_SIZE)
 	attacked_this_turn[pid] = true
-	var note := ""
-	if moved < dist:
-		note = " (it can go no further)" if moved < reach else " (too heavy to go further)"
-	info_label.text = "%s %s %s back %d tile%s%s." % [unit.get("name"), verb, label, moved, "" if moved == 1 else "s", note]
+	var text := "%s %s %s back %d tile%s" % [unit.get("name"), verb, label, moved, "" if moved == 1 else "s"] if moved > 0 \
+		else "%s %s %s, but it cannot move" % [unit.get("name"), verb, label]
+	var stopped: Dictionary = path["stopped_by"]
+	if stopped.is_empty():
+		text += " (too heavy to go further)." if moved < dist else "."
+	else:
+		var into := "the map's edge" if stopped["kind"] == "edge" else ("the wall" if stopped["kind"] == "wall" else _occupant_label(stopped["who"]))
+		text += "; %s slams into %s." % [label, into]
+		var hurt: Array = [[_cap(label), _collide(who, pid)]]
+		if stopped["kind"] == "unit":
+			hurt.append([_cap(_occupant_label(stopped["who"])), _collide(stopped["who"], pid)])
+		var parts: Array[String] = []
+		for h in hurt:
+			if int(h[1]) > 0:
+				parts.append("%s takes %d damage" % [h[0], h[1]])
+		if not parts.is_empty():
+			text += " " + ", ".join(parts) + "."
+	info_label.text = text
 	_update_status_label()
 	_update_forecast()
 

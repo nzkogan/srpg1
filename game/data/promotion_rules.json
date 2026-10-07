@@ -328,5 +328,11 @@
     "value": 1,
     "text": null,
     "notes": "Tiles an armor-movement target resists a Shove/Smite (so a plain Shove cannot move armor at all, a Smite moves it one). Bosses are never pushed."
+  },
+  {
+    "param_id": "prm_collision_pct",
+    "value": 10,
+    "text": null,
+    "notes": "Shove/Smite collision: a pushed unit that hits a wall, the map edge or another unit takes this percent of its own max HP (rounded down); a unit it hits takes the same of its own. Never lethal: it stops at 1 HP."
   }
 ]

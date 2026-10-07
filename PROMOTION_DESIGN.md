@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -139,14 +139,20 @@ A map action, drafted:
 - **How**: **S**, then an arrow key (or a click) on an adjacent unit. The target is pushed **straight away** from the
   pusher: **1 tile** for Shove (`shove_distance`), **2** for Smite (`smite_distance`) -- "an additional space". Any
   other key cancels. It needs no weapon, so Gunnar can do it with his bow in hand.
-- **What stops it**: the map's edge, impassable ground (for the target's own movement type) and any unit. A Smite
-  with a wall one tile behind the target moves it one tile; with a wall directly behind, nothing moves and the action
-  isn't spent. **Bosses are never pushed.** **Armor resists a tile** (`shove_armor_resist`): a Shove can't move armor at
-  all, a Smite moves it one. Hazard ground is fine -- shoving a unit onto miasma is the point.
-- **What it costs / does**: the unit's action. No damage, no counter, no EXP, and it doesn't count as having fought. It
-  works on **friends** as well as enemies (shove an ally out of reach or into position; they keep their own move). A
+- **What stops it**: the map's edge, impassable ground (for the target's own movement type) and any unit. **That is a
+  collision**: the pushed unit takes **a tenth of its own max HP, rounded down** (`collision_pct`; 20 -> 2, 25 -> 2, under
+  10 -> 0), and so does a unit it runs into, a tenth of *that* unit's own max HP. A Smite with a wall one tile behind
+  the target moves it one tile and then slams; with a wall directly behind, nothing moves and it still slams. A
+  collision is **never lethal** (it stops at 1 HP -- it's a mercy kit, and it keeps kill EXP and deeds out of it). An
+  enemy hurt by a slam counts as damaged by the pusher, so a boss it touches is no longer "single combat". A friend's
+  slam doesn't count as being struck for the no-hit deed. **Bosses are never pushed** (but one can be hit by a pushed
+  unit). **Armor resists a tile** (`shove_armor_resist`): a Shove can't move armor at all (refused, free), a Smite moves
+  it one -- resisting isn't a collision. Hazard ground is fine -- shoving a unit onto miasma is the point. There are
+  no ledges, so nothing can be pushed off one.
+- **What it costs / does**: the unit's action. No counter, no EXP, and it doesn't count as having fought. A push
+  that goes the whole way does no damage. It works on **friends** as well as enemies (they keep their own move). A
   pushed unit doesn't trigger objective tiles by landing on them.
-- Not modelled: pushing into other units for collision damage, pushes off a ledge, and Kheldar's bribe.
+- Not modelled: pushes off a ledge (no ledges exist), and Kheldar's bribe.
 
 ## Saving and loading
 
@@ -185,7 +191,7 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 - Capture: only Gunnar and the Pardoner can; Kheldar's bribe isn't built; the
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
-- Shove/Smite: only Gunnar and the Housecarl have it; the 1/2 tile distances and the armor rule are first-pass numbers.
+- Shove/Smite: only Gunnar and the Housecarl have it; the 1/2 tile distances, the armor rule and the 10% collision are first-pass numbers.
 - Mid-map state isn't saved: you save between maps (and the autosave fires after each win).
 - First-pass numbers: the fee curve, the +25 jump, the +5 growth, the EXP formula and the ability values are all
   rows in `promotion_rules` / `abilities` and want playtesting.
@@ -194,7 +200,7 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (55 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`canon.xlsx`: `promotion_rules` (56 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
 `epithets.tracked`, `epithets.count_needed`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),

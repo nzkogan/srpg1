@@ -661,6 +661,12 @@ func push_name(unit_id: String) -> String:
 		return ""
 	return "Smite" if d >= int(param("smite_distance")) else "Shove"
 
+## Damage a Shove/Smite collision does to a unit with `hp` of `max_hp`:
+## collision_pct of its max HP rounded down, never lethal (it stops at 1 HP).
+func collision_damage(hp: int, max_hp: int) -> int:
+	var dmg := int(floor(max_hp * param("collision_pct") / 100.0))
+	return clampi(dmg, 0, maxi(0, hp - 1))
+
 ## How far a push of `distance` tiles actually moves a target of this movement
 ## type: armor resists shove_armor_resist tiles of it.
 func push_distance_for(distance: int, target_movement: String) -> int:
