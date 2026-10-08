@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13; mid-map saves 2026-10-15. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -266,6 +266,31 @@ convoy. It's off in headless runs so the test suites don't write to a real save 
 opens the save screen (save, load, delete, new game; overwriting, deleting and a new game all ask for a second
 press). The overworld draws won maps green and, on a fresh game, tells you if an autosave is waiting.
 
+### Mid-map saves
+
+A battle can now be saved in the middle, on the player's turn (not in the prologue, which is a memory that can't be
+paused).
+
+- **P** on a map **suspends**: the battle is saved and you go back to the overworld. **F5** is a **quick save**: the same
+  save, and you play on. Both write the autosave slot (so F5 replaces the latest autosave), and the snapshot is part
+  of the ordinary save file, so it travels with every slot and survives quitting.
+- **What's saved**: the turn; every unit's tile and HP (the fallen stay fallen); every enemy with its place, HP and flags
+  (bribed, captured, routed, talked, stopped listening, who damaged it and who broke it); the dens' wave counts; who has
+  moved or acted this turn; the deed bookkeeping (who was struck, who fought, a solo-hold streak in progress); cargo
+  delivered; bribes spent; the last enemy phase's log; the selected unit; and the support points earned so far this map.
+- **It rolls the rest of the game back too.** The snapshot carries a copy of the whole playthrough (gold, EXP and levels,
+  deeds, drops taken, convoy, won maps) as it stood, and resuming restores all of it -- so you can't fight on after
+  a quick save, lose, and resume with the EXP and gold you gained in the attempt you threw away.
+- **Resuming**: the overworld puts the party where the battle waits and the panel says "SUSPENDED: <map>, turn N. Enter
+  resumes it." While a battle is suspended no other chapter can be started (Enter elsewhere says where it is); **X
+  twice** abandons it. Loading a save that holds one brings it back the same way, and the save screen lists it
+  ("In battle: ..., turn N").
+- **When it clears**: winning the map clears it. Losing the map, or leaving with Escape, **keeps** it -- the suspend point is
+  a checkpoint you can go back to. A damaged snapshot (wrong version, missing parts, a bad playthrough inside) is dropped
+  and the map starts fresh rather than half-loading.
+- Not saved: anything mid-enemy-phase (you can only save on your own turn), and the prologue. The deploy screen (turn 0)
+  has no special handling.
+
 ## Why this removes the min-max
 
 | Rule set | What delaying promotion does |
@@ -280,7 +305,7 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 - **B** on the overworld: the barracks (levels, certification, recertification, abilities, paragon).
 - **C**: the convoy (weapons). **S**: support conversations. **L**: save / load / new game.
-- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite and **B** to bribe (units with them), **T** to talk, income and class unlocks on a win.
+- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite and **B** to bribe (units with them), **T** to talk, **P** / **F5** to suspend / quick-save a battle, income and class unlocks on a win.
 
 ## Not built / open
 
@@ -289,7 +314,6 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
 - Shove/Smite: only Gunnar and the Housecarl have it; the 1/2 tile distances, the armor rule and the 10% collision are first-pass numbers.
-- Mid-map state isn't saved: you save between maps (and the autosave fires after each win).
 - First-pass numbers: the fee curve, the +25 jump, the +5 growth, the EXP formula and the ability values are all
   rows in `promotion_rules` / `abilities` and want playtesting.
 - The unlock maps are my thematic guesses; canon doesn't say when hybrids open.
@@ -303,4 +327,4 @@ validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
 `barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, `test_dispersal_talk`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, `test_dispersal_talk`, `test_mid_map_save`, plus the ability checks in `test_combat_exchange`.

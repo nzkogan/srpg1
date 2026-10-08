@@ -89,6 +89,12 @@ func row_text(info: Dictionary) -> String:
 		int(s.get("gold", 0)), int(s.get("maps_won", 0)), "" if int(s.get("maps_won", 0)) == 1 else "s"]
 
 func _summary_lines(s: Dictionary) -> Array[String]:
+	var lines: Array[String] = _summary_core(s)
+	if str(s.get("battle", "")) != "":
+		lines.append("In battle: %s, turn %d (suspended -- Enter resumes it on the overworld)" % [s["battle"], int(s.get("battle_turn", 0))])
+	return lines
+
+func _summary_core(s: Dictionary) -> Array[String]:
 	return [
 		"Maps won: %d" % int(s.get("maps_won", 0)),
 		"Squad: %d unit%s fielded, highest level %d, %d at order tier or above" % [int(s.get("units", 0)), "" if int(s.get("units", 0)) == 1 else "s", int(s.get("top_level", 0)), int(s.get("certified", 0))],

@@ -71,6 +71,13 @@ var deeds: Dictionary = {}
 ## map_id -> true once won (any playthrough action that wins it).
 var won_maps: Dictionary = {}
 
+## A suspended battle (a mid-map save): {} when there is none, else the snapshot
+## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
+## a copy of the rest of the playthrough as it was, so resuming rolls everything back
+## to that moment. Cleared when that map is won; kept if it is lost or left, so you can
+## go back to the save. See map_grid.gd and overworld.gd.
+var battle: Dictionary = {}
+
 ## Where the party stands on the overworld (a locations.location_id); "" before
 ## it has gone anywhere. See overworld.gd.
 var world_location: String = ""
@@ -84,6 +91,7 @@ const PERSISTED := {
 	"drops_claimed": TYPE_DICTIONARY, "progression": TYPE_DICTIONARY, "gold": TYPE_INT,
 	"unlocked_classes": TYPE_DICTIONARY, "income_claimed": TYPE_DICTIONARY,
 	"deeds": TYPE_DICTIONARY, "won_maps": TYPE_DICTIONARY, "world_location": TYPE_STRING,
+	"battle": TYPE_DICTIONARY,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.

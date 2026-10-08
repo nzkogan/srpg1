@@ -48,7 +48,8 @@ func make_summary() -> Dictionary:
 		if st.get("promoted", false) and cls != null and cls["tier"] != "personal":
 			certified += 1
 	return {"gold": GameState.gold, "units": GameState.progression.size(), "top_level": top_level,
-		"maps_won": GameState.won_maps.size(), "deeds": deeds, "certified": certified}
+		"maps_won": GameState.won_maps.size(), "deeds": deeds, "certified": certified,
+		"battle": str(GameState.battle.get("title", "")), "battle_turn": int(GameState.battle.get("turn", 0))}
 
 func _envelope() -> Dictionary:
 	return {"version": SAVE_VERSION, "saved_at": int(Time.get_unix_time_from_system()),

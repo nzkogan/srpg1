@@ -35,6 +35,8 @@ extends Node2D
 ##   W   = select the next cargo unit (maps with cargo: walk it to the E tile)
 ##   B   = Bribe (Kheldar): then an arrow key (or a click) on an adjacent enemy
 ##         pays gold to turn it neutral for the rest of the map (one a map, no bosses)
+##   P   = suspend: save the battle exactly as it stands and return to the overworld
+##   F5  = quick save: the same save, but you stay and play on (the overworld offers it again)
 ##   N / Enter = advance to the next turn
 ##   Escape = return to the overworld
 ##   S (after a win that raised a support rank) = read the new scene(s)
@@ -162,6 +164,8 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+## Test seam: false makes P write the suspend save without leaving for the overworld.
+var suspend_leaves := true
 var _talk_mode := false        # [T] pressed: the next arrow key / click picks who to talk to
 var delivered: Array[String] = []   # cargo ids that have reached the goal on this map
 var map_lost := false          # every player unit gone: no win is possible
@@ -208,6 +212,7 @@ func _ready() -> void:
 	var chapter = Canon.find_by("chapters", "chapter_id", map_row.get("chapter_id", ""))
 	chapter_route = chapter["route"] if chapter != null else ""
 	Supports.begin_map()
+	var snap := _take_suspension()
 	units = _build_units()
 	if map_id == "map_f00":
 		_index_structures()
@@ -226,8 +231,13 @@ func _ready() -> void:
 		if pos.x >= 0 and pos.y >= 0:
 			unit_positions[unit.get("punit_id")] = pos
 			unit_hp[unit.get("punit_id")] = int(unit.get("hp", 0))
+	if not snap.is_empty():
+		_restore_units(snap)
 	_draw_unit_tokens()
-	_spawn_encounter()
+	if snap.is_empty():
+		_spawn_encounter()
+	else:
+		_restore_enemies(snap)
 
 	status_label = Label.new()
 	status_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
@@ -249,11 +259,15 @@ func _ready() -> void:
 	forecast_label.visible = false
 	add_child(forecast_label)
 
+	if not snap.is_empty():
+		_restore_progress(snap)
 	_update_status_label()
 	if not units.is_empty():
-		_select_unit(0)
+		_select_unit(_first_present_unit(int(snap.get("selected", 0))) if not snap.is_empty() else 0)
 	else:
 		_update_info_label()
+	if not snap.is_empty():
+		info_label.text = "Resumed at turn %d.\n%s" % [turn, info_label.text]
 
 func _index_map_row() -> void:
 	for row in Canon.get_table("maps"):
@@ -565,7 +579,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _shove_mode:
 			_shove_key(key_event.keycode)
 			return
-		if key_event.keycode == KEY_T:
+		if key_event.keycode == KEY_P:
+			suspend(true)
+		elif key_event.keycode == KEY_F5:
+			suspend(false)
+		elif key_event.keycode == KEY_T:
 			_begin_talk()
 		elif key_event.keycode == KEY_W:
 			_select_next_cargo()
@@ -824,6 +842,8 @@ func _on_map_won() -> void:
 		call_deferred("_show_rewards")
 	_support_entries = Supports.settle_map(map_id)
 	GameState.won_maps[map_id] = true
+	if GameState.battle.get("map_id", "") == map_id:
+		GameState.battle = {}      # the suspended battle was this one, and it is won
 	SaveGame.autosave()
 	for entry in _support_entries:
 		_support_lines.append(Supports.describe_raise(entry))
@@ -2056,6 +2076,159 @@ func _no_hit_deeds() -> Array[String]:
 			lines.append_array(_earn_deed(pid, "ep_nohit", str(row["name"]) if row != null else pid))
 	return lines
 
+# ------------------------------------------------------------ mid-map saves
+#
+# A suspend / quick save (P / F5) snapshots the whole battle into GameState.battle: the
+# turn, every unit's tile and HP, every enemy (with its flags: bribed, captured, routed...),
+# the dens' wave counts, who has moved or acted, the deed telemetry, the cargo, and the
+# support points earned so far -- plus a copy of the REST of the playthrough, so resuming
+# rolls EXP, gold, drops and deeds back to that moment too (no taking a save back for the
+# EXP). The snapshot is part of the ordinary save file, so it survives quitting and loading
+# from any slot. It is cleared when the map is won, and kept if it is lost or left. The
+# prologue (map_f00) can't be suspended. Battles are saved on the player's turn only.
+
+const BATTLE_SAVE_VERSION := 1
+
+func _v2a(v: Vector2i) -> Array:
+	return [v.x, v.y]
+
+func _a2v(a) -> Vector2i:
+	return Vector2i(int(a[0]), int(a[1]))
+
+## The battle as plain data (arrays, dictionaries, numbers, strings -- JSON-safe).
+func capture_state() -> Dictionary:
+	var state := GameState.to_dict()
+	state.erase("battle")
+	var positions := {}
+	for pid in unit_positions:
+		positions[pid] = _v2a(unit_positions[pid])
+	var hold := {}
+	for pid in hold_streak:
+		hold[pid] = {"tile": _v2a(hold_streak[pid]["tile"]), "phases": int(hold_streak[pid]["phases"])}
+	var enemy_rows: Array = []
+	for inst in enemies:
+		var d: Dictionary = inst.duplicate(true)
+		d.erase("token")
+		d["pos"] = _v2a(inst.pos)
+		enemy_rows.append(d)
+	var den_rows: Array = []
+	for den in dens:
+		den_rows.append({"spawn_id": den.spawn_row.get("spawn_id", ""), "waves": int(den.waves_spawned)})
+	var chapter = Canon.find_by("chapters", "chapter_id", map_row.get("chapter_id", ""))
+	return {
+		"version": BATTLE_SAVE_VERSION, "map_id": map_id, "title": str(map_row.get("title", map_id)),
+		"location_id": str(chapter.get("location_id", "")) if chapter != null and chapter.get("location_id") != null else "",
+		"turn": turn, "selected": selected_unit_index, "state": state, "supports": Supports.snapshot_map_points(),
+		"positions": positions, "hp": unit_hp.duplicate(), "moved": moved_this_turn.duplicate(), "attacked": attacked_this_turn.duplicate(),
+		"struck": struck_units.duplicate(), "fought": fought_units.duplicate(), "hold": hold,
+		"enemies": enemy_rows, "dens": den_rows, "enemy_log": enemy_log.duplicate(),
+		"bribed": bribed_count, "escaped": escaped_count, "delivered": delivered.duplicate(),
+	}
+
+## Whether a snapshot looks usable for this scene (right map, right version, the keys we read).
+func _snapshot_ok(snap: Dictionary) -> bool:
+	if snap.get("map_id", "") != map_id or int(snap.get("version", 0)) != BATTLE_SAVE_VERSION:
+		return false
+	for key in ["state", "positions", "hp", "enemies", "dens", "turn"]:
+		if not snap.has(key):
+			return false
+	return typeof(snap["state"]) == TYPE_DICTIONARY and typeof(snap["positions"]) == TYPE_DICTIONARY and typeof(snap["enemies"]) == TYPE_ARRAY
+
+## At load: if a suspended battle is for THIS map, roll the playthrough back to it and return
+## it (the rest of _ready then builds the battle from it); a damaged one is dropped. {} when
+## this is a fresh start.
+func _take_suspension() -> Dictionary:
+	if map_id == "map_f00" or GameState.battle.is_empty() or GameState.battle.get("map_id", "") != map_id:
+		return {}
+	var snap: Dictionary = GameState.restore(GameState.battle.duplicate(true))
+	if not _snapshot_ok(snap) or GameState.validate(snap["state"]) != "":
+		GameState.battle = {}
+		return {}
+	GameState.from_dict(snap["state"])
+	GameState.battle = snap
+	return snap
+
+func _restore_units(snap: Dictionary) -> void:
+	unit_positions.clear()
+	unit_hp.clear()
+	var present := {}
+	for u in units:
+		present[u.get("punit_id", "")] = true
+	for pid in snap["positions"]:
+		if present.has(pid):
+			unit_positions[pid] = _a2v(snap["positions"][pid])
+			unit_hp[pid] = int(snap["hp"].get(pid, 0))
+
+func _restore_enemies(snap: Dictionary) -> void:
+	enemies.clear()
+	dens.clear()
+	for d in snap["enemies"]:
+		var inst: Dictionary = (d as Dictionary).duplicate(true)
+		inst["pos"] = _a2v(d["pos"])
+		inst["hp"] = int(d["hp"])
+		inst["max_hp"] = int(d["max_hp"])
+		inst["token"] = {}
+		enemies.append(inst)
+		if not inst.defeated:
+			_draw_enemy_token(inst)
+			if inst.get("neutral", false) and inst.token.has("bg"):
+				inst.token.bg.color = NEUTRAL_TOKEN_COLOR
+	for den in snap["dens"]:
+		for row in Canon.get_table("encounter_spawns"):
+			if row["spawn_id"] == den["spawn_id"]:
+				dens.append({"spawn_row": row, "waves_spawned": int(den["waves"])})
+				break
+
+func _restore_progress(snap: Dictionary) -> void:
+	turn = int(snap["turn"])
+	moved_this_turn = (snap.get("moved", {}) as Dictionary).duplicate()
+	attacked_this_turn = (snap.get("attacked", {}) as Dictionary).duplicate()
+	struck_units = (snap.get("struck", {}) as Dictionary).duplicate()
+	fought_units = (snap.get("fought", {}) as Dictionary).duplicate()
+	hold_streak.clear()
+	for pid in snap.get("hold", {}):
+		hold_streak[pid] = {"tile": _a2v(snap["hold"][pid]["tile"]), "phases": int(snap["hold"][pid]["phases"])}
+	bribed_count = int(snap.get("bribed", 0))
+	escaped_count = int(snap.get("escaped", 0))
+	delivered.clear()
+	for id in snap.get("delivered", []):
+		delivered.append(str(id))
+	enemy_log.clear()
+	for line in snap.get("enemy_log", []):
+		enemy_log.append(str(line))
+	Supports.restore_map_points(snap.get("supports", {}))
+	for i in units.size():
+		_refresh_token_color(i)
+
+## The first unit index at or after `want` that is still on the map (0 if none are).
+func _first_present_unit(want: int) -> int:
+	for step in units.size():
+		var idx := (want + step) % units.size()
+		if unit_positions.has(units[idx].get("punit_id", "")):
+			return idx
+	return 0
+
+## [P] / [F5]: writes the battle into GameState.battle (and the autosave slot). With
+## `leave`, also returns to the overworld, where Enter resumes it. Refused in the
+## prologue and once the map is over.
+func suspend(leave: bool) -> void:
+	if map_id == "map_f00":
+		info_label.text = "The prologue is a memory that can't be paused."
+		return
+	if map_won or map_lost or units.is_empty():
+		return
+	GameState.battle = capture_state()
+	if GameState.battle["location_id"] != "":
+		GameState.world_location = GameState.battle["location_id"]
+	var saved := SaveGame.autosave()
+	if not saved["ok"]:
+		info_label.text = "The battle is saved in memory but the file couldn't be written: %s." % saved["error"]
+		return
+	if leave and suspend_leaves:
+		get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+	else:
+		info_label.text = "Battle saved at turn %d. P suspends and leaves; Escape leaves without saving more -- the overworld resumes from this save." % turn
+
 # ----------------------------------------------------------- miasma and cargo
 #
 # Two more deeds. Miasma ("ends turn on miasma tiles 5+ times"): each main unit that
@@ -2240,6 +2413,7 @@ func _update_status_label() -> void:
 			push_names.append(push)
 	if map_id != "map_f00":
 		controls = controls.replace("[E] weapon", "[T] talk -- [E] weapon")
+		controls += " -- [P] suspend -- [F5] quick save"
 	if _cargo_needed() > 0:
 		controls = controls.replace("[E] weapon", "[W] cargo -- [E] weapon")
 	for u in units:

@@ -27,6 +27,10 @@ extends Node2D
 ## returns here. C = convoy (convoy_screen.gd). B = barracks (barracks_screen.gd). L =
 ## save, load or new game (save_screen.gd). U = free roam: ignore the locks (a
 ## testing aid, not saved). Escape inside any map returns here (see map_grid.gd).
+##
+## A battle suspended with P (or quick-saved with F5) waits here: the party stands at its
+## place, the panel says so, and Enter resumes it exactly where it stopped. X (pressed twice)
+## abandons it. While one is waiting, no other chapter can be started.
 
 const AVAILABLE_SCENES := {
 	"map_f00": "res://scenes/map_f00.tscn",
@@ -146,6 +150,7 @@ var _marker: Node2D
 var _walk: Array = []            # points left to walk (Vector2), empty when standing
 var _walk_dest := ""
 var _regions_by_id: Dictionary = {}
+var _abandon_armed := false
 
 func _ready() -> void:
 	var maps_by_id: Dictionary = {}
@@ -207,6 +212,9 @@ func _add_edge(e: Dictionary) -> void:
 ## Where the party starts: in the memory until the prologue is won, then at the tally house;
 ## afterwards wherever it last stood (GameState.world_location).
 func _initial_location() -> String:
+	var held := suspended_location()
+	if held != "":
+		return held
 	var saved: String = GameState.world_location
 	if saved != "" and locations.has(saved):
 		return saved
@@ -265,6 +273,24 @@ func _is_won(ch: Dictionary) -> bool:
 	if map_id == null:
 		return ch.get("chapter_id", "") == "ch_h32" and GameState.get_flag(HIEROPHANT_FLAG) != null
 	return GameState.won_maps.has(map_id)
+
+## The map of a suspended battle ("" if none).
+func suspended_map() -> String:
+	return str(GameState.battle.get("map_id", ""))
+
+## Where a suspended battle waits ("" if none, or its place isn't on this map).
+func suspended_location() -> String:
+	var lid := str(GameState.battle.get("location_id", ""))
+	return lid if lid != "" and locations.has(lid) else ""
+
+## Throws a suspended battle away. Returns false if there was none.
+func abandon_suspended() -> bool:
+	if GameState.battle.is_empty():
+		return false
+	GameState.battle = {}
+	_abandon_armed = false
+	_show_location(selected_location if selected_location != "" else party_location, not is_walking(), "The suspended battle is abandoned.")
+	return true
 
 ## The chapter Enter would play at a location: the first open one in story order ({} if none).
 func next_chapter(location_id: String) -> Dictionary:
@@ -527,7 +553,11 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 			_: tag = "locked: %s" % st["reason"]
 		lines.append("  %s -- %s" % [entry.chapter.get("title", "?"), tag])
 		shown += 1
-	if here:
+	if suspended_map() != "":
+		var bt := str(GameState.battle.get("title", suspended_map()))
+		lines.append("SUSPENDED: %s, turn %d. %s" % [bt, int(GameState.battle.get("turn", 0)),
+			"Enter resumes it." if location_id == suspended_location() else "It waits at %s; no other chapter can start until it is resumed or abandoned (X twice)." % locations[suspended_location()]["row"].get("name", "another place") if suspended_location() != "" else "X twice abandons it."])
+	elif here:
 		var nxt := next_chapter(location_id)
 		if not nxt.is_empty():
 			lines.append("Enter plays %s." % nxt.chapter.get("title"))
@@ -564,6 +594,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_C:
 		get_tree().change_scene_to_file(Equipment.SCREEN_SCENE)
 		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_X:
+		if GameState.battle.is_empty():
+			return
+		if _abandon_armed:
+			abandon_suspended()
+		else:
+			_abandon_armed = true
+			_show_location(selected_location if selected_location != "" else party_location, not is_walking(),
+				"Press X again to abandon the suspended battle for good. Any other key keeps it.")
+		return
+	if event is InputEventKey and event.pressed and _abandon_armed:
+		_abandon_armed = false
 	if event is InputEventKey and event.pressed and event.keycode == KEY_U:
 		free_roam = not free_roam
 		_show_location(selected_location if selected_location != "" else party_location, not is_walking())
@@ -591,6 +633,9 @@ func enter_location() -> void:
 		return
 	var entry := chapter_to_play(party_location)
 	if entry.is_empty():
+		if suspended_map() != "":
+			_show_location(party_location, true, "A battle is suspended at %s. Go there and press Enter to resume it, or press X twice to abandon it." % locations[suspended_location()]["row"].get("name", "another place") if suspended_location() != "" else "A battle is suspended elsewhere; press X twice to abandon it.")
+			return
 		_show_location(party_location, true, "Nothing here can be played yet.")
 		return
 	_launch(entry)
@@ -598,6 +643,11 @@ func enter_location() -> void:
 ## What Enter plays at a location: the next open chapter, else (everything won) the last
 ## one won there, as a replay; {} if neither.
 func chapter_to_play(location_id: String) -> Dictionary:
+	if suspended_map() != "":
+		for e in locations[location_id]["chapters"]:
+			if e.map_row.get("map_id", "") == suspended_map():
+				return e          # a suspended battle is resumed whatever else is open here
+		return {}
 	var entry := next_chapter(location_id)
 	if entry.is_empty():
 		for e in locations[location_id]["chapters"]:

@@ -243,6 +243,16 @@ var _map_points: Dictionary = {}  # chain_id -> points earned this map, not yet 
 func begin_map() -> void:
 	_map_points.clear()
 
+## The support points earned on the current map and not yet banked (for a mid-map save).
+func snapshot_map_points() -> Dictionary:
+	return _map_points.duplicate()
+
+## Puts back what snapshot_map_points() returned.
+func restore_map_points(points: Dictionary) -> void:
+	_map_points.clear()
+	for chain_id in points:
+		_map_points[chain_id] = int(points[chain_id])
+
 ## Whether two units may earn together on a chapter of the given route
 ## ("diadem", "assembly" or "both"). Opposed-route units only meet once the
 ## routes converge; canon marks that with chapters.route == "both".
