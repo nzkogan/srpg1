@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -92,8 +92,8 @@ moment is the cheapest, and nothing can be missed.
   unit damaged -- "single combat" -- by attack or counter), *solo hold* (the same tile for 3 enemy phases running,
   attacked each time, no ally within 2 tiles), *no-hit map* (fought, and never hit, when the map is won; a unit
   that never fought doesn't count) and *capture* (take 5 enemies alive; see below -- the one deed that counts up).
-  All four deeds that gate paragon are recordable. Two more deeds that don't gate it are too (miasma, delivery --
-  see below); dispersal and talk still need mechanics that don't exist.
+  All four deeds that gate paragon are recordable. Four more deeds that don't gate it are too (miasma, delivery,
+  dispersal, talk -- see below), so every epithet in canon is now recordable.
 - **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr; sword: Fianna
   (sword + bow); bow: Donso; brawl: Toa; axe: Jaguar knight (axe + brawl) or Eagle knight; reason: Tzitzimitl (which also
   needs the Simurgh paralogue won -- a drafted guess at canon's "paralogue"). A Billman, knowing axe *and* lance,
@@ -201,6 +201,38 @@ barracks lists them under "Other deeds" with progress.
   - Not modelled: civilians chasing the cart and looters killing them (a01's own note), the wagons' defence and the
     cart's HP (first-pass numbers), and who stayed *with* the cargo along the way -- only who is near at the end.
 
+## The dispersal and talk deeds
+
+The last two epithets (forge vocabulary only, no paragon gate). Both are canon's own resolution paths for chapter a02
+-- its `teaches_system` reads "talk / capture / disperse".
+
+- **Routing** (what dispersal needs). Canon says conscript levies "flee below half HP, counted separately from other
+  losses" (map_d02's note), but nothing modelled it. Now `enemy_archetypes.flees_below_pct` (50 for the levy; blank =
+  never) makes a non-boss **below** that percent of its HP **break**: in the enemy phase it stops fighting and runs for
+  the nearest map-edge tile it can reach (preferring the rim even over safer inland ground), or failing that the tile
+  farthest from every player unit. Reaching the rim takes it **off the field, unkilled**. It can still be hit, killed
+  or captured on your turn before it gets away. Bosses never break; a bribed (neutral) enemy just stands.
+- **Dispersal** (`ep_dispersal`, "Merciful", "routs levies below half HP without killing"): whoever dealt the blow that
+  took a levy **below** the line (a hit, a counter, or a collision) is credited; if the levy then runs off the field
+  instead of being finished, that unit gets a step. **3** routs earn the deed (`count_needed`; canon gives no number).
+  A levy that was killed first, or was already below the line when your blow landed, doesn't count. A routed enemy
+  drops nothing (it keeps its weapon).
+- **Talk** (`ep_talk`, "Peacemaker", "resolves an enemy by conversation"): **T**, then an arrow key (or a click) on an
+  adjacent enemy -- T lists the odds first, and which enemies won't listen at all. Any main unit can try. The chance is
+  `40 + 3 x the speaker's Lck + 2 x (speaker level - enemy level) + the enemy's talk_mod`, kept between 5% and 95%.
+  Only enemies with a `talk_mod` can be talked to (the conscript levy +20, the garrison soldier +30, Boyan -10;
+  looters, privateers, hunters and the war captains are deaf). A war captain and Vashti's seat are canon's
+  "will not talk to you" cases, so they stay deaf.
+  - **Success**: the enemy leaves the map unharmed saying its `talk_line`; no kill, no drop, EXP as for a kill, 20 gold
+    of income at the end, and the speaker earns the deed (one is enough). A **boss that yields still ends a 'defend'
+    map** -- answering Boyan on a02 is canon's "answer" path.
+  - **Failure**: the action is spent and that enemy **won't listen again this map**. An enemy with nothing to say, or
+    that has stopped listening, is refused for free.
+  - Talking counts as taking part, like a capture, so a talker who is never struck can still earn a no-hit map.
+- **Income** now has four peaceful-or-not rates: 15 a kill, 25 a capture, 20 a talk, 10 a rout, on top of the 200.
+- Not modelled: Jost's and Kest's recruit-by-talk conversations, the dialogue itself (the `talk_line`s are placeholder
+  flavour), and the preacher converting townsfolk. The odds and rates are first-pass numbers.
+
 ## Saving and loading
 
 State is split in `GameState` into `PERSISTED` (saved, with the type each must have) and `TRANSIENT` (one-shot UI
@@ -230,11 +262,11 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 - **B** on the overworld: the barracks (levels, certification, recertification, abilities, paragon).
 - **C**: the convoy (weapons). **S**: support conversations. **L**: save / load / new game.
-- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite and **B** to bribe (units with them), income and class unlocks on a win.
+- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite and **B** to bribe (units with them), **T** to talk, income and class unlocks on a win.
 
 ## Not built / open
 
-- Faith has no paragon class; the dispersal and talk deeds aren't recordable yet.
+- Faith has no paragon class.
 - Capture: only Gunnar and the Pardoner can; the
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
@@ -247,10 +279,10 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (60 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
-`epithets.tracked`, `epithets.count_needed`, `epithets.deed_terrain`, `cargo_units`, `maps.cargo_needed`;
+`canon.xlsx`: `promotion_rules` (67 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`epithets.tracked`, `epithets.count_needed`, `epithets.deed_terrain`, `cargo_units`, `maps.cargo_needed`, `enemy_archetypes.flees_below_pct/talk_mod/talk_line`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
 `barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, `test_dispersal_talk`, plus the ability checks in `test_combat_exchange`.

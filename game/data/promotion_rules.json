@@ -358,5 +358,47 @@
     "value": 2,
     "text": null,
     "notes": "ep_delivery: a unit 'escorts' a cargo unit if it is alive and within this many tiles of the goal when the cargo is delivered."
+  },
+  {
+    "param_id": "prm_talk_base",
+    "value": 40,
+    "text": null,
+    "notes": "Talk (map action): base chance in percent that an adjacent talkable enemy yields."
+  },
+  {
+    "param_id": "prm_talk_lck",
+    "value": 3,
+    "text": null,
+    "notes": "Talk: + this many percent per point of the speaker's Lck."
+  },
+  {
+    "param_id": "prm_talk_level",
+    "value": 2,
+    "text": null,
+    "notes": "Talk: + this many percent per level the speaker is above the enemy (minus per level below)."
+  },
+  {
+    "param_id": "prm_talk_min",
+    "value": 5,
+    "text": null,
+    "notes": "Talk: the chance never drops below this percent."
+  },
+  {
+    "param_id": "prm_talk_max",
+    "value": 95,
+    "text": null,
+    "notes": "Talk: the chance never rises above this percent."
+  },
+  {
+    "param_id": "prm_income_per_rout",
+    "value": 10,
+    "text": null,
+    "notes": "Extra gold per enemy that fled the field (routed) rather than being defeated, captured or talked down."
+  },
+  {
+    "param_id": "prm_income_per_talk",
+    "value": 20,
+    "text": null,
+    "notes": "Extra gold per enemy talked down."
   }
 ]

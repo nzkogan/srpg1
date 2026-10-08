@@ -272,19 +272,20 @@ func describe_levelup(unit_name: String, up: Dictionary) -> String:
 
 ## Gold for winning a map: base + per enemy defeated, x(1 + factor bonus) if
 ## Kheldar's Factor class is still on the map ("end-map income").
-func map_income(kills: int, factor_present: bool, captures: int = 0) -> int:
-	var gold := param("income_base") + param("income_per_kill") * kills + param("income_per_capture") * captures
+func map_income(kills: int, factor_present: bool, captures: int = 0, routs: int = 0, talks: int = 0) -> int:
+	var gold := param("income_base") + param("income_per_kill") * kills + param("income_per_capture") * captures \
+		+ param("income_per_rout") * routs + param("income_per_talk") * talks
 	if factor_present:
 		gold *= 1.0 + param("income_factor_bonus")
 	return int(round(gold))
 
 ## Pays a map's income once per playthrough. Returns the gold paid (0 if this
 ## map's income was already claimed).
-func award_income(map_id: String, kills: int, factor_present: bool, captures: int = 0) -> int:
+func award_income(map_id: String, kills: int, factor_present: bool, captures: int = 0, routs: int = 0, talks: int = 0) -> int:
 	if GameState.income_claimed.has(map_id):
 		return 0
 	GameState.income_claimed[map_id] = true
-	var gold := map_income(kills, factor_present, captures)
+	var gold := map_income(kills, factor_present, captures, routs, talks)
 	GameState.gold += gold
 	return gold
 
@@ -643,6 +644,28 @@ func other_tracked_epithets() -> Array:
 		if row.get("gates_paragon") != "yes" and row.get("tracked") == "yes":
 			out.append(row)
 	return out
+
+# ------------------------------------------------------- routing and talking
+
+## Whether an enemy of this archetype breaks and flees at this HP: it has a flee
+## threshold, isn't a boss, and is BELOW that percent of its max HP.
+func is_routing(archetype: Dictionary, hp: int, max_hp: int, is_boss: bool) -> bool:
+	var pct = archetype.get("flees_below_pct")
+	return pct != null and not is_boss and max_hp > 0 and hp > 0 and hp * 100 < max_hp * int(pct)
+
+## Whether this archetype can be talked to at all (it has a talk_mod).
+func can_talk_to(archetype: Dictionary) -> bool:
+	return archetype.get("talk_mod") != null
+
+## Percent chance that a speaker with this Lck and level talks the enemy down:
+## talk_base + talk_lck x Lck + talk_level x (speaker level - enemy level) + the
+## archetype's talk_mod, kept between talk_min and talk_max. 0 if it can't be talked to.
+func talk_chance(speaker_lck: int, speaker_level: int, archetype: Dictionary) -> int:
+	if not can_talk_to(archetype):
+		return 0
+	var pct := param("talk_base") + param("talk_lck") * speaker_lck \
+		+ param("talk_level") * (speaker_level - int(archetype.get("level", 1))) + int(archetype.get("talk_mod"))
+	return clampi(int(round(pct)), int(param("talk_min")), int(param("talk_max")))
 
 # ------------------------------------------------------------------- capture
 

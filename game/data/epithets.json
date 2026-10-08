@@ -61,8 +61,8 @@
     "telemetry_source": "combat log",
     "gates_paragon": "no",
     "forge_vocab_token": "Merciful",
-    "tracked": "no",
-    "count_needed": 1,
+    "tracked": "yes",
+    "count_needed": 3,
     "deed_terrain": null
   },
   {
@@ -72,7 +72,7 @@
     "telemetry_source": "dialogue log",
     "gates_paragon": "no",
     "forge_vocab_token": "Peacemaker",
-    "tracked": "no",
+    "tracked": "yes",
     "count_needed": 1,
     "deed_terrain": null
   },

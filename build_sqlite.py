@@ -76,7 +76,7 @@ NUMERIC = {
                         "str", "mag", "dex", "spd", "lck", "def", "res"},
     "unit_base_stats": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res"},
     "weapons": {"might", "hit", "crit", "weight", "uses", "range_min", "range_max", "convoy_qty"},
-    "enemy_archetypes": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res"},
+    "enemy_archetypes": {"level", "hp", "str", "mag", "dex", "spd", "lck", "def", "res", "flees_below_pct", "talk_mod"},
     "prologue_structures": {"turns_to_destroy", "hp", "defence"},
     "deputy_ledger": {"weight"},
     "terrain_costs": {

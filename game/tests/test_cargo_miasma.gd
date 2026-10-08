@@ -94,7 +94,7 @@ func _run() -> void:
 	var other_ids: Array = []
 	for r in _p.other_tracked_epithets():
 		other_ids.append(r["epithet_id"])
-	check(other_ids == ["ep_miasma", "ep_delivery"], "they are the 'other' tracked deeds (%s)" % str(other_ids))
+	check(other_ids == ["ep_miasma", "ep_delivery", "ep_dispersal", "ep_talk"], "they are among the 'other' tracked deeds (%s)" % str(other_ids))
 	check(_p.gating_epithets().size() == 4 and not _p.gating_deeds_earned("u_jost").has("ep_miasma"), "and neither gates paragon")
 	_p.record_deed("u_jost", "ep_miasma", 5); _p.record_deed("u_jost", "ep_delivery")
 	check(_p.has_deed("u_jost", "ep_miasma") and _p.has_deed("u_jost", "ep_delivery") and _p.gating_deeds_earned("u_jost").is_empty(), "earning them doesn't count toward the paragon gate")

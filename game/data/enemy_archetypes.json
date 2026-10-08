@@ -17,7 +17,10 @@
     "res": 0,
     "behavior": "Explicitly 'fatigued and not a threat' per map_f00's own design note -- deliberately below even commoner baseline, not a mistake.",
     "first_seen_map_id": "map_f00",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": 30,
+    "talk_line": "We were told it was a drill. ... It isn't, is it."
   },
   {
     "enemy_id": "ea_conscript_levy",
@@ -37,7 +40,10 @@
     "res": 1,
     "behavior": "Flees below half HP, counted separately from other losses (map_d02's own design note: 'conscript levies flee below half HP, counted separately'). 'Green levies' elsewhere (map_a02) are the same archetype -- a preacher converts them there, not modeled here.",
     "first_seen_map_id": "map_d02",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": 50,
+    "talk_mod": 20,
+    "talk_line": "I never wanted this spear. Tell them you never saw me."
   },
   {
     "enemy_id": "ea_looter",
@@ -57,7 +63,10 @@
     "res": 1,
     "behavior": "Kills unshielded civilians pursuing the medicine cart if it catches them (map_a01's own design note) -- a threat to the escort objective specifically, not necessarily to the player's units.",
     "first_seen_map_id": "map_a01",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_relic_hunter",
@@ -77,7 +86,10 @@
     "res": 3,
     "behavior": "Reinforces every 3 turns forever (map_a03's own design note) -- an attritional/escape-pressure enemy, not meant to be fully eliminated.",
     "first_seen_map_id": "map_a03",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_privateer",
@@ -97,7 +109,10 @@
     "res": 3,
     "behavior": "Boards from the map edges; the Assembly bought this fleet and its guards outright, 'paid for in Anbar' (map_d05's own design note). Grapple lines are the dens they reinforce from -- cut one and it stops producing them, same attritional shape as ea_relic_hunter's den on map_a03.",
     "first_seen_map_id": "map_d05",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_conquered_soldier",
@@ -117,7 +132,10 @@
     "res": 2,
     "behavior": "Ur-Nashet's own standing army -- veteran, individually as capable as the conquering heroes on paper (hence tier/level display 'paragon'/40, matching the paragon classes' own 'lv30+' floor), but the city is being conquered as they fight: no armory, no resupply, whatever's left is worn-tier. Deliberately NOT run through the tier-baseline formula like the other archetypes here -- str/dex/spd/def/res are hand-set low (roughly trained-mook range) so the high level/tier display is flavor the fight itself contradicts, which is the entire point: skilled people, gutted by circumstance, very beatable. Not grounded in any existing canon.xlsx text -- map_f00 establishes the conquest and Sargath as king, but nothing there names Ur-Nashet's army or its condition; this whole archetype is new invented content per a direct request, not sourced.",
     "first_seen_map_id": "map_f00",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_hardened_veteran",
@@ -137,7 +155,10 @@
     "res": 7,
     "behavior": "Generic sidequest-tier template, not tied to any specific map or written encounter -- reskin/rename once an actual optional-objective fight gets designed. Stats reuse the 'order' tier baseline (lv15+, same bracket classes.tier already uses for 'pair-certified' player classes) reconstructed from unit_base_stats' order-tier rows minus their growth-derived bonus -- an estimate, since the exact hidden baseline was never written down anywhere, only implicit in how unit_base_stats got generated. A step up from the trained-tier mooks (ea_relic_hunter, ea_privateer) via both stat bracket and a mid-tier weapon instead of basic.",
     "first_seen_map_id": null,
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_war_captain",
@@ -157,7 +178,10 @@
     "res": 8,
     "behavior": "Generic miniboss-tier template, not tied to any specific map -- reskin/rename per encounter. Same reconstructed order-tier baseline as ea_hardened_veteran, plus flat HP padding (+12) and a high-tier weapon instead of mid -- 'survives more than one exchange' is a deliberate design choice for named/boss-weight fights, a standard convention in this genre (this design's own stated FE lineage per PROJECT_HANDOFF.md), not sourced from canon.xlsx.",
     "first_seen_map_id": null,
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_warlord",
@@ -177,7 +201,10 @@
     "res": 13,
     "behavior": "Generic boss-tier template, not tied to any specific map -- reskin/rename per chapter. Reconstructed 'paragon' tier baseline (lv30+, same bracket classes.tier uses for the deed-gated legendary player classes) continuing the same commoner->trained->order extrapolation as ea_hardened_veteran/ea_war_captain, plus heavier HP padding (+25) and a high-tier weapon. The toughest generic template in this tab. Unlike ea_conquered_soldier, this one's stats are NOT deliberately undercut -- a boss should actually be dangerous.",
     "first_seen_map_id": null,
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_preacher_boyan",
@@ -197,7 +224,10 @@
     "res": 9,
     "behavior": "map_a02's own design note: 'preacher converts 1 townsfolk/turn; kill / answer / capture' -- three resolution paths, so he has to actually be fightable, not just flavor text. chapters.ch_a02.notes independently confirms capture matters: 'jailed preacher is an Act 2 hook.' Worth flagging: chapters.ch_a02.teaches_system says 'talk / capture / disperse' -- slightly different wording than the map's own 'kill / answer / capture' (talk~=answer, disperse~=kill, presumably, but that's a guess, not a resolution of the inconsistency). u_edda joins this same chapter auto ('village reciter') -- a reciter countering a preacher's rhetoric reads as a strong candidate for the 'answer' path, though nothing in units.u_edda's own row states that outright, so treat it as a suggested thread, not settled canon. Named/flavored as a Bogomil-adjacent heretical dualist preacher, leaning on naming_reference's ref_bogomils entry (status: 'UNFINISHED BUSINESS -- flagged as a candidate 5th/6th sect... never followed up') -- an interpretive choice, not an assignment naming_reference itself makes. Reskin of the ea_hardened_veteran sidequest-tier template (order/mid instead of a mook's trained/basic) with str/mag swapped the way Enmet/Ilat's prologue stats already are, and hp/def/res hand-tuned down from the template -- a rhetorician, not a soldier. Playtested against u_gunnar (bow, personal tier, one of ch_a02's own recruits, chosen because his class notes literally say 'Capture + Shove mercy kit' -- he's the intended actor for the 'capture' path) via a live Combat.gd data check: at mag 11 / weapon_tier mid, Boyan hit for 15 at 91% against Gunnar's 20 HP -- close to a two-round kill on a level-1 recruit, too sharp a spike for Act 1 Chapter 2. Turned down to mag 8 / weapon_tier basic (was 11/mid); re-verified at 9 damage / 91% hit, a real threat but not a near-instant loss. u_edda ('village reciter', the 'answer' candidate) turns out to have base_class_id cls_skald, art_primary 'none' -- she literally cannot fight, which reads as strong indirect confirmation that 'answer' is meant to be a non-combat resolution, not a combat one.",
     "first_seen_map_id": "map_a02",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": -10,
+    "talk_line": "You answered the still night, and the night answers you. Go on, then."
   },
   {
     "enemy_id": "ea_relic_hunter_captain",
@@ -217,7 +247,10 @@
     "res": 6,
     "behavior": "Commands the ea_relic_hunter squads that 'reinforce every 3 turns forever' per map_a03's own design note, and stands over the reliquary's 'take-or-give' objective. chapters.ch_a03.notes force- deploys u_torvald here specifically ('last of a plague-gutted order') -- tempting to tie the chapterhouse/reliquary to Torvald's own destroyed order, but nothing in canon.xlsx actually says that; flagging it as a possible thread worth writing toward, not asserting it as fact. u_anselm ('adrift monk; theology barometer') also joins this chapter, fitting a reliquary/sacred-relic objective generally, though again not explicitly tied to this fight by name anywhere. Name is invented, no naming_reference anchor -- a mercenary looter leader, not a Byzantine/Balkan historical figure, didn't force a fit. Reskin of the ea_war_captain miniboss-tier template, same bow art as his own relic hunters (differentiated by tier, not by art) -- one genuine step up from ea_preacher_boyan/a02, matching ch_a03 (chapter 3) being the harder escalation past ch_a02 (chapter 2).",
     "first_seen_map_id": "map_a03",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_shadhavar",
@@ -237,7 +270,10 @@
     "res": 18,
     "behavior": "Represents named.nmd_shadhavar as a reachable/fightable stand-in for ch_p_shadhavar's capstone encounter -- same pattern as ea_warlord standing in for Macuil and Indech. named.nmd_shadhavar itself gives no stat block anywhere in canon.xlsx (none of the five Named do), so every number here is an invented placeholder pending real design, same caveat every other capstone row in this tab already carries. movement_type='riding' is an interpretive call (a large four-legged singing beast reads closer to cavalry-speed than foot or armor -- nothing in named.nmd_shadhavar states a movement type). weapon_art is a placeholder too: its actual 'attack' per named.nmd_shadhavar's own signature_mechanic is the always-on song-pull, not a weapon, and that pull effect is NOT implemented here or in map_grid.gd -- this row only lets the encounter exist as a normal fight, it does not model the Named's real mechanic. tier/level/hp set to capstone weight, matching ea_warlord's own bracket.",
     "first_seen_map_id": "map_p_shadhavar",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_simurgh",
@@ -257,7 +293,10 @@
     "res": 24,
     "behavior": "Represents named.nmd_simurgh as a reachable/fightable stand-in for ch_p_simurgh's capstone encounter, same pattern as ea_warlord/ea_shadhavar. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Skewed toward mag/res/lck over str/def -- 'foster-mother' and 'cleanses corruption' read as a protector, not a brawler, distinct from ea_shadhavar's more even spread. movement_type='flying' is a direct read of the Simurgh's own mythic register (a great bird), not an inference the way ea_shadhavar's 'riding' call had to be. weapon_art='faith' for the same reason -- 'cleanses corruption' is a healer's register, not a fighter's. Her real signature_mechanic (5 HP/turn to rider and adjacent allies) is NOT implemented here -- this row only lets the encounter exist as a normal fight, same scope limit as every other Named stand-in.",
     "first_seen_map_id": "map_p_simurgh",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_karkadann",
@@ -277,7 +316,10 @@
     "res": 10,
     "behavior": "Represents named.nmd_karkadann as a reachable/fightable stand-in for ch_p_karkadann's capstone encounter, same pattern as the other three Named this session. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Unlike ea_shadhavar (mag-skewed) or ea_simurgh (mag/res-skewed healer profile), this one is str/def-heavy -- named.nmd_karkadann's own notes call it 'the plain one on purpose... straightforwardly good', a physical guardian rather than a mystic, and its signature_mechanic ('strong against mounted units; devastating charge that leaves it stuck one turn') reads as a heavy melee brawler. movement_type='riding' is a direct read (Karkadann is traditionally a horned charging beast, and its own mechanic explicitly involves a charge), the most confident of the four movement_type calls made for the Named so far. weapon_art='brawl' for the same reason -- it fights with its own body, not a weapon. The charge/anti-mounted bonus itself is NOT implemented.",
     "first_seen_map_id": "map_p_karkadann",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_anzu",
@@ -297,7 +339,10 @@
     "res": 20,
     "behavior": "Represents named.nmd_anzu as a reachable/fightable stand-in for ch_p_anzu's capstone encounter, same pattern as the other four Named this session. No stat block exists anywhere for the Named, so every number here is an invented placeholder. Skewed toward mag/dex/res over str -- named.nmd_anzu's whole identity is intellectual ('contracts with whoever can READ the register', 'hidden-literacy thread'), not physical, distinct from ea_karkadann's brawler profile. weapon_art='bow' is the most literally grounded of the five Named calls -- its own signature_mechanic explicitly says 'arrows come apart'. movement_type='flying' reads off the Anzu's traditional lion-eagle register and the region's own 'single figure legible at distance' texture (something seen from far off across an open flat). The weapon-degrading touch itself is NOT implemented -- this row only lets the encounter exist as a normal fight.",
     "first_seen_map_id": "map_p_anzu",
-    "weapon_id": null
+    "weapon_id": null,
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   },
   {
     "enemy_id": "ea_billman",
@@ -317,6 +362,9 @@
     "res": 3,
     "behavior": "Halberd-bearing line infantry (drafted 2026-10-02, the first overlap-weapon user). Hits mounted units twice as hard and is slow with it; triangle-neutral, so sword/axe/lance units get no edge or penalty against it. Pairs with cls_billman. Placed on the two Act 2 maps where Dietmar and Torvald ride in as the player's only cavalry.",
     "first_seen_map_id": "map_tp19",
-    "weapon_id": "wpn_halberd"
+    "weapon_id": "wpn_halberd",
+    "flees_below_pct": null,
+    "talk_mod": null,
+    "talk_line": null
   }
 ]

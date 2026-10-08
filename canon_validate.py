@@ -421,6 +421,21 @@ def main():
         if not isinstance(need, int) or need < 1 or need > cargo_by_map.get(mid, 0):
             fail("c07", "blocking", f"maps.{mid}", f"cargo_needed {need} but the map has {cargo_by_map.get(mid, 0)} cargo units")
 
+    # --- c07l enemy behaviours: a flee threshold is a sane percent; a talkable enemy has a
+    #     number for how receptive it is and something to say
+    for ea in tabs["enemy_archetypes"]:
+        eid = ea["enemy_id"]
+        fp = ea.get("flees_below_pct")
+        if fp not in (None, "") and not (isinstance(fp, int) and 1 <= fp <= 99):
+            fail("c07", "blocking", f"enemy_archetypes.{eid}", f"flees_below_pct '{fp}' must be a whole percent from 1 to 99")
+        tm = ea.get("talk_mod")
+        if tm not in (None, "") and not isinstance(tm, int):
+            fail("c07", "blocking", f"enemy_archetypes.{eid}", f"talk_mod '{tm}' must be a whole number")
+        if tm not in (None, "") and not ea.get("talk_line"):
+            fail("c07", "warning", f"enemy_archetypes.{eid}", "is talkable but has no talk_line")
+        if tm in (None, "") and ea.get("talk_line"):
+            fail("c07", "warning", f"enemy_archetypes.{eid}", "has a talk_line but no talk_mod, so it can never be talked down")
+
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
     for r in tabs["prologue_roster"]:

@@ -30,6 +30,8 @@ extends Node2D
 ##         alive once it is weakened -- it leaves the map, no kill, no drop
 ##   S   = Shove / Smite (Gunnar; Housecarls): then an arrow key (or a click) on
 ##         an adjacent unit pushes it straight back 1 tile (Smite: 2)
+##   T   = Talk: then an arrow key (or a click) on an adjacent enemy tries to talk it
+##         down (a chance; only some enemies listen) -- it leaves the map unharmed
 ##   W   = select the next cargo unit (maps with cargo: walk it to the E tile)
 ##   B   = Bribe (Kheldar): then an arrow key (or a click) on an adjacent enemy
 ##         pays gold to turn it neutral for the rest of the map (one a map, no bosses)
@@ -160,6 +162,7 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+var _talk_mode := false        # [T] pressed: the next arrow key / click picks who to talk to
 var delivered: Array[String] = []   # cargo ids that have reached the goal on this map
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
@@ -542,7 +545,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		var local := get_local_mouse_position()
 		var col := int(floor(local.x / CELL_SIZE))
 		var row := int(floor(local.y / CELL_SIZE))
-		if _bribe_mode:
+		if _talk_mode:
+			_talk_click(Vector2i(col, row))
+		elif _bribe_mode:
 			_bribe_click(Vector2i(col, row))
 		elif _shove_mode:
 			_shove_click(Vector2i(col, row))
@@ -551,13 +556,18 @@ func _unhandled_input(event: InputEvent) -> void:
 				_try_move_to(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
 		var key_event := event as InputEventKey
+		if _talk_mode:
+			_talk_key(key_event.keycode)
+			return
 		if _bribe_mode:
 			_bribe_key(key_event.keycode)
 			return
 		if _shove_mode:
 			_shove_key(key_event.keycode)
 			return
-		if key_event.keycode == KEY_W:
+		if key_event.keycode == KEY_T:
+			_begin_talk()
+		elif key_event.keycode == KEY_W:
 			_select_next_cargo()
 		elif key_event.keycode == KEY_B:
 			_begin_bribe()
@@ -828,20 +838,26 @@ func _on_map_won() -> void:
 const MAX_SUPPORT_LINES_SHOWN := 2
 
 ## Income and class unlocks for a win. Gold: 200 + 15 per enemy defeated + 25 per
-## enemy captured (x1.5 if Kheldar is still on the map), paid once per map. Returns the line to show.
+## enemy captured + 10 per enemy routed + 20 per enemy talked down (x1.5 if Kheldar is still on the map), paid once per map. Returns the line to show.
 func _settle_rewards() -> String:
 	if map_id == "map_f00":
 		return ""     # the prologue has no income and none of the main roster
 	var kills := 0
 	var captures := 0
+	var routs := 0
+	var talks := 0
 	for e in enemies:
 		if e.defeated:
 			if e.get("captured", false):
 				captures += 1
+			elif e.get("routed", false):
+				routs += 1
+			elif e.get("talked", false):
+				talks += 1
 			else:
 				kills += 1
 	var factor := unit_positions.has("u_kheldar")
-	var gold := Progression.award_income(map_id, kills, factor, captures)
+	var gold := Progression.award_income(map_id, kills, factor, captures, routs, talks)
 	var parts: Array[String] = []
 	if gold > 0:
 		parts.append("Income: +%d gold%s." % [gold, " (Kheldar's cut)" if factor else ""])
@@ -1167,11 +1183,9 @@ func _collide(who: Dictionary, pusher: String) -> int:
 	if who.has("enemy"):
 		var inst: Dictionary = who["enemy"]
 		var dmg := Progression.collision_damage(int(inst.hp), int(inst.max_hp))
+		var hp_before: int = inst.hp
 		inst.hp = int(inst.hp) - dmg
-		if dmg > 0:
-			if not inst.has("hit_by"):
-				inst["hit_by"] = {}
-			inst["hit_by"][pusher] = true
+		_note_damage(inst, pusher, hp_before)
 		return dmg
 	var ally: String = who["ally"]
 	var max_hp := 0
@@ -1362,6 +1376,120 @@ func _bribe_toward(dir: Vector2i) -> void:
 	info_label.text = "%s presses a purse into the hand of %s (%d gold). It stands down for the rest of the map. %d gold left." % [unit.get("name"), label, cost, GameState.gold]
 	_update_status_label()
 	_update_forecast()
+
+## [T]: the selected unit tries to talk an adjacent enemy down. Lists the odds for each
+## adjacent enemy that will listen; the next arrow key (or a click) picks one, any other
+## key cancels.
+func _begin_talk() -> void:
+	if units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or map_id == "map_f00":
+		info_label.text = "%s has no one to talk to here." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	var offers: Array[String] = []
+	for n in _neighbors(pos):
+		var who := _occupant(n)
+		if who.has("enemy") and not who["enemy"].get("neutral", false):
+			var inst: Dictionary = who["enemy"]
+			if not Progression.can_talk_to(inst.archetype):
+				offers.append("%s: nothing to say" % _cap(_occupant_label(who)))
+			elif inst.get("talk_failed", false):
+				offers.append("%s: has stopped listening" % _cap(_occupant_label(who)))
+			else:
+				offers.append("%s: %d%%" % [_cap(_occupant_label(who)), _talk_chance_for(unit, inst)])
+	if offers.is_empty():
+		info_label.text = "There is no enemy beside %s to talk to." % unit.get("name")
+		return
+	_talk_mode = true
+	info_label.text = "Talk: which way? Arrow key or click an adjacent enemy (any other key cancels). %s." % "; ".join(offers)
+
+func _talk_chance_for(unit: Dictionary, inst: Dictionary) -> int:
+	return Progression.talk_chance(int(unit.get("lck", 0)), int(unit.get("level", 1)), inst.archetype)
+
+func _talk_key(keycode: int) -> void:
+	if ARROW_DIRS.has(keycode):
+		_talk_toward(ARROW_DIRS[keycode])
+	else:
+		_talk_mode = false
+		info_label.text = "Talk cancelled."
+
+func _talk_click(tile: Vector2i) -> void:
+	if units.is_empty():
+		_talk_mode = false
+		return
+	var pos: Vector2i = unit_positions.get(units[selected_unit_index].get("punit_id", ""), Vector2i(-1, -1))
+	if _distance(pos, tile) == 1:
+		_talk_toward(tile - pos)
+	else:
+		_talk_mode = false
+		info_label.text = "Talk cancelled."
+
+## The attempt: a roll against talk_chance. A yielded enemy leaves the map unharmed (its
+## talk_line says why) -- no kill, no drop, EXP as for a kill, a little income at the end --
+## and the speaker earns the talk deed. A boss that yields still ends a 'defend' map. A
+## failure costs the action and that enemy won't listen again this map. An enemy with
+## nothing to say, or that has stopped listening, is refused for free.
+func _talk_toward(dir: Vector2i) -> void:
+	_talk_mode = false
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or map_id == "map_f00":
+		info_label.text = "%s has no one to talk to here." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1):
+		return
+	var who := _occupant(pos + dir)
+	if not who.has("enemy") or who["enemy"].get("neutral", false):
+		info_label.text = "There is nobody there to talk to."
+		return
+	var inst: Dictionary = who["enemy"]
+	var label := _occupant_label(who)
+	if not Progression.can_talk_to(inst.archetype):
+		info_label.text = "%s has nothing to say to %s." % [_cap(label), unit.get("name")]
+		return
+	if inst.get("talk_failed", false):
+		info_label.text = "%s has stopped listening." % _cap(label)
+		return
+	var rng := rng_override
+	if rng == null:
+		rng = RandomNumberGenerator.new()
+		rng.randomize()
+	var chance := _talk_chance_for(unit, inst)
+	var roll := rng.randi_range(1, 100)
+	attacked_this_turn[pid] = true
+	fought_units[pid] = true
+	if roll > chance:
+		inst["talk_failed"] = true
+		info_label.text = "%s tries to talk the %s down, but it will not hear it (%d%%)." % [unit.get("name"), inst.archetype.get("name"), chance]
+		_update_status_label()
+		_update_forecast()
+		return
+	inst.defeated = true
+	inst["talked"] = true
+	_remove_enemy_token(inst)
+	var text := "%s talks the %s down (%d%%): \"%s\"" % [unit.get("name"), inst.archetype.get("name"), chance, inst.archetype.get("talk_line", "...")]
+	var more := _award_exp(unit, inst, true, rng)
+	more.append_array(_talk_deed(pid, unit.get("name")))
+	text += "\n" + " ".join(more)
+	_boss_resolved(inst, "yields")
+	info_label.text = ("Victory. " if map_won else "") + text
+	_update_status_label()
+	_update_forecast()
+
+func _talk_deed(pid: String, unit_name: String) -> Array[String]:
+	return _earn_deed(pid, "ep_talk", unit_name)
 
 ## One more capture for `pid`: announces the deed when it is earned, else how far along it is.
 func _capture_deed(pid: String, unit_name: String) -> Array[String]:
@@ -1603,11 +1731,15 @@ func _defeat_enemy(inst: Dictionary) -> String:
 	inst.defeated = true
 	_remove_enemy_token(inst)
 	var drop := Equipment.claim_drop(str(inst.get("spawn_id", "")), inst.get("drop"))
+	_boss_resolved(inst, "falls")
+	return drop
+
+## A boss leaving the fight, however it ends (falls, yields), wins a 'defend' map.
+func _boss_resolved(inst: Dictionary, how: String) -> void:
 	if inst.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
 		map_won = true
-		status_label.text = "The %s falls. Threat neutralized." % inst.archetype.get("name")
+		status_label.text = "The %s %s. Threat neutralized." % [inst.archetype.get("name"), how]
 		info_label.text = "Victory."
-	return drop
 
 # ------------------------------------------------------------------ enemy phase
 #
@@ -1665,6 +1797,9 @@ func _exchange_score(fc: Dictionary, target_hp: int) -> float:
 	return score
 
 func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
+	if not unit_positions.is_empty() and Progression.is_routing(inst.archetype, int(inst.hp), int(inst.max_hp), inst.kind == "boss"):
+		_enemy_flee(inst)
+		return
 	var weapon := _enemy_weapon(inst)
 	if weapon.is_empty() or unit_positions.is_empty():
 		return
@@ -1730,6 +1865,63 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 		var drop := _defeat_enemy(inst)
 		if drop != "":
 			enemy_log.append("It drops a %s." % drop)
+
+## A routed enemy (below its flee threshold) doesn't fight: it runs for the nearest edge
+## it can reach, or failing that the tile farthest from every player unit. Reaching a
+## map-edge tile takes it off the field for good (a dispersal, not a kill).
+func _enemy_flee(inst: Dictionary) -> void:
+	var mtype: String = inst.archetype.get("movement_type", "infantry")
+	var reach := _compute_reachable(inst.pos, int(MOVEMENT_TYPE_DEFAULT_MOVE.get(mtype, 5)), mtype)
+	var occupied := {}
+	for pid in unit_positions:
+		occupied[unit_positions[pid]] = true
+	for other in enemies:
+		if other != inst and not other.defeated:
+			occupied[other.pos] = true
+	var best: Vector2i = inst.pos
+	var best_score := -INF
+	for dest in reach:
+		if dest != inst.pos and occupied.has(dest):
+			continue
+		var nearest := 999999
+		for pid in unit_positions:
+			nearest = mini(nearest, _distance(dest, unit_positions[pid]))
+		var score := float(nearest) - 0.01 * float(reach[dest])
+		if _on_map_edge(dest):
+			score += 1000.0
+		if score > best_score:
+			best_score = score
+			best = dest
+	var ename: String = inst.archetype.get("name", "enemy")
+	if _on_map_edge(best):
+		_enemy_move(inst, best)
+		enemy_log.append("The %s breaks and flees the field." % ename)
+		enemy_log.append_array(_rout_off(inst))
+	elif best != inst.pos:
+		_enemy_move(inst, best)
+		enemy_log.append("The %s breaks and runs." % ename)
+
+func _on_map_edge(pos: Vector2i) -> bool:
+	return pos.x == 0 or pos.y == 0 or pos.y == grid.size() - 1 or pos.x == grid[0].length() - 1
+
+## An enemy leaves the field unharmed-and-unkilled. Whoever dealt the blow that broke it
+## gets a step toward the dispersal deed. Returns the lines to show.
+func _rout_off(inst: Dictionary) -> Array[String]:
+	inst.defeated = true
+	inst["routed"] = true
+	_remove_enemy_token(inst)
+	var lines: Array[String] = []
+	var pid: String = str(inst.get("rout_blow", ""))
+	if pid != "" and Progression.is_known_unit(pid) and map_id != "map_f00":
+		var row = Canon.find_by("units", "unit_id", pid)
+		var uname: String = str(row["name"]) if row != null else pid
+		lines.append_array(_earn_deed(pid, "ep_dispersal", uname))
+		if lines.is_empty():
+			var need := Progression.count_needed("ep_dispersal")
+			var got := Progression.deed_count(pid, "ep_dispersal")
+			if got < need:
+				lines.append("%s has routed %d of %d." % [uname, got, need])
+	return lines
 
 ## No target within reach this turn: walk to the reachable free tile closest
 ## (by straight-line tiles) to the nearest player unit.
@@ -1806,12 +1998,26 @@ func _note_exchange(pid: String, inst: Dictionary, result: Dictionary, enemy_hp_
 	if not inst.has("hit_by"):
 		inst["hit_by"] = {}
 	var lines: Array[String] = []
-	if int(inst.hp) < enemy_hp_before:
-		inst["hit_by"][pid] = true
+	_note_damage(inst, pid, enemy_hp_before)
 	if int(inst.hp) == 0 and inst.kind == "boss" and inst["hit_by"].size() == 1 and inst["hit_by"].has(pid):
 		var uname: String = str(Canon.find_by("units", "unit_id", pid)["name"]) if Canon.find_by("units", "unit_id", pid) != null else pid
 		lines.append_array(_earn_deed(pid, "ep_bosskill", uname))
 	return lines
+
+## `pid` took `inst` from `hp_before` down to its current HP: it counts as having damaged
+## the enemy, and if that blow is what took a flee-prone enemy (a levy) below its flee
+## threshold, `pid` is the one who routed it -- the credit for the dispersal deed if it
+## then runs from the field instead of being finished off.
+func _note_damage(inst: Dictionary, pid: String, hp_before: int) -> void:
+	if int(inst.hp) >= hp_before:
+		return
+	if not inst.has("hit_by"):
+		inst["hit_by"] = {}
+	inst["hit_by"][pid] = true
+	var boss: bool = inst.kind == "boss"
+	if not inst.has("rout_blow") and Progression.is_routing(inst.archetype, int(inst.hp), int(inst.max_hp), boss) \
+			and not Progression.is_routing(inst.archetype, hp_before, int(inst.max_hp), boss):
+		inst["rout_blow"] = pid
 
 ## At the end of an enemy phase: a unit that stood on the same tile, was attacked
 ## this phase, and has no other player unit within solo_hold_radius extends its
@@ -2032,6 +2238,8 @@ func _update_status_label() -> void:
 		var push := Progression.push_name(u.get("punit_id", "")) if _is_roster_unit(u) else ""
 		if push != "" and not push_names.has(push):
 			push_names.append(push)
+	if map_id != "map_f00":
+		controls = controls.replace("[E] weapon", "[T] talk -- [E] weapon")
 	if _cargo_needed() > 0:
 		controls = controls.replace("[E] weapon", "[W] cargo -- [E] weapon")
 	for u in units:
