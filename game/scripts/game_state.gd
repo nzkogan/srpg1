@@ -71,6 +71,10 @@ var deeds: Dictionary = {}
 ## map_id -> true once won (any playthrough action that wins it).
 var won_maps: Dictionary = {}
 
+## Where the party stands on the overworld (a locations.location_id); "" before
+## it has gone anywhere. See overworld.gd.
+var world_location: String = ""
+
 ## Variables that are saved, with the type each must have in a save file.
 ## Adding gameplay state here is all it takes to persist it.
 const PERSISTED := {
@@ -79,7 +83,7 @@ const PERSISTED := {
 	"inventories": TYPE_DICTIONARY, "convoy": TYPE_ARRAY, "equipment_ready": TYPE_BOOL,
 	"drops_claimed": TYPE_DICTIONARY, "progression": TYPE_DICTIONARY, "gold": TYPE_INT,
 	"unlocked_classes": TYPE_DICTIONARY, "income_claimed": TYPE_DICTIONARY,
-	"deeds": TYPE_DICTIONARY, "won_maps": TYPE_DICTIONARY,
+	"deeds": TYPE_DICTIONARY, "won_maps": TYPE_DICTIONARY, "world_location": TYPE_STRING,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.
@@ -93,6 +97,7 @@ func reset() -> void:
 			TYPE_ARRAY: set(key, [])
 			TYPE_BOOL: set(key, false)
 			TYPE_INT: set(key, 0)
+			TYPE_STRING: set(key, "")
 	support_focus = ""
 
 ## Every persisted variable as one dictionary (deep copies, safe to serialize).

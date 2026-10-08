@@ -1,0 +1,344 @@
+[
+  {
+    "path_id": "path_tally_house_weighbridge",
+    "from_location_id": "loc_tally_house",
+    "to_location_id": "loc_weighbridge",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_weighbridge_grain_road",
+    "from_location_id": "loc_weighbridge",
+    "to_location_id": "loc_grain_road",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_grain_road_thessala",
+    "from_location_id": "loc_grain_road",
+    "to_location_id": "loc_thessala",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_thessala_salt_ford",
+    "from_location_id": "loc_thessala",
+    "to_location_id": "loc_salt_ford",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_salt_ford_anthe",
+    "from_location_id": "loc_salt_ford",
+    "to_location_id": "loc_anthe",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_anthe_stranded_harbour",
+    "from_location_id": "loc_anthe",
+    "to_location_id": "loc_stranded_harbour",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_stranded_harbour_dry_country",
+    "from_location_id": "loc_stranded_harbour",
+    "to_location_id": "loc_dry_country",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_dry_country_vashti_road",
+    "from_location_id": "loc_dry_country",
+    "to_location_id": "loc_vashti_road",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": "520,392;690,392",
+    "notes": null
+  },
+  {
+    "path_id": "path_vashti_road_vashti_gate",
+    "from_location_id": "loc_vashti_road",
+    "to_location_id": "loc_vashti_gate",
+    "route": "diadem",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_vetch_gate_still_town",
+    "from_location_id": "loc_vetch_gate",
+    "to_location_id": "loc_still_town",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_still_town_chapterhouse",
+    "from_location_id": "loc_still_town",
+    "to_location_id": "loc_chapterhouse",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_chapterhouse_halder",
+    "from_location_id": "loc_chapterhouse",
+    "to_location_id": "loc_halder",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_halder_lake_shore",
+    "from_location_id": "loc_halder",
+    "to_location_id": "loc_lake_shore",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_lake_shore_ostrova",
+    "from_location_id": "loc_lake_shore",
+    "to_location_id": "loc_ostrova",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_ostrova_upper_scar",
+    "from_location_id": "loc_ostrova",
+    "to_location_id": "loc_upper_scar",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_upper_scar_timber_road",
+    "from_location_id": "loc_upper_scar",
+    "to_location_id": "loc_timber_road",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_timber_road_march_shrine",
+    "from_location_id": "loc_timber_road",
+    "to_location_id": "loc_march_shrine",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_march_shrine_vetch_chapel",
+    "from_location_id": "loc_march_shrine",
+    "to_location_id": "loc_vetch_chapel",
+    "route": "assembly",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_vetch_chapel_vetch_gate",
+    "from_location_id": "loc_vetch_chapel",
+    "to_location_id": "loc_vetch_gate",
+    "route": "assembly",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_tally_house_kaisareia_walls",
+    "from_location_id": "loc_tally_house",
+    "to_location_id": "loc_kaisareia_walls",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_kaisareia_walls_muster_field",
+    "from_location_id": "loc_kaisareia_walls",
+    "to_location_id": "loc_muster_field",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_vashti_gate_muster_field",
+    "from_location_id": "loc_vashti_gate",
+    "to_location_id": "loc_muster_field",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_march_shrine_muster_field",
+    "from_location_id": "loc_march_shrine",
+    "to_location_id": "loc_muster_field",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_muster_field_cinder_track",
+    "from_location_id": "loc_muster_field",
+    "to_location_id": "loc_cinder_track",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_cinder_track_glass_edge",
+    "from_location_id": "loc_cinder_track",
+    "to_location_id": "loc_glass_edge",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_glass_edge_reunion_field",
+    "from_location_id": "loc_glass_edge",
+    "to_location_id": "loc_reunion_field",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_reunion_field_grain_road",
+    "from_location_id": "loc_reunion_field",
+    "to_location_id": "loc_grain_road",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_cinder_track_caravanserai",
+    "from_location_id": "loc_cinder_track",
+    "to_location_id": "loc_caravanserai",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_caravanserai_throat_pass",
+    "from_location_id": "loc_caravanserai",
+    "to_location_id": "loc_throat_pass",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_throat_pass_glass_edge",
+    "from_location_id": "loc_throat_pass",
+    "to_location_id": "loc_glass_edge",
+    "route": "both",
+    "kind": "road",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_lake_shore_simurgh_nest",
+    "from_location_id": "loc_lake_shore",
+    "to_location_id": "loc_simurgh_nest",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_halder_north_wind",
+    "from_location_id": "loc_halder",
+    "to_location_id": "loc_north_wind",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_cinder_track_dove_colony",
+    "from_location_id": "loc_cinder_track",
+    "to_location_id": "loc_dove_colony",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_vashti_gate_buried_works",
+    "from_location_id": "loc_vashti_gate",
+    "to_location_id": "loc_buried_works",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_glass_edge_flats_interior",
+    "from_location_id": "loc_glass_edge",
+    "to_location_id": "loc_flats_interior",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_anthe_lowest_terrace",
+    "from_location_id": "loc_anthe",
+    "to_location_id": "loc_lowest_terrace",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_stranded_harbour_hermit_lake",
+    "from_location_id": "loc_stranded_harbour",
+    "to_location_id": "loc_hermit_lake",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  },
+  {
+    "path_id": "path_throat_pass_open_road",
+    "from_location_id": "loc_throat_pass",
+    "to_location_id": "loc_open_road",
+    "route": "both",
+    "kind": "trail",
+    "waypoints": null,
+    "notes": null
+  }
+]

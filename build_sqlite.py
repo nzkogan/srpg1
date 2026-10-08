@@ -59,6 +59,7 @@ PK = {
     "unit_base_stats": ("unit_id", "u_"),
     "weapons": ("weapon_id", "wpn_"),
     "promotion_rules": ("param_id", "prm_"), "abilities": ("ability_id", "ab_"),
+    "world_paths": ("path_id", "path_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
@@ -86,6 +87,7 @@ NUMERIC = {
     "promotion_rules": {"value"},
     "abilities": {"hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"},
     "epithets": {"count_needed"},
+    "locations": {"map_x", "map_y"},
 }
 
 # explicit foreign keys: (table, column) -> (ref_table, ref_column)
@@ -122,6 +124,9 @@ FKS = {
     ("enemy_archetypes", "weapon_id"): ("weapons", "weapon_id"),
     ("encounter_spawns", "map_id"): ("maps", "map_id"),
     ("classes", "unlock_map_id"): ("maps", "map_id"),
+    ("world_paths", "from_location_id"): ("locations", "location_id"),
+    ("world_paths", "to_location_id"): ("locations", "location_id"),
+    ("chapters", "location_id"): ("locations", "location_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
     ("encounter_spawns", "drop_weapon_id"): ("weapons", "weapon_id"),
     ("supports", "unit_a_id"): ("units", "unit_id"),

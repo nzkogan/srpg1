@@ -22,12 +22,16 @@ Provenance: drafted 2026-08-03 for Nick Kogan. No approvals required, read-only.
 
 import argparse
 import csv
+import re
 import sys
 from collections import Counter, defaultdict
 
 from openpyxl import load_workbook
 
 # Which column on which tab is the primary key, and what prefix its IDs must use.
+WORLD_W, WORLD_H = 1152, 540   # the overworld canvas locations.map_x / map_y live on
+PATH_ROUTES = {"diadem", "assembly", "both"}
+PATH_KINDS = {"road", "trail"}
 MAP_ACTIONS = {"capture", "shove", "smite", "bribe"}   # actions a class adds on the battle map (classes.map_actions)
 
 PRIMARY_KEYS = {
@@ -66,6 +70,7 @@ PRIMARY_KEYS = {
     "supports": ("chain_id", "sup_"),
     "promotion_rules": ("param_id", "prm_"),
     "abilities": ("ability_id", "ab_"),
+    "world_paths": ("path_id", "path_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -323,6 +328,67 @@ def main():
             fail("c07", "blocking", f"classes.{c['class_id']}", f"unlock_map_id '{um}' does not exist")
         if c.get("tier") not in ("hybrid", "paragon"):
             fail("c07", "warning", f"classes.{c['class_id']}", "unlock_map_id only applies to hybrid- and paragon-tier classes")
+
+    # --- c07j the overworld: every location is on the canvas, paths join real
+    #     locations, the path graph is connected (the flashback excepted), every
+    #     chapter has a place, and the unlock chain has no cycle and reaches everything
+    loc_ids = {l["location_id"] for l in tabs["locations"]}
+    for l in tabs["locations"]:
+        x, y = l.get("map_x"), l.get("map_y")
+        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+            fail("c07", "blocking", f"locations.{l['location_id']}", "map_x / map_y must be numbers")
+        elif not (0 <= x <= WORLD_W and 0 <= y <= WORLD_H):
+            fail("c07", "blocking", f"locations.{l['location_id']}", f"({x}, {y}) is off the {WORLD_W}x{WORLD_H} overworld canvas")
+    adj = defaultdict(set)
+    for e in tabs["world_paths"]:
+        pid = e["path_id"]
+        if e.get("route") not in PATH_ROUTES:
+            fail("c07", "blocking", f"world_paths.{pid}", f"route '{e.get('route')}' is not one of {sorted(PATH_ROUTES)}")
+        if e.get("kind") not in PATH_KINDS:
+            fail("c07", "blocking", f"world_paths.{pid}", f"kind '{e.get('kind')}' is not one of {sorted(PATH_KINDS)}")
+        if e["from_location_id"] == e["to_location_id"]:
+            fail("c07", "blocking", f"world_paths.{pid}", "a path cannot join a location to itself")
+        for pt in (e.get("waypoints") or "").split(";"):
+            if pt.strip() and not re.fullmatch(r"\s*\d+\s*,\s*\d+\s*", pt):
+                fail("c07", "blocking", f"world_paths.{pid}", f"waypoint '{pt}' is not 'x,y'")
+        adj[e["from_location_id"]].add(e["to_location_id"])
+        adj[e["to_location_id"]].add(e["from_location_id"])
+    if adj:
+        start = next(iter(adj))
+        reached, todo = {start}, [start]
+        while todo:
+            for n in adj[todo.pop()]:
+                if n not in reached:
+                    reached.add(n)
+                    todo.append(n)
+        for lid in sorted(set(adj) - reached):
+            fail("c07", "blocking", f"locations.{lid}", "is not connected to the rest of the overworld by any chain of paths")
+    chapter_loc = {c["chapter_id"]: c.get("location_id") for c in tabs["chapters"]}
+    used = set()
+    for c in tabs["chapters"]:
+        lid = c.get("location_id")
+        if lid not in loc_ids:
+            fail("c07", "blocking", f"chapters.{c['chapter_id']}", f"location_id '{lid}' does not exist")
+        used.add(lid)
+        if lid not in adj and c.get("act") != "prologue":
+            fail("c07", "blocking", f"chapters.{c['chapter_id']}", f"is placed at {lid}, which no path reaches (only the prologue flashback may stand alone)")
+    for lid in sorted(loc_ids - used):
+        fail("c07", "warning", f"locations.{lid}", "no chapter is placed here")
+    after = {c["chapter_id"]: split_multi(c.get("unlock_after")) for c in tabs["chapters"]}
+    for cid, reqs in after.items():
+        for r in reqs:
+            if r not in after:
+                fail("c07", "blocking", f"chapters.{cid}", f"unlock_after '{r}' is not a chapter")
+    open_set = {cid for cid, reqs in after.items() if not reqs}
+    grew = True
+    while grew:
+        grew = False
+        for cid, reqs in after.items():
+            if cid not in open_set and any(r in open_set for r in reqs):
+                open_set.add(cid)
+                grew = True
+    for cid in sorted(set(after) - open_set):
+        fail("c07", "blocking", f"chapters.{cid}", "can never be unlocked (its unlock_after chain has a cycle or never starts)")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

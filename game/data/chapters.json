@@ -11,7 +11,9 @@
     "recruits_unit_ids": "u_kheldar",
     "notes": null,
     "tonal_register": "cold",
-    "teaches_system": "positioning"
+    "teaches_system": "positioning",
+    "location_id": "loc_tally_house",
+    "unlock_after": "ch_f00"
   },
   {
     "chapter_id": "ch_d02",
@@ -25,7 +27,9 @@
     "recruits_unit_ids": "u_waldrada",
     "notes": null,
     "tonal_register": "grim",
-    "teaches_system": "green levies"
+    "teaches_system": "green levies",
+    "location_id": "loc_weighbridge",
+    "unlock_after": "ch_d01"
   },
   {
     "chapter_id": "ch_d03",
@@ -39,7 +43,9 @@
     "recruits_unit_ids": "u_jost|u_tancred",
     "notes": null,
     "tonal_register": "grim",
-    "teaches_system": "escort + cargo"
+    "teaches_system": "escort + cargo",
+    "location_id": "loc_grain_road",
+    "unlock_after": "ch_d02"
   },
   {
     "chapter_id": "ch_a01",
@@ -53,7 +59,9 @@
     "recruits_unit_ids": "u_maren|u_brandt",
     "notes": null,
     "tonal_register": "warm",
-    "teaches_system": "terrain hazard"
+    "teaches_system": "terrain hazard",
+    "location_id": "loc_vetch_gate",
+    "unlock_after": "ch_f00"
   },
   {
     "chapter_id": "ch_a02",
@@ -67,7 +75,9 @@
     "recruits_unit_ids": "u_solveig|u_gunnar|u_edda",
     "notes": "jailed preacher is an Act 2 hook",
     "tonal_register": "warm",
-    "teaches_system": "talk / capture / disperse"
+    "teaches_system": "talk / capture / disperse",
+    "location_id": "loc_still_town",
+    "unlock_after": "ch_a01"
   },
   {
     "chapter_id": "ch_a03",
@@ -81,7 +91,9 @@
     "recruits_unit_ids": "u_anselm",
     "notes": "Torvald force-deployed",
     "tonal_register": "desolate",
-    "teaches_system": "reinforcement pressure"
+    "teaches_system": "reinforcement pressure",
+    "location_id": "loc_chapterhouse",
+    "unlock_after": "ch_a02"
   },
   {
     "chapter_id": "ch_x11",
@@ -95,7 +107,9 @@
     "recruits_unit_ids": null,
     "notes": "commission split; surveyor revealed as auditor; deputy named off the epithet ledger",
     "tonal_register": "triumphal",
-    "teaches_system": "the commission split"
+    "teaches_system": "the commission split",
+    "location_id": "loc_muster_field",
+    "unlock_after": "ch_d10|ch_a10"
   },
   {
     "chapter_id": "ch_b15",
@@ -109,7 +123,9 @@
     "recruits_unit_ids": null,
     "notes": "diadem buys grain, assembly buys medicine",
     "tonal_register": "warm",
-    "teaches_system": "purchase objective"
+    "teaches_system": "purchase objective",
+    "location_id": "loc_caravanserai",
+    "unlock_after": "ch_c21"
   },
   {
     "chapter_id": "ch_d05",
@@ -123,7 +139,9 @@
     "recruits_unit_ids": null,
     "notes": "voyage to the Green Ports; the Diadem is the sea power and this is where that shows",
     "tonal_register": "wondrous",
-    "teaches_system": "boarding / grapple-dens"
+    "teaches_system": "boarding / grapple-dens",
+    "location_id": "loc_salt_ford",
+    "unlock_after": "ch_d04"
   },
   {
     "chapter_id": "ch_f00",
@@ -137,7 +155,9 @@
     "recruits_unit_ids": null,
     "notes": "800 years early, in a city that no longer exists. The player performs the founding crime before knowing it is one.",
     "tonal_register": "wondrous",
-    "teaches_system": "movement, terrain cost, weapon triangle"
+    "teaches_system": "movement, terrain cost, weapon triangle",
+    "location_id": "loc_ur_nashet",
+    "unlock_after": null
   },
   {
     "chapter_id": "ch_v21",
@@ -151,7 +171,9 @@
     "recruits_unit_ids": null,
     "notes": "sect_vashti's own notes: 'no talk conversations available on their seat map' -- combat only, no dialogue resolution, grounded directly in that line. Seat is 'Vashti, in the Ashland' per sects.sect_vashti.seat.",
     "tonal_register": "grim",
-    "teaches_system": "no-talk chapters"
+    "teaches_system": "no-talk chapters",
+    "location_id": "loc_vashti_gate",
+    "unlock_after": "ch_x11"
   },
   {
     "chapter_id": "ch_v22",
@@ -165,7 +187,9 @@
     "recruits_unit_ids": null,
     "notes": "sect_vashti's doctrine: 'sacraments from complicit hands are void; the veneration must be re-made clean' -- a re-consecration under threat, hence a defend shape.",
     "tonal_register": "solemn",
-    "teaches_system": "ritual defense"
+    "teaches_system": "ritual defense",
+    "location_id": "loc_vashti_gate",
+    "unlock_after": "ch_v21"
   },
   {
     "chapter_id": "ch_c21",
@@ -179,7 +203,9 @@
     "recruits_unit_ids": null,
     "notes": "sect_court's own notes: 'grows the Grand Inquisitor; home-front thread, ambushes at reunion' -- taken directly. Vetch is sect_court's alternate seat name.",
     "tonal_register": "tense",
-    "teaches_system": "home-front ambush"
+    "teaches_system": "home-front ambush",
+    "location_id": "loc_vetch_chapel",
+    "unlock_after": "ch_v22|ch_m22"
   },
   {
     "chapter_id": "ch_m21",
@@ -193,7 +219,9 @@
     "recruits_unit_ids": null,
     "notes": "Chapter title is sect_march's own seat name verbatim ('the Drowned March'). Doctrine notes: 'new scripture is still arriving, dictated, in progress -- chapters can be added between the player's Act 2 visits' and 'Prophecy NPCs convert green levies' -- the latter reuses the same conversion mechanic already flagged as unmodeled at map_a02/map_b15, not a new system.",
     "tonal_register": "eerie",
-    "teaches_system": "ongoing prophecy pressure"
+    "teaches_system": "ongoing prophecy pressure",
+    "location_id": "loc_lake_shore",
+    "unlock_after": "ch_x11"
   },
   {
     "chapter_id": "ch_m22",
@@ -207,7 +235,9 @@
     "recruits_unit_ids": null,
     "notes": "sect_march's notes: 'rebaptising the dead by name off the parish lists... puts the prophets and the crown's clerks in the same archive for opposite reasons' -- taken directly, a defend-the-archive shape.",
     "tonal_register": "uneasy",
-    "teaches_system": "archive standoff"
+    "teaches_system": "archive standoff",
+    "location_id": "loc_march_shrine",
+    "unlock_after": "ch_m21"
   },
   {
     "chapter_id": "ch_r16",
@@ -221,7 +251,9 @@
     "recruits_unit_ids": null,
     "notes": "sect_road's own sovereign seat ('the Toll League'). Doctrine: 'redemption is a purchase word -- to redeem is to buy back' -- reuses the same 'purchase' objective_verb map_b15 already established for this sect, rather than inventing a different one for their second chapter.",
     "tonal_register": "warm",
-    "teaches_system": "redemption-as-purchase"
+    "teaches_system": "redemption-as-purchase",
+    "location_id": "loc_caravanserai",
+    "unlock_after": "ch_b15"
   },
   {
     "chapter_id": "ch_e31",
@@ -235,7 +267,9 @@
     "recruits_unit_ids": null,
     "notes": "Buildup chapter for the Enlightened One fork -- ties to ascension_signals (sig_forge_use, sig_defection_handling, etc.), the hidden telemetry that later decides end_sanctified vs. end_perverse. Doesn't resolve which way it tips; that's runtime state, not authored here.",
     "tonal_register": "tense",
-    "teaches_system": "consequences accumulate"
+    "teaches_system": "consequences accumulate",
+    "location_id": "loc_caravanserai",
+    "unlock_after": "ch_k22"
   },
   {
     "chapter_id": "ch_e32_sanctified",
@@ -249,7 +283,9 @@
     "recruits_unit_ids": null,
     "notes": "end_sanctified terminal (endings tab, trigger: hidden telemetry threshold MET). Per that row: 'NOT a boss fight against him. The party fights the deposed patrons of the Hundred Cities -- the full Lesser Key roster... as they resist being absorbed.' Mutually exclusive with ch_e32_perverse -- same slot (act 3, number 32), only one fires per playthrough.",
     "tonal_register": "ambivalent",
-    "teaches_system": "the good ending still costs something"
+    "teaches_system": "the good ending still costs something",
+    "location_id": "loc_caravanserai",
+    "unlock_after": "ch_e31"
   },
   {
     "chapter_id": "ch_e32_perverse",
@@ -263,7 +299,9 @@
     "recruits_unit_ids": null,
     "notes": "end_perverse terminal (endings tab, trigger: hidden telemetry threshold NOT met). Per that row: 'the party fights HIM directly. VISUAL CONVERGENCE WITH THE IDOL, deliberate.' Mutually exclusive with ch_e32_sanctified -- same slot, only one fires per playthrough.",
     "tonal_register": "grim",
-    "teaches_system": "false godhood, assembled not born"
+    "teaches_system": "false godhood, assembled not born",
+    "location_id": "loc_caravanserai",
+    "unlock_after": "ch_e31"
   },
   {
     "chapter_id": "ch_h31",
@@ -277,7 +315,9 @@
     "recruits_unit_ids": null,
     "notes": "end_hierophant's shared lead-up (endings tab): 'the defense scenario ends in capture, not a kill.' sect_id resolved to sect_march (RESOLVED 2026-09-23, see the_hierophant tab).",
     "tonal_register": "grim",
-    "teaches_system": "conquest, not villainy"
+    "teaches_system": "conquest, not villainy",
+    "location_id": "loc_march_shrine",
+    "unlock_after": "ch_k22"
   },
   {
     "chapter_id": "ch_h32",
@@ -291,7 +331,9 @@
     "recruits_unit_ids": null,
     "notes": "Deliberately NO MAP -- endings.end_hierophant is explicit that this is processed through the same systemic machine as everything else ('the same machine that produces deputies off the epithet ledger now processes the largest moral choice in the game, not a special cutscene outside the system'), not a battle. Forks into ch_h33_mercy or the ch_h34_war_* chapters depending on the player's sentence recommendation. sect_id resolved to sect_march, see ch_h31 and the_hierophant tab.",
     "tonal_register": "solemn",
-    "teaches_system": "the trial IS the system"
+    "teaches_system": "the trial IS the system",
+    "location_id": "loc_kaisareia_walls",
+    "unlock_after": "ch_h31"
   },
   {
     "chapter_id": "ch_h33_mercy",
@@ -305,7 +347,9 @@
     "recruits_unit_ids": null,
     "notes": "end_hierophant_mercy terminal: 'the movement goes underground and finishes what got interrupted -- A SECOND, LATER BATTLE... deliberately convergent iconography with end_perverse and the Idol.' sect_id resolved to sect_march, see ch_h31 and the_hierophant tab.",
     "tonal_register": "uneasy",
-    "teaches_system": "mercy has a bill too"
+    "teaches_system": "mercy has a bill too",
+    "location_id": "loc_kaisareia_walls",
+    "unlock_after": "ch_h32"
   },
   {
     "chapter_id": "ch_h34_war1",
@@ -319,7 +363,9 @@
     "recruits_unit_ids": null,
     "notes": "end_hierophant_execution terminal: 'not one climactic fight -- several chapters of costly, attritional maps against regions and sects that were allied or neutral an act ago, now fractured.' 'Several' isn't a specific count in that text -- 3 chapters (war1/2/3) is this pass's own invented number, not sourced. sect_id resolved to sect_march, see ch_h31 and the_hierophant tab.",
     "tonal_register": "desolate",
-    "teaches_system": "attrition, not spectacle"
+    "teaches_system": "attrition, not spectacle",
+    "location_id": "loc_muster_field",
+    "unlock_after": "ch_h32"
   },
   {
     "chapter_id": "ch_h34_war2",
@@ -333,7 +379,9 @@
     "recruits_unit_ids": null,
     "notes": "Second of the invented 3-chapter War arc -- see ch_h34_war1's note.",
     "tonal_register": "desolate",
-    "teaches_system": "the front keeps moving, there's no fixed line to hold"
+    "teaches_system": "the front keeps moving, there's no fixed line to hold",
+    "location_id": "loc_glass_edge",
+    "unlock_after": "ch_h34_war1"
   },
   {
     "chapter_id": "ch_h34_war3",
@@ -347,7 +395,9 @@
     "recruits_unit_ids": null,
     "notes": "Third and final of the invented 3-chapter War arc -- see ch_h34_war1's note. Closes the execution branch.",
     "tonal_register": "grim",
-    "teaches_system": "the cost lands on the world"
+    "teaches_system": "the cost lands on the world",
+    "location_id": "loc_kaisareia_walls",
+    "unlock_after": "ch_h34_war2"
   },
   {
     "chapter_id": "ch_p_macuil",
@@ -361,7 +411,9 @@
     "recruits_unit_ids": null,
     "notes": "CORRECTION (2026-09-24): reassigned from sect_coast to sect_march. The earlier pass (2026-09-23) grounded this chapter in rgn_stepped_coast's terrace scar text and stopped there without checking every paralogue-tagged locations row -- the same class of error already caught once on ch_p_indech's note. A fuller pass found locations.loc_north_wind (region_id=rgn_drowned_march, 'the second hermit; likewise refuses') -- rgn_drowned_march's own direction column is literally 'north', and this chapter's own title is 'The North Wind Winds': name, direction, and the explicit 'second hermit' pairing with loc_hermit_lake (Indech, 'the first hermit', sect_coast) all point the same way. rgn_stepped_coast's terrace imagery was a real textual match but the wrong one -- npcs.npc_macuil never named a region itself, only 'refuses to adjudicate', which fits either hermit equally well and doesn't disambiguate. Regrounded in rgn_drowned_march's own scar ('a rift valley that filled; a lake with a visible former shoreline') and texture ('in dry years the top of a bell tower breaks the surface; villages sit on the new shoreline and farm the old one'); see maps.map_p_macuil's own note for the terrain rebuild. sect_march's own dual explanation_sacred/explanation_material columns reused for the same 'offers both, refuses to choose' device the old (wrong-region) version already had -- that narrative structure transfers cleanly, only the grounding under it changes.",
     "tonal_register": "elegiac",
-    "teaches_system": "a saint who will not judge"
+    "teaches_system": "a saint who will not judge",
+    "location_id": "loc_north_wind",
+    "unlock_after": "ch_a05|ch_d05"
   },
   {
     "chapter_id": "ch_p_indech",
@@ -375,7 +427,9 @@
     "recruits_unit_ids": null,
     "notes": "npcs.npc_indech: 'hermit saint... his lake, fisher cult; paralogue capstone.' Same act1=no/act2=no/act3=yes confirmation as ch_p_macuil. CORRECTED (2026-09-23): the first pass checking for a sect_coast connection only read the regions tab (one row per claimed region) and missed the finer-grained locations/polities/settlements tabs. locations.loc_hermit_lake ('The saint's lake', region_id=rgn_stepped_coast, 'a hermit who refuses to adjudicate; fisher cult around him') is Indech's lake almost verbatim. polities.pol_isles (also rgn_stepped_coast) independently confirms it: 'a hermit saint lives here and refuses to adjudicate anything.' settlements.set_pelagos (also rgn_stepped_coast): 'fisher commune; the saint lives on the next island and they feed him' -- Pelagos IS the fisher cult. CORRECTION 2 (2026-09-24): the earlier note here also claimed Macuil was sect_coast's paralogue too, in this same region -- that was wrong (see ch_p_macuil's own corrected note). locations.loc_hermit_lake itself names Indech 'a hermit', and the paired loc_north_wind row (region_id=rgn_drowned_march) names Macuil 'the second hermit' in a DIFFERENT region -- sect_coast's own paralogue set is Indech and the Shadhavar (locations.loc_lowest_terrace, same region), not Indech and Macuil. teaches_system's shared 'a saint who will not judge' with ch_p_macuil is still deliberate parallel structure across two different sects, not evidence they share one.",
     "tonal_register": "wondrous",
-    "teaches_system": "a saint who will not judge"
+    "teaches_system": "a saint who will not judge",
+    "location_id": "loc_hermit_lake",
+    "unlock_after": "ch_a06|ch_d06"
   },
   {
     "chapter_id": "ch_p_shadhavar",
@@ -389,7 +443,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-24), sect_coast's third declared paralogue location -- found while auditing every locations row tagged chapters='P' after the ch_p_macuil correction (see that chapter's own note). locations.loc_lowest_terrace (region_id=rgn_stepped_coast, chapters='P', acts='paralogue', 'the Shadhavar; the song pulls the nearest enemy one tile a turn') and named.nmd_shadhavar (same region, pact_object='the song', terms='pacts through beauty; the lure is what it IS, not a trick it performs', signature_mechanic='every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off', notes='liability on escort maps, asset on defend maps') are the full grounding -- both independently point at rgn_stepped_coast, already confirmed claimed_by_sect_id=sect_coast. This completes sect_coast's declared paralogue set (Indech + the Shadhavar, per every locations row tagged chapters='P' with region_id=rgn_stepped_coast); Macuil is not part of it, see that chapter's own corrected note. IMPORTANT SCOPE NOTE: the real pact/capture system (named's own addendum: 'three-way capture: intact / harvest / kill', 'the Named know each other: kill one and the next will not be captured') and the Shadhavar's own always-on song-pull mechanic are NOT implemented in map_grid.gd -- this chapter is built to the same skeleton depth as every other map this session (real terrain, a reachable objective, a scene), not a claim that the capture system itself now exists. ea_shadhavar (enemy_archetypes) represents it as a reachable/fightable stand-in the same way ea_warlord stands in for Macuil and Indech's own capstone fights.",
     "tonal_register": "eerie",
-    "teaches_system": "a pact that cannot be turned off"
+    "teaches_system": "a pact that cannot be turned off",
+    "location_id": "loc_lowest_terrace",
+    "unlock_after": "ch_a06|ch_d06"
   },
   {
     "chapter_id": "ch_p_simurgh",
@@ -403,7 +459,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-24). sect_march's second declared paralogue, found the same way ch_p_shadhavar was: auditing every locations row tagged chapters='P'. locations.loc_simurgh_nest (region_id=rgn_drowned_march, 'The mountain above the lake', 'the Simurgh; a foster-mother who answers whoever holds the feather') and named.nmd_simurgh (same region -- pact_object='the feather', terms='answers whoever holds the feather, and answers anyone who holds it', signature_mechanic='5 HP/turn to rider and adjacent allies (flat, not percentage)', notes='cleanses corruption; the only thing that can strip a pact without a Pardoner, and will not do it on request'). Both independently point at rgn_drowned_march, already confirmed claimed_by_sect_id=sect_march via ch_p_macuil's own corrected note. This gives sect_march two declared paralogues (loc_north_wind/Macuil, loc_simurgh_nest/the Simurgh) against rgn_drowned_march's own locations rows -- no third one tagged chapters='P' exists for this region or rgn_the_shoulder (sect_march's other claimed region), so this completes sect_march's set the same way ch_p_shadhavar completed sect_coast's. SCOPE NOTE, same as every other named-creature paralogue this session: the real pact system (whoever holds the feather commands her, defects instantly on the feather changing hands, cleanses corruption 'will not do it on request') and the flat 5 HP/turn aura are NOT implemented in map_grid.gd -- this is a reachable/fightable skeleton encounter only, same honesty flag as ea_shadhavar's own row. The Simurgh reads as notably less adversarial than the Shadhavar or the Karkadann (nothing in named.nmd_simurgh suggests she attacks on sight) -- representing her as encounter_spawns kind='boss' is a bigger tonal stretch here than anywhere else this pattern has been used, flagged plainly rather than smoothed over.",
     "tonal_register": "ambivalent",
-    "teaches_system": "help you cannot simply ask for"
+    "teaches_system": "help you cannot simply ask for",
+    "location_id": "loc_simurgh_nest",
+    "unlock_after": "ch_a05|ch_d05"
   },
   {
     "chapter_id": "ch_p_karkadann",
@@ -417,7 +475,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-24). sect_vashti's first declared paralogue, found the same way ch_p_shadhavar/ch_p_simurgh were: auditing every locations row tagged chapters='P'. locations.loc_dove_colony (region_id=rgn_ashland, 'the Karkadann; it guards what it has decided to guard') and named.nmd_karkadann (same region -- pact_object='the nest it guards', terms='protects what it has decided to protect; nothing negotiates with it', defection_trigger='turns the moment you threaten the doves; state orders and its terms are simply incompatible', notes='the plain one on purpose -- the roster needs one straightforwardly good option'). rgn_ashland is already confirmed claimed_by_sect_id=sect_vashti (regions tab). locations.loc_cinder_track, an already-referenced Act2 location in this same region, independently calls its own ground 'the Karkadann's country' -- corroborating, not contradicting: cinder_track is the ash road THROUGH its territory, dove_colony is the guarded heart of it. rgn_ashland's other paralogue-tagged location, loc_buried_works ('records, complicit clerks, a shrine built over a facility'), is not a Named-creature site and is left for a separate paralogue. SCOPE NOTE, same as every other named-creature paralogue this session: the real pact system (guards only what it has decided to guard, turns hostile specifically if the doves are threatened, cannot be ordered) and its charge mechanic (strong vs mounted, stuck one turn after) are NOT implemented in map_grid.gd -- reachable/fightable skeleton only. Unlike the Shadhavar (eerie, uncontrolled) or the Simurgh (protective but withholding), named.nmd_karkadann's own notes call it 'the plain one on purpose... straightforwardly good' -- the least ambivalent of the Named encountered so far, closer to a hero-monster than a riddle. VALIDATOR NOTE (2026-09-24): canon_validate.py's c09 check now flags 3 consecutive 'seize' chapters on route='both'/column='unified' (ch_p_shadhavar, ch_p_simurgh, ch_p_karkadann). Reviewed, not fixed: all three genuinely have no stated objective in their own grounding text, and 'seize' is the same honest placeholder used for every paralogue map to date (map_p_macuil included) -- inventing artificial variety across them to quiet this warning would trade a real grounding gap for a fake one. Left as a known pacing gap for whenever paralogue objectives get real design attention.",
     "tonal_register": "warm",
-    "teaches_system": "a guardian whose terms are simple and absolute"
+    "teaches_system": "a guardian whose terms are simple and absolute",
+    "location_id": "loc_dove_colony",
+    "unlock_after": "ch_a10|ch_d10"
   },
   {
     "chapter_id": "ch_p_anzu",
@@ -431,7 +491,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-24). sect_road's first declared paralogue, found the same way the last three were: auditing every locations row tagged chapters='P'. locations.loc_flats_interior (region_id=rgn_glass_flats, 'the Anzu; arrows come apart, and it reads what you cannot') and named.nmd_anzu (same region -- pact_object='the register itself', terms='contracts with whoever can READ the register, not who owns it', defection_trigger='someone demonstrates literacy you lack; ties to the hidden-literacy thread', signature_mechanic='contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead'). rgn_glass_flats is already confirmed claimed_by_sect_id=sect_road (regions tab). loc_glass_edge, an existing Act2 location in the same region, corroborates rather than conflicts: it's the approach ('the edge of the Glass Flats'), this paralogue is the interior. objective_verb='seize' stays the honest placeholder, same reasoning already reviewed on ch_p_karkadann's own notes (nothing in either grounding source states a win condition) -- this is now a 4th consecutive placeholder-seize paralogue and c09 will likely flag it again; not fixed for the same reason: inventing variety not supported by the data would trade a real gap for a fake one. Notably sect_road already has a real, non-placeholder 'purchase' objective_verb precedent (ch_r16/map_b15, tied to the sect's own redemption-as-purchase doctrine) -- considered and rejected here, because named.nmd_anzu's own terms are explicitly about LITERACY, not currency ('contracts with whoever can READ the register, not who owns it') -- reusing 'purchase' would import the wrong mechanic just to avoid repetition. SCOPE NOTE, same as every other named-creature paralogue: the real pact/literacy-contract system and the weapon-degrading touch are NOT implemented in map_grid.gd -- reachable/fightable skeleton only.",
     "tonal_register": "strange",
-    "teaches_system": "a pact you must be able to read to keep"
+    "teaches_system": "a pact you must be able to read to keep",
+    "location_id": "loc_flats_interior",
+    "unlock_after": "ch_x11"
   },
   {
     "chapter_id": "ch_p_huma",
@@ -445,7 +507,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-24). sect_road's second and final declared paralogue, found the same way ch_p_anzu was: auditing every locations row tagged chapters='P'. locations.loc_open_road (region_id=rgn_the_throat, 'The open road (no fixed site)', 'the Huma; it never lands, so it belongs to a road, not a place') and named.nmd_huma (same region -- pact_object='no seal; it cannot be owned', terms='cannot be owned, only flown under; its shadow legitimizes whoever it falls on', defection_trigger='never defects because it was never yours', signature_mechanic='MAP HAZARD, NOT A MOUNT: drifts overhead; marked units gain stats and become targeting priority for every enemy', notes='kill-taboo: whoever lands the blow dies in forty days, no reload undoes it'). rgn_the_throat is sect_road's own seat region, already confirmed claimed_by_sect_id=sect_road. With this, sect_road's declared paralogue set (rgn_glass_flats' loc_flats_interior + rgn_the_throat's loc_open_road) is complete. DESIGN DEPARTURE FROM THE OTHER FOUR NAMED PARALOGUES: this one explicitly is NOT a fightable capstone. named.nmd_huma's own text is unambiguous that it is a map hazard, not a mount, and that killing it carries a stated kill-taboo (death in forty days) rather than any reward -- giving it an encounter_spawns kind='boss' row the way the Shadhavar/Simurgh/Karkadann/Anzu all got would directly contradict its own grounding, not just stretch it the way ea_simurgh's did. So there is no ea_huma / no boss spawn here: the Huma appears only in this map's terrain/design_note text and the scene, drifting overhead as atmosphere, never as a targetable unit. objective_verb='escape' (not the usual placeholder 'seize') is the one real, grounded departure from every prior paralogue's objective: locations.loc_open_road is explicit 'no fixed site' -- there is nothing to seize -- and a road is crossed, not held. Reuses map_grid.gd's existing escape/escort win logic (min_solution_units units must reach the 'E' tile), same mechanism as map_a03. Ordinary road threats (reused ea_looter, same archetype already grounded for 'opportunists working the toll road' on sect_road's own map_r16) provide the actual combat, since a battle map needs contestable enemies and the Huma itself cannot be one.",
     "tonal_register": "wondrous",
-    "teaches_system": "a blessing that was never yours to keep"
+    "teaches_system": "a blessing that was never yours to keep",
+    "location_id": "loc_open_road",
+    "unlock_after": "ch_x11"
   },
   {
     "chapter_id": "ch_p_buried_works",
@@ -459,7 +523,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-24). sect_vashti's second and final declared paralogue, the last of all 8 locations rows tagged chapters='P' in canon.xlsx -- every sect's declared paralogue set is now built. locations.loc_buried_works ('The buried works, under Vashti', region_id=rgn_ashland, 'records, complicit clerks, a shrine built over a facility'). Unlike every other paralogue this session, this one has no named.* row -- rgn_ashland's only Named tie is nmd_karkadann, already spent on ch_p_karkadann/loc_dove_colony -- so there is no creature here at all, human antagonists only. Grounded directly in sects.sect_vashti's own wound ('collaboration: lords who hosted the experiments still hold office') and doctrine ('sacraments from complicit hands are void; the veneration must be re-made clean') -- the same 'complicit hands... re-made clean' refrain already used for map_v21's shrine-reconsecration defend map, and independently echoed a third time in calendar!C6 ('any calendar kept by complicit hands is void'). This paralogue is the literal version of that refrain: a shrine built OVER the buried facility where the experiments happened, its records still down there. Reuses ea_hardened_veteran for both the boss and mook spawn, same archetype and same justification ch_v21's own encounter_spawns row already used for 'the lord's household guard' -- 'complicit hands' generally, no named individual stated anywhere. objective_verb='seize' here is NOT the usual paralogue placeholder: every other paralogue's 'seize' was an honest default because nothing stated a win condition -- here the records themselves are explicitly the thing to reach, so 'seize the archive' is the directly grounded choice. CROSS-REFERENCE, not resolved here: ascension_signals.sig_unstained_respected ('whether the Unstained's refusal of him was honored or steamrolled in how their chapters/paralogue resolved') names 'their... paralogue' as one of its own inputs -- this is that paralogue. ascension_signals' own header note is explicit these signals are 'candidates, not a locked checklist' and belong to their own authored-decision session -- noted here as a real connection, not wired into any flag or GameState mechanic.",
     "tonal_register": "grim",
-    "teaches_system": "what a shrine is built to bury"
+    "teaches_system": "what a shrine is built to bury",
+    "location_id": "loc_buried_works",
+    "unlock_after": "ch_a10|ch_d10"
   },
   {
     "chapter_id": "ch_d04",
@@ -473,7 +539,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_thessala (region_id=rgn_center, 'south coast; grain bought abroad, unloaded under protest'). 'Under protest' reads as a hostile crowd around the unloading, not the protesters themselves as combatants -- the actual threat is opportunists exploiting the unrest to loot the grain, same framing ea_looter already carries everywhere else it's used this session, kept deliberately rather than making dockside protesters into killable enemies.",
     "tonal_register": "tense",
-    "teaches_system": "defend under a deadline"
+    "teaches_system": "defend under a deadline",
+    "location_id": "loc_thessala",
+    "unlock_after": "ch_d03"
   },
   {
     "chapter_id": "ch_d06",
@@ -487,7 +555,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_anthe (region_id=rgn_stepped_coast, 'a port stranded above its own water; three levels of street'). This is the terrain regions.rgn_stepped_coast's own scar text ('three raised marine terraces, each a former shoreline, each with a ruined harbor at the wrong altitude') actually describes first -- a 2026-09-23 pass used that same scar text for ch_p_macuil before that was corrected to a different region entirely (see ch_p_macuil's own note); this chapter is the terrace terrain's real, rightful home in canon.xlsx, not a reuse of the correction.",
     "tonal_register": "elegiac",
-    "teaches_system": "riding-blocked elevation"
+    "teaches_system": "riding-blocked elevation",
+    "location_id": "loc_anthe",
+    "unlock_after": "ch_d05"
   },
   {
     "chapter_id": "ch_d07",
@@ -501,7 +571,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_stranded_harbour (region_id=rgn_stepped_coast, 'ruin on the middle terrace; the renunciants live in it'). 'The renunciants' are sects.sect_coast's own people (doctrine: 'renunciation; refuse to adjudicate') -- named here for the first time as inhabitants of this specific ruin, not combatants (sect_coast is 'unreachable by writ' per its own notes, so this stays sect_id=None like every other diadem Act1 chapter, not a formal sect encounter). The actual fight is against looters/scavengers picking through the ruin, reusing ea_looter again -- the renunciants themselves are flavor, not enemies.",
     "tonal_register": "elegiac",
-    "teaches_system": "a ruin with residents who are not the enemy"
+    "teaches_system": "a ruin with residents who are not the enemy",
+    "location_id": "loc_stranded_harbour",
+    "unlock_after": "ch_d06"
   },
   {
     "chapter_id": "ch_d08",
@@ -515,7 +587,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_dry_country (region_id=rgn_center, 'open ground, no cover, the map that punishes slow armies'). objective_verb='survive' (not 'rout', which map_grid.gd does not implement -- checked before choosing) turns 'punishes slow armies' into a real mechanical shape: enduring N turns fully exposed on open ground against a fast raiding party, rather than a fixed point to reach. ea_war_captain reused as the raiders' leader -- a mobile order-tier threat, matching the location's own 'slow armies' framing by being fast itself.",
     "tonal_register": "tense",
-    "teaches_system": "no cover, no terrain to lean on"
+    "teaches_system": "no cover, no terrain to lean on",
+    "location_id": "loc_dry_country",
+    "unlock_after": "ch_d07"
   },
   {
     "chapter_id": "ch_d09",
@@ -529,7 +603,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_vashti_road (region_id=rgn_ashland, 'the single road east; lava fans narrow it to one lane in places'). Terrain reuses ter_miasma (already grounded for rgn_ashland's own volcanic ash on ch_p_karkadann) for the lava-fan hazard patches and ter_span ('a', width-1 chokepoint, from map_f00) for the single-lane narrows the location's own text names directly. objective_verb='escape' -- a linear road corridor to cross, same shape as ch_p_huma's road, no cargo to escort stated anywhere in the location's own text (ch_d03 already covers diadem's escort-a-wagon beat).",
     "tonal_register": "tense",
-    "teaches_system": "a chokepoint road, no fixed objective"
+    "teaches_system": "a chokepoint road, no fixed objective",
+    "location_id": "loc_vashti_road",
+    "unlock_after": "ch_d08"
   },
   {
     "chapter_id": "ch_d10",
@@ -543,7 +619,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_vashti_gate's Act1 occurrence (chapters='10, 12, 28', this is the '10'; region_id=rgn_ashland, 'the occupied seat; the Unstained will not talk to you'). This same location's chapter-12 occurrence is already built as ch_v21 'The Unstained Seat' (Act2, sect_id=sect_vashti, 'no talk conversations available on their seat map' -- the exact same refusal-to-talk framing). This chapter is the diadem route's Act1 finale: the FIRST arrival at the gate and the first refusal, smaller in scale than Act2's full siege, still sect_id=None (Act1 chapters aren't attributed to sects in this canon, ch_v21 is the sect-attributed return to the same gate). ea_war_captain as the gate captain (boss), ea_hardened_veteran as household guard (mook) -- the same 'complicit hands'/household-guard reuse already established for ch_v21 and ch_p_buried_works. VALIDATOR NOTE (2026-09-25): c15 now flags a 5-chapter gap since the last warm/wondrous chapter, reaching this one, plus knock-on flags on ch_v21/ch_v22 downstream. Reviewed, not fixed: none of this batch's 6 gap chapters (ch_d04/06/07/08/09/10) grounded to a warm or wondrous register on their own terms -- Thessala's unrest, two elegiac ruins, an exposed survival map, a hazardous road, and a door that refuses to open are what their locations rows actually describe. Forcing one of them warm/wondrous to quiet this check would be the same kind of unearned variety already declined for c09 on ch_p_anzu/ch_p_karkadann -- left as a known pacing gap.",
     "tonal_register": "grim",
-    "teaches_system": "a door that answers with force, not words"
+    "teaches_system": "a door that answers with force, not words",
+    "location_id": "loc_vashti_gate",
+    "unlock_after": "ch_d09"
   },
   {
     "chapter_id": "ch_a04",
@@ -557,7 +635,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_halder (region_id=rgn_drowned_march, 'north coast; exotic medicines bought from people who know it'). Continues assembly's own medicine thread rather than starting a new one: ch_a01 is a medicine cart (the winter dole), ch_a02 is an apothecary town -- this is where that medicine actually gets bought, from a black-market angle ('people who know it' implies specialist/illicit sourcing). Reuses ea_looter for the same opportunist framing as ch_d04's own harbour.",
     "tonal_register": "tense",
-    "teaches_system": "a harbour trade, no crowd this time"
+    "teaches_system": "a harbour trade, no crowd this time",
+    "location_id": "loc_halder",
+    "unlock_after": "ch_a03"
   },
   {
     "chapter_id": "ch_a05",
@@ -571,7 +651,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_lake_shore (region_id=rgn_drowned_march, 'the drowned town; a bell tower breaking the surface in dry years'). This is regions.rgn_drowned_march's own scar text in its most direct form -- the same texture ch_p_macuil's corrected terrain and ch_p_simurgh's mountain-above-the-lake both already draw on, this time as the Act1 location it was probably always meant to describe first. Terrain built fresh (open farmland, a residual lake patch, the bell tower's tip), not copied from either paralogue map.",
     "tonal_register": "elegiac",
-    "teaches_system": "a drowned landmark, walkable around it"
+    "teaches_system": "a drowned landmark, walkable around it",
+    "location_id": "loc_lake_shore",
+    "unlock_after": "ch_a04"
   },
   {
     "chapter_id": "ch_a06",
@@ -585,7 +667,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_ostrova (region_id=rgn_drowned_march, 'steppe edge; the Assembly's eastern city, closer to the Plains than to Vetch'). A frontier city at the steppe's edge -- open ground with a small settlement cluster, threatened by mobile raiders out of the Plains (ea_war_captain) rather than an organized siege.",
     "tonal_register": "tense",
-    "teaches_system": "a frontier city, open approach"
+    "teaches_system": "a frontier city, open approach",
+    "location_id": "loc_ostrova",
+    "unlock_after": "ch_a05"
   },
   {
     "chapter_id": "ch_a07",
@@ -599,7 +683,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_upper_scar (region_id=rgn_drowned_march, 'escarpment fighting; the rift where it is still a cliff'). Upstream of loc_lake_shore's own flooded stretch of the same rift -- here it never filled, so it's a sheer drop instead of water. Terrain reuses ter_wall_face ('x') for the cliff edge itself (impassable to ground, flying passes over the void) rather than inventing a new symbol for one map. objective_verb='defend' (turn_limit=8) -- 'escarpment fighting' reads as holding a position, not reaching one.",
     "tonal_register": "tense",
-    "teaches_system": "a cliff edge as a wall"
+    "teaches_system": "a cliff edge as a wall",
+    "location_id": "loc_upper_scar",
+    "unlock_after": "ch_a06"
   },
   {
     "chapter_id": "ch_a08",
@@ -613,7 +699,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_timber_road (region_id=rgn_drowned_march, 'forest; the map where fliers are worthless and archers are not'). Terrain reuses ter_cloister ('i', from map_a03) for forest canopy purely for its existing cost profile -- blocks flying outright, cost 1 for every ground movement type -- which is exactly 'fliers worthless, archers not', not for its 'cloister/indoors' name. Bandits using the treeline for cover (ea_looter) rather than an organized force.",
     "tonal_register": "tense",
-    "teaches_system": "canopy blocks flight, ground fights normal"
+    "teaches_system": "canopy blocks flight, ground fights normal",
+    "location_id": "loc_timber_road",
+    "unlock_after": "ch_a07"
   },
   {
     "chapter_id": "ch_a09",
@@ -627,7 +715,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_march_shrine (region_id=rgn_drowned_march, 'living prophecy; a sect that thinks revelation never stopped'). Directly sect_march's own doctrine ('New scripture is still arriving, dictated, in progress') and its own line 'Prophecy NPCs convert green levies' -- reused here almost verbatim: ea_conscript_levy as levies mid-conversion, not an invented enemy. Stays sect_id=None like every other Act1 chapter this session (sect attribution starts at Act2, ch_m21), even though the thematic tie to sect_march is the most direct of any Act1 gap chapter built so far.",
     "tonal_register": "wondrous",
-    "teaches_system": "a shrine that keeps writing itself"
+    "teaches_system": "a shrine that keeps writing itself",
+    "location_id": "loc_march_shrine",
+    "unlock_after": "ch_a08"
   },
   {
     "chapter_id": "ch_a10",
@@ -641,7 +731,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_vetch_chapel's Act1 occurrence (chapters='10, 12, 28', this is the '10'; region_id=rgn_drowned_march, 'the court sect at home; obedience belongs to the throne'). sects.sect_court's own seat is 'Kaisareia / Vetch' -- direct match. This location's chapter-12 occurrence is already built as ch_c21 'The Vetch Reunion' (Act2, sect_id=sect_court, 'ambushes at reunion' per that sect's own notes) -- same diadem/assembly pairing already established for ch_d10/ch_v21: this is assembly's Act1 finale, the first arrival, sect_id=None like the rest of Act1, not the sect-attributed Act2 return. VALIDATOR NOTE (2026-09-25): c09 now flags 3 consecutive 'seize' chapters on route='assembly' (ch_a08/a09/a10), and c15 flags a 6-chapter gap since the last warm/wondrous one reaching ch_a08. Same review already applied to the diadem batch: none of these locations' own text stated a non-seize objective or a warm/wondrous register, so both are left as-is rather than forcing unearned variety.",
     "tonal_register": "grim",
-    "teaches_system": "a loyalist home front, first contact"
+    "teaches_system": "a loyalist home front, first contact",
+    "location_id": "loc_vetch_chapel",
+    "unlock_after": "ch_a09"
   },
   {
     "chapter_id": "ch_k21",
@@ -655,7 +747,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Act3 gap audit: cross-referencing every locations row with acts containing '3' against the chapters tab found that most of them are Act1/2 locations REUSED in Act3 (chapters columns like '1, 26' or '18, 29') -- covered by maps.reuse_in_act3='yes' already set on 12 existing maps, and by the maps tab's own note ('Act 3 embeds reuse_in_act3 tilemaps into larger battlefields'), not a content gap. locations.loc_kaisareia_walls is the one genuine exception: acts='3' ONLY (chapters='21, 22'), no Act1/2 precedent -- 'Kaisareia, the granary district', 'the capital as a battlefield; the synod's colossus is fed from here'. This is chapter 21, the first of loc_kaisareia_walls' two entries. sect_id=sect_court, grounded in three independent facts: regions.rgn_center's own claimed_by_sect_id=sect_court; sects.sect_court's own notes call it explicitly the 'home-front thread'; and 'the capital as a battlefield' is that home front literally becoming one. 'The synod' reads as sect_court's own governing body -- 'synod' is an ecclesiastical council term, and sect_court is 'the school / the chapel', a clerical order -- though canon.xlsx never states this outright, flagged as an interpretive read, not a cited fact. objective_verb='defend' (turn_limit=10, matching map_e31's own Act3 defend precedent) -- holding the capital's own supply district against attackers.",
     "tonal_register": "tense",
-    "teaches_system": "a home front, not a frontier"
+    "teaches_system": "a home front, not a frontier",
+    "location_id": "loc_kaisareia_walls",
+    "unlock_after": "ch_rf20"
   },
   {
     "chapter_id": "ch_k22",
@@ -669,7 +763,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Act3 gap audit: cross-referencing every locations row with acts containing '3' against the chapters tab found that most of them are Act1/2 locations REUSED in Act3 (chapters columns like '1, 26' or '18, 29') -- covered by maps.reuse_in_act3='yes' already set on 12 existing maps, and by the maps tab's own note ('Act 3 embeds reuse_in_act3 tilemaps into larger battlefields'), not a content gap. locations.loc_kaisareia_walls is the one genuine exception: acts='3' ONLY (chapters='21, 22'), no Act1/2 precedent -- 'Kaisareia, the granary district', 'the capital as a battlefield; the synod's colossus is fed from here'. Chapter 22, the second and closing entry -- the district now embattled, the fight reaching what the location's own text calls 'the synod's colossus'. THEMATIC CROSS-REFERENCE, not resolved here: maps.map_e32_perverse (sect_road's end_perverse terminal) already names its own boss 'the colossus' ('assembled from what was taken -- a false godhood given a body'), and scenes.sc_e32_perverse calls the Idol's shape 'unmistakably the Hierophant's colossus too' -- three sects (sect_road's Idol, sect_march's Hierophant, and now sect_court's synod) each apparently building their own 'false godhood'. Whether these are the same colossus, echoes of one motif, or genuinely separate objects is NOT stated anywhere in canon.xlsx and is not decided here -- this chapter's own colossus (ter_statue reused for it, 'S', in map_k22.txt) is built as its own local landmark, not a claimed identity with the other two. objective_verb='seize' -- reach and secure what feeds it. VALIDATOR NOTE (2026-09-25): inserting ch_k21/ch_k22 between the existing Act2/Act3 numbering pushed c15's warm/wondrous-gap count further on every downstream Act3 chapter (ch_e32_sanctified/perverse, ch_h32-h34, ch_p_macuil). Reviewed, not fixed: neither ch_k21 ('tense') nor ch_k22 ('eerie') grounds to a warm or wondrous register on its own terms -- a home front under attack and a false-godhood reveal aren't warm material -- same call already made for every other tonal-pacing finding this session.",
     "tonal_register": "eerie",
-    "teaches_system": "what a false godhood is actually made of"
+    "teaches_system": "what a false godhood is actually made of",
+    "location_id": "loc_kaisareia_walls",
+    "unlock_after": "ch_k21"
   },
   {
     "chapter_id": "ch_ct19",
@@ -683,7 +779,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Act2 gap audit: cross-referencing every locations row with acts containing '2' against the chapters tab and every built map's own terrain/design_note text (not just chapter numbers, which are known to diverge from locations' own legacy numbering -- confirmed again here: loc_caravanserai's two listed numbers, 13 and 15, both turned out to already be covered by the single built map_b15, whose terrain text -- 'caravanserai; awnings block flight, arcade blocks bows' -- matches it exactly; loc_muster_field/13,30 is ch_x11's own 'muster field, river with two crossings'; loc_vetch_chapel/12 is ch_c21; loc_vashti_gate/12 is ch_v21). Three locations had no such match anywhere in the 8 already-built Act2 maps' own text: locations.loc_cinder_track (region_id=rgn_ashland, column 'A', 'ash underfoot, bad air, the Karkadann's country'). 'The Karkadann's country' is flavor/atmosphere, not the creature itself -- ea_karkadann and the real encounter stay reserved for ch_p_karkadann's own paralogue. This is a waypoint crossing, not a sect-attributed chapter: rgn_ashland is sect_vashti's region, but sect_vashti's own act2_chapter_count=2 is already fully satisfied by ch_v21/v22, so this stays sect_id=None like ch_x11's own muster field -- shared Act2 content, not a third sect_vashti chapter. objective_verb='escape' (crossing the ash track), same mechanism as ch_p_huma/ch_d09's own road corridors.",
     "tonal_register": "tense",
-    "teaches_system": "an ash crossing, no fixed foe"
+    "teaches_system": "an ash crossing, no fixed foe",
+    "location_id": "loc_cinder_track",
+    "unlock_after": "ch_c21"
   },
   {
     "chapter_id": "ch_tp19",
@@ -697,7 +795,9 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Act2 gap audit: cross-referencing every locations row with acts containing '2' against the chapters tab and every built map's own terrain/design_note text (not just chapter numbers, which are known to diverge from locations' own legacy numbering -- confirmed again here: loc_caravanserai's two listed numbers, 13 and 15, both turned out to already be covered by the single built map_b15, whose terrain text -- 'caravanserai; awnings block flight, arcade blocks bows' -- matches it exactly; loc_muster_field/13,30 is ch_x11's own 'muster field, river with two crossings'; loc_vetch_chapel/12 is ch_c21; loc_vashti_gate/12 is ch_v21). Three locations had no such match anywhere in the 8 already-built Act2 maps' own text: locations.loc_throat_pass (region_id=rgn_the_throat, column 'B', 'the road east, held by whoever taxes it this year'). Same narrative position as ch_ct19 (both number=19) -- the two columns' own parallel waypoints, matching the precedent Act1's diadem/assembly chapters already set by sharing numbers across parallel routes. rgn_the_throat is sect_road's own seat region, but sect_road's act2_chapter_count=2 is already satisfied by ch_b15/r16, so this stays sect_id=None too -- 'held by whoever taxes it this year' reads as contested/generic control, not sect_road's own declared toll-city (that's ch_r16). objective_verb='seize' -- the toll checkpoint itself is the thing to take.",
     "tonal_register": "tense",
-    "teaches_system": "a toll held by force, not by law"
+    "teaches_system": "a toll held by force, not by law",
+    "location_id": "loc_throat_pass",
+    "unlock_after": "ch_b15"
   },
   {
     "chapter_id": "ch_rf20",
@@ -711,6 +811,8 @@
     "recruits_unit_ids": null,
     "notes": "New (2026-09-25). Act2 gap audit: cross-referencing every locations row with acts containing '2' against the chapters tab and every built map's own terrain/design_note text (not just chapter numbers, which are known to diverge from locations' own legacy numbering -- confirmed again here: loc_caravanserai's two listed numbers, 13 and 15, both turned out to already be covered by the single built map_b15, whose terrain text -- 'caravanserai; awnings block flight, arcade blocks bows' -- matches it exactly; loc_muster_field/13,30 is ch_x11's own 'muster field, river with two crossings'; loc_vetch_chapel/12 is ch_c21; loc_vashti_gate/12 is ch_v21). Three locations had no such match anywhere in the 8 already-built Act2 maps' own text: locations.loc_reunion_field (region_id=rgn_center, 'columns meet; whatever each lost is visible in what each brings') -- the ONE location tagged acts='2' with no companion Act1/3 number at all, and the only one without a column A/B split: this is where ch_ct19's and ch_tp19's own columns (and, structurally, Act1's diadem/assembly routes before them) converge back into Act2's own 'both'-route chapters. Considered building this as a non-battle special scene (matching ch_h32's own trial.gd/trial.tscn precedent, since 'whatever each lost is visible in what each brings' reads as reflective rather than combat-driven) but built as a standard map_grid battle instead, consistent with every other Act1-3 gap chapter this session -- a full skeleton first, a special non-battle treatment is future work, not invented here without being asked. objective_verb='seize' -- reach the reunion point itself, honest default.",
     "tonal_register": "warm",
-    "teaches_system": "what each side kept, what each side lost"
+    "teaches_system": "what each side kept, what each side lost",
+    "location_id": "loc_reunion_field",
+    "unlock_after": "ch_tp19|ch_ct19"
   }
 ]

@@ -6,7 +6,9 @@
     "route": "diadem",
     "chapters": "1, 26",
     "acts": "1, 3",
-    "what_the_ground_is_for": "night docks, neutral porters; where the avatar starts as a clerk"
+    "what_the_ground_is_for": "night docks, neutral porters; where the avatar starts as a clerk",
+    "map_x": 450,
+    "map_y": 320
   },
   {
     "location_id": "loc_weighbridge",
@@ -15,7 +17,9 @@
     "route": "diadem",
     "chapters": "2",
     "acts": "1",
-    "what_the_ground_is_for": "hedgerow country; a requisition writ enforced on a reluctant house"
+    "what_the_ground_is_for": "hedgerow country; a requisition writ enforced on a reluctant house",
+    "map_x": 545,
+    "map_y": 335
   },
   {
     "location_id": "loc_grain_road",
@@ -24,7 +28,9 @@
     "route": "diadem",
     "chapters": "3, 24",
     "acts": "1, 3",
-    "what_the_ground_is_for": "bridge choke and a foot-only ford; wagons move 4"
+    "what_the_ground_is_for": "bridge choke and a foot-only ford; wagons move 4",
+    "map_x": 625,
+    "map_y": 320
   },
   {
     "location_id": "loc_thessala",
@@ -33,7 +39,9 @@
     "route": "diadem",
     "chapters": "4",
     "acts": "1",
-    "what_the_ground_is_for": "south coast; grain bought abroad, unloaded under protest"
+    "what_the_ground_is_for": "south coast; grain bought abroad, unloaded under protest",
+    "map_x": 650,
+    "map_y": 440
   },
   {
     "location_id": "loc_salt_ford",
@@ -42,7 +50,9 @@
     "route": "diadem",
     "chapters": "5, 27",
     "acts": "1, 3",
-    "what_the_ground_is_for": "the rift crossed where it is shallow; the only southern crossing"
+    "what_the_ground_is_for": "the rift crossed where it is shallow; the only southern crossing",
+    "map_x": 540,
+    "map_y": 420
   },
   {
     "location_id": "loc_anthe",
@@ -51,7 +61,9 @@
     "route": "diadem",
     "chapters": "6",
     "acts": "1",
-    "what_the_ground_is_for": "a port stranded above its own water; three levels of street"
+    "what_the_ground_is_for": "a port stranded above its own water; three levels of street",
+    "map_x": 300,
+    "map_y": 435
   },
   {
     "location_id": "loc_stranded_harbour",
@@ -60,7 +72,9 @@
     "route": "diadem",
     "chapters": "7",
     "acts": "1",
-    "what_the_ground_is_for": "ruin on the middle terrace; the renunciants live in it"
+    "what_the_ground_is_for": "ruin on the middle terrace; the renunciants live in it",
+    "map_x": 210,
+    "map_y": 365
   },
   {
     "location_id": "loc_dry_country",
@@ -69,7 +83,9 @@
     "route": "diadem",
     "chapters": "8, 23",
     "acts": "1, 3",
-    "what_the_ground_is_for": "open ground, no cover, the map that punishes slow armies"
+    "what_the_ground_is_for": "open ground, no cover, the map that punishes slow armies",
+    "map_x": 400,
+    "map_y": 365
   },
   {
     "location_id": "loc_vashti_road",
@@ -78,7 +94,9 @@
     "route": "diadem",
     "chapters": "9",
     "acts": "1",
-    "what_the_ground_is_for": "the single road east; lava fans narrow it to one lane in places"
+    "what_the_ground_is_for": "the single road east; lava fans narrow it to one lane in places",
+    "map_x": 790,
+    "map_y": 330
   },
   {
     "location_id": "loc_vashti_gate",
@@ -87,7 +105,9 @@
     "route": "diadem",
     "chapters": "10, 12, 28",
     "acts": "1, 2, 3",
-    "what_the_ground_is_for": "the occupied seat; the Unstained will not talk to you"
+    "what_the_ground_is_for": "the occupied seat; the Unstained will not talk to you",
+    "map_x": 890,
+    "map_y": 290
   },
   {
     "location_id": "loc_vetch_gate",
@@ -96,7 +116,9 @@
     "route": "assembly",
     "chapters": "1, 26",
     "acts": "1, 3",
-    "what_the_ground_is_for": "medicine cart to a gate; civilians chase it, looters follow"
+    "what_the_ground_is_for": "medicine cart to a gate; civilians chase it, looters follow",
+    "map_x": 280,
+    "map_y": 120
   },
   {
     "location_id": "loc_still_town",
@@ -105,7 +127,9 @@
     "route": "assembly",
     "chapters": "2",
     "acts": "1",
-    "what_the_ground_is_for": "three streets of different widths; a preacher converting one a turn"
+    "what_the_ground_is_for": "three streets of different widths; a preacher converting one a turn",
+    "map_x": 350,
+    "map_y": 170
   },
   {
     "location_id": "loc_chapterhouse",
@@ -114,7 +138,9 @@
     "route": "assembly",
     "chapters": "3",
     "acts": "1",
-    "what_the_ground_is_for": "escape map; relic hunters reinforce forever; a reliquary to take or give"
+    "what_the_ground_is_for": "escape map; relic hunters reinforce forever; a reliquary to take or give",
+    "map_x": 440,
+    "map_y": 120
   },
   {
     "location_id": "loc_halder",
@@ -123,7 +149,9 @@
     "route": "assembly",
     "chapters": "4",
     "acts": "1",
-    "what_the_ground_is_for": "north coast; exotic medicines bought from people who know it"
+    "what_the_ground_is_for": "north coast; exotic medicines bought from people who know it",
+    "map_x": 400,
+    "map_y": 50
   },
   {
     "location_id": "loc_lake_shore",
@@ -132,7 +160,9 @@
     "route": "assembly",
     "chapters": "5, 25",
     "acts": "1, 3",
-    "what_the_ground_is_for": "the drowned town; a bell tower breaking the surface in dry years"
+    "what_the_ground_is_for": "the drowned town; a bell tower breaking the surface in dry years",
+    "map_x": 520,
+    "map_y": 80
   },
   {
     "location_id": "loc_ostrova",
@@ -141,7 +171,9 @@
     "route": "assembly",
     "chapters": "6",
     "acts": "1",
-    "what_the_ground_is_for": "steppe edge; the Assembly's eastern city, closer to the Plains than to Vetch"
+    "what_the_ground_is_for": "steppe edge; the Assembly's eastern city, closer to the Plains than to Vetch",
+    "map_x": 680,
+    "map_y": 70
   },
   {
     "location_id": "loc_upper_scar",
@@ -150,7 +182,9 @@
     "route": "assembly",
     "chapters": "7, 27",
     "acts": "1, 3",
-    "what_the_ground_is_for": "escarpment fighting; the rift where it is still a cliff"
+    "what_the_ground_is_for": "escarpment fighting; the rift where it is still a cliff",
+    "map_x": 770,
+    "map_y": 135
   },
   {
     "location_id": "loc_timber_road",
@@ -159,7 +193,9 @@
     "route": "assembly",
     "chapters": "8, 23",
     "acts": "1, 3",
-    "what_the_ground_is_for": "forest; the map where fliers are worthless and archers are not"
+    "what_the_ground_is_for": "forest; the map where fliers are worthless and archers are not",
+    "map_x": 690,
+    "map_y": 190
   },
   {
     "location_id": "loc_march_shrine",
@@ -168,7 +204,9 @@
     "route": "assembly",
     "chapters": "9",
     "acts": "1",
-    "what_the_ground_is_for": "living prophecy; a sect that thinks revelation never stopped"
+    "what_the_ground_is_for": "living prophecy; a sect that thinks revelation never stopped",
+    "map_x": 580,
+    "map_y": 175
   },
   {
     "location_id": "loc_vetch_chapel",
@@ -177,7 +215,9 @@
     "route": "assembly",
     "chapters": "10, 12, 28",
     "acts": "1, 2, 3",
-    "what_the_ground_is_for": "the court sect at home; obedience belongs to the throne"
+    "what_the_ground_is_for": "the court sect at home; obedience belongs to the throne",
+    "map_x": 230,
+    "map_y": 190
   },
   {
     "location_id": "loc_muster_field",
@@ -186,7 +226,9 @@
     "route": "both",
     "chapters": "11, 30",
     "acts": "2, 3",
-    "what_the_ground_is_for": "largest map; whole army deployed once; two timed objectives, one force"
+    "what_the_ground_is_for": "largest map; whole army deployed once; two timed objectives, one force",
+    "map_x": 600,
+    "map_y": 230
   },
   {
     "location_id": "loc_cinder_track",
@@ -195,7 +237,9 @@
     "route": "both",
     "chapters": "14, 16",
     "acts": "2",
-    "what_the_ground_is_for": "column A; ash underfoot, bad air, the Karkadann's country"
+    "what_the_ground_is_for": "column A; ash underfoot, bad air, the Karkadann's country",
+    "map_x": 830,
+    "map_y": 400
   },
   {
     "location_id": "loc_caravanserai",
@@ -204,7 +248,9 @@
     "route": "both",
     "chapters": "13, 15",
     "acts": "2",
-    "what_the_ground_is_for": "column B; prices rise every turn a fight is visible in the bazaar"
+    "what_the_ground_is_for": "column B; prices rise every turn a fight is visible in the bazaar",
+    "map_x": 1010,
+    "map_y": 330
   },
   {
     "location_id": "loc_throat_pass",
@@ -213,7 +259,9 @@
     "route": "both",
     "chapters": "17, 19",
     "acts": "2",
-    "what_the_ground_is_for": "column B; the road east, held by whoever taxes it this year"
+    "what_the_ground_is_for": "column B; the road east, held by whoever taxes it this year",
+    "map_x": 1060,
+    "map_y": 430
   },
   {
     "location_id": "loc_glass_edge",
@@ -222,7 +270,9 @@
     "route": "both",
     "chapters": "18, 29",
     "acts": "2, 3",
-    "what_the_ground_is_for": "column A; straight-edged fused ground, nothing grows, nobody agrees why"
+    "what_the_ground_is_for": "column A; straight-edged fused ground, nothing grows, nobody agrees why",
+    "map_x": 780,
+    "map_y": 480
   },
   {
     "location_id": "loc_reunion_field",
@@ -231,7 +281,9 @@
     "route": "both",
     "chapters": "20",
     "acts": "2",
-    "what_the_ground_is_for": "columns meet; whatever each lost is visible in what each brings"
+    "what_the_ground_is_for": "columns meet; whatever each lost is visible in what each brings",
+    "map_x": 700,
+    "map_y": 360
   },
   {
     "location_id": "loc_kaisareia_walls",
@@ -240,7 +292,9 @@
     "route": "both",
     "chapters": "21, 22",
     "acts": "3",
-    "what_the_ground_is_for": "the capital as a battlefield; the synod's colossus is fed from here"
+    "what_the_ground_is_for": "the capital as a battlefield; the synod's colossus is fed from here",
+    "map_x": 500,
+    "map_y": 270
   },
   {
     "location_id": "loc_simurgh_nest",
@@ -249,7 +303,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "the Simurgh; a foster-mother who answers whoever holds the feather"
+    "what_the_ground_is_for": "the Simurgh; a foster-mother who answers whoever holds the feather",
+    "map_x": 600,
+    "map_y": 30
   },
   {
     "location_id": "loc_dove_colony",
@@ -258,7 +314,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "the Karkadann; it guards what it has decided to guard"
+    "what_the_ground_is_for": "the Karkadann; it guards what it has decided to guard",
+    "map_x": 930,
+    "map_y": 435
   },
   {
     "location_id": "loc_flats_interior",
@@ -267,7 +325,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "the Anzu; arrows come apart, and it reads what you cannot"
+    "what_the_ground_is_for": "the Anzu; arrows come apart, and it reads what you cannot",
+    "map_x": 880,
+    "map_y": 505
   },
   {
     "location_id": "loc_lowest_terrace",
@@ -276,7 +336,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "the Shadhavar; the song pulls the nearest enemy one tile a turn"
+    "what_the_ground_is_for": "the Shadhavar; the song pulls the nearest enemy one tile a turn",
+    "map_x": 190,
+    "map_y": 470
   },
   {
     "location_id": "loc_open_road",
@@ -285,7 +347,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "the Huma; it never lands, so it belongs to a road, not a place"
+    "what_the_ground_is_for": "the Huma; it never lands, so it belongs to a road, not a place",
+    "map_x": 980,
+    "map_y": 495
   },
   {
     "location_id": "loc_hermit_lake",
@@ -294,7 +358,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "a hermit who refuses to adjudicate; fisher cult around him"
+    "what_the_ground_is_for": "a hermit who refuses to adjudicate; fisher cult around him",
+    "map_x": 105,
+    "map_y": 410
   },
   {
     "location_id": "loc_north_wind",
@@ -303,7 +369,9 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "the second hermit; likewise refuses"
+    "what_the_ground_is_for": "the second hermit; likewise refuses",
+    "map_x": 300,
+    "map_y": 45
   },
   {
     "location_id": "loc_buried_works",
@@ -312,6 +380,19 @@
     "route": "both",
     "chapters": "P",
     "acts": "paralogue",
-    "what_the_ground_is_for": "records, complicit clerks, a shrine built over a facility"
+    "what_the_ground_is_for": "records, complicit clerks, a shrine built over a facility",
+    "map_x": 960,
+    "map_y": 220
+  },
+  {
+    "location_id": "loc_ur_nashet",
+    "name": "Ur-Nashet, the last night (a memory)",
+    "region_id": null,
+    "route": "both",
+    "chapters": "0",
+    "acts": "prologue",
+    "what_the_ground_is_for": "a flashback, 800 years early, in a city that no longer exists: not on the world map; the overworld draws it as a memory in the corner",
+    "map_x": 80,
+    "map_y": 60
   }
 ]

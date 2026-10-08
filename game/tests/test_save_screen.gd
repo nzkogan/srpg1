@@ -159,16 +159,11 @@ func _initialize() -> void:
 	root.add_child(ow)
 	await process_frame
 	check(not ow.info_label.text.contains("Autosave found"), "once you've won a map the hint goes away")
-	var d01_color := Color.BLACK
-	var d02_color := Color.BLACK
-	for child in ow.get_children():
-		if child is ColorRect and child.size == Vector2(48, 48):
-			var pos: Vector2 = child.position + Vector2(24, 24)
-			for n in ow.nodes:
-				if n.pos == pos:
-					if n.map_row.get("map_id", "") == "map_d01": d01_color = child.color
-					if n.map_row.get("map_id", "") == "map_d02": d02_color = child.color
-	check(d01_color == ow.WON_COLOR and d02_color == ow.AVAILABLE_COLOR, "a won map's node is green, an unwon one blue")
+	_gs.won_maps["map_f00"] = true
+	ow._recolor_nodes()
+	var d01_color: Color = ow._node_rects["loc_tally_house"].color
+	var d02_color: Color = ow._node_rects["loc_weighbridge"].color
+	check(d01_color == ow.WON_COLOR and d02_color == ow.AVAILABLE_COLOR and ow._node_rects["loc_grain_road"].color == ow.LOCKED_COLOR, "a won place is green, the next one blue, the one after grey")
 	check(ow.info_label.text.contains("L to save or load") and ResourceLoader.exists(_sg.SCREEN_SCENE), "the overworld points at the save screen, which exists")
 	ow.queue_free()
 	await process_frame
