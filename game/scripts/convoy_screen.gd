@@ -42,6 +42,8 @@ var _footer: Label
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	for row in Canon.get_table("units"):
+		if Defections.is_gone(row["unit_id"]):
+			continue                     # a defector took their weapons with them
 		unit_ids.append(row["unit_id"])
 		_unit_names[row["unit_id"]] = row.get("name", row["unit_id"])
 	_build_ui()

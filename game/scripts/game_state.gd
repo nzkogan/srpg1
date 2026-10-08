@@ -81,6 +81,12 @@ var materials_claimed: Dictionary = {}
 var forge_orders: Array = []
 var works_started: int = 0
 
+## Defections (see the Defections autoload). defections: defection_id -> {"state": "gone" |
+## "returned", "map", "class_id", "level", "stats", "titles", "carried" (the weapons they
+## took), "fallen"}; guests: guest_id -> "departed" once a guest has left.
+var defections: Dictionary = {}
+var guests: Dictionary = {}
+
 ## A suspended battle (a mid-map save): {} when there is none, else the snapshot
 ## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
 ## a copy of the rest of the playthrough as it was, so resuming rolls everything back
@@ -103,6 +109,7 @@ const PERSISTED := {
 	"deeds": TYPE_DICTIONARY, "won_maps": TYPE_DICTIONARY, "world_location": TYPE_STRING,
 	"battle": TYPE_DICTIONARY,
 	"materials": TYPE_DICTIONARY, "materials_claimed": TYPE_DICTIONARY, "forge_orders": TYPE_ARRAY, "works_started": TYPE_INT,
+	"defections": TYPE_DICTIONARY, "guests": TYPE_DICTIONARY,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.

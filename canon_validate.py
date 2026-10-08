@@ -483,6 +483,36 @@ def main():
         if w.get("tier") == "legendary" and not any(m.get("weapon_id") == w["weapon_id"] for m in tabs["materials"]):
             fail("c07", "warning", f"weapons.{w['weapon_id']}", "is legendary but no material forges it")
 
+    # --- c07n defections: a trigger and an appearance map; a recoverable defector has a way back
+    #     and a scripted one doesn't; a guest requires real defections and a real departure map
+    unit_known = {u["unit_id"] for u in tabs["units"]}
+    defection_ids = set()
+    for d in tabs["defections"]:
+        did = d["defection_id"]
+        if not str(did).startswith("def_"):
+            continue
+        defection_ids.add(did)
+        if d.get("unit_id") not in unit_known:
+            fail("c07", "blocking", f"defections.{did}", f"unit '{d.get('unit_id')}' is not a unit")
+        for col in ("trigger_map_id", "appears_map_id"):
+            if d.get(col) not in maps_known:
+                fail("c07", "blocking", f"defections.{did}", f"{col} '{d.get(col)}' is not a map")
+        recoverable = d.get("recruitable_back") == "yes"
+        if recoverable and d.get("return_map_id") in (None, ""):
+            fail("c07", "blocking", f"defections.{did}", "is recruitable back but names no return_map_id")
+        if not recoverable and d.get("return_map_id") not in (None, ""):
+            fail("c07", "blocking", f"defections.{did}", "has a return_map_id but is not recruitable back")
+        if d.get("kind") == "scripted" and d.get("trigger_unless_map_id") not in (None, ""):
+            fail("c07", "blocking", f"defections.{did}", "a scripted defection cannot be avoided (trigger_unless_map_id)")
+    for g in tabs["guest_units"]:
+        if not str(g.get("guest_id", "")).startswith("gst_"):
+            continue
+        for need in split_multi(g.get("requires_defections")):
+            if need not in defection_ids:
+                fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"requires_defections '{need}' is not a defection")
+        if g.get("depart_map_id") not in maps_known:
+            fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"depart_map_id '{g.get('depart_map_id')}' is not a map")
+
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
     for r in tabs["prologue_roster"]:

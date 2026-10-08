@@ -8,7 +8,11 @@
     "why_they_were_contingent": "serves the state that beat her country; loyalty was always contingent",
     "trigger": "the Vashti campaign becomes an occupation she will not carry orders for",
     "recruitable_back": "no",
-    "signposting": "signposted across Act 1 supports and her conduct on sect maps"
+    "signposting": "signposted across Act 1 supports and her conduct on sect maps",
+    "trigger_map_id": "map_v21",
+    "trigger_unless_map_id": null,
+    "return_map_id": null,
+    "appears_map_id": "map_v22"
   },
   {
     "defection_id": "def_anselm",
@@ -19,7 +23,11 @@
     "why_they_were_contingent": "theology barometer; has been asking the question the whole game",
     "trigger": "the crown answers with the court sect: obedience belongs to the throne",
     "recruitable_back": "no",
-    "signposting": "a theological event, not a grievance; he says so before he goes"
+    "signposting": "a theological event, not a grievance; he says so before he goes",
+    "trigger_map_id": "map_c21",
+    "trigger_unless_map_id": null,
+    "return_map_id": null,
+    "appears_map_id": "map_k21"
   },
   {
     "defection_id": "def_maren",
@@ -30,6 +38,10 @@
     "why_they_were_contingent": "born of the plague; bound for the Miasma Warden line",
     "trigger": "the state's medicine policy writes off the Ashland in triage",
     "recruitable_back": "yes",
-    "signposting": "caused by a supply decision several chapters earlier; reversible by a different one"
+    "signposting": "caused by a supply decision several chapters earlier; reversible by a different one",
+    "trigger_map_id": "map_b15",
+    "trigger_unless_map_id": "map_ct19",
+    "return_map_id": "map_ct19",
+    "appears_map_id": "map_tp19"
   }
 ]

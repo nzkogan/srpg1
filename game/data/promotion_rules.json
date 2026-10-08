@@ -418,5 +418,11 @@
     "value": 50,
     "text": null,
     "notes": "Forge: a weapon made from a harvested (captured, diminished) material has this percent of the usual uses."
+  },
+  {
+    "param_id": "prm_guest_level_gap",
+    "value": 2,
+    "text": null,
+    "notes": "A guest unit (Anna) joins this many levels under the squad's median, from her class's trained baseline grown by her profile's expected rates."
   }
 ]

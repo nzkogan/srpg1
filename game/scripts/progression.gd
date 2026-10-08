@@ -168,7 +168,7 @@ func class_tier(unit_id: String) -> String:
 func squad_median(exclude: String = "") -> int:
 	var levels: Array = []
 	for uid in GameState.progression:
-		if uid != exclude:
+		if uid != exclude and not Defections.is_gone(uid):
 			levels.append(int(GameState.progression[uid]["level"]))
 	if levels.is_empty():
 		return -1

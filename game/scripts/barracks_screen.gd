@@ -48,7 +48,7 @@ func _ready() -> void:
 	# up to it) when first deployed, so looking here must not join anyone early
 	for row in Canon.get_table("units"):
 		_unit_names[row["unit_id"]] = row.get("name", row["unit_id"])
-		if Progression.has_state(row["unit_id"]):
+		if Progression.has_state(row["unit_id"]) and not Defections.is_gone(row["unit_id"]):
 			unit_ids.append(row["unit_id"])
 	_build_ui()
 	_refresh()

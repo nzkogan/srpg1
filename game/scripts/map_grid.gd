@@ -168,6 +168,7 @@ var bribed_count := 0          # enemies turned neutral on this map (Kheldar's b
 var suspend_leaves := true
 var _talk_mode := false        # [T] pressed: the next arrow key / click picks who to talk to
 var _material_notes: Array[String] = []
+var _intro_lines: Array[String] = []   # what the pre-battle screen would say (defector lieutenants)
 var delivered: Array[String] = []   # cargo ids that have reached the goal on this map
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
@@ -269,6 +270,8 @@ func _ready() -> void:
 		_update_info_label()
 	if not snap.is_empty():
 		info_label.text = "Resumed at turn %d.\n%s" % [turn, info_label.text]
+	elif not _intro_lines.is_empty():
+		info_label.text = "%s\n%s" % ["\n".join(_intro_lines), info_label.text]
 
 func _index_map_row() -> void:
 	for row in Canon.get_table("maps"):
@@ -294,8 +297,12 @@ func _build_units() -> Array:
 		classes_by_id[row["class_id"]] = row
 
 	var result: Array = []
-	for i in deploy_unit_ids.size():
-		var unit_id: String = deploy_unit_ids[i]
+	var roster_ids: Array[String] = []
+	for uid in deploy_unit_ids:
+		if not Defections.is_gone(uid):        # a defector has left the company
+			roster_ids.append(uid)
+	for i in roster_ids.size():
+		var unit_id: String = roster_ids[i]
 		var base: Dictionary = {}
 		for row in Canon.get_table("unit_base_stats"):
 			if row["unit_id"] == unit_id:
@@ -333,8 +340,36 @@ func _build_units() -> Array:
 		base["deploy_row"] = deploy_row
 		base["deploy_col"] = col
 		result.append(base)
+	result.append_array(_guest_rows(roster_ids.size()))
 	result.append_array(_cargo_rows())
 	return result
+
+## The guests with the company right now (Anna), as roster rows deployed after the squad.
+## A guest fights with her class's basic art, earns nothing and has no supports.
+func _guest_rows(first_slot: int) -> Array:
+	var rows: Array = []
+	var classes_by_id: Dictionary = {}
+	for c in Canon.get_table("classes"):
+		classes_by_id[c["class_id"]] = c
+	for g in Defections.active_guests():
+		var cls: Dictionary = classes_by_id.get(g.get("base_class_id"), {})
+		var movement := str(cls.get("movement", "infantry"))
+		var art = cls.get("art_primary", "none")
+		var row: Dictionary = Defections.guest_stats(g)
+		row["punit_id"] = g["guest_id"]
+		row["name"] = g["name"]
+		row["guest"] = true
+		row["level"] = Defections.guest_level(g)
+		row["movement_type"] = movement
+		row["move"] = MOVEMENT_TYPE_DEFAULT_MOVE.get(movement, 5)
+		row["weapon_art"] = art if art != "none" else null
+		row["arts"] = [art] if art != "none" else []
+		row["dmg_vs_statue"] = 0
+		row["what_they_do"] = "a guest with the company"
+		row["deploy_row"] = deploy_row
+		row["deploy_col"] = clampi(deploy_col_start + (first_slot + rows.size()) * deploy_col_step, 0, grid[0].length() - 1)
+		rows.append(row)
+	return rows
 
 ## The map's cargo units (canon's cargo_units) as player-side roster rows: they can't
 ## fight, move like their movement type, and are what the escort objective is about.
@@ -484,6 +519,44 @@ func _spawn_encounter() -> void:
 		if archetype.is_empty():
 			continue
 		next_id = _spawn_enemy_instance(archetype, Vector2i(int(row["col"]), int(row["row"])), row["kind"], next_id, row)
+	_spawn_lieutenants(next_id)
+
+## Defectors who now stand on this map as lieutenants: next to the boss (else the first foe,
+## else the middle of the map), on the nearest free tile they can stand on. Never the boss.
+func _spawn_lieutenants(next_id: int) -> void:
+	if map_id == "map_f00":
+		return
+	for lt in Defections.lieutenants_for(map_id):
+		var anchor := Vector2i(grid[0].length() / 2, grid.size() / 2)
+		for e in enemies:
+			if e.kind == "boss":
+				anchor = e.pos
+				break
+			anchor = e.pos if anchor == Vector2i(grid[0].length() / 2, grid.size() / 2) else anchor
+		var spot := _free_tile_near(anchor, str(lt["archetype"].get("movement_type", "infantry")))
+		next_id = _spawn_enemy_instance(lt["archetype"], spot, "mook", next_id)
+		enemies[-1]["defector"] = lt["defection_id"]
+		_intro_lines.append(Defections.intro_line(lt))
+
+## The nearest tile to `anchor` (by steps, then reading order) that a unit of this movement
+## type can stand on and nobody does.
+func _free_tile_near(anchor: Vector2i, movement_type: String) -> Vector2i:
+	var taken := {}
+	for e in enemies:
+		taken[e.pos] = true
+	for pid in unit_positions:
+		taken[unit_positions[pid]] = true
+	for radius in range(1, grid.size() + grid[0].length()):
+		for dy in range(-radius, radius + 1):
+			for dx in range(-radius, radius + 1):
+				if absi(dx) + absi(dy) != radius:
+					continue
+				var t := anchor + Vector2i(dx, dy)
+				if t.y < 0 or t.y >= grid.size() or t.x < 0 or t.x >= grid[0].length():
+					continue
+				if not taken.has(t) and _terrain_cost(t, movement_type) < IMPASSABLE:
+					return t
+	return anchor
 
 func _spawn_enemy_instance(archetype: Dictionary, pos: Vector2i, kind: String, next_id: int, spawn_row: Dictionary = {}) -> int:
 	var inst := {
@@ -847,6 +920,8 @@ func _on_map_won() -> void:
 	var newly := not GameState.won_maps.has(map_id)
 	_reward_text = _settle_rewards()
 	var forged := Forge.on_map_won(newly) if map_id != "map_f00" else []
+	if map_id != "map_f00":
+		forged.append_array(Defections.on_map_won(map_id, newly))
 	if not forged.is_empty():
 		_reward_text = (_reward_text + " " + " ".join(forged)).strip_edges()
 	if _reward_text != "":
@@ -1777,6 +1852,10 @@ func _defeat_enemy(inst: Dictionary) -> String:
 	var material := _named_material(inst, "killed")
 	if material != "":
 		_material_notes.append(material)
+	if inst.has("defector"):
+		var gone := Defections.on_lieutenant_down(str(inst["defector"]), "killed")
+		if gone != "":
+			_material_notes.append(gone)
 	_boss_resolved(inst, "falls")
 	return drop
 
