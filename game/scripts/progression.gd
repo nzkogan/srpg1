@@ -661,6 +661,18 @@ func push_name(unit_id: String) -> String:
 		return ""
 	return "Smite" if d >= int(param("smite_distance")) else "Shove"
 
+## Whether the unit's current class carries the Bribe action (Kheldar's Factor).
+func can_bribe(unit_id: String) -> bool:
+	return "bribe" in map_actions(unit_id)
+
+## Gold to turn an enemy of this level neutral: bribe_cost_base + bribe_cost_per_level x level.
+func bribe_cost(enemy_level: int) -> int:
+	return int(param("bribe_cost_base") + param("bribe_cost_per_level") * maxi(0, enemy_level))
+
+## How many enemies a unit may bribe on one map.
+func bribe_limit() -> int:
+	return int(param("bribe_per_map"))
+
 ## Damage a Shove/Smite collision does to a unit with `hp` of `max_hp`:
 ## collision_pct of its max HP rounded down, never lethal (it stops at 1 HP).
 func collision_damage(hp: int, max_hp: int) -> int:

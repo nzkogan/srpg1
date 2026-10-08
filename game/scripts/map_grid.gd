@@ -30,6 +30,8 @@ extends Node2D
 ##         alive once it is weakened -- it leaves the map, no kill, no drop
 ##   S   = Shove / Smite (Gunnar; Housecarls): then an arrow key (or a click) on
 ##         an adjacent unit pushes it straight back 1 tile (Smite: 2)
+##   B   = Bribe (Kheldar): then an arrow key (or a click) on an adjacent enemy
+##         pays gold to turn it neutral for the rest of the map (one a map, no bosses)
 ##   N / Enter = advance to the next turn
 ##   Escape = return to the overworld
 ##   S (after a win that raised a support rank) = read the new scene(s)
@@ -122,6 +124,8 @@ const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
 const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
 const TOKEN_MOVED_COLOR := Color(0.35, 0.35, 0.4, 0.9)
 const ENEMY_TOKEN_COLOR := Color(0.55, 0.12, 0.12, 0.95)
+const NEUTRAL_TOKEN_COLOR := Color(0.62, 0.55, 0.18, 0.95) # a bribed enemy: stood down for the map
+const ARROW_DIRS := {KEY_UP: Vector2i(0, -1), KEY_DOWN: Vector2i(0, 1), KEY_LEFT: Vector2i(-1, 0), KEY_RIGHT: Vector2i(1, 0)}
 
 var grid: Array[String] = []
 var terrain_by_symbol: Dictionary = {} # symbol -> terrain_costs row (Dictionary)
@@ -153,6 +157,8 @@ var hold_streak: Dictionary = {}    # pid -> {"tile": Vector2i, "phases": int}
 var _phase_targets: Dictionary = {} # pids an enemy attacked in the current enemy phase
 var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
+var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
+var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
 ## need the player's units to survive; they switch the enemy phase off. Always
@@ -516,17 +522,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		var local := get_local_mouse_position()
 		var col := int(floor(local.x / CELL_SIZE))
 		var row := int(floor(local.y / CELL_SIZE))
-		if _shove_mode:
+		if _bribe_mode:
+			_bribe_click(Vector2i(col, row))
+		elif _shove_mode:
 			_shove_click(Vector2i(col, row))
 		elif row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
 			if not _try_target_click(Vector2i(col, row)):
 				_try_move_to(Vector2i(col, row))
 	elif event is InputEventKey and event.pressed:
 		var key_event := event as InputEventKey
+		if _bribe_mode:
+			_bribe_key(key_event.keycode)
+			return
 		if _shove_mode:
 			_shove_key(key_event.keycode)
 			return
-		if key_event.keycode == KEY_S:
+		if key_event.keycode == KEY_B:
+			_begin_bribe()
+		elif key_event.keycode == KEY_S:
 			_begin_shove()
 		elif key_event.keycode == KEY_A and map_id == "map_f00":
 			_attack_statue()
@@ -1063,9 +1076,8 @@ func _begin_shove() -> void:
 		Progression.push_name(pid), unit.get("name"), Progression.shove_distance(pid), "" if Progression.shove_distance(pid) == 1 else "s"]
 
 func _shove_key(keycode: int) -> void:
-	var dirs := {KEY_UP: Vector2i(0, -1), KEY_DOWN: Vector2i(0, 1), KEY_LEFT: Vector2i(-1, 0), KEY_RIGHT: Vector2i(1, 0)}
-	if dirs.has(keycode):
-		_shove_toward(dirs[keycode])
+	if ARROW_DIRS.has(keycode):
+		_shove_toward(ARROW_DIRS[keycode])
 	else:
 		_shove_mode = false
 		info_label.text = "Shove cancelled."
@@ -1223,6 +1235,104 @@ func _shove_toward(dir: Vector2i) -> void:
 
 func _cap(text: String) -> String:
 	return text.substr(0, 1).to_upper() + text.substr(1)
+
+## [B]: Kheldar offers a bribe. Lists what each adjacent enemy would cost; the next
+## arrow key (or a click) picks one, any other key cancels.
+func _begin_bribe() -> void:
+	if units.is_empty():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or not Progression.can_bribe(pid):
+		info_label.text = "%s has no Bribe action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	if bribed_count >= Progression.bribe_limit():
+		info_label.text = "%s has already bought off all he can on this map." % unit.get("name")
+		return
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	var offers: Array[String] = []
+	for n in _neighbors(pos):
+		var who := _occupant(n)
+		if who.has("enemy") and not who["enemy"].get("neutral", false):
+			var inst: Dictionary = who["enemy"]
+			var lvl := int(inst.archetype.get("level", 1))
+			offers.append("%s: %s" % [_cap(_occupant_label(who)), "cannot be bought" if inst.kind == "boss" else "Lv %d, %d gold" % [lvl, Progression.bribe_cost(lvl)]])
+	if offers.is_empty():
+		info_label.text = "There is no enemy beside %s to bribe." % unit.get("name")
+		return
+	_bribe_mode = true
+	info_label.text = "Bribe: which way? Arrow key or click an adjacent enemy (any other key cancels). %s. You have %d gold." % ["; ".join(offers), GameState.gold]
+
+func _bribe_key(keycode: int) -> void:
+	if ARROW_DIRS.has(keycode):
+		_bribe_toward(ARROW_DIRS[keycode])
+	else:
+		_bribe_mode = false
+		info_label.text = "Bribe cancelled."
+
+func _bribe_click(tile: Vector2i) -> void:
+	if units.is_empty():
+		_bribe_mode = false
+		return
+	var pos: Vector2i = unit_positions.get(units[selected_unit_index].get("punit_id", ""), Vector2i(-1, -1))
+	if _distance(pos, tile) == 1:
+		_bribe_toward(tile - pos)
+	else:
+		_bribe_mode = false
+		info_label.text = "Bribe cancelled."
+
+## The bribe itself: the adjacent enemy in `dir` is paid off. It costs gold
+## (bribe_cost_base + bribe_cost_per_level x its level) and the unit's action;
+## the enemy turns NEUTRAL for the rest of the map -- it stops acting, can't be
+## attacked or captured, but still stands where it is (it blocks, and can still be
+## shoved). It is neither a kill nor a capture, so it pays no income. Bosses can't
+## be bought. Refusals (no gold, none left, a boss) cost nothing.
+func _bribe_toward(dir: Vector2i) -> void:
+	_bribe_mode = false
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or not Progression.can_bribe(pid):
+		info_label.text = "%s has no Bribe action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	if bribed_count >= Progression.bribe_limit():
+		info_label.text = "%s has already bought off all he can on this map." % unit.get("name")
+		return
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1):
+		return
+	var who := _occupant(pos + dir)
+	if not who.has("enemy"):
+		info_label.text = "There is nobody there to bribe."
+		return
+	var inst: Dictionary = who["enemy"]
+	var label := _occupant_label(who)
+	if inst.get("neutral", false):
+		info_label.text = "%s has already been paid off." % _cap(label)
+		return
+	if inst.kind == "boss":
+		info_label.text = "%s cannot be bought." % _cap(label)
+		return
+	var cost := Progression.bribe_cost(int(inst.archetype.get("level", 1)))
+	if GameState.gold < cost:
+		info_label.text = "%s wants %d gold and you have %d." % [_cap(label), cost, GameState.gold]
+		return
+	GameState.gold -= cost
+	bribed_count += 1
+	inst["neutral"] = true
+	if inst.token.has("bg"):
+		inst.token.bg.color = NEUTRAL_TOKEN_COLOR
+	attacked_this_turn[pid] = true
+	info_label.text = "%s presses a purse into the hand of %s (%d gold). It stands down for the rest of the map. %d gold left." % [unit.get("name"), label, cost, GameState.gold]
+	_update_status_label()
+	_update_forecast()
 
 ## One more capture for `pid`: announces the deed when it is earned, else how far along it is.
 func _capture_deed(pid: String, unit_name: String) -> Array[String]:
@@ -1383,7 +1493,7 @@ func _enemies_in_range(pos: Vector2i, weapon: Dictionary) -> Array:
 	var range_max := int(weapon.get("range_max", 1))
 	var found: Array = []
 	for inst in enemies:
-		if inst.defeated:
+		if inst.defeated or inst.get("neutral", false):
 			continue
 		var d := _distance(pos, inst.pos)
 		if d >= range_min and d <= range_max:
@@ -1499,7 +1609,7 @@ func _enemy_phase() -> void:
 		rng = RandomNumberGenerator.new()
 		rng.randomize()
 	for inst in enemies:
-		if inst.defeated or map_won or map_lost:
+		if inst.defeated or inst.get("neutral", false) or map_won or map_lost:
 			continue
 		_enemy_act(inst, rng)
 		_check_defeat()
@@ -1768,11 +1878,15 @@ func _update_status_label() -> void:
 		var statue_state := "RUBBLE" if statue_destroyed else "%d / %d HP" % [statue_hp, statue_max_hp]
 		header += " -- Wall: %s -- Statue: %s" % [wall_state, statue_state]
 	var alive := 0
+	var neutral := 0
 	for inst in enemies:
 		if not inst.defeated:
-			alive += 1
-	header += " -- Enemies alive: %d -- attackers: %d/%d this turn -- moved: %d/%d this turn" % [
-		alive, attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()
+			if inst.get("neutral", false):
+				neutral += 1
+			else:
+				alive += 1
+	header += " -- Enemies alive: %d%s -- attackers: %d/%d this turn -- moved: %d/%d this turn" % [
+		alive, " (+%d neutral)" % neutral if neutral > 0 else "", attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()
 	]
 	lines.append(header)
 	var controls := "[F] attack -- [Tab] retarget -- [E] weapon -- [N] / Enter: next turn -- click a tile to move"
@@ -1785,6 +1899,10 @@ func _update_status_label() -> void:
 		var push := Progression.push_name(u.get("punit_id", "")) if _is_roster_unit(u) else ""
 		if push != "" and not push_names.has(push):
 			push_names.append(push)
+	for u in units:
+		if _is_roster_unit(u) and Progression.can_bribe(u.get("punit_id", "")):
+			controls = controls.replace("[E] weapon", "[B] bribe -- [E] weapon")
+			break
 	if not push_names.is_empty():
 		controls = controls.replace("[E] weapon", "[S] " + "/".join(push_names).to_lower() + " -- [E] weapon")
 	if map_id == "map_f00":

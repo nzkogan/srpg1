@@ -599,7 +599,7 @@
     "provenance": "no paperwork exists",
     "notes": "Kheldar; end-map income, bribe one enemy to neutral",
     "unlock_map_id": null,
-    "map_actions": null
+    "map_actions": "bribe"
   },
   {
     "class_id": "cls_bounty_hunter",

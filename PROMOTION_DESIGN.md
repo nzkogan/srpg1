@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -152,7 +152,26 @@ A map action, drafted:
 - **What it costs / does**: the unit's action. No counter, no EXP, and it doesn't count as having fought. A push
   that goes the whole way does no damage. It works on **friends** as well as enemies (they keep their own move). A
   pushed unit doesn't trigger objective tiles by landing on them.
-- Not modelled: pushes off a ledge (no ledges exist), and Kheldar's bribe.
+- Not modelled: pushes off a ledge (no ledges exist).
+
+## Kheldar's Bribe
+
+Canon: "Kheldar; end-map income, bribe one enemy to neutral" (the Factor class). A map action, drafted:
+
+- **How**: **B**, then an arrow key (or a click) on an adjacent enemy. B first lists what each adjacent enemy would
+  cost, and you may cancel with any other key. He has to walk up to them -- a merchant with a purse, not a ranged
+  attack.
+- **Cost**: **40 gold + 10 a level of the enemy** (`bribe_cost_base`, `bribe_cost_per_level`): a level-5 levy is
+  90, a level-10 billman 140 -- real money against ~240 a map of income, so it's a choice, not a reflex. Paid from the
+  shared gold; if you can't afford it the offer is refused and costs nothing.
+- **Limit**: **one a map** (`bribe_per_map`, canon: "one enemy"). Bosses can't be bought.
+- **Neutral**: the enemy stops acting for the rest of the map -- it doesn't move or attack, can't be attacked or
+  captured, and isn't in the forecast -- but it still stands where it is (it blocks the tile and can still be
+  shoved). Its token turns gold and the status line counts it apart ("Enemies alive: 3 (+1 neutral)").
+- **Economics**: a neutral enemy is neither a kill nor a capture, so it adds nothing to the map's income; you paid to
+  skip a fight, not to win one. It earns no EXP and no deed.
+- Not modelled: enemy `behavior` text (a preacher who converts, a looter who preys on civilians) -- a bribed enemy is
+  simply inert -- and Kheldar's Act-1 "ch1 cameo unkillable" rule.
 
 ## Saving and loading
 
@@ -183,12 +202,12 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 - **B** on the overworld: the barracks (levels, certification, recertification, abilities, paragon).
 - **C**: the convoy (weapons). **S**: support conversations. **L**: save / load / new game.
-- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite (units with them), income and class unlocks on a win.
+- On a map: EXP and level-ups after every fight (counters included), **C** to capture and **S** to shove/smite and **B** to bribe (units with them), income and class unlocks on a win.
 
 ## Not built / open
 
 - Faith has no paragon class; the miasma, delivery, dispersal and talk deeds aren't recordable yet.
-- Capture: only Gunnar and the Pardoner can; Kheldar's bribe isn't built; the
+- Capture: only Gunnar and the Pardoner can; the
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
 - Shove/Smite: only Gunnar and the Housecarl have it; the 1/2 tile distances, the armor rule and the 10% collision are first-pass numbers.
@@ -200,10 +219,10 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (56 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`canon.xlsx`: `promotion_rules` (59 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
 `epithets.tracked`, `epithets.count_needed`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
 `barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, `test_capture`, `test_shove`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, plus the ability checks in `test_combat_exchange`.

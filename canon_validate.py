@@ -28,7 +28,7 @@ from collections import Counter, defaultdict
 from openpyxl import load_workbook
 
 # Which column on which tab is the primary key, and what prefix its IDs must use.
-MAP_ACTIONS = {"capture", "shove", "smite"}   # actions a class adds on the battle map (classes.map_actions)
+MAP_ACTIONS = {"capture", "shove", "smite", "bribe"}   # actions a class adds on the battle map (classes.map_actions)
 
 PRIMARY_KEYS = {
     "sects": ("sect_id", "sect_"),

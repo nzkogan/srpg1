@@ -334,5 +334,23 @@
     "value": 10,
     "text": null,
     "notes": "Shove/Smite collision: a pushed unit that hits a wall, the map edge or another unit takes this percent of its own max HP (rounded down); a unit it hits takes the same of its own. Never lethal: it stops at 1 HP."
+  },
+  {
+    "param_id": "prm_bribe_cost_base",
+    "value": 40,
+    "text": null,
+    "notes": "Bribe (Kheldar's map action): gold base price to turn an adjacent enemy neutral for the rest of the map."
+  },
+  {
+    "param_id": "prm_bribe_cost_per_level",
+    "value": 10,
+    "text": null,
+    "notes": "Bribe: extra gold per level of the enemy (a level-5 levy costs 90, a level-10 billman 140)."
+  },
+  {
+    "param_id": "prm_bribe_per_map",
+    "value": 1,
+    "text": null,
+    "notes": "Bribe: how many enemies Kheldar can turn per map (canon: 'bribe one enemy to neutral'). Bosses cannot be bribed."
   }
 ]
