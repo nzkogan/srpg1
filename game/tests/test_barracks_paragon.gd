@@ -93,7 +93,11 @@ func _initialize() -> void:
 	s.unit_ids.append("u_maren")                         # the screen lists the fielded at open time; add her as if fielded earlier
 	s._units_list.add_item("Maren")
 	s._on_clicked(0, s.unit_ids.find("u_maren"))
-	check(s.detail_text().contains("No paragon class fits this unit's arts."), "faith: 'No paragon class fits' (the canon gap, stated)")
+	check(s.detail_text().contains("Krivis") and not s.detail_text().contains("No paragon class fits"), "faith: the Krivis is offered (the canon gap, filled)")
+	check(s._options_caption.text == "Paragon classes" and s.options().size() == 1 and s.options()[0]["data"]["name"] == "Krivis", "and it is the one option in the middle column")
+	s._mode = s.MODE_PARAGON
+	s._refresh()
+	check(s.detail_text().contains("Krivis") and s.detail_text().contains("infantry movement"), "its preview reads like the others (%s)" % s.detail_text().get_slice("\n", 8))
 	# every unit in paragon mode renders
 	var ok := true
 	for i in s.unit_ids.size():

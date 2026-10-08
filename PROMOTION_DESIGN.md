@@ -97,12 +97,30 @@ moment is the cheapest, and nothing can be missed.
 - **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr; sword: Fianna
   (sword + bow); bow: Donso; brawl: Toa; axe: Jaguar knight (axe + brawl) or Eagle knight; reason: Tzitzimitl (which also
   needs the Simurgh paralogue won -- a drafted guess at canon's "paralogue"). A Billman, knowing axe *and* lance,
-  sees axe and lance paragons. **Faith has no paragon class in canon**; I left that as a gap rather than invent one.
+  sees axe and lance paragons. Faith: the **Krivis** (below) -- canon had none, and it is the one paragon class here that
+  is *drafted* rather than canon. A hybrid sees the paragons of both its arts: a Miasma Warden (reason + faith) the
+  Tzitzimitl and the Krivis, a Pardoner (bow + faith) the Donso and the Krivis, a Ferryman (axe + faith) both axe
+  paragons and the Krivis.
   Personal-class units take a *milestone* that keeps their class; Kest goes Thief -> Assassin or Trickster;
   Dietmar and Torvald, already order tier, are eligible at 30 like anyone.
 - **What it gives**: another flat **+30** stat jump, **+5 more** growth on every stat, **+1 ability slot**, the class's
   movement type and shape, and the class's canon signature skill as the first ability in its pool (Astra,
-  Deadeye, Fierce Iron Fist, Colossus, Stun, Corrosion, Charge -- as passive approximations).
+  Deadeye, Fierce Iron Fist, Colossus, Stun, Corrosion, Charge, Verdict -- as passive approximations).
+
+### The faith paragon: the Krivis
+
+Canon's paragon list had a class for every art but faith, so no faith unit (Maren, Anselm, a Great shield, a Bishop...)
+could ever take the second tier. Drafted to fill it (2026-10-14), in the same shape as the rest:
+
+- **Krivis** -- *Baltic*, after the high priest of the Baltic religion, a judge as much as a priest. It suits a faith that
+  rules on the dead and the living, and sets the Krivis against the hermits' refusal to adjudicate. Chosen for a
+  culture the list doesn't have yet (the others: Slavic, Celtic, Mande, Polynesian, Aztec, and the in-game Tzitzimitl).
+- **Faith art, infantry movement, no second art, no unlock map** (so, like most paragons, it is there once you are
+  certified, level 30, have a deed, and can pay). Infantry is the plain default; there is still no armor paragon.
+- **Signature skill: Verdict** -- a passive approximation like the others: +6 hit, +6 avoid, +4 dodge, +3 guard, always. It
+  leads the Krivis's ability pool, and only a Krivis can pick it.
+- Everything about it is a guess: the name, the culture, the movement type and Verdict's numbers are mine, not setting
+  canon. It is one row in `classes` (`cls_krivis`) and one in `abilities` (`ab_verdict`); change them there.
 
 ## The Capture action
 
@@ -266,7 +284,7 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Not built / open
 
-- Faith has no paragon class.
+- The Krivis (faith paragon) is drafted, not canon: name, culture, movement and Verdict are all guesses.
 - Capture: only Gunnar and the Pardoner can; the
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
@@ -279,7 +297,7 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (67 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`canon.xlsx`: `promotion_rules` (67 parameters), `abilities` (41), `classes.unlock_map_id`, `classes.map_actions`,
 `epithets.tracked`, `epithets.count_needed`, `epithets.deed_terrain`, `cargo_units`, `maps.cargo_needed`, `enemy_archetypes.flees_below_pct/talk_mod/talk_line`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),

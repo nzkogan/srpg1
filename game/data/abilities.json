@@ -598,5 +598,20 @@
     "speed": 0,
     "exp_pct": 0,
     "notes": "Canon signature skill (Tzitzimitl): contact eats armour -- the prologue's most destructive warlock."
+  },
+  {
+    "ability_id": "ab_verdict",
+    "name": "Verdict",
+    "pool": "class:cls_krivis",
+    "cond": "always",
+    "hit": 6,
+    "avoid": 6,
+    "crit": 0,
+    "dodge": 4,
+    "dmg": 0,
+    "guard": 3,
+    "speed": 0,
+    "exp_pct": 0,
+    "notes": "Drafted signature skill for the Krivis (the judge-priest): a passive approximation of a ruling nothing gets past -- steady aim, harder to hit, softer blows."
   }
 ]

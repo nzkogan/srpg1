@@ -770,6 +770,20 @@
     "map_actions": null
   },
   {
+    "class_id": "cls_krivis",
+    "name": "Krivis",
+    "tier": "paragon",
+    "art_primary": "faith",
+    "art_secondary": "none",
+    "movement": "infantry",
+    "promotes_from": null,
+    "signature_skill": "Verdict",
+    "provenance": "Baltic",
+    "notes": "lv30+, deed-gated. ADDED 2026-10-14 to fill the faith gap: canon's paragon list (Bogatyr, Fianna, Donso, Toa, Jaguar knight, Eagle knight, Tzitzimitl) had no faith class, so no faith unit could take the paragon tier. The Krivis is the Baltic high priest, a judge as much as a priest -- the paragon of a faith that rules on the dead and the living, set against the hermits' refusal to adjudicate. Name, culture, infantry movement and the signature skill are all drafted; none is setting canon.",
+    "unlock_map_id": null,
+    "map_actions": null
+  },
+  {
     "class_id": "cls_billman",
     "name": "Billman",
     "tier": "hybrid",

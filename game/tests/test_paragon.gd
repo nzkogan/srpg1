@@ -121,10 +121,37 @@ func _options() -> void:
 	var tz: Array = _p.paragon_options("u_emmerich")
 	check(_names(tz) == ["Tzitzimitl"] and tz[0]["locked"] and tz[0]["reason"].contains("Mountain Above the Lake"), "a reason unit sees the Tzitzimitl, locked behind the Simurgh paralogue (%s)" % str(tz))
 	_certified("u_maren", "cls_bishop", 30)
-	check(_p.paragon_options("u_maren").is_empty(), "faith has no paragon class (a canon gap, not invented)")
+	var kr: Array = _p.paragon_options("u_maren")
+	check(_names(kr) == ["Krivis"] and not kr[0]["locked"], "a faith unit sees the Krivis, open from the start (the faith gap, filled)")
 	_gs.gold = 5000
+	check(not _p.take_paragon("u_maren", "cls_krivis")["ok"] and _p.take_paragon("u_maren", "cls_krivis")["reason"] == "needs a deed that gates paragon", "the Krivis wants a deed like any other paragon")
 	_p.record_deed("u_maren", "ep_nohit")
-	check(not _p.take_paragon("u_maren", "cls_bishop")["ok"] and _p.take_paragon("u_maren", "cls_bishop")["reason"] == "not a paragon class this unit can take", "...so a faith unit is refused cleanly")
+	check(not _p.take_paragon("u_maren", "cls_bishop")["ok"] and _p.take_paragon("u_maren", "cls_bishop")["reason"] == "not a paragon class this unit can take", "an order class still isn't a paragon option for her")
+	var m_before: Dictionary = _p.stats_for("u_maren")
+	var m_slots: int = _p.slots("u_maren")
+	var m_prev: Dictionary = _p.preview_paragon("u_maren", "cls_krivis")
+	var mr: Dictionary = _p.take_paragon("u_maren", "cls_krivis")
+	check(mr["ok"] and mr["fee"] == 1000 and _p.is_paragon("u_maren") and _p.class_id_of("u_maren") == "cls_krivis" and _p.class_tier("u_maren") == "paragon", "Maren takes the Krivis for 1000")
+	check(_p.stats_for("u_maren") == m_prev and _total(_p.stats_for("u_maren")) - _total(m_before) == 30, "the +30 jump (infantry, no shape)")
+	check(_p.slots("u_maren") == m_slots + 1 and _p.chosen("u_maren")[0] == "ab_verdict", "+1 slot, and Verdict, the Krivis's signature, leads her kit")
+	check(_eq.unit_arts("u_maren") == ["faith"], "a Krivis's art is faith")
+	check(_p.class_row("u_maren")["movement"] == "infantry" and _p.class_row("u_maren")["provenance"] == "Baltic", "infantry movement, Baltic by provenance")
+	var ver: Dictionary = _p.ability_row("ab_verdict")
+	check(ver["pool"] == "class:cls_krivis" and _p.pool("u_maren").size() > 0 and _p.pool("u_maren")[0]["ability_id"] == "ab_verdict", "Verdict is pooled to the Krivis alone")
+	check(not _p.pool("u_ricberta").any(func(a): return a["ability_id"] == "ab_verdict"), "(nobody else can pick it)")
+	# a Bishop's own personal-class cousins: Anselm, a faith unit, sees it too
+	_certified("u_anselm", "cls_great_shield", 30)
+	check(_names(_p.paragon_options("u_anselm")) == ["Krivis"], "Anselm, a Great shield (faith, armor), sees it as well")
+	# hybrids with faith as a second art see it next to their other paragon
+	_reset()
+	_certified("u_emmerich", "cls_warlock", 30)
+	_gs.progression["u_emmerich"]["class_id"] = "cls_miasma_warden"
+	check(_names(_p.paragon_options("u_emmerich")) == ["Krivis", "Tzitzimitl"] or _names(_p.paragon_options("u_emmerich")) == ["Tzitzimitl", "Krivis"], "a Miasma Warden (reason+faith) sees both the Tzitzimitl and the Krivis (%s)" % str(_names(_p.paragon_options("u_emmerich"))))
+	_gs.progression["u_emmerich"]["class_id"] = "cls_pardoner"
+	check(_names(_p.paragon_options("u_emmerich")) == ["Donso", "Krivis"], "a Pardoner (bow+faith): the Donso and the Krivis (%s)" % str(_names(_p.paragon_options("u_emmerich"))))
+	_gs.progression["u_emmerich"]["class_id"] = "cls_ferryman"
+	check(_names(_p.paragon_options("u_emmerich")) == ["Jaguar knight", "Eagle knight", "Krivis"], "a Ferryman (axe+faith): both axe paragons and the Krivis (%s)" % str(_names(_p.paragon_options("u_emmerich"))))
+	_reset()
 	# hybrids count both arts: a Billman (axe+lance) sees axe AND lance paragons
 	_reset(); _gs.gold = 100000
 	_p.state("u_jost"); _gs.progression["u_jost"]["level"] = 15
