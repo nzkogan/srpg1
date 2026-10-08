@@ -304,6 +304,12 @@ func _build_units() -> Array:
 			continue
 		var uinfo: Dictionary = units_by_id.get(unit_id, {})
 		var class_row: Dictionary = classes_by_id.get(uinfo.get("base_class_id"), {})
+		if Progression.is_known_unit(unit_id):
+			# a certified unit moves and fights as its CURRENT class (a Cavalier rides, a General is
+			# armor), not the one it was recruited as
+			var current := Progression.class_row(unit_id)
+			if not current.is_empty():
+				class_row = current
 		var movement_type: String = class_row.get("movement", "infantry")
 		var art = class_row.get("art_primary", "none")
 		if art == "none":

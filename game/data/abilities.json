@@ -613,5 +613,20 @@
     "speed": 0,
     "exp_pct": 0,
     "notes": "Drafted signature skill for the Krivis (the judge-priest): a passive approximation of a ruling nothing gets past -- steady aim, harder to hit, softer blows."
+  },
+  {
+    "ability_id": "ab_ten_thousand",
+    "name": "Ten Thousand",
+    "pool": "class:cls_immortal",
+    "cond": "always",
+    "hit": 0,
+    "avoid": 0,
+    "crit": 0,
+    "dodge": 0,
+    "dmg": 2,
+    "guard": 3,
+    "speed": 2,
+    "exp_pct": 0,
+    "notes": "Drafted signature skill for the Immortal: a passive approximation of ranks that close as men fall -- steady blows, harder to hurt, and enough speed back to offset the weight of the armour."
   }
 ]

@@ -784,6 +784,20 @@
     "map_actions": null
   },
   {
+    "class_id": "cls_immortal",
+    "name": "Immortal",
+    "tier": "paragon",
+    "art_primary": "lance",
+    "art_secondary": "bow",
+    "movement": "armor",
+    "promotes_from": null,
+    "signature_skill": "Ten Thousand",
+    "provenance": "Persian",
+    "notes": "lv30+, deed-gated. ADDED 2026-10-16 to fill the armor gap: every paragon class moved on foot, on a horse or in the air, so the armor movement type (the General, the Housecarl, the Pavisier, the War monk, the Great shield...) had no second tier. The Immortal is the Persian heavy spearman-archer, the standing corps whose ranks were refilled the moment a man fell, so there were always ten thousand. A second lance paragon beside the Bogatyr (which rides), and it carries a bow like the Fianna. Name, culture, art pair, movement and the signature skill are all drafted; none is setting canon.",
+    "unlock_map_id": null,
+    "map_actions": null
+  },
+  {
     "class_id": "cls_billman",
     "name": "Billman",
     "tier": "hybrid",

@@ -110,7 +110,7 @@ func _options() -> void:
 	_certified("u_jost", "cls_warrior", 30)
 	check(_names(_p.paragon_options("u_jost")) == ["Jaguar knight", "Eagle knight"], "an axe unit sees both axe paragons (%s)" % str(_names(_p.paragon_options("u_jost"))))
 	_certified("u_ricberta", "cls_general", 30)
-	check(_names(_p.paragon_options("u_ricberta")) == ["Bogatyr"], "a lance unit sees the Bogatyr")
+	check(_names(_p.paragon_options("u_ricberta")) == ["Bogatyr", "Immortal"], "a lance unit sees the Bogatyr (rides) and the Immortal (armor)")
 	_certified("u_sigrun", "cls_swordmaster", 30)
 	check(_names(_p.paragon_options("u_sigrun")) == ["Fianna"], "a sword unit sees the Fianna (sword+bow)")
 	_certified("u_tancred", "cls_sniper", 30)
@@ -158,11 +158,11 @@ func _options() -> void:
 	_p.on_map_won("map_tp19")
 	_p.promote("u_jost", "cls_billman")
 	_gs.progression["u_jost"]["level"] = 30
-	check(_names(_p.paragon_options("u_jost")) == ["Bogatyr", "Jaguar knight", "Eagle knight"], "a Billman sees paragons for both its arts (%s)" % str(_names(_p.paragon_options("u_jost"))))
+	check(_names(_p.paragon_options("u_jost")) == ["Bogatyr", "Jaguar knight", "Eagle knight", "Immortal"], "a Billman sees paragons for both its arts (%s)" % str(_names(_p.paragon_options("u_jost"))))
 	# natives: Dietmar and Torvald are already certified
 	_reset()
 	_p.state("u_dietmar"); _gs.progression["u_dietmar"]["level"] = 30
-	check(_names(_p.paragon_options("u_dietmar")) == ["Bogatyr"], "Dietmar (a Paladin, lance) is eligible without any first-tier step")
+	check(_names(_p.paragon_options("u_dietmar")) == ["Bogatyr", "Immortal"], "Dietmar (a Paladin, lance) is eligible without any first-tier step")
 	_p.state("u_torvald")
 	check(_names(_p.paragon_options("u_torvald")) == ["Jaguar knight", "Eagle knight"], "Torvald (axe knight) sees the axe paragons")
 

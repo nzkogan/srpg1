@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13; mid-map saves 2026-10-15. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13; mid-map saves 2026-10-15; the Immortal and certified movement on the map 2026-10-16. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -94,10 +94,10 @@ moment is the cheapest, and nothing can be missed.
   that never fought doesn't count) and *capture* (take 5 enemies alive; see below -- the one deed that counts up).
   All four deeds that gate paragon are recordable. Four more deeds that don't gate it are too (miasma, delivery,
   dispersal, talk -- see below), so every epithet in canon is now recordable.
-- **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr; sword: Fianna
+- **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr (rides) or Immortal (armor); sword: Fianna
   (sword + bow); bow: Donso; brawl: Toa; axe: Jaguar knight (axe + brawl) or Eagle knight; reason: Tzitzimitl (which also
   needs the Simurgh paralogue won -- a drafted guess at canon's "paralogue"). A Billman, knowing axe *and* lance,
-  sees axe and lance paragons. Faith: the **Krivis** (below) -- canon had none, and it is the one paragon class here that
+  sees axe and lance paragons (both lance ones: four in all). Faith: the **Krivis** (below) -- canon had none, and it is the one paragon class here that
   is *drafted* rather than canon. A hybrid sees the paragons of both its arts: a Miasma Warden (reason + faith) the
   Tzitzimitl and the Krivis, a Pardoner (bow + faith) the Donso and the Krivis, a Ferryman (axe + faith) both axe
   paragons and the Krivis.
@@ -105,7 +105,7 @@ moment is the cheapest, and nothing can be missed.
   Dietmar and Torvald, already order tier, are eligible at 30 like anyone.
 - **What it gives**: another flat **+30** stat jump, **+5 more** growth on every stat, **+1 ability slot**, the class's
   movement type and shape, and the class's canon signature skill as the first ability in its pool (Astra,
-  Deadeye, Fierce Iron Fist, Colossus, Stun, Corrosion, Charge, Verdict -- as passive approximations).
+  Deadeye, Fierce Iron Fist, Colossus, Stun, Corrosion, Charge, Verdict, Ten Thousand -- as passive approximations).
 
 ### The faith paragon: the Krivis
 
@@ -116,7 +116,7 @@ could ever take the second tier. Drafted to fill it (2026-10-14), in the same sh
   rules on the dead and the living, and sets the Krivis against the hermits' refusal to adjudicate. Chosen for a
   culture the list doesn't have yet (the others: Slavic, Celtic, Mande, Polynesian, Aztec, and the in-game Tzitzimitl).
 - **Faith art, infantry movement, no second art, no unlock map** (so, like most paragons, it is there once you are
-  certified, level 30, have a deed, and can pay). Infantry is the plain default; there is still no armor paragon.
+  certified, level 30, have a deed, and can pay). Infantry is the plain default (the Immortal, below, is the armor paragon).
 - **Signature skill: Verdict** -- a passive approximation like the others: +6 hit, +6 avoid, +4 dodge, +3 guard, always. It
   leads the Krivis's ability pool, and only a Krivis can pick it.
 - Everything about it is a guess: the name, the culture, the movement type and Verdict's numbers are mine, not setting
@@ -251,6 +251,31 @@ The last two epithets (forge vocabulary only, no paragon gate). Both are canon's
 - Not modelled: Jost's and Kest's recruit-by-talk conversations, the dialogue itself (the `talk_line`s are placeholder
   flavour), and the preacher converting townsfolk. The odds and rates are first-pass numbers.
 
+### The armor paragon: the Immortal
+
+Every paragon moved on foot, on a horse or in the air, so the armor movement type (the General, the Housecarl, the
+Pavisier, the War monk, the Great shield...) had no second tier. Drafted to fill it (2026-10-16):
+
+- **Immortal** -- *Persian*: the heavy spearman-archer corps whose ranks were refilled the moment a man fell, so
+  there were always ten thousand. A second lance paragon beside the Bogatyr, which **rides**; the Immortal **walks in
+  armour** (armor movement, 4 tiles; heavy shape: +3 HP, +3 Def, +1 Res, -3 Spd, -2 Dex, -2 Lck; resists a shove by a
+  tile; must use a bridge rather than a foot-only ford, like a wagon).
+- **Lance primary, bow secondary** -- so it knows both arts and can wield a bow as well as its lance (like the Fianna's
+  sword + bow). It is offered to units whose primary art is the lance: a Paladin, a General, a Falcon knight, a
+  Halberdier, a Billman. It is *not* offered to bow units (the Donso's job), since only primary arts are matched.
+- **Signature skill: Ten Thousand** -- always +2 damage, +3 guard, +2 speed: a passive approximation of ranks that close
+  as men fall, with the speed buying back some of the armour's weight.
+- Name, culture, art pair, movement and Ten Thousand's numbers are my guesses (`cls_immortal`, `ab_ten_thousand`).
+
+### Certified units move as their current class
+
+Writing the Immortal's tests exposed that **certification never changed how a unit moved on the battle map**: the map
+built every unit's movement type (and so its move and the terrain it could cross) from the class it was *recruited* as,
+so a Paladin still walked 5 tiles and crossed fords. The design always said certifying gives "the class's movement
+type", and the stat shape did apply, but the map ignored it. Fixed: a certified or paragon unit now moves, and is hit
+(a halberd is effective against riding, a shove is resisted by armor), as its **current** class -- a Paladin rides 9, a
+General or Immortal walks 4, a Falcon knight flies. This changes how certified units play on foot-only terrain.
+
 ## Saving and loading
 
 State is split in `GameState` into `PERSISTED` (saved, with the type each must have) and `TRANSIENT` (one-shot UI
@@ -321,10 +346,10 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (67 parameters), `abilities` (41), `classes.unlock_map_id`, `classes.map_actions`,
+`canon.xlsx`: `promotion_rules` (67 parameters), `abilities` (42), `classes.unlock_map_id`, `classes.map_actions`,
 `epithets.tracked`, `epithets.count_needed`, `epithets.deed_terrain`, `cargo_units`, `maps.cargo_needed`, `enemy_archetypes.flees_below_pct/talk_mod/talk_line`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
 `barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, `test_dispersal_talk`, `test_mid_map_save`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, `test_dispersal_talk`, `test_mid_map_save`, `test_armor_paragon`, plus the ability checks in `test_combat_exchange`.
