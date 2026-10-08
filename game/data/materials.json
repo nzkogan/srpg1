@@ -5,7 +5,9 @@
     "drop": "the feather",
     "forge_id": "frg_kaisareia",
     "specialty_required": "edged",
-    "resulting_weapon": "a blade that heals its wielder's allies on contact rather than the wielder"
+    "resulting_weapon": "a blade that heals its wielder's allies on contact rather than the wielder",
+    "enemy_id": "ea_simurgh",
+    "weapon_id": "wpn_feather_blade"
   },
   {
     "material_id": "mat_karkadann",
@@ -13,7 +15,9 @@
     "drop": "the horn",
     "forge_id": "frg_vashti",
     "specialty_required": "hafted",
-    "resulting_weapon": "the Karkadann-horned lance: strong vs. mounted units, nothing special vs. infantry"
+    "resulting_weapon": "the Karkadann-horned lance: strong vs. mounted units, nothing special vs. infantry",
+    "enemy_id": "ea_karkadann",
+    "weapon_id": "wpn_karkadann_lance"
   },
   {
     "material_id": "mat_anzu",
@@ -21,7 +25,9 @@
     "drop": "torn pinions",
     "forge_id": "frg_kaisareia",
     "specialty_required": "edged",
-    "resulting_weapon": "an edge that unmakes weapons on contact, from something that already unmakes weapons"
+    "resulting_weapon": "an edge that unmakes weapons on contact, from something that already unmakes weapons",
+    "enemy_id": "ea_anzu",
+    "weapon_id": "wpn_anzu_edge"
   },
   {
     "material_id": "mat_shadhavar",
@@ -29,7 +35,9 @@
     "drop": "a hollow horn",
     "forge_id": "frg_herd",
     "specialty_required": "missile",
-    "resulting_weapon": "a bow that hums and drags the nearest enemy a tile closer -- can't be turned off"
+    "resulting_weapon": "a bow that hums and drags the nearest enemy a tile closer -- can't be turned off",
+    "enemy_id": "ea_shadhavar",
+    "weapon_id": "wpn_shadhavar_bow"
   },
   {
     "material_id": "mat_huma",
@@ -37,6 +45,8 @@
     "drop": "(cannot be harvested)",
     "forge_id": null,
     "specialty_required": null,
-    "resulting_weapon": "the Huma cannot be captured or harvested at all -- see the kill-taboo. No weapon exists from it, on purpose: the one Named with no forge payoff, because it was never a mount to begin with"
+    "resulting_weapon": "the Huma cannot be captured or harvested at all -- see the kill-taboo. No weapon exists from it, on purpose: the one Named with no forge payoff, because it was never a mount to begin with",
+    "enemy_id": null,
+    "weapon_id": null
   }
 ]

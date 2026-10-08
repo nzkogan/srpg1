@@ -8,7 +8,10 @@
     "smith_notes": null,
     "cycle_length": "1 chapter",
     "access_logic": "requisition tier only (1/2/3 open orders at tier 1/2/3)",
-    "design_note": "the ordinary spine sidequest; no master required"
+    "design_note": "the ordinary spine sidequest; no master required",
+    "location_id": null,
+    "access_rule": null,
+    "cycle_n": null
   },
   {
     "forge_id": "frg_standard_b",
@@ -19,7 +22,10 @@
     "smith_notes": null,
     "cycle_length": "1 chapter",
     "access_logic": "requisition tier only (1/2/3 open orders at tier 1/2/3)",
-    "design_note": "the ordinary spine sidequest; no master required"
+    "design_note": "the ordinary spine sidequest; no master required",
+    "location_id": null,
+    "access_rule": null,
+    "cycle_n": null
   },
   {
     "forge_id": "frg_kaisareia",
@@ -30,7 +36,10 @@
     "smith_notes": "her own technique is inherited, a lineage carried from further east generations ago and never native to the capital -- the same story as its library",
     "cycle_length": "2 chapters",
     "access_logic": "STATE LEGITIMACY: requisition tier alone, no road to hold or favour to earn. The crown decides whether you're permitted a blade of the highest order and nothing else enters into it",
-    "design_note": "the baseline master, always reachable if the crown is willing"
+    "design_note": "the baseline master, always reachable if the crown is willing",
+    "location_id": "loc_kaisareia_walls",
+    "access_rule": "always",
+    "cycle_n": 2
   },
   {
     "forge_id": "frg_vashti",
@@ -41,7 +50,10 @@
     "smith_notes": "her family has worked that forge for longer than the current occupation and treats the war as weather",
     "cycle_length": "2 chapters",
     "access_logic": "MILITARY CONTROL: requires holding the Vashti road, tied directly to Column A's actual chapters rather than a flat unlock -- access can be LOST mid-run if the road is lost",
-    "design_note": "arms lances and axes: the common soldier's tools, not the officer's. Fitting that the hardest-won master smith makes the plainest weapons"
+    "design_note": "arms lances and axes: the common soldier's tools, not the officer's. Fitting that the hardest-won master smith makes the plainest weapons",
+    "location_id": "loc_vashti_gate",
+    "access_rule": "won:map_ct19",
+    "cycle_n": 2
   },
   {
     "forge_id": "frg_herd",
@@ -52,6 +64,9 @@
     "smith_notes": "answers to no crown and holds no seat; the Herd Clans have no city to besiege and nothing to seize",
     "cycle_length": "2 chapters",
     "access_logic": "DIPLOMATIC STANDING: cannot be conquered or purchased, only granted passage -- the one master no amount of requisition tier or occupied ground can buy",
-    "design_note": "the master smith outside the state's reach entirely, which is the point"
+    "design_note": "the master smith outside the state's reach entirely, which is the point",
+    "location_id": "loc_ostrova",
+    "access_rule": "won:map_x11",
+    "cycle_n": 2
   }
 ]

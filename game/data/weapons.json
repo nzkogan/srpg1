@@ -14,7 +14,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_sword_mid",
@@ -31,7 +32,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_sword_high",
@@ -48,7 +50,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_lance_basic",
@@ -65,7 +68,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_lance_mid",
@@ -82,7 +86,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_lance_high",
@@ -99,7 +104,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_axe_basic",
@@ -116,7 +122,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_axe_mid",
@@ -133,7 +140,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_axe_high",
@@ -150,7 +158,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_bow_basic",
@@ -167,7 +176,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_bow_mid",
@@ -184,7 +194,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_bow_high",
@@ -201,7 +212,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_brawl_basic",
@@ -218,7 +230,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_brawl_mid",
@@ -235,7 +248,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_brawl_high",
@@ -252,7 +266,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_reason_basic",
@@ -269,7 +284,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_reason_mid",
@@ -286,7 +302,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_reason_high",
@@ -303,7 +320,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_faith_basic",
@@ -320,7 +338,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_faith_mid",
@@ -337,7 +356,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 1
+    "convoy_qty": 1,
+    "effect": null
   },
   {
     "weapon_id": "wpn_faith_high",
@@ -354,7 +374,8 @@
     "notes": null,
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_sword_worn",
@@ -371,7 +392,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_lance_worn",
@@ -388,7 +410,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_axe_worn",
@@ -405,7 +428,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_bow_worn",
@@ -422,7 +446,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_brawl_worn",
@@ -439,7 +464,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_reason_worn",
@@ -456,7 +482,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_faith_worn",
@@ -473,7 +500,8 @@
     "notes": "Below Iron -- scavenged/broken-in gear, not a tuned tier like basic/mid/high.",
     "req_arts": null,
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_halberd",
@@ -490,7 +518,8 @@
     "notes": "OVERLAP WEAPON (drafted 2026-10-02). Wielder needs BOTH axe and lance proficiency (req_arts) -- no class has that pair yet, cls_billman is the drafted one. Triangle-neutral (it hedges both faces, so no advantage and no penalty). Deliberately slow: weight 12 against a typical str of 7 costs 5 attack speed, so most wielders get doubled. Effective vs riding (might x2 in Combat.EFFECTIVE_MULT) -- the answer to cavalry that the plain triangle doesn't have.",
     "req_arts": "axe|lance",
     "effective_vs": "riding",
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_maul",
@@ -507,7 +536,8 @@
     "notes": "OVERLAP WEAPON (drafted 2026-10-02). Needs axe AND brawl (cls_jaguar_knight today). Triangle-neutral. Heavy and inaccurate but hits hard; effective vs armor (heavy-armor movement type), the mirror of the halberd's anti-cavalry role.",
     "req_arts": "axe|brawl",
     "effective_vs": "armor",
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
   },
   {
     "weapon_id": "wpn_censer",
@@ -524,6 +554,79 @@
     "notes": "OVERLAP WEAPON (drafted 2026-10-02). Needs reason AND faith (cls_miasma_warden today). Magic (mag/res), range 1-2, triangle-neutral. No effectiveness trait: its edge is that one weapon spans both magic arts. Attack speed burdens against mag, not str, like every magic weapon.",
     "req_arts": "reason|faith",
     "effective_vs": null,
-    "convoy_qty": 0
+    "convoy_qty": 0,
+    "effect": null
+  },
+  {
+    "weapon_id": "wpn_feather_blade",
+    "name": "Feather Blade",
+    "art": "sword",
+    "tier": "legendary",
+    "might": 12,
+    "hit": 85,
+    "crit": 5,
+    "weight": 8,
+    "uses": 30,
+    "range_min": 1,
+    "range_max": 1,
+    "notes": "LEGENDARY (forged from the Simurgh's feather, 2026-10-17). Heals the wielder's allies on contact rather than the wielder: every hit restores prm_forge_heal HP to each ally standing next to the wielder.",
+    "req_arts": null,
+    "effective_vs": null,
+    "convoy_qty": 0,
+    "effect": "heal_allies"
+  },
+  {
+    "weapon_id": "wpn_karkadann_lance",
+    "name": "Karkadann Lance",
+    "art": "lance",
+    "tier": "legendary",
+    "might": 14,
+    "hit": 75,
+    "crit": 5,
+    "weight": 11,
+    "uses": 30,
+    "range_min": 1,
+    "range_max": 1,
+    "notes": "LEGENDARY (forged from the Karkadann's horn). Strong against mounted units, nothing special against infantry: effective vs riding (might x2), and otherwise a plain good lance -- 'the plain one on purpose'.",
+    "req_arts": null,
+    "effective_vs": "riding",
+    "convoy_qty": 0,
+    "effect": null
+  },
+  {
+    "weapon_id": "wpn_anzu_edge",
+    "name": "Anzu Edge",
+    "art": "sword",
+    "tier": "legendary",
+    "might": 11,
+    "hit": 80,
+    "crit": 10,
+    "weight": 8,
+    "uses": 30,
+    "range_min": 1,
+    "range_max": 1,
+    "notes": "LEGENDARY (forged from the Anzu's torn pinions). Unmakes weapons on contact: each hit wears the foe's weapon one step down (it only bites what is already worn -- a worn weapon goes at once, a silver one after four hits), and a weapon that is gone leaves the enemy unarmed, not dead.",
+    "req_arts": null,
+    "effective_vs": null,
+    "convoy_qty": 0,
+    "effect": "unmake"
+  },
+  {
+    "weapon_id": "wpn_shadhavar_bow",
+    "name": "Shadhavar Bow",
+    "art": "bow",
+    "tier": "legendary",
+    "might": 11,
+    "hit": 85,
+    "crit": 5,
+    "weight": 7,
+    "uses": 30,
+    "range_min": 2,
+    "range_max": 2,
+    "notes": "LEGENDARY (forged from the Shadhavar's hollow horn). Hums and drags the foe it hits a tile closer to the archer -- it cannot be turned off, so it is a liability against a melee line and an asset against anything that kites. Bosses are not dragged.",
+    "req_arts": null,
+    "effective_vs": null,
+    "convoy_qty": 0,
+    "effect": "pull"
   }
 ]

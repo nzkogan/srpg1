@@ -71,6 +71,16 @@ var deeds: Dictionary = {}
 ## map_id -> true once won (any playthrough action that wins it).
 var won_maps: Dictionary = {}
 
+## The forge (see the Forge autoload). materials: material_id -> "prime" | "diminished" for the
+## beast materials held right now; materials_claimed: material_id -> true once one has ever been
+## taken (one per Named per run, so replays can't farm it); forge_orders: Array of commissions
+## {forge_id, material_id, weapon_id, quality, chapters_left, ready}; works_started: master
+## works commissioned so far (capped).
+var materials: Dictionary = {}
+var materials_claimed: Dictionary = {}
+var forge_orders: Array = []
+var works_started: int = 0
+
 ## A suspended battle (a mid-map save): {} when there is none, else the snapshot
 ## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
 ## a copy of the rest of the playthrough as it was, so resuming rolls everything back
@@ -92,6 +102,7 @@ const PERSISTED := {
 	"unlocked_classes": TYPE_DICTIONARY, "income_claimed": TYPE_DICTIONARY,
 	"deeds": TYPE_DICTIONARY, "won_maps": TYPE_DICTIONARY, "world_location": TYPE_STRING,
 	"battle": TYPE_DICTIONARY,
+	"materials": TYPE_DICTIONARY, "materials_claimed": TYPE_DICTIONARY, "forge_orders": TYPE_ARRAY, "works_started": TYPE_INT,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.

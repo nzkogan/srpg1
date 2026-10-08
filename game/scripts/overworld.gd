@@ -28,6 +28,8 @@ extends Node2D
 ## save, load or new game (save_screen.gd). U = free roam: ignore the locks (a
 ## testing aid, not saved). Escape inside any map returns here (see map_grid.gd).
 ##
+## F opens the forge where a master smith works (see forge.gd).
+##
 ## A battle suspended with P (or quick-saved with F5) waits here: the party stands at its
 ## place, the panel says so, and Enter resumes it exactly where it stopped. X (pressed twice)
 ## abandons it. While one is waiting, no other chapter can be started.
@@ -273,6 +275,18 @@ func _is_won(ch: Dictionary) -> bool:
 	if map_id == null:
 		return ch.get("chapter_id", "") == "ch_h32" and GameState.get_flag(HIEROPHANT_FLAG) != null
 	return GameState.won_maps.has(map_id)
+
+## F: the master smith's forge, if one works where the party stands.
+func open_forge() -> bool:
+	if is_walking():
+		return false
+	if Forge.forges_at(party_location).is_empty():
+		_show_location(party_location, true, "No master smith works here.")
+		return false
+	GameState.world_location = party_location
+	if launch_enabled:
+		get_tree().change_scene_to_file(Forge.SCREEN_SCENE)
+	return true
 
 ## The map of a suspended battle ("" if none).
 func suspended_map() -> String:
@@ -563,9 +577,15 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 			lines.append("Enter plays %s." % nxt.chapter.get("title"))
 		elif location_status(location_id) == "won":
 			lines.append("Everything here is won. Enter replays it.")
+	var smiths := Forge.forges_at(location_id)
+	if not smiths.is_empty():
+		var names: Array[String] = []
+		for f in smiths:
+			names.append(str(f["name"]))
+		lines.append("A master smith works here: %s. Press F." % ", ".join(names))
 	var verdict_text := "no sentence recommended yet" if GameState.get_flag(HIEROPHANT_FLAG) == null \
 		else "verdict: %s" % GameState.get_flag(HIEROPHANT_FLAG)
-	lines.append("Click a place to walk there. S supports, C convoy, B barracks, L to save or load, U free roam%s. %s(The Kaisareia Trial: %s.)" % [
+	lines.append("Click a place to walk there. S supports, C convoy, B barracks, F forge, L to save or load, U free roam%s. %s(The Kaisareia Trial: %s.)" % [
 		" (ON)" if free_roam else "", _autosave_hint(), verdict_text])
 	info_label.text = "\n".join(lines)
 
@@ -593,6 +613,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_C:
 		get_tree().change_scene_to_file(Equipment.SCREEN_SCENE)
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
+		open_forge()
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_X:
 		if GameState.battle.is_empty():

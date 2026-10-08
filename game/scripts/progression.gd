@@ -580,9 +580,9 @@ func describe_ability(row: Dictionary) -> String:
 
 # ------------------------------------------------------------ weapon tier
 
-## High-tier weapons need a promoted class; basic, mid and worn are open.
+## High-tier and legendary weapons need a promoted class; basic, mid and worn are open.
 func can_use_tier(unit_id: String, weapon_tier: String) -> bool:
-	return weapon_tier != "high" or is_promoted(unit_id)
+	return not (weapon_tier == "high" or weapon_tier == "legendary") or is_promoted(unit_id)
 
 # ------------------------------------------------------------------- deeds
 
@@ -721,10 +721,11 @@ func push_distance_for(distance: int, target_movement: String) -> int:
 	var resist := int(param("shove_armor_resist")) if target_movement == "armor" else 0
 	return maxi(0, distance - resist)
 
-## Whether an enemy can be captured right now. Bosses never can; anyone else
-## must be at or below capture_hp_pct of their maximum HP. -> {"ok", "reason"}.
-func capture_check(hp: int, max_hp: int, is_boss: bool) -> Dictionary:
-	if is_boss:
+## Whether an enemy can be captured right now. Bosses never can -- except a Named creature,
+## whose capture is a harvest -- and anyone else must be at or below capture_hp_pct of
+## their maximum HP. -> {"ok", "reason"}.
+func capture_check(hp: int, max_hp: int, is_boss: bool, named: bool = false) -> Dictionary:
+	if is_boss and not named:
 		return {"ok": false, "reason": "a boss will not surrender"}
 	var limit := int(floor(max_hp * param("capture_hp_pct") / 100.0))
 	if hp > limit:

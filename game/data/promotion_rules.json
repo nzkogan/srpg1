@@ -400,5 +400,23 @@
     "value": 20,
     "text": null,
     "notes": "Extra gold per enemy talked down."
+  },
+  {
+    "param_id": "prm_master_works_cap",
+    "value": 3,
+    "text": null,
+    "notes": "Forge: master works a playthrough may commission (canon: a hard cap of 3 against 5 possible drops)."
+  },
+  {
+    "param_id": "prm_forge_heal",
+    "value": 5,
+    "text": null,
+    "notes": "Forge: HP the Feather Blade restores to each ally beside its wielder on a hit (canon's Simurgh: 5 HP, flat)."
+  },
+  {
+    "param_id": "prm_diminished_uses_pct",
+    "value": 50,
+    "text": null,
+    "notes": "Forge: a weapon made from a harvested (captured, diminished) material has this percent of the usual uses."
   }
 ]

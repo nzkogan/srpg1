@@ -112,6 +112,9 @@ static func bbcode(info: Dictionary) -> String:
 		lines.append("[color=%s]%s's weapon is effective here (x2 might).[/color]" % [GOLD, def["name"]])
 	if info.get("support_text", "") != "":
 		lines.append("[color=%s]%s[/color]" % [GREEN, info["support_text"]])
+	var effect_text := str(info.get("effect_text", ""))
+	if effect_text != "":
+		lines.append("[color=%s]%s[/color]" % [GOLD, effect_text])
 	var capture_text := str(info.get("capture_text", ""))
 	if capture_text != "":
 		var ready := capture_text.begins_with("Capture ready")

@@ -88,6 +88,7 @@ NUMERIC = {
     "abilities": {"hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"},
     "epithets": {"count_needed"},
     "locations": {"map_x", "map_y"},
+    "forges": {"cycle_n"},
     "cargo_units": {"hp", "def", "res", "spawn_row", "spawn_col"},
 }
 
@@ -129,6 +130,10 @@ FKS = {
     ("world_paths", "to_location_id"): ("locations", "location_id"),
     ("chapters", "location_id"): ("locations", "location_id"),
     ("cargo_units", "map_id"): ("maps", "map_id"),
+    ("forges", "location_id"): ("locations", "location_id"),
+    ("materials", "enemy_id"): ("enemy_archetypes", "enemy_id"),
+    ("materials", "weapon_id"): ("weapons", "weapon_id"),
+    ("enemy_archetypes", "named_id"): ("named", "named_id"),
     ("epithets", "deed_terrain"): ("terrain_costs", "terrain_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
     ("encounter_spawns", "drop_weapon_id"): ("weapons", "weapon_id"),

@@ -83,7 +83,9 @@ DECLARED_GAPS = {
 
 MATRIX_ARTS = ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 MATRIX_MOVES = ["infantry", "armor", "riding", "flying"]
-WEAPON_TIERS = ["worn", "basic", "mid", "high"]
+WEAPON_TIERS = ["worn", "basic", "mid", "high", "legendary"]
+WEAPON_EFFECTS = {"heal_allies", "unmake", "pull"}
+SPECIALTY_ARTS = {"edged": {"sword"}, "hafted": {"lance", "axe"}, "missile": {"bow"}}
 
 MAX_CONSECUTIVE_SAME_VERB = 2
 
@@ -435,6 +437,51 @@ def main():
             fail("c07", "warning", f"enemy_archetypes.{eid}", "is talkable but has no talk_line")
         if tm in (None, "") and ea.get("talk_line"):
             fail("c07", "warning", f"enemy_archetypes.{eid}", "has a talk_line but no talk_mod, so it can never be talked down")
+
+    # --- c07m the forge system: weapon effects are known; a master forge has a place and a
+    #     readable access rule; a material's weapon is legendary, forged by the right smith
+    #     from the right specialty, and its source enemy exists
+    for w in tabs["weapons"]:
+        eff = w.get("effect")
+        if eff not in (None, "") and eff not in WEAPON_EFFECTS:
+            fail("c07", "blocking", f"weapons.{w['weapon_id']}", f"effect '{eff}' is not one of {sorted(WEAPON_EFFECTS)}")
+    forges_by_id = {f["forge_id"]: f for f in tabs["forges"]}
+    maps_known = {m["map_id"] for m in tabs["maps"]}
+    loc_known = {l["location_id"] for l in tabs["locations"]}
+    for f in tabs["forges"]:
+        if f.get("tier") != "master":
+            continue
+        fid = f["forge_id"]
+        if f.get("location_id") not in loc_known:
+            fail("c07", "blocking", f"forges.{fid}", f"location_id '{f.get('location_id')}' is not a location")
+        rule = str(f.get("access_rule") or "")
+        if rule != "always" and not (rule.startswith("won:") and all(m in maps_known for m in rule[4:].split("|"))):
+            fail("c07", "blocking", f"forges.{fid}", f"access_rule '{rule}' must be 'always' or 'won:<map_id>[|<map_id>]' with real maps")
+        if not isinstance(f.get("cycle_n"), int) or f["cycle_n"] < 1:
+            fail("c07", "blocking", f"forges.{fid}", "cycle_n must be a whole number of chapters")
+    weapons_by_id = {w["weapon_id"]: w for w in tabs["weapons"]}
+    enemies_known = {e["enemy_id"] for e in tabs["enemy_archetypes"]}
+    for mt in tabs["materials"]:
+        mid = mt["material_id"]
+        wid, eid = mt.get("weapon_id"), mt.get("enemy_id")
+        if wid in (None, "") and eid in (None, ""):
+            continue                      # the Huma: no material, on purpose
+        if eid not in enemies_known:
+            fail("c07", "blocking", f"materials.{mid}", f"enemy_id '{eid}' is not an enemy archetype")
+        w = weapons_by_id.get(wid)
+        if w is None:
+            fail("c07", "blocking", f"materials.{mid}", f"weapon_id '{wid}' is not a weapon")
+            continue
+        if w.get("tier") != "legendary":
+            fail("c07", "blocking", f"materials.{mid}", f"{wid} is tier '{w.get('tier')}', a master work must be legendary")
+        if w.get("art") not in SPECIALTY_ARTS.get(mt.get("specialty_required"), set()):
+            fail("c07", "blocking", f"materials.{mid}", f"{wid} is a {w.get('art')} weapon, which the '{mt.get('specialty_required')}' specialty doesn't make")
+        fg = forges_by_id.get(mt.get("forge_id"))
+        if fg is None or fg.get("specialty") != mt.get("specialty_required"):
+            fail("c07", "blocking", f"materials.{mid}", f"forge '{mt.get('forge_id')}' doesn't work the '{mt.get('specialty_required')}' specialty")
+    for w in tabs["weapons"]:
+        if w.get("tier") == "legendary" and not any(m.get("weapon_id") == w["weapon_id"] for m in tabs["materials"]):
+            fail("c07", "warning", f"weapons.{w['weapon_id']}", "is legendary but no material forges it")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

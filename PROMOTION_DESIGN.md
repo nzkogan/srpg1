@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13; mid-map saves 2026-10-15; the Immortal and certified movement on the map 2026-10-16. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12; the dispersal and talk deeds 2026-10-13; mid-map saves 2026-10-15; the Immortal and certified movement on the map 2026-10-16. (The forge is in FORGE_DESIGN.md.) Everything here is a design proposal, not setting canon.
 
 ## The goal
 

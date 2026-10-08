@@ -167,6 +167,7 @@ var bribed_count := 0          # enemies turned neutral on this map (Kheldar's b
 ## Test seam: false makes P write the suspend save without leaving for the overworld.
 var suspend_leaves := true
 var _talk_mode := false        # [T] pressed: the next arrow key / click picks who to talk to
+var _material_notes: Array[String] = []
 var delivered: Array[String] = []   # cargo ids that have reached the goal on this map
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
@@ -843,7 +844,11 @@ var _reward_text := ""
 
 func _on_map_won() -> void:
 	_support_lines.clear()
+	var newly := not GameState.won_maps.has(map_id)
 	_reward_text = _settle_rewards()
+	var forged := Forge.on_map_won(newly) if map_id != "map_f00" else []
+	if not forged.is_empty():
+		_reward_text = (_reward_text + " " + " ".join(forged)).strip_edges()
 	if _reward_text != "":
 		call_deferred("_show_rewards")
 	_support_entries = Supports.settle_map(map_id)
@@ -1057,12 +1062,18 @@ func _attack_enemy() -> void:
 	unit_hp[pid] = int(result["atk_hp"])
 	var deed_lines := _note_exchange(pid, target, result, hp_before)
 	info_label.text = lines + _support_note(info["support"]) + _spend_uses(unit, int(result["atk_strikes"]))
+	var effect_lines := _apply_weapon_effect(unit, weapon, target, "atk", result)
+	if not effect_lines.is_empty():
+		info_label.text += " " + " ".join(effect_lines)
 
 	if target.hp == 0:
 		info_label.text += " The %s falls." % ename
 		var drop := _defeat_enemy(target)
 		if drop != "":
 			info_label.text += " It drops a %s (added to the convoy)." % drop
+		var got := _take_material_notes()
+		if not got.is_empty():
+			info_label.text += " " + " ".join(got)
 		if map_won:
 			return
 	if int(unit_hp[pid]) == 0:
@@ -1109,7 +1120,7 @@ func _capture_enemy() -> void:
 		info_label.text = "No enemy in range for %s." % unit.get("name")
 		return
 	var ename: String = target.archetype.get("name")
-	var check := Progression.capture_check(int(target.hp), int(target.max_hp), target.kind == "boss")
+	var check := Progression.capture_check(int(target.hp), int(target.max_hp), target.kind == "boss", target.archetype.get("named_id") != null)
 	if not check["ok"]:
 		info_label.text = "The %s cannot be captured: %s." % [ename, check["reason"]]
 		return
@@ -1123,6 +1134,9 @@ func _capture_enemy() -> void:
 	target["captured"] = true
 	_remove_enemy_token(target)
 	info_label.text = "%s takes the %s alive. It leaves the map and drops nothing." % [unit.get("name"), ename]
+	var harvest := _named_material(target, "captured")
+	if harvest != "":
+		info_label.text += " " + harvest
 	var more := _award_exp(unit, target, true, rng)
 	more.append_array(_capture_deed(pid, unit.get("name")))
 	info_label.text += "\n" + " ".join(more)
@@ -1612,6 +1626,8 @@ func _spend_uses(unit: Dictionary, strikes: int) -> String:
 ## An enemy's weapon: its archetype's weapon_id when set (overlap weapons),
 ## else the weapon_art/weapon_tier pattern. Enemies are proficient by definition.
 func _enemy_weapon(inst: Dictionary) -> Dictionary:
+	if inst.get("unarmed", false):
+		return {}          # unmade by an Anzu Edge: broken means unarmed, not dead
 	var arch: Dictionary = inst.archetype
 	var wid = arch.get("weapon_id")
 	if wid == null or wid == "":
@@ -1647,6 +1663,7 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 		"attacker": attacker, "defender": defender, "weapon": weapon, "def_weapon": def_weapon,
 		"distance": distance, "support": support, "support_text": _support_line(support),
 		"capture_text": _capture_text(pid, inst),
+		"effect_text": Forge.effect_text(weapon),
 		"atk": {"name": unit.get("name"), "weapon": _weapon_label(weapon, _uses_of(unit)), "uses": _uses_of(unit),
 			"level": unit.get("level", -1),
 			"hp": int(unit_hp.get(pid, 0)), "max_hp": int(unit.get("hp", 0))},
@@ -1660,7 +1677,7 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 func _capture_text(pid: String, inst: Dictionary) -> String:
 	if not Progression.can_capture(pid):
 		return ""
-	var check := Progression.capture_check(int(inst.hp), int(inst.max_hp), inst.kind == "boss")
+	var check := Progression.capture_check(int(inst.hp), int(inst.max_hp), inst.kind == "boss", inst.archetype.get("named_id") != null)
 	if not check["ok"]:
 		return "Capture: %s." % check["reason"]
 	return "Capture ready: no kill, no drop, +%d gold ransom." % int(Progression.param("income_per_capture"))
@@ -1757,8 +1774,24 @@ func _defeat_enemy(inst: Dictionary) -> String:
 	inst.defeated = true
 	_remove_enemy_token(inst)
 	var drop := Equipment.claim_drop(str(inst.get("spawn_id", "")), inst.get("drop"))
+	var material := _named_material(inst, "killed")
+	if material != "":
+		_material_notes.append(material)
 	_boss_resolved(inst, "falls")
 	return drop
+
+## A Named creature's stand-in has fallen (`how` is "killed" or "captured"): the beast
+## material it yields, as a line ("" if it yields none, or already did).
+func _named_material(inst: Dictionary, how: String) -> String:
+	if map_id == "map_f00" or inst.archetype.get("named_id") == null:
+		return ""
+	return Forge.on_named_defeated(str(inst.archetype.get("enemy_id", "")), how)
+
+## Lines about materials taken since the last call (a kill happens deep inside an exchange).
+func _take_material_notes() -> Array[String]:
+	var out: Array[String] = _material_notes.duplicate()
+	_material_notes.clear()
+	return out
 
 ## A boss leaving the fight, however it ends (falls, yields), wins a 'defend' map.
 func _boss_resolved(inst: Dictionary, how: String) -> void:
@@ -1880,6 +1913,8 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	var broke := _spend_uses(defender, int(result["def_strikes"]))
 	if broke != "":
 		enemy_log.append(broke.strip_edges())
+	if int(unit_hp[pid]) > 0:
+		enemy_log.append_array(_apply_weapon_effect(defender, def_weapon, inst, "def", result))
 	if int(unit_hp[pid]) == 0:
 		_kill_unit(pid)
 		enemy_log.append("%s falls." % uname)
@@ -1891,6 +1926,7 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 		var drop := _defeat_enemy(inst)
 		if drop != "":
 			enemy_log.append("It drops a %s." % drop)
+		enemy_log.append_array(_take_material_notes())
 
 ## A routed enemy (below its flee threshold) doesn't fight: it runs for the nearest edge
 ## it can reach, or failing that the tile farthest from every player unit. Reaching a
@@ -2234,6 +2270,71 @@ func suspend(leave: bool) -> void:
 		get_tree().change_scene_to_file("res://scenes/overworld.tscn")
 	else:
 		info_label.text = "Battle saved at turn %d. P suspends and leaves; Escape leaves without saving more -- the overworld resumes from this save." % turn
+
+# ----------------------------------------------------------- legendary weapons
+#
+# The forged weapons carry an on-hit special (weapons.effect):
+#   heal_allies  every hit heals each ally standing beside the wielder (forge_heal HP)
+#   unmake       every hit wears the foe's weapon down a step; at hits_to_unmake (a worn weapon
+#                1, a silver one 4) it is gone and the foe is unarmed -- broken, not dead
+#   pull         a hit foe that is not adjacent is dragged one tile toward the wielder (never
+#                a boss); it can't be turned off
+
+## The special of `weapon` after an exchange in which the wielder (`unit`) struck on `side`
+## ("atk" when attacking, "def" when countering). Returns the lines to show.
+func _apply_weapon_effect(unit: Dictionary, weapon: Dictionary, inst: Dictionary, side: String, result: Dictionary) -> Array[String]:
+	var lines: Array[String] = []
+	var effect = weapon.get("effect")
+	if effect == null:
+		return lines
+	var hit := false
+	for st in result["strikes"]:
+		if st["by"] == side and st["hit"]:
+			hit = true
+	if not hit:
+		return lines
+	var pid: String = unit.get("punit_id", "")
+	var ename: String = inst.archetype.get("name", "enemy")
+	var wname: String = weapon.get("name", "weapon")
+	match str(effect):
+		"heal_allies":
+			var healed := 0
+			var amount := int(Progression.param("forge_heal"))
+			for other in unit_positions:
+				if other == pid or _is_cargo(other) or _distance(unit_positions[other], unit_positions[pid]) != 1:
+					continue
+				var max_hp := 0
+				for u in units:
+					if u.get("punit_id", "") == other:
+						max_hp = int(u.get("hp", 0))
+				var now := int(unit_hp.get(other, 0))
+				if now > 0 and now < max_hp:
+					unit_hp[other] = mini(max_hp, now + amount)
+					healed += 1
+			if healed > 0:
+				lines.append("The %s heals %d ally%s beside %s." % [wname, healed, "" if healed == 1 else "s", unit.get("name")])
+		"unmake":
+			if int(inst.hp) > 0 and not inst.get("unarmed", false):
+				var tier := str(_enemy_weapon(inst).get("tier", inst.archetype.get("weapon_tier", "basic")))
+				var need := Forge.hits_to_unmake(tier)
+				inst["wear"] = int(inst.get("wear", 0)) + 1
+				if int(inst["wear"]) >= need:
+					inst["unarmed"] = true
+					lines.append("The %s unmakes the %s's weapon: it is unarmed." % [wname, ename])
+				else:
+					lines.append("The %s wears the %s's weapon down (%d of %d)." % [wname, ename, int(inst["wear"]), need])
+		"pull":
+			if int(inst.hp) > 0 and inst.kind != "boss":
+				var from: Vector2i = inst.pos
+				var to: Vector2i = unit_positions[pid]
+				var gap := to - from
+				if absi(gap.x) + absi(gap.y) >= 2:
+					var dir := Vector2i(signi(gap.x), 0) if absi(gap.x) >= absi(gap.y) else Vector2i(0, signi(gap.y))
+					var path := _push_path(from, dir, 1, str(inst.archetype.get("movement_type", "infantry")))
+					if path["dest"] != from:
+						_enemy_move(inst, path["dest"])
+						lines.append("The %s drags the %s a tile closer." % [wname, ename])
+	return lines
 
 # ----------------------------------------------------------- miasma and cargo
 #
