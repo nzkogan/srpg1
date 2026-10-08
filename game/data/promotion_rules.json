@@ -352,5 +352,11 @@
     "value": 1,
     "text": null,
     "notes": "Bribe: how many enemies Kheldar can turn per map (canon: 'bribe one enemy to neutral'). Bosses cannot be bribed."
+  },
+  {
+    "param_id": "prm_delivery_radius",
+    "value": 2,
+    "text": null,
+    "notes": "ep_delivery: a unit 'escorts' a cargo unit if it is alive and within this many tiles of the goal when the cargo is delivered."
   }
 ]

@@ -1,0 +1,50 @@
+[
+  {
+    "cargo_id": "cargo_d03_wagon1",
+    "map_id": "map_d03",
+    "name": "Grain wagon (north)",
+    "movement": "armor",
+    "hp": 30,
+    "def": 4,
+    "res": 0,
+    "spawn_row": 13,
+    "spawn_col": 3,
+    "notes": "map_d03: escort 2 of 3 wagons, move 4 -- armor movement, so a wagon cannot take the foot-only ford"
+  },
+  {
+    "cargo_id": "cargo_d03_wagon2",
+    "map_id": "map_d03",
+    "name": "Grain wagon (centre)",
+    "movement": "armor",
+    "hp": 30,
+    "def": 4,
+    "res": 0,
+    "spawn_row": 13,
+    "spawn_col": 9,
+    "notes": null
+  },
+  {
+    "cargo_id": "cargo_d03_wagon3",
+    "map_id": "map_d03",
+    "name": "Grain wagon (south)",
+    "movement": "armor",
+    "hp": 30,
+    "def": 4,
+    "res": 0,
+    "spawn_row": 13,
+    "spawn_col": 15,
+    "notes": null
+  },
+  {
+    "cargo_id": "cargo_a01_cart",
+    "map_id": "map_a01",
+    "name": "The medicine cart",
+    "movement": "armor",
+    "hp": 24,
+    "def": 3,
+    "res": 0,
+    "spawn_row": 11,
+    "spawn_col": 8,
+    "notes": "map_a01: the winter dole's cart; civilians chasing it aren't modelled"
+  }
+]

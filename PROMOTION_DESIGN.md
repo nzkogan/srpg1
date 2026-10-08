@@ -1,7 +1,7 @@
 # Promotion, levelling and abilities -- design and status
 
 Status: **implemented** (first-pass numbers, all tunable in `canon.xlsx`). Drafted 2026-10-05; revised
-after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10. Everything here is a design proposal, not setting canon.
+after the decisions below; the paragon tier and save/load added 2026-10-06; the Capture action 2026-10-07; Shove and Smite 2026-10-08; collision damage 2026-10-09; Bribe 2026-10-10; the miasma and delivery deeds 2026-10-12. Everything here is a design proposal, not setting canon.
 
 ## The goal
 
@@ -92,8 +92,8 @@ moment is the cheapest, and nothing can be missed.
   unit damaged -- "single combat" -- by attack or counter), *solo hold* (the same tile for 3 enemy phases running,
   attacked each time, no ally within 2 tiles), *no-hit map* (fought, and never hit, when the map is won; a unit
   that never fought doesn't count) and *capture* (take 5 enemies alive; see below -- the one deed that counts up).
-  Miasma, delivery, dispersal and talk need mechanics that don't exist; the barracks lists them as "not recordable
-  yet". All four deeds that gate paragon are now recordable.
+  All four deeds that gate paragon are recordable. Two more deeds that don't gate it are too (miasma, delivery --
+  see below); dispersal and talk still need mechanics that don't exist.
 - **Which class**: a paragon class whose primary art the unit already knows -- lance: Bogatyr; sword: Fianna
   (sword + bow); bow: Donso; brawl: Toa; axe: Jaguar knight (axe + brawl) or Eagle knight; reason: Tzitzimitl (which also
   needs the Simurgh paralogue won -- a drafted guess at canon's "paralogue"). A Billman, knowing axe *and* lance,
@@ -173,6 +173,34 @@ Canon: "Kheldar; end-map income, bribe one enemy to neutral" (the Factor class).
 - Not modelled: enemy `behavior` text (a preacher who converts, a looter who preys on civilians) -- a bribed enemy is
   simply inert -- and Kheldar's Act-1 "ch1 cameo unkillable" rule.
 
+## The miasma and delivery deeds
+
+Two of canon's other epithets (they feed the forge vocabulary, not the paragon gate) are now recordable, and the
+barracks lists them under "Other deeds" with progress.
+
+- **Miasma** (`ep_miasma`, "Ash-walker", "ends turn on miasma tiles 5+ times"): each main unit that **ends the player
+  turn standing on miasma** counts one -- tallied from where the turn *ended*, before the hazard damage lands and before
+  the enemy phase, so a unit that is then cut down still counted. The deed is earned at **5** turn-ends
+  (`epithets.count_needed`), kept across maps and saved, and the map says "Avatar has ended 3 of 5 turns in the
+  miasma." on the way. Which terrain counts is data: `epithets.deed_terrain` = `ter_miasma`. Ice (a different hazard)
+  and plain ground don't count. Maps with miasma today: a01, d09, ct19 and the Dove colony.
+- **Delivery** (`ep_delivery`, "Carter", "escorts a cargo unit to its goal"): this needed **cargo**, which didn't exist
+  -- "escort" maps just let any unit walk to the E tile. Canon now has a `cargo_units` tab (a wagon or cart is a
+  player-side unit: it can't fight, has hit points and defences, and moves by its movement type) and
+  `maps.cargo_needed`. Drafted for two maps: **d03** -- its three wagons, 2 to deliver (canon: "escort 2 of 3 wagons,
+  move 4"; they have armor movement, so a wagon can't take the foot-only ford and must use the bridge) -- and **a01** --
+  the medicine cart, 1 to deliver.
+  - On a cargo map **only cargo delivers**: a wagon stepping onto E leaves the map as delivered; a person on E
+    escapes nowhere. `cargo_needed` deliveries win the map.
+  - Enemies attack cargo like any unit, and the miasma and cold hurt it, so the cart steers round a01's miasma.
+    If the cargo still on the map plus what's been delivered can no longer reach `cargo_needed`, the map is **lost**.
+  - A main unit that is alive and **within 2 tiles of the goal** (`delivery_radius`) when a wagon is delivered has
+    escorted it and earns the deed (one delivery is enough). **W** selects the next cargo unit (the number keys only
+    reach the first nine units).
+  - Maps with the older "escort" shape and no cargo (x11, m21) are unchanged.
+  - Not modelled: civilians chasing the cart and looters killing them (a01's own note), the wagons' defence and the
+    cart's HP (first-pass numbers), and who stayed *with* the cargo along the way -- only who is near at the end.
+
 ## Saving and loading
 
 State is split in `GameState` into `PERSISTED` (saved, with the type each must have) and `TRANSIENT` (one-shot UI
@@ -206,7 +234,7 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Not built / open
 
-- Faith has no paragon class; the miasma, delivery, dispersal and talk deeds aren't recordable yet.
+- Faith has no paragon class; the dispersal and talk deeds aren't recordable yet.
 - Capture: only Gunnar and the Pardoner can; the
   50% rule, the 25 gold ransom and "anyone but a boss" are first-pass numbers; enemy `behavior` text isn't modelled, so
   no enemy is more or less willing to surrender.
@@ -219,10 +247,10 @@ the +5 growth and the silver weapons immediately, and nobody has to optimise a l
 
 ## Where it lives
 
-`canon.xlsx`: `promotion_rules` (59 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
-`epithets.tracked`, `epithets.count_needed`;
+`canon.xlsx`: `promotion_rules` (60 parameters), `abilities` (40), `classes.unlock_map_id`, `classes.map_actions`,
+`epithets.tracked`, `epithets.count_needed`, `epithets.deed_terrain`, `cargo_units`, `maps.cargo_needed`;
 validator rules c07i. Engine: `scripts/progression.gd` (autoload), `combat.gd` (ability hooks), `equipment.gd`
 (current-class proficiency, high-tier gate), `map_grid.gd` (EXP, income, unlocks, deed telemetry),
 `barracks_screen.gd`, `forecast_view.gd`, `game_state.gd` + `save_game.gd` (autoload) + `save_screen.gd`. Tests: `test_progression`,
 `test_progression_map`, `test_barracks`, `test_paragon`, `test_deeds`, `test_barracks_paragon`, `test_save_game`,
-`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, plus the ability checks in `test_combat_exchange`.
+`test_save_screen`, `test_capture`, `test_shove`, `test_bribe`, `test_cargo_miasma`, plus the ability checks in `test_combat_exchange`.

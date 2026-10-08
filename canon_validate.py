@@ -71,6 +71,7 @@ PRIMARY_KEYS = {
     "promotion_rules": ("param_id", "prm_"),
     "abilities": ("ability_id", "ab_"),
     "world_paths": ("path_id", "path_"),
+    "cargo_units": ("cargo_id", "cargo_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -389,6 +390,36 @@ def main():
                 grew = True
     for cid in sorted(set(after) - open_set):
         fail("c07", "blocking", f"chapters.{cid}", "can never be unlocked (its unlock_after chain has a cycle or never starts)")
+
+    # --- c07k deeds on terrain and cargo: a terrain deed names a real terrain,
+    #     cargo sits on an escort map inside its grid, and a map never asks for
+    #     more deliveries than it has cargo
+    terr_ids = {t["terrain_id"] for t in tabs["terrain_costs"]}
+    for ep in tabs["epithets"]:
+        dterr = ep.get("deed_terrain")
+        if dterr not in (None, "") and dterr not in terr_ids:
+            fail("c07", "blocking", f"epithets.{ep['epithet_id']}", f"deed_terrain '{dterr}' is not a terrain_costs row")
+    maps_by_id = {m["map_id"]: m for m in tabs["maps"]}
+    cargo_by_map = Counter()
+    for cu in tabs["cargo_units"]:
+        m = maps_by_id.get(cu["map_id"])
+        cid = cu["cargo_id"]
+        cargo_by_map[cu["map_id"]] += 1
+        if m is None:
+            continue
+        if m.get("objective_verb") not in ("escort", "escape"):
+            fail("c07", "blocking", f"cargo_units.{cid}", f"is on {cu['map_id']}, which is a '{m.get('objective_verb')}' map, not an escort")
+        r, c = cu.get("spawn_row"), cu.get("spawn_col")
+        if not (isinstance(r, int) and isinstance(c, int) and 0 <= r < m["height"] and 0 <= c < m["width"]):
+            fail("c07", "blocking", f"cargo_units.{cid}", f"spawn ({r}, {c}) is outside {cu['map_id']}'s {m['width']}x{m['height']} grid")
+        if cu.get("movement") not in ("infantry", "armor", "riding", "flying"):
+            fail("c07", "blocking", f"cargo_units.{cid}", f"movement '{cu.get('movement')}' is not a movement type")
+    for mid, m in maps_by_id.items():
+        need = m.get("cargo_needed")
+        if need in (None, "", 0):
+            continue
+        if not isinstance(need, int) or need < 1 or need > cargo_by_map.get(mid, 0):
+            fail("c07", "blocking", f"maps.{mid}", f"cargo_needed {need} but the map has {cargo_by_map.get(mid, 0)} cargo units")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

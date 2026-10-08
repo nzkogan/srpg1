@@ -59,7 +59,7 @@ PK = {
     "unit_base_stats": ("unit_id", "u_"),
     "weapons": ("weapon_id", "wpn_"),
     "promotion_rules": ("param_id", "prm_"), "abilities": ("ability_id", "ab_"),
-    "world_paths": ("path_id", "path_"),
+    "world_paths": ("path_id", "path_"), "cargo_units": ("cargo_id", "cargo_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
@@ -69,7 +69,7 @@ PK = {
 # numeric columns per tab, everything else defaults to TEXT
 NUMERIC = {
     "growths": {"hp", "str", "mag", "dex", "spd", "lck", "def", "res", "total_check"},
-    "maps": {"width", "height", "turn_limit", "min_solution_units",
+    "maps": {"width", "height", "turn_limit", "min_solution_units", "cargo_needed",
              "boss_gated_until_turn", "deploy_slots"},
     "chapters": {"number"},
     "prologue_roster": {"move", "hp", "dmg_vs_statue", "deploy_row", "deploy_col",
@@ -88,6 +88,7 @@ NUMERIC = {
     "abilities": {"hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"},
     "epithets": {"count_needed"},
     "locations": {"map_x", "map_y"},
+    "cargo_units": {"hp", "def", "res", "spawn_row", "spawn_col"},
 }
 
 # explicit foreign keys: (table, column) -> (ref_table, ref_column)
@@ -127,6 +128,8 @@ FKS = {
     ("world_paths", "from_location_id"): ("locations", "location_id"),
     ("world_paths", "to_location_id"): ("locations", "location_id"),
     ("chapters", "location_id"): ("locations", "location_id"),
+    ("cargo_units", "map_id"): ("maps", "map_id"),
+    ("epithets", "deed_terrain"): ("terrain_costs", "terrain_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
     ("encounter_spawns", "drop_weapon_id"): ("weapons", "weapon_id"),
     ("supports", "unit_a_id"): ("units", "unit_id"),

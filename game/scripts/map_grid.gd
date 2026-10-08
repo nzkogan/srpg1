@@ -30,6 +30,7 @@ extends Node2D
 ##         alive once it is weakened -- it leaves the map, no kill, no drop
 ##   S   = Shove / Smite (Gunnar; Housecarls): then an arrow key (or a click) on
 ##         an adjacent unit pushes it straight back 1 tile (Smite: 2)
+##   W   = select the next cargo unit (maps with cargo: walk it to the E tile)
 ##   B   = Bribe (Kheldar): then an arrow key (or a click) on an adjacent enemy
 ##         pays gold to turn it neutral for the rest of the map (one a map, no bosses)
 ##   N / Enter = advance to the next turn
@@ -159,6 +160,7 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+var delivered: Array[String] = []   # cargo ids that have reached the goal on this map
 var map_lost := false          # every player unit gone: no win is possible
 ## Test seam: the support tests play whole maps by calling _next_turn() and
 ## need the player's units to survive; they switch the enemy phase off. Always
@@ -307,7 +309,25 @@ func _build_units() -> Array:
 		base["deploy_row"] = deploy_row
 		base["deploy_col"] = col
 		result.append(base)
+	result.append_array(_cargo_rows())
 	return result
+
+## The map's cargo units (canon's cargo_units) as player-side roster rows: they can't
+## fight, move like their movement type, and are what the escort objective is about.
+func _cargo_rows() -> Array:
+	var rows: Array = []
+	for cu in Canon.get_table("cargo_units"):
+		if cu["map_id"] != map_id:
+			continue
+		var movement := str(cu.get("movement", "armor"))
+		rows.append({
+			"punit_id": cu["cargo_id"], "name": cu["name"], "cargo": true, "level": 1,
+			"hp": int(cu["hp"]), "str": 0, "mag": 0, "dex": 0, "spd": 0, "lck": 0, "def": int(cu["def"]), "res": int(cu["res"]),
+			"movement_type": movement, "move": MOVEMENT_TYPE_DEFAULT_MOVE.get(movement, 4),
+			"weapon_art": null, "arts": [], "dmg_vs_statue": 0, "what_they_do": "cargo -- cannot fight",
+			"deploy_row": int(cu["spawn_row"]), "deploy_col": int(cu["spawn_col"]),
+		})
+	return rows
 
 func _find_seize_tile() -> void:
 	seize_pos = _find_symbol("*")
@@ -537,7 +557,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _shove_mode:
 			_shove_key(key_event.keycode)
 			return
-		if key_event.keycode == KEY_B:
+		if key_event.keycode == KEY_W:
+			_select_next_cargo()
+		elif key_event.keycode == KEY_B:
 			_begin_bribe()
 		elif key_event.keycode == KEY_S:
 			_begin_shove()
@@ -629,7 +651,12 @@ func _try_move_to(pos: Vector2i) -> void:
 	# both are "get units to a tile," the difference (escorting a specific
 	# cargo/NPC unit) isn't modeled, flagged on each escort map's own notes.
 	var verb: String = map_row.get("objective_verb", "")
-	if (verb == "escape" or verb == "escort") and pos == escape_pos:
+	if _cargo_needed() > 0:
+		# a map with cargo: the goal is for the CARGO to reach it; nobody else escapes
+		if pos == escape_pos and _is_cargo(pid):
+			_deliver(pid)
+			return
+	elif (verb == "escape" or verb == "escort") and pos == escape_pos:
 		unit_positions.erase(pid)
 		if token:
 			token.container.queue_free()
@@ -754,7 +781,9 @@ func _next_turn() -> void:
 	# is the pre-game deploy screen, not a played turn.
 	if turn > 0:
 		Supports.record_turn_end(unit_positions, chapter_route)
+		var miasma_lines := _miasma_deeds()
 		_enemy_phase()
+		enemy_log.append_array(miasma_lines)
 		if map_lost:
 			return
 	turn += 1
@@ -1821,6 +1850,107 @@ func _no_hit_deeds() -> Array[String]:
 			lines.append_array(_earn_deed(pid, "ep_nohit", str(row["name"]) if row != null else pid))
 	return lines
 
+# ----------------------------------------------------------- miasma and cargo
+#
+# Two more deeds. Miasma ("ends turn on miasma tiles 5+ times"): each main unit that
+# ends the player turn standing on the terrain epithets.deed_terrain names counts one
+# (before the hazard damage lands), and the deed is earned at count_needed. Delivery
+# ("escorts a cargo unit to its goal"): see _deliver.
+
+## At the end of the player turn: one more miasma turn for every main unit standing on
+## miasma. Returns the lines to show (the deed, or how far along the unit is).
+func _miasma_deeds() -> Array[String]:
+	var lines: Array[String] = []
+	var terrain_id := Progression.deed_terrain("ep_miasma")
+	if terrain_id == "" or map_id == "map_f00":
+		return lines
+	for pid in unit_positions.keys():
+		if not Progression.is_known_unit(pid):
+			continue
+		var terrain = terrain_by_symbol.get(_effective_symbol(unit_positions[pid]))
+		if terrain == null or terrain.get("terrain_id") != terrain_id:
+			continue
+		var row = Canon.find_by("units", "unit_id", pid)
+		var uname: String = str(row["name"]) if row != null else pid
+		var earned := _earn_deed(pid, "ep_miasma", uname)
+		if not earned.is_empty():
+			lines.append_array(earned)
+		else:
+			var need := Progression.count_needed("ep_miasma")
+			var got := Progression.deed_count(pid, "ep_miasma")
+			if got < need:
+				lines.append("%s has ended %d of %d turns in the miasma." % [uname, got, need])
+	return lines
+
+func _cargo_needed() -> int:
+	var n = map_row.get("cargo_needed")
+	return int(n) if n != null else 0
+
+func _is_cargo(pid: String) -> bool:
+	for u in units:
+		if u.get("punit_id", "") == pid:
+			return bool(u.get("cargo", false))
+	return false
+
+## Cargo units still on the map.
+func _cargo_remaining() -> int:
+	var n := 0
+	for pid in unit_positions:
+		if _is_cargo(pid):
+			n += 1
+	return n
+
+## [W]: select the next cargo unit still on the map (the number keys only reach the first nine units).
+func _select_next_cargo() -> void:
+	var n := units.size()
+	for step in range(1, n + 1):
+		var idx := (selected_unit_index + step) % n
+		var pid: String = units[idx].get("punit_id", "")
+		if _is_cargo(pid) and unit_positions.has(pid):
+			_select_unit(idx)
+			return
+	info_label.text = "There is no cargo left on the map."
+
+## A cargo unit reaches the goal: it leaves the map and counts as delivered. Every main unit
+## that is alive and within delivery_radius of the goal at that moment has ESCORTED it and
+## earns the delivery deed. Enough deliveries (maps.cargo_needed) win the map.
+func _deliver(pid: String) -> void:
+	var cargo_name := "The cargo"
+	for u in units:
+		if u.get("punit_id", "") == pid:
+			cargo_name = str(u.get("name"))
+	var token = unit_tokens.get(pid)
+	if token:
+		token.container.queue_free()
+	unit_tokens.erase(pid)
+	unit_positions.erase(pid)
+	delivered.append(pid)
+	var lines: Array[String] = ["%s is delivered (%d of %d)." % [cargo_name, delivered.size(), _cargo_needed()]]
+	var radius := int(Progression.param("delivery_radius"))
+	for other in unit_positions.keys():
+		if _is_cargo(other) or not Progression.is_known_unit(other) or _distance(unit_positions[other], escape_pos) > radius:
+			continue
+		var row = Canon.find_by("units", "unit_id", other)
+		lines.append_array(_earn_deed(other, "ep_delivery", str(row["name"]) if row != null else other))
+	if delivered.size() >= _cargo_needed() and not map_won:
+		map_won = true
+		status_label.text = "DELIVERED. %d of %d reached the goal." % [delivered.size(), _cargo_needed()]
+		info_label.text = "Victory. " + " ".join(lines)
+		return
+	info_label.text = " ".join(lines)
+	_update_status_label()
+
+## Cargo lost: if the cargo still on the map plus what was delivered can no longer reach
+## cargo_needed, the map is lost.
+func _check_cargo_lost() -> void:
+	if _cargo_needed() <= 0 or map_won or map_lost or units.is_empty():
+		return
+	if delivered.size() + _cargo_remaining() < _cargo_needed():
+		map_lost = true
+		status_label.text = "DEFEAT. Too much of the cargo is lost."
+		info_label.text = "Defeat. Press Escape to leave."
+		_update_forecast()
+
 ## A player unit leaves play (dead): token, position and all.
 func _kill_unit(pid: String) -> void:
 	var token = unit_tokens.get(pid)
@@ -1828,6 +1958,7 @@ func _kill_unit(pid: String) -> void:
 		token.container.queue_free()
 	unit_tokens.erase(pid)
 	unit_positions.erase(pid)
+	_check_cargo_lost()
 
 ## With every player unit gone no win is possible. Units that escaped no
 ## longer count as on the map, so this also ends a map where too few escaped.
@@ -1888,6 +2019,8 @@ func _update_status_label() -> void:
 	header += " -- Enemies alive: %d%s -- attackers: %d/%d this turn -- moved: %d/%d this turn" % [
 		alive, " (+%d neutral)" % neutral if neutral > 0 else "", attacked_this_turn.size(), MAX_STATUE_ATTACKERS_PER_TURN, moved_this_turn.size(), units.size()
 	]
+	if _cargo_needed() > 0:
+		header += " -- Cargo: %d/%d delivered" % [delivered.size(), _cargo_needed()]
 	lines.append(header)
 	var controls := "[F] attack -- [Tab] retarget -- [E] weapon -- [N] / Enter: next turn -- click a tile to move"
 	for u in units:
@@ -1899,6 +2032,8 @@ func _update_status_label() -> void:
 		var push := Progression.push_name(u.get("punit_id", "")) if _is_roster_unit(u) else ""
 		if push != "" and not push_names.has(push):
 			push_names.append(push)
+	if _cargo_needed() > 0:
+		controls = controls.replace("[E] weapon", "[W] cargo -- [E] weapon")
 	for u in units:
 		if _is_roster_unit(u) and Progression.can_bribe(u.get("punit_id", "")):
 			controls = controls.replace("[E] weapon", "[B] bribe -- [E] weapon")

@@ -631,6 +631,19 @@ func record_deed(unit_id: String, epithet_id: String, count: int = 1) -> bool:
 	GameState.deeds[unit_id] = mine
 	return before < need and before + count >= need
 
+## The terrain a terrain deed counts turn-ends on (epithets.deed_terrain), "" if it has none.
+func deed_terrain(epithet_id: String) -> String:
+	var t = epithet_row(epithet_id).get("deed_terrain")
+	return str(t) if t != null else ""
+
+## Deeds that don't gate paragon but can be recorded (epithets.tracked): forge vocabulary only.
+func other_tracked_epithets() -> Array:
+	var out: Array = []
+	for row in Canon.get_table("epithets"):
+		if row.get("gates_paragon") != "yes" and row.get("tracked") == "yes":
+			out.append(row)
+	return out
+
 # ------------------------------------------------------------------- capture
 
 ## The map actions the unit's current class carries (classes.map_actions).

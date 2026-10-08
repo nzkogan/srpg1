@@ -289,6 +289,18 @@ func _append_deeds(lines: Array[String], u: String) -> void:
 			lines.append("[ ] %s  [color=%s](%s)%s[/color]" % [label, DIM, row["trigger"], progress])
 		else:
 			lines.append("[color=%s][ ] %s (%s) -- not recordable yet[/color]" % [DIM, label, row["trigger"]])
+	var others := Progression.other_tracked_epithets()
+	if not others.is_empty():
+		lines.append("[b]Other deeds[/b] [color=%s](they don't gate paragon)[/color]" % DIM)
+		for row in others:
+			var oid: String = row["epithet_id"]
+			var on := Progression.deed_count(u, oid)
+			var oneed := Progression.count_needed(oid)
+			var olabel := str(row["deed_category"]).replace("_", " ")
+			if Progression.has_deed(u, oid):
+				lines.append("[color=%s][x] %s[/color]  [color=%s](%s) x%d[/color]" % [GOOD, olabel, DIM, row["trigger"], on])
+			else:
+				lines.append("[ ] %s  [color=%s](%s)%s[/color]" % [olabel, DIM, row["trigger"], " -- %d of %d" % [on, oneed] if oneed > 1 else ""])
 
 func _recertify_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:
 	var lines: Array[String] = []

@@ -17,7 +17,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "dock frontage|warehouse lane"
+    "approaches": "dock frontage|warehouse lane",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d02",
@@ -37,7 +38,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "hedgerow foot path|open road (riding)|the weighbridge itself"
+    "approaches": "hedgerow foot path|open road (riding)|the weighbridge itself",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d03",
@@ -57,7 +59,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "bridge choke|southern ford (foot only)|north bank escort line"
+    "approaches": "bridge choke|southern ford (foot only)|north bank escort line",
+    "cargo_needed": 2
   },
   {
     "map_id": "map_a01",
@@ -77,7 +80,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the dole road|the ice (risky, fast)"
+    "approaches": "the dole road|the ice (risky, fast)",
+    "cargo_needed": 1
   },
   {
     "map_id": "map_a02",
@@ -97,7 +101,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "wide street (riding)|narrow street (foot)|rooftops (flying)"
+    "approaches": "wide street (riding)|narrow street (foot)|rooftops (flying)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a03",
@@ -117,7 +122,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "cloister (indoors, no cold)|open ward (fast, costly)"
+    "approaches": "cloister (indoors, no cold)|open ward (fast, costly)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_x11",
@@ -137,7 +143,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 99,
-    "approaches": "west crossing|east crossing"
+    "approaches": "west crossing|east crossing",
+    "cargo_needed": null
   },
   {
     "map_id": "map_b15",
@@ -157,7 +164,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the arcade (blocks bows)|the open bazaar|the porters' alley"
+    "approaches": "the arcade (blocks bows)|the open bazaar|the porters' alley",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d05",
@@ -177,7 +185,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 10,
-    "approaches": "the weather deck|below, through the hold|the rigging (flying only)"
+    "approaches": "the weather deck|below, through the hold|the rigging (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_f00",
@@ -197,7 +206,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the terraces (foot)|the aqueduct span (one tile)|the channels (flying only)"
+    "approaches": "the terraces (foot)|the aqueduct span (one tile)|the channels (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_v21",
@@ -217,7 +227,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "ash flats (foot)|the old road (riding)"
+    "approaches": "ash flats (foot)|the old road (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_v22",
@@ -237,7 +248,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the nave (foot)|the cloister walk (flying blocked)"
+    "approaches": "the nave (foot)|the cloister walk (flying blocked)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_c21",
@@ -257,7 +269,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the hall (foot)|the courtyard (riding)"
+    "approaches": "the hall (foot)|the courtyard (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_m21",
@@ -277,7 +290,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the causeway (foot)|open floodwater (flying only)"
+    "approaches": "the causeway (foot)|open floodwater (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_m22",
@@ -297,7 +311,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the reading room (foot)|the stacks (foot only)"
+    "approaches": "the reading room (foot)|the stacks (foot only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_r16",
@@ -317,7 +332,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the toll road (riding)|the counting house (foot)"
+    "approaches": "the toll road (riding)|the counting house (foot)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_e31",
@@ -337,7 +353,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "the counting floor (foot)|the loading yard (riding)"
+    "approaches": "the counting floor (foot)|the loading yard (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_e32_sanctified",
@@ -357,7 +374,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 10,
-    "approaches": "the processional (foot)|the high road (riding)|open sky (flying)"
+    "approaches": "the processional (foot)|the high road (riding)|open sky (flying)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_e32_perverse",
@@ -377,7 +395,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "the approach (foot)|the colossus itself (any)"
+    "approaches": "the approach (foot)|the colossus itself (any)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_h31",
@@ -397,7 +416,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "the muster line (foot)|the siege road (riding)"
+    "approaches": "the muster line (foot)|the siege road (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_h33_mercy",
@@ -417,7 +437,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the hidden approach (foot)|the open field (riding)"
+    "approaches": "the hidden approach (foot)|the open field (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_h34_war1",
@@ -437,7 +458,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the front line (foot)|the flank road (riding)"
+    "approaches": "the front line (foot)|the flank road (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_h34_war2",
@@ -457,7 +479,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the front line (foot)|the flank road (riding)"
+    "approaches": "the front line (foot)|the flank road (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_h34_war3",
@@ -477,7 +500,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "the last field (foot)|the high ground (riding)"
+    "approaches": "the last field (foot)|the high ground (riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_macuil",
@@ -497,7 +521,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the shoreline farmland (foot)|the lake (flying only, ground blocked around the tower)"
+    "approaches": "the shoreline farmland (foot)|the lake (flying only, ground blocked around the tower)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_indech",
@@ -517,7 +542,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the shores (foot)|the ford, 3 tiles wide (foot only)|open water (flying only)"
+    "approaches": "the shores (foot)|the ford, 3 tiles wide (foot only)|open water (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_shadhavar",
@@ -537,7 +563,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the lowest terrace (foot, riding)|the upper terraces (riding blocked)|the sea (flying only)"
+    "approaches": "the lowest terrace (foot, riding)|the upper terraces (riding blocked)|the sea (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_simurgh",
@@ -557,7 +584,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the nest plateau (foot, riding)|the slopes (riding blocked)|the lake far below (flying only)"
+    "approaches": "the nest plateau (foot, riding)|the slopes (riding blocked)|the lake far below (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_karkadann",
@@ -577,7 +605,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the clearing (foot, riding, safe)|the ash field (all movement, 2 HP/turn hazard)"
+    "approaches": "the clearing (foot, riding, safe)|the ash field (all movement, 2 HP/turn hazard)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_anzu",
@@ -597,7 +626,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the open flat (all movement, no cover, no chokepoints)"
+    "approaches": "the open flat (all movement, no cover, no chokepoints)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_huma",
@@ -617,7 +647,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the road (all movement, open, no cover)"
+    "approaches": "the road (all movement, open, no cover)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_p_buried_works",
@@ -637,7 +668,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the south corridor (all movement, clear)|straight through the rubble (foot favored, hazardous)"
+    "approaches": "the south corridor (all movement, clear)|straight through the rubble (foot favored, hazardous)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d04",
@@ -657,7 +689,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the quay (foot, riding)|the warehouse sheds (blocks flying)|open water (flying only)"
+    "approaches": "the quay (foot, riding)|the warehouse sheds (blocks flying)|open water (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d06",
@@ -677,7 +710,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the lower terrace (foot, riding)|the upper terraces (riding blocked)"
+    "approaches": "the lower terrace (foot, riding)|the upper terraces (riding blocked)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d07",
@@ -697,7 +731,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the ruin floor (foot, riding)|the terrace above (riding blocked)"
+    "approaches": "the ruin floor (foot, riding)|the terrace above (riding blocked)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d08",
@@ -717,7 +752,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the open ground (all movement, no cover, no chokepoints)"
+    "approaches": "the open ground (all movement, no cover, no chokepoints)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d09",
@@ -737,7 +773,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the road (foot, riding)|the lava-fan narrows (all movement, hazard)"
+    "approaches": "the road (foot, riding)|the lava-fan narrows (all movement, hazard)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_d10",
@@ -757,7 +794,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the ash-field approach (all movement, hazard)|the gate itself (foot, riding)"
+    "approaches": "the ash-field approach (all movement, hazard)|the gate itself (foot, riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a04",
@@ -777,7 +815,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the quay (foot, riding)|the warehouse sheds (blocks flying)|open water (flying only)"
+    "approaches": "the quay (foot, riding)|the warehouse sheds (blocks flying)|open water (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a05",
@@ -797,7 +836,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the old shoreline (foot, riding)|the water (flying only)"
+    "approaches": "the old shoreline (foot, riding)|the water (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a06",
@@ -817,7 +857,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the open steppe (all movement, no cover)|the settlement edge (foot, riding)"
+    "approaches": "the open steppe (all movement, no cover)|the settlement edge (foot, riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a07",
@@ -837,7 +878,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the cliff-edge shelf (foot, riding, narrow)|the void beyond it (flying only)"
+    "approaches": "the cliff-edge shelf (foot, riding, narrow)|the void beyond it (flying only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a08",
@@ -857,7 +899,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the forest road (foot, riding)|the canopy (blocks flying)"
+    "approaches": "the forest road (foot, riding)|the canopy (blocks flying)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a09",
@@ -877,7 +920,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the shrine yard (foot, riding)|the shrine steps (foot only)"
+    "approaches": "the shrine yard (foot, riding)|the shrine steps (foot only)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_a10",
@@ -897,7 +941,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 6,
-    "approaches": "the chapel yard (foot, riding)|the chapel walls (foot only, breach point)"
+    "approaches": "the chapel yard (foot, riding)|the chapel walls (foot only, breach point)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_k21",
@@ -917,7 +962,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "the plaza (foot, riding)|the covered market (blocks flying)|the silo blocks (impassable, all types)"
+    "approaches": "the plaza (foot, riding)|the covered market (blocks flying)|the silo blocks (impassable, all types)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_k22",
@@ -937,7 +983,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 9,
-    "approaches": "the rubble field (all movement, hazard)|the colossus base (foot, riding)"
+    "approaches": "the rubble field (all movement, hazard)|the colossus base (foot, riding)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_ct19",
@@ -957,7 +1004,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the clear ground (foot, riding)|the ash band (all movement, hazard)"
+    "approaches": "the clear ground (foot, riding)|the ash band (all movement, hazard)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_tp19",
@@ -977,7 +1025,8 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the channel (foot, riding)|the flanking cliffs (impassable, flying passes)"
+    "approaches": "the channel (foot, riding)|the flanking cliffs (impassable, flying passes)",
+    "cargo_needed": null
   },
   {
     "map_id": "map_rf20",
@@ -997,6 +1046,7 @@
     "boss_gate_reason": null,
     "forced_deploy_ids": null,
     "deploy_slots": 8,
-    "approaches": "the open field (all movement)|the camps (blocks flying)"
+    "approaches": "the open field (all movement)|the camps (blocks flying)",
+    "cargo_needed": null
   }
 ]
