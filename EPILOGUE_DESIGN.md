@@ -87,7 +87,7 @@ the closest bond at all. *Romantic* means the bond reached S.
 ## Not built
 
 - `unknown` deaths from routs and unwitnessed kills (no such mechanic yet); a *forged* weapon's provenance name
-  (`weapon_carried` assumes a naming grammar the forge never got -- the plain weapon name is used).
+  (done in WEAPON_NAMES_DESIGN.md: `weapon_carried` is the weapon's provenance name).
 - A game-over rule if the whole roster falls; anything that consumes the roll at the end of the game (the ending screens do not
   exist yet); a deputy who falls after the writ; scenes where a partner reacts.
 - Cold is the only hazard; each new one needs an `epi_hazard_<id>` phrase.

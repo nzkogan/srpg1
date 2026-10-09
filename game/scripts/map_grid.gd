@@ -2143,11 +2143,12 @@ func _award_exp(unit: Dictionary, inst: Dictionary, killed: bool, rng: RandomNum
 
 ## Records one deed for a main unit and returns the announcement lines (empty if
 ## it wasn't new, or the unit isn't a main-roster unit).
-func _earn_deed(pid: String, epithet_id: String, unit_name: String) -> Array[String]:
+func _earn_deed(pid: String, epithet_id: String, unit_name: String, object: String = "") -> Array[String]:
 	var out: Array[String] = []
 	if map_id == "map_f00" or not Progression.is_known_unit(pid):
 		return out
 	if Progression.record_deed(pid, epithet_id):
+		Provenance.mark_equipped(pid, epithet_id, object)      # the deed is written on the blade in hand
 		Deputy.on_deed(pid, epithet_id, map_id, _witnessed(pid))
 		var row := Progression.epithet_row(epithet_id)
 		out.append("%s earns a deed: %s ('%s')." % [unit_name, str(row.get("deed_category", epithet_id)).replace("_", " "), row.get("forge_vocab_token", "")])
@@ -2172,7 +2173,7 @@ func _note_exchange(pid: String, inst: Dictionary, result: Dictionary, enemy_hp_
 	_note_damage(inst, pid, enemy_hp_before)
 	if int(inst.hp) == 0 and inst.kind == "boss" and inst["hit_by"].size() == 1 and inst["hit_by"].has(pid):
 		var uname: String = str(Canon.find_by("units", "unit_id", pid)["name"]) if Canon.find_by("units", "unit_id", pid) != null else pid
-		var earned := _earn_deed(pid, "ep_bosskill", uname)
+		var earned := _earn_deed(pid, "ep_bosskill", uname, Epilogue.quarry_name(inst.archetype))
 		if not earned.is_empty():
 			Epilogue.note_slain(pid, inst.archetype)
 		lines.append_array(earned)

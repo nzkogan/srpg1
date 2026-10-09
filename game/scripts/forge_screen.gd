@@ -80,6 +80,10 @@ func rows() -> Array:
 		for i in Forge.orders_for(fid):
 			if not GameState.forge_orders[i]["ready"]:
 				out.append({"kind": "waiting", "forge_id": fid, "order_index": i})
+		var convoy: Array = Equipment.convoy()
+		for i in convoy.size():
+			if Provenance.is_marked(convoy[i]) and Provenance.reforgeable_by(convoy[i], fid):
+				out.append({"kind": "reforge", "forge_id": fid, "convoy_index": i})
 	if out.is_empty():
 		out.append({"kind": "none"})
 	return out
@@ -95,6 +99,8 @@ func row_label(row: Dictionary) -> String:
 		"waiting":
 			var o2: Dictionary = GameState.forge_orders[row["order_index"]]
 			return "In the forge: %s -- %d chapter%s to go" % [Equipment.weapon_name(o2["weapon_id"]), o2["chapters_left"], "" if int(o2["chapters_left"]) == 1 else "s"]
+		"reforge":
+			return "Reforge: %s" % Provenance.name_of(Equipment.convoy()[row["convoy_index"]])
 	return "Nothing to do here yet"
 
 func _weapon_lines(weapon_id: String, quality: String) -> Array[String]:
@@ -146,6 +152,14 @@ func detail_text(row: Dictionary) -> String:
 			lines.append_array(_weapon_lines(o["weapon_id"], o["quality"]))
 			lines.append("")
 			lines.append("[color=%s]Finished. Enter takes it into the convoy.[/color]" % GOOD)
+		"reforge":
+			var entry: Dictionary = Equipment.convoy()[row["convoy_index"]]
+			lines.append("[b]%s[/b]  (%s)" % [Provenance.name_of(entry), Equipment.weapon_row(entry["weapon_id"]).get("art", "?")])
+			lines.append("Marks: %s." % "; ".join(Provenance.history(entry)))
+			lines.append("")
+			var rc := Provenance.can_reforge(row["convoy_index"], row["forge_id"])
+			lines.append("[color=%s]%s[/color]" % [GOOD if rc["ok"] else BAD,
+				"Enter reforges it for %d gold. The marks are wiped; it goes back to being a plain %s." % [rc["fee"], Equipment.weapon_name(entry["weapon_id"])] if rc["ok"] else "Can't reforge: %s." % rc["reason"]])
 		"waiting":
 			var o2: Dictionary = GameState.forge_orders[row["order_index"]]
 			lines.append_array(_weapon_lines(o2["weapon_id"], o2["quality"]))
@@ -184,6 +198,11 @@ func activate() -> bool:
 			_message = "The %s is yours (added to the convoy)." % Equipment.weapon_name(c["weapon_id"]) if c["ok"] else "Can't: %s." % c["reason"]
 			_refresh()
 			return c["ok"]
+		"reforge":
+			var rf := Provenance.reforge(row["convoy_index"], row["forge_id"])
+			_message = "The smith strips %s back to the steel (%d gold)." % [rf["was"], rf["fee"]] if rf["ok"] else "Can't: %s." % rf["reason"]
+			_refresh()
+			return rf["ok"]
 	return false
 
 # ----------------------------------------------------------------- display
@@ -198,7 +217,7 @@ func _refresh() -> void:
 	if _list.item_count > 0:
 		_list.select(_index)
 	_refresh_detail()
-	_footer.text = "%s\nUp/Down choose   Enter commission or collect   Esc back" % _message
+	_footer.text = "%s\nUp/Down choose   Enter commission, collect or reforge   Esc back" % _message
 
 func _refresh_detail() -> void:
 	var all := rows()

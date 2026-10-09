@@ -283,7 +283,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -581,6 +581,20 @@ def main():
     for pl in tabs["polities"]:
         if not pl.get("epilogue_adjective"):
             fail("c07", "blocking", f"polities.{pl['polity_id']}", "a polity needs an epilogue_adjective")
+
+    # --- c07q weapon names: every deed has a form for a weapon it marks, naming its base and carrying its
+    #     vocabulary token; a form that wants an object has a bare fallback
+    for ep in tabs["epithets"]:
+        eid = ep["epithet_id"]
+        form = str(ep.get("weapon_form") or "")
+        token = str(ep.get("forge_vocab_token") or "").strip()
+        if "{BASE}" not in form:
+            fail("c07", "blocking", f"epithets.{eid}", "weapon_form must contain {BASE}")
+        core = token[3:] if token.startswith("of ") else token
+        if token and core.lower() not in form.lower():
+            fail("c07", "blocking", f"epithets.{eid}", f"weapon_form does not carry its forge_vocab_token '{token}'")
+        if "{OBJECT}" in form and "{BASE}" not in str(ep.get("weapon_form_bare") or ""):
+            fail("c07", "blocking", f"epithets.{eid}", "a weapon_form with {OBJECT} needs a weapon_form_bare containing {BASE}")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

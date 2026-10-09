@@ -47,9 +47,9 @@ func weapon_row(weapon_id: String) -> Dictionary:
 func weapon_name(weapon_id: String) -> String:
 	return weapon_row(weapon_id).get("name", weapon_id)
 
-## "Iron Sword (45)".
+## "Iron Sword (45)" -- or "Taker's Iron Sword (45)" once it has marks (see Provenance).
 func describe(entry: Dictionary) -> String:
-	return "%s (%d)" % [weapon_name(entry["weapon_id"]), entry["uses"]]
+	return "%s (%d)" % [Provenance.name_of(entry), entry["uses"]]
 
 ## The arts a unit is proficient in: their class's primary and secondary art
 ## (the secondary column holds a movement type for order-tier classes, which
@@ -157,8 +157,9 @@ func spend_use(unit_id: String, count: int = 1) -> Dictionary:
 	if inv[i]["uses"] > 0:
 		return {}
 	var wid: String = inv[i]["weapon_id"]
+	var shown: String = Provenance.name_of(inv[i])
 	inv.remove_at(i)
-	return {"broke": true, "weapon_id": wid, "name": weapon_name(wid)}
+	return {"broke": true, "weapon_id": wid, "name": shown}
 
 # -------------------------------------------------------------------- convoy
 

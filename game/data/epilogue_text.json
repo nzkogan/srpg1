@@ -71,17 +71,17 @@
   },
   {
     "phrase_id": "epi_weapon_lost_to_enemy",
-    "text": "{NAME}'s {WEAPON} passed to no one.",
+    "text": "The {WEAPON} passed to no one.",
     "notes": "weapon_fate lost_to_enemy"
   },
   {
     "phrase_id": "epi_weapon_retrieved",
-    "text": "{NAME}'s {WEAPON} came home in the convoy.",
+    "text": "The {WEAPON} came home in the convoy.",
     "notes": "weapon_fate retrieved"
   },
   {
     "phrase_id": "epi_weapon_thrown_and_lost",
-    "text": "{NAME}'s {WEAPON} was thrown, and not found again.",
+    "text": "The {WEAPON} was thrown, and not found again.",
     "notes": "weapon_fate thrown_and_lost"
   },
   {

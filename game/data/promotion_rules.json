@@ -436,5 +436,17 @@
     "value": 100,
     "text": null,
     "notes": "Deputy scoring: the Column B supply attachment, drafted as this much gold on each Column B chapter newly won -- withheld if the player contested the crown's choice of deputy at the writ scene."
+  },
+  {
+    "param_id": "prm_weapon_marks_max",
+    "value": 3,
+    "text": null,
+    "notes": "Weapon names: the most marks (deeds earned with it) a weapon keeps; the oldest is dropped for a new one."
+  },
+  {
+    "param_id": "prm_reforge_fee",
+    "value": 150,
+    "text": null,
+    "notes": "Weapon names: gold a master smith charges to reforge a marked weapon from the convoy, clearing its marks."
   }
 ]

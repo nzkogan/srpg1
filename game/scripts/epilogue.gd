@@ -165,7 +165,7 @@ func note_fall(unit_id: String, map_id: String, killer: Dictionary) -> Dictionar
 		"noun": str(killer.get("noun", "")), "who": str(killer.get("who", "")),
 		"own_action": bool(killer.get("own_action", false)), "enemy_idx": int(killer.get("enemy_idx", -1)),
 		"epithets": held, "slain": (GameState.epilogue.get("slain", {}).get(unit_id, []) as Array).duplicate(),
-		"weapon_id": str(carried.get("weapon_id", "")), "weapon_uses": int(carried.get("uses", 0)), "weapon_fate": "",
+		"weapon_id": str(carried.get("weapon_id", "")), "weapon_uses": int(carried.get("uses", 0)), "weapon_marks": (carried.get("marks", []) as Array).duplicate(true), "weapon_fate": "",
 		"pack": pack, "order": _pending().size(),
 		"partner": str(bond.get("partner", "")), "tier": str(bond.get("tier", "")), "romantic": bool(bond.get("romantic", false)),
 	}
@@ -201,7 +201,10 @@ func commit(fates: Dictionary = {}) -> Array[String]:
 		for entry in rec["pack"]:
 			GameState.convoy.append(entry)
 		if rec["weapon_id"] != "" and fate == "retrieved":
-			GameState.convoy.append({"weapon_id": rec["weapon_id"], "uses": int(rec["weapon_uses"])})
+			var back := {"weapon_id": rec["weapon_id"], "uses": int(rec["weapon_uses"])}
+			if not (rec.get("weapon_marks", []) as Array).is_empty():
+				back["marks"] = (rec["weapon_marks"] as Array).duplicate(true)
+			GameState.convoy.append(back)
 		GameState.inventories.erase(uid)
 		rec["pack"] = []
 		_deaths()[uid] = rec
@@ -263,7 +266,8 @@ func weapon_clause(rec: Dictionary) -> String:
 	var fate := str(rec.get("weapon_fate", ""))
 	if wid == "" or not FATES.has(fate):
 		return ""
-	return fill("epi_weapon_" + fate, {"NAME": _unit_name(str(rec["unit_id"])), "WEAPON": Equipment.weapon_name(wid)})
+	var entry := {"weapon_id": wid, "marks": rec.get("weapon_marks", [])}
+	return fill("epi_weapon_" + fate, {"NAME": _unit_name(str(rec["unit_id"])), "WEAPON": Provenance.name_of(entry)})
 
 ## What became of the bond, read now: the partner may have since fallen or left.
 func support_clause(rec: Dictionary) -> String:

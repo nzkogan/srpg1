@@ -114,8 +114,7 @@ func _run() -> void:
 	var rec := _rec({"epithets": ["ep_bosskill"], "slain": ["the Karkadann"], "tier": "B", "partner": "u_rinsa"})
 	var txt: String = _e.sentence(rec)
 	check(txt.begins_with("Jost, Slayer of the Karkadann, fell at the tally house to an Assembly lance."), "canon's first example opens as written: %s" % txt)
-	check(txt.contains("Jost's Axe") or txt.to_lower().contains("jost's "), "...the weapon clause names the owner")
-	check(txt.contains("passed to no one."), "...a weapon lost to the enemy passes to no one")
+	check(txt.contains("The Iron Axe passed to no one."), "...a weapon lost to the enemy passes to no one")
 	check(txt.contains("Rinsa kept Jost's watch that night."), "...a platonic B partner keeps the watch")
 	check(_e.sentence(_rec({"epithets": []})).begins_with("Jost fell at the tally house to"), "no epithet: the name stands alone")
 	check(_e.title_clause(_rec({"epithets": ["ep_nohit"]})) == "the Untouched", "a bare token: the Untouched")
@@ -139,7 +138,8 @@ func _run() -> void:
 	# weapons
 	check(_e.weapon_clause(_rec({"weapon_fate": "retrieved"})).ends_with("came home in the convoy."), "retrieved")
 	check(_e.weapon_clause(_rec({"weapon_fate": "thrown_and_lost"})).contains("was thrown, and not found again"), "thrown and lost")
-	check(_e.weapon_clause(_rec({"weapon_fate": "with_the_body"})).begins_with("Jost was buried still holding the "), "with the body: still holding it")
+	check(_e.weapon_clause(_rec({"weapon_fate": "with_the_body"})) == "Jost was buried still holding the Iron Axe.", "with the body: still holding it")
+	check(_e.weapon_clause(_rec({"weapon_marks": [{"ep": "ep_capture", "object": ""}]})) == "The Taker's Iron Axe passed to no one.", "a marked weapon is named by its marks")
 	check(_e.weapon_clause(_rec({"weapon_id": "", "weapon_fate": ""})) == "", "died unarmed: no weapon clause")
 	check(not _e.sentence(_rec({"weapon_id": ""})).contains("passed to no one"), "...and none in the sentence")
 	# supports: each tier and tone

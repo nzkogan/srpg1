@@ -259,7 +259,7 @@ func activate() -> void:
 			_inv_index = 0
 			_message = "%s equips the %s." % [_name_of(u), Equipment.describe(entry)]
 		else:
-			_message = "%s can't equip the %s." % [_name_of(u), Equipment.weapon_name(entry["weapon_id"])]
+			_message = "%s can't equip the %s." % [_name_of(u), Provenance.name_of(entry)]
 	elif _column == COLUMN_CONVOY:
 		_take_highlighted()
 	_refresh_all()

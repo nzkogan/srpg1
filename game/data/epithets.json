@@ -8,7 +8,9 @@
     "forge_vocab_token": "Slayer of",
     "tracked": "yes",
     "count_needed": 1,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "{BASE}, Slayer of {OBJECT}",
+    "weapon_form_bare": "Slayer's {BASE}"
   },
   {
     "epithet_id": "ep_solohold",
@@ -19,7 +21,9 @@
     "forge_vocab_token": "of the Ford",
     "tracked": "yes",
     "count_needed": 1,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "{BASE} of the Ford",
+    "weapon_form_bare": null
   },
   {
     "epithet_id": "ep_nohit",
@@ -30,7 +34,9 @@
     "forge_vocab_token": "Untouched",
     "tracked": "yes",
     "count_needed": 1,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "Untouched {BASE}",
+    "weapon_form_bare": null
   },
   {
     "epithet_id": "ep_miasma",
@@ -41,7 +47,9 @@
     "forge_vocab_token": "Ash-walker",
     "tracked": "yes",
     "count_needed": 5,
-    "deed_terrain": "ter_miasma"
+    "deed_terrain": "ter_miasma",
+    "weapon_form": "Ash-walker's {BASE}",
+    "weapon_form_bare": null
   },
   {
     "epithet_id": "ep_delivery",
@@ -52,7 +60,9 @@
     "forge_vocab_token": "Carter",
     "tracked": "yes",
     "count_needed": 1,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "Carter's {BASE}",
+    "weapon_form_bare": null
   },
   {
     "epithet_id": "ep_dispersal",
@@ -63,7 +73,9 @@
     "forge_vocab_token": "Merciful",
     "tracked": "yes",
     "count_needed": 3,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "Merciful {BASE}",
+    "weapon_form_bare": null
   },
   {
     "epithet_id": "ep_talk",
@@ -74,7 +86,9 @@
     "forge_vocab_token": "Peacemaker",
     "tracked": "yes",
     "count_needed": 1,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "Peacemaker's {BASE}",
+    "weapon_form_bare": null
   },
   {
     "epithet_id": "ep_capture",
@@ -85,6 +99,8 @@
     "forge_vocab_token": "Taker",
     "tracked": "yes",
     "count_needed": 5,
-    "deed_terrain": null
+    "deed_terrain": null,
+    "weapon_form": "Taker's {BASE}",
+    "weapon_form_bare": null
   }
 ]
