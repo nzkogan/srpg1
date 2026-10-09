@@ -87,6 +87,11 @@ var works_started: int = 0
 var defections: Dictionary = {}
 var guests: Dictionary = {}
 
+## The crown's ledger and its deputy (see the Deputy autoload). deputy_ledger: unit_id ->
+## {factor_id: how many times}; deputy: {} until the writ scene, then {"unit", "contested"}.
+var deputy_ledger: Dictionary = {}
+var deputy: Dictionary = {}
+
 ## A suspended battle (a mid-map save): {} when there is none, else the snapshot
 ## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
 ## a copy of the rest of the playthrough as it was, so resuming rolls everything back
@@ -110,6 +115,7 @@ const PERSISTED := {
 	"battle": TYPE_DICTIONARY,
 	"materials": TYPE_DICTIONARY, "materials_claimed": TYPE_DICTIONARY, "forge_orders": TYPE_ARRAY, "works_started": TYPE_INT,
 	"defections": TYPE_DICTIONARY, "guests": TYPE_DICTIONARY,
+	"deputy_ledger": TYPE_DICTIONARY, "deputy": TYPE_DICTIONARY,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.

@@ -199,6 +199,8 @@ func detail_text() -> String:
 	var st := Progression.state(u)
 	var lines: Array[String] = []
 	lines.append("[b][font_size=20]%s[/font_size][/b]   Level %d   (%d / %d EXP)" % [_name_of(u), st["level"], st["exp"], int(Progression.param("exp_per_level"))])
+	if Deputy.deputy() == u:
+		lines.append("[color=%s]The crown's deputy.[/color]" % GOLD)
 	lines.append("%s%s   Ability slots: %d" % [Progression.class_name_of(u), "  [color=%s](certified)[/color]" % GOOD if st["promoted"] else "", Progression.slots(u)])
 	lines.append(_stat_line(u))
 	lines.append("")

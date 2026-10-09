@@ -2,46 +2,55 @@
   {
     "factor": "writ chapter deed",
     "weight": 2,
-    "rationale": "main-story chapters only"
+    "rationale": "main-story chapters only",
+    "factor_id": "writ_deed"
   },
   {
     "factor": "paralogue deed",
     "weight": 0,
-    "rationale": "unofficial work, off the books"
+    "rationale": "unofficial work, off the books",
+    "factor_id": "paralogue_deed"
   },
   {
     "factor": "on stated objective",
     "weight": 1,
-    "rationale": "counts toward the map's briefed goal"
+    "rationale": "counts toward the map's briefed goal",
+    "factor_id": "on_objective"
   },
   {
     "factor": "within 4 tiles of surveyor",
     "weight": 1,
-    "rationale": "witnessed by the auditor"
+    "rationale": "witnessed by the auditor",
+    "factor_id": "witnessed"
   },
   {
     "factor": "unwitnessed kill",
     "weight": 0,
-    "rationale": "far-corner heroics do not appear in the report"
+    "rationale": "far-corner heroics do not appear in the report",
+    "factor_id": "unwitnessed_kill"
   },
   {
     "factor": "delivery / hold / dispersal",
     "weight": 1.5,
-    "rationale": "legible categories outweigh kills"
+    "rationale": "legible categories outweigh kills",
+    "factor_id": "legible"
   },
   {
     "factor": "raw kill",
     "weight": 0.5,
-    "rationale": "hard to write down in a way that survives a clerk"
+    "rationale": "hard to write down in a way that survives a clerk",
+    "factor_id": "raw_kill"
   },
   {
     "factor": "revealed literacy (tiebreak)",
     "weight": 0.25,
-    "rationale": "Ricberta only, and only if a support revealed it"
+    "rationale": "Ricberta only, and only if a support revealed it",
+    "factor_id": "literacy"
   },
   {
-    "factor": "The crown picks the deputy off this. Player may contest once at the writ scene; the crown grants it and withholds Column B's supply attachment.",
+    "factor": "The crown picks the deputy off this. Player may contest once at the writ scene; the crown grants it and withholds Column B's supply attachment. ADDENDUM (2026-10-19): the game now runs this. factor_id names each row for the code. Scoring is ADDITIVE per event, on main-story (writ) chapters only: a deed earned = writ_deed (2); a delivery, solo hold or dispersal deed also = legible (1.5); a kill = raw_kill (0.5) if made within the surveyor radius, else unwitnessed_kill (0); finishing a map's stated objective (seizing, escaping, escorting, felling the boss of a defend map) = on_objective (1); ANY of those done within the surveyor radius also earns witnessed (1). The surveyor stands at the camp -- the middle of the deploy row -- since far-corner heroics 'do not appear in the report'. Paralogue deeds score paralogue_deed (0). literacy is added (not stored) once a support of Ricberta's has revealed it (supports.reveals / reveals_at_rank). The writ scene is ch_x11 (the Second Writ): the crown's pick is the highest score; the player may name another, once; the crown grants it and withholds Column B's supply attachment (drafted as gold: prm_column_b_supply_gold on each Column B chapter won). Highest score wins ties by canonical order.",
     "weight": null,
-    "rationale": null
+    "rationale": null,
+    "factor_id": null
   }
 ]

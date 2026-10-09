@@ -424,5 +424,17 @@
     "value": 2,
     "text": null,
     "notes": "A guest unit (Anna) joins this many levels under the squad's median, from her class's trained baseline grown by her profile's expected rates."
+  },
+  {
+    "param_id": "prm_surveyor_radius",
+    "value": 4,
+    "text": null,
+    "notes": "Deputy scoring: an action is 'witnessed' if the unit that did it is within this many tiles of the surveyor (the camp, the middle of the deploy row)."
+  },
+  {
+    "param_id": "prm_column_b_supply_gold",
+    "value": 100,
+    "text": null,
+    "notes": "Deputy scoring: the Column B supply attachment, drafted as this much gold on each Column B chapter newly won -- withheld if the player contested the crown's choice of deputy at the writ scene."
   }
 ]

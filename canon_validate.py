@@ -513,6 +513,32 @@ def main():
         if g.get("depart_map_id") not in maps_known:
             fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"depart_map_id '{g.get('depart_map_id')}' is not a map")
 
+    # --- c07o the deputy ledger: every scoring factor the code uses is present, once, with a weight;
+    #     a support that reveals literacy names a real rank
+    needed_factors = {"writ_deed", "paralogue_deed", "on_objective", "witnessed", "unwitnessed_kill", "legible", "raw_kill", "literacy"}
+    seen_factors = Counter()
+    for dl in read_tab(wb, "deputy_ledger"):
+        fid = dl.get("factor_id")
+        if fid in (None, ""):
+            continue
+        seen_factors[fid] += 1
+        if not isinstance(dl.get("weight"), (int, float)):
+            fail("c07", "blocking", f"deputy_ledger.{fid}", "weight must be a number")
+    for fid in sorted(needed_factors - set(seen_factors)):
+        fail("c07", "blocking", "deputy_ledger", f"factor '{fid}' is missing")
+    for fid, n in seen_factors.items():
+        if n > 1:
+            fail("c07", "blocking", f"deputy_ledger.{fid}", "appears more than once")
+    for sp in tabs["supports"]:
+        rv = sp.get("reveals")
+        if rv not in (None, ""):
+            if rv != "literacy":
+                fail("c07", "blocking", f"supports.{sp['chain_id']}", f"reveals '{rv}' is not 'literacy'")
+            if sp.get("reveals_about") not in (sp.get("unit_a_id"), sp.get("unit_b_id")):
+                fail("c07", "blocking", f"supports.{sp['chain_id']}", "reveals_about must be one of the chain's two units")
+            if sp.get("reveals_at_rank") not in ("C", "B", "A", "S"):
+                fail("c07", "blocking", f"supports.{sp['chain_id']}", "reveals_at_rank must be C, B, A or S")
+
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
     for r in tabs["prologue_roster"]:

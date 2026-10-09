@@ -577,6 +577,8 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 			lines.append("Enter plays %s." % nxt.chapter.get("title"))
 		elif location_status(location_id) == "won":
 			lines.append("Everything here is won. Enter replays it.")
+	if Deputy.decided():
+		lines.append("The crown's deputy: %s%s." % [Deputy._unit_name(Deputy.deputy()), " (contested: Column B's supply is withheld)" if Deputy.contested() else ""])
 	var smiths := Forge.forges_at(location_id)
 	if not smiths.is_empty():
 		var names: Array[String] = []
@@ -678,14 +680,21 @@ func chapter_to_play(location_id: String) -> Dictionary:
 				entry = e
 	return entry
 
-func _launch(entry: Dictionary) -> void:
+## The scene a chapter loads: the writ scene first if the Second Writ is next and no deputy has
+## been named, else its special scene or its map ("" if none is built).
+func scene_for(entry: Dictionary) -> String:
 	var chapter_id: String = entry.chapter.get("chapter_id", "")
-	chapter_launched.emit(chapter_id)
+	if Deputy.writ_due(chapter_id):
+		return Deputy.SCREEN_SCENE
+	if SPECIAL_SCENES.has(chapter_id):
+		return SPECIAL_SCENES[chapter_id]
+	var map_id: String = entry.map_row.get("map_id", "")
+	return AVAILABLE_SCENES.get(map_id, "")
+
+func _launch(entry: Dictionary) -> void:
+	chapter_launched.emit(entry.chapter.get("chapter_id", ""))
 	if not launch_enabled:
 		return
-	if SPECIAL_SCENES.has(chapter_id):
-		get_tree().change_scene_to_file(SPECIAL_SCENES[chapter_id])
-		return
-	var map_id: String = entry.map_row.get("map_id", "")
-	if AVAILABLE_SCENES.has(map_id):
-		get_tree().change_scene_to_file(AVAILABLE_SCENES[map_id])
+	var path := scene_for(entry)
+	if path != "":
+		get_tree().change_scene_to_file(path)

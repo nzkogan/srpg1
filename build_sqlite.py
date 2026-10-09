@@ -89,6 +89,7 @@ NUMERIC = {
     "epithets": {"count_needed"},
     "locations": {"map_x", "map_y"},
     "forges": {"cycle_n"},
+    "deputy_ledger": {"weight"},
     "cargo_units": {"hp", "def", "res", "spawn_row", "spawn_col"},
 }
 

@@ -167,6 +167,8 @@ var bribed_count := 0          # enemies turned neutral on this map (Kheldar's b
 ## Test seam: false makes P write the suspend save without leaving for the overworld.
 var suspend_leaves := true
 var _talk_mode := false        # [T] pressed: the next arrow key / click picks who to talk to
+var surveyor_pos: Vector2i = Vector2i(-1, -1)  # the crown's surveyor, at the camp (middle of the deploy row)
+var _last_actor := ""                          # the unit whose action is being resolved (for objective credit)
 var _material_notes: Array[String] = []
 var _intro_lines: Array[String] = []   # what the pre-battle screen would say (defector lieutenants)
 var delivered: Array[String] = []   # cargo ids that have reached the goal on this map
@@ -236,6 +238,7 @@ func _ready() -> void:
 	if not snap.is_empty():
 		_restore_units(snap)
 	_draw_unit_tokens()
+	_place_surveyor()
 	if snap.is_empty():
 		_spawn_encounter()
 	else:
@@ -750,6 +753,7 @@ func _try_move_to(pos: Vector2i) -> void:
 	# other seize map has no such restriction named, so any unit qualifies.
 	var seize_allowed := map_id != "map_f00" or pid == "pu_sargath"
 	if map_row.get("objective_verb") == "seize" and seize_allowed and pos == seize_pos and not map_won:
+		_credit_objective(pid)
 		map_won = true
 		status_label.text = "SEIZED. %s reaches the objective." % unit.get("name")
 		info_label.text = "Victory. (The endgame branches from here aren't modeled in this tool.)"
@@ -765,6 +769,7 @@ func _try_move_to(pos: Vector2i) -> void:
 			_deliver(pid)
 			return
 	elif (verb == "escape" or verb == "escort") and pos == escape_pos:
+		_credit_objective(pid)
 		unit_positions.erase(pid)
 		if token:
 			token.container.queue_free()
@@ -919,6 +924,8 @@ func _on_map_won() -> void:
 	_support_lines.clear()
 	var newly := not GameState.won_maps.has(map_id)
 	_reward_text = _settle_rewards()
+	if map_id == "map_x11":
+		Deputy.ensure_decided()       # the Second Writ is won: the crown's pick stands if it was never contested
 	var forged := Forge.on_map_won(newly) if map_id != "map_f00" else []
 	if map_id != "map_f00":
 		forged.append_array(Defections.on_map_won(map_id, newly))
@@ -967,11 +974,21 @@ func _settle_rewards() -> String:
 	var parts: Array[String] = []
 	if gold > 0:
 		parts.append("Income: +%d gold%s." % [gold, " (Kheldar's cut)" if factor else ""])
+		var attach := Deputy.supply_attachment_gold(map_id)
+		if attach > 0:
+			GameState.gold += attach
+			parts.append("Column B's supply attachment: +%d gold." % attach)
+	if Deputy.supply_withheld() and Deputy.supply_attachment_gold(map_id) == 0 and _is_column_b():
+		parts.append("Column B's supply attachment is withheld (you contested the crown's deputy).")
 	parts.append_array(_no_hit_deeds())
 	var unlocked := Progression.on_map_won(map_id)
 	if not unlocked.is_empty():
 		parts.append("Class unlocked: %s." % ", ".join(unlocked))
 	return " ".join(parts)
+
+func _is_column_b() -> bool:
+	var chapter = Canon.find_by("chapters", "chapter_id", map_row.get("chapter_id", ""))
+	return chapter != null and chapter.get("column") == "B"
 
 func _show_rewards() -> void:
 	if status_label != null and _reward_text != "":
@@ -1143,6 +1160,8 @@ func _attack_enemy() -> void:
 
 	if target.hp == 0:
 		info_label.text += " The %s falls." % ename
+		_credit_kill(pid)
+		_last_actor = pid
 		var drop := _defeat_enemy(target)
 		if drop != "":
 			info_label.text += " It drops a %s (added to the convoy)." % drop
@@ -1598,6 +1617,7 @@ func _talk_toward(dir: Vector2i) -> void:
 	var more := _award_exp(unit, inst, true, rng)
 	more.append_array(_talk_deed(pid, unit.get("name")))
 	text += "\n" + " ".join(more)
+	_last_actor = pid
 	_boss_resolved(inst, "yields")
 	info_label.text = ("Victory. " if map_won else "") + text
 	_update_status_label()
@@ -1875,6 +1895,8 @@ func _take_material_notes() -> Array[String]:
 ## A boss leaving the fight, however it ends (falls, yields), wins a 'defend' map.
 func _boss_resolved(inst: Dictionary, how: String) -> void:
 	if inst.kind == "boss" and map_row.get("objective_verb") == "defend" and not map_won:
+		if _last_actor != "":
+			_credit_objective(_last_actor)
 		map_won = true
 		status_label.text = "The %s %s. Threat neutralized." % [inst.archetype.get("name"), how]
 		info_label.text = "Victory."
@@ -2002,6 +2024,8 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 		enemy_log.append_array(_award_exp(defender_row_for(pid), inst, inst.hp == 0, rng, false))
 	if inst.hp == 0:
 		enemy_log.append("The %s falls." % ename)
+		_credit_kill(pid)
+		_last_actor = pid
 		var drop := _defeat_enemy(inst)
 		if drop != "":
 			enemy_log.append("It drops a %s." % drop)
@@ -2119,6 +2143,7 @@ func _earn_deed(pid: String, epithet_id: String, unit_name: String) -> Array[Str
 	if map_id == "map_f00" or not Progression.is_known_unit(pid):
 		return out
 	if Progression.record_deed(pid, epithet_id):
+		Deputy.on_deed(pid, epithet_id, map_id, _witnessed(pid))
 		var row := Progression.epithet_row(epithet_id)
 		out.append("%s earns a deed: %s ('%s')." % [unit_name, str(row.get("deed_category", epithet_id)).replace("_", " "), row.get("forge_vocab_token", "")])
 	return out
@@ -2415,6 +2440,46 @@ func _apply_weapon_effect(unit: Dictionary, weapon: Dictionary, inst: Dictionary
 						lines.append("The %s drags the %s a tile closer." % [wname, ename])
 	return lines
 
+# --------------------------------------------------------- the crown's ledger
+#
+# On main-story chapters the crown's surveyor watches from the camp -- the middle of the
+# deploy row -- and a deputy candidate's deeds, kills and work on the objective are written
+# into the ledger (Deputy autoload), worth more if done within the surveyor's radius.
+
+func _place_surveyor() -> void:
+	if map_id == "map_f00" or units.is_empty():
+		return
+	var total := 0
+	var counted := 0
+	for u in units:
+		if u.get("cargo", false) or u.get("deploy_col", -1) == null or int(u.get("deploy_col", -1)) < 0:
+			continue
+		total += int(u["deploy_col"])
+		counted += 1
+	if counted == 0:
+		return
+	surveyor_pos = Vector2i(total / counted, int(units[0].get("deploy_row", deploy_row)))
+	if Deputy.map_kind(map_id) != "writ":
+		return
+	var mark := ColorRect.new()
+	mark.size = Vector2(10, 10)
+	mark.position = Vector2(surveyor_pos.x * CELL_SIZE + CELL_SIZE - 14, surveyor_pos.y * CELL_SIZE + 4)
+	mark.color = Color(0.91, 0.76, 0.29, 0.95)
+	add_child(mark)
+
+## Whether the unit is within the surveyor's radius of the camp right now.
+func _witnessed(pid: String) -> bool:
+	return surveyor_pos != Vector2i(-1, -1) and unit_positions.has(pid) \
+		and _distance(unit_positions[pid], surveyor_pos) <= int(Progression.param("surveyor_radius"))
+
+func _credit_kill(pid: String) -> void:
+	if map_id != "map_f00" and Progression.is_known_unit(pid):
+		Deputy.on_kill(pid, map_id, _witnessed(pid))
+
+func _credit_objective(pid: String) -> void:
+	if map_id != "map_f00" and Progression.is_known_unit(pid):
+		Deputy.on_objective(pid, map_id, _witnessed(pid))
+
 # ----------------------------------------------------------- miasma and cargo
 #
 # Two more deeds. Miasma ("ends turn on miasma tiles 5+ times"): each main unit that
@@ -2496,6 +2561,7 @@ func _deliver(pid: String) -> void:
 		if _is_cargo(other) or not Progression.is_known_unit(other) or _distance(unit_positions[other], escape_pos) > radius:
 			continue
 		var row = Canon.find_by("units", "unit_id", other)
+		_credit_objective(other)
 		lines.append_array(_earn_deed(other, "ep_delivery", str(row["name"]) if row != null else other))
 	if delivered.size() >= _cargo_needed() and not map_won:
 		map_won = true
