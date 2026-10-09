@@ -92,6 +92,11 @@ var guests: Dictionary = {}
 var deputy_ledger: Dictionary = {}
 var deputy: Dictionary = {}
 
+## The fallen (see the Epilogue autoload): {"deaths": unit_id -> record, "pending": unit_id ->
+## record (fallen on a map not yet won -- discarded if the map is retried), "slain": unit_id ->
+## [what they killed that earned 'Slayer of'], "seq": deaths so far}.
+var epilogue: Dictionary = {}
+
 ## A suspended battle (a mid-map save): {} when there is none, else the snapshot
 ## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
 ## a copy of the rest of the playthrough as it was, so resuming rolls everything back
@@ -115,7 +120,7 @@ const PERSISTED := {
 	"battle": TYPE_DICTIONARY,
 	"materials": TYPE_DICTIONARY, "materials_claimed": TYPE_DICTIONARY, "forge_orders": TYPE_ARRAY, "works_started": TYPE_INT,
 	"defections": TYPE_DICTIONARY, "guests": TYPE_DICTIONARY,
-	"deputy_ledger": TYPE_DICTIONARY, "deputy": TYPE_DICTIONARY,
+	"deputy_ledger": TYPE_DICTIONARY, "deputy": TYPE_DICTIONARY, "epilogue": TYPE_DICTIONARY,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.

@@ -60,6 +60,7 @@ PK = {
     "weapons": ("weapon_id", "wpn_"),
     "promotion_rules": ("param_id", "prm_"), "abilities": ("ability_id", "ab_"),
     "world_paths": ("path_id", "path_"), "cargo_units": ("cargo_id", "cargo_"),
+    "epilogue_text": ("phrase_id", "epi_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
@@ -131,6 +132,7 @@ FKS = {
     ("world_paths", "to_location_id"): ("locations", "location_id"),
     ("chapters", "location_id"): ("locations", "location_id"),
     ("cargo_units", "map_id"): ("maps", "map_id"),
+    ("maps", "enemy_polity_id"): ("polities", "polity_id"),
     ("forges", "location_id"): ("locations", "location_id"),
     ("defections", "trigger_map_id"): ("maps", "map_id"),
     ("defections", "trigger_unless_map_id"): ("maps", "map_id"),

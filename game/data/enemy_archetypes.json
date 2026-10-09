@@ -21,7 +21,9 @@
     "flees_below_pct": null,
     "talk_mod": 30,
     "talk_line": "We were told it was a drill. ... It isn't, is it.",
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "sword"
   },
   {
     "enemy_id": "ea_conscript_levy",
@@ -45,7 +47,9 @@
     "flees_below_pct": 50,
     "talk_mod": 20,
     "talk_line": "I never wanted this spear. Tell them you never saw me.",
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "spear"
   },
   {
     "enemy_id": "ea_looter",
@@ -69,7 +73,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "band",
+    "death_noun": "axe"
   },
   {
     "enemy_id": "ea_relic_hunter",
@@ -93,7 +99,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "band",
+    "death_noun": "arrow"
   },
   {
     "enemy_id": "ea_privateer",
@@ -117,7 +125,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "band",
+    "death_noun": "cutlass"
   },
   {
     "enemy_id": "ea_conquered_soldier",
@@ -141,7 +151,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "lance"
   },
   {
     "enemy_id": "ea_hardened_veteran",
@@ -165,7 +177,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "sword"
   },
   {
     "enemy_id": "ea_war_captain",
@@ -189,7 +203,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "lance"
   },
   {
     "enemy_id": "ea_warlord",
@@ -213,7 +229,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "axe"
   },
   {
     "enemy_id": "ea_preacher_boyan",
@@ -237,7 +255,9 @@
     "flees_below_pct": null,
     "talk_mod": -10,
     "talk_line": "You answered the still night, and the night answers you. Go on, then.",
-    "named_id": null
+    "named_id": null,
+    "affiliation": "individual",
+    "death_noun": null
   },
   {
     "enemy_id": "ea_relic_hunter_captain",
@@ -261,7 +281,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "individual",
+    "death_noun": null
   },
   {
     "enemy_id": "ea_shadhavar",
@@ -285,7 +307,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": "nmd_shadhavar"
+    "named_id": "nmd_shadhavar",
+    "affiliation": "named",
+    "death_noun": null
   },
   {
     "enemy_id": "ea_simurgh",
@@ -309,7 +333,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": "nmd_simurgh"
+    "named_id": "nmd_simurgh",
+    "affiliation": "named",
+    "death_noun": null
   },
   {
     "enemy_id": "ea_karkadann",
@@ -333,7 +359,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": "nmd_karkadann"
+    "named_id": "nmd_karkadann",
+    "affiliation": "named",
+    "death_noun": null
   },
   {
     "enemy_id": "ea_anzu",
@@ -357,7 +385,9 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": "nmd_anzu"
+    "named_id": "nmd_anzu",
+    "affiliation": "named",
+    "death_noun": null
   },
   {
     "enemy_id": "ea_billman",
@@ -381,6 +411,8 @@
     "flees_below_pct": null,
     "talk_mod": null,
     "talk_line": null,
-    "named_id": null
+    "named_id": null,
+    "affiliation": "state",
+    "death_noun": "halberd"
   }
 ]

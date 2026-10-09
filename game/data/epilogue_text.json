@@ -1,0 +1,157 @@
+[
+  {
+    "phrase_id": "epi_head",
+    "text": "{NAME}, {TITLE}, fell at {PLACE}",
+    "notes": "opening clause when the unit holds an epithet"
+  },
+  {
+    "phrase_id": "epi_head_plain",
+    "text": "{NAME} fell at {PLACE}",
+    "notes": "opening clause for someone plain -- the name stands alone"
+  },
+  {
+    "phrase_id": "epi_tail_known",
+    "text": " to {KILLER}",
+    "notes": "killer clause tail for any named or factional killer"
+  },
+  {
+    "phrase_id": "epi_tail_unknown",
+    "text": ", in the chaos, to no blade anyone could name",
+    "notes": "reserved for routs and unwitnessed deaths; bleaker than a named killer, not vaguer"
+  },
+  {
+    "phrase_id": "epi_tail_hazard",
+    "text": " to {HAZARD}",
+    "notes": "a death with no hand in it (extension to the enum: killed_by_type hazard)"
+  },
+  {
+    "phrase_id": "epi_hazard_cold",
+    "text": "the cold",
+    "notes": "hazard names, keyed epi_hazard_<id>"
+  },
+  {
+    "phrase_id": "epi_killer_polity",
+    "text": "{A} {ADJ} {NOUN}",
+    "notes": "faction, not a person: a Diadem lance, an Assembly arrow"
+  },
+  {
+    "phrase_id": "epi_killer_band",
+    "text": "{A} {WHO}'s {NOUN}",
+    "notes": "an unaffiliated armed band, or a soldier whose map names no polity (extension: killed_by_type band)"
+  },
+  {
+    "phrase_id": "epi_killer_named",
+    "text": "{PHRASE}",
+    "notes": "the Named creature signature verb (named.death_phrase)"
+  },
+  {
+    "phrase_id": "epi_killer_defector",
+    "text": "{DEFECTOR}",
+    "notes": "a defector is named directly"
+  },
+  {
+    "phrase_id": "epi_killer_boss",
+    "text": "{BOSS}",
+    "notes": "a chapter boss is named directly"
+  },
+  {
+    "phrase_id": "epi_title_slayer_of",
+    "text": "{TOKEN} {OBJECT}",
+    "notes": "forge_vocab_token ending in \"of\" takes the thing slain"
+  },
+  {
+    "phrase_id": "epi_title_slayer_fallback",
+    "text": "the Slayer",
+    "notes": "when the deed was earned but the quarry was not recorded"
+  },
+  {
+    "phrase_id": "epi_title_the",
+    "text": "the {TOKEN}",
+    "notes": "a bare forge_vocab_token: the Untouched"
+  },
+  {
+    "phrase_id": "epi_weapon_lost_to_enemy",
+    "text": "{NAME}'s {WEAPON} passed to no one.",
+    "notes": "weapon_fate lost_to_enemy"
+  },
+  {
+    "phrase_id": "epi_weapon_retrieved",
+    "text": "{NAME}'s {WEAPON} came home in the convoy.",
+    "notes": "weapon_fate retrieved"
+  },
+  {
+    "phrase_id": "epi_weapon_thrown_and_lost",
+    "text": "{NAME}'s {WEAPON} was thrown, and not found again.",
+    "notes": "weapon_fate thrown_and_lost"
+  },
+  {
+    "phrase_id": "epi_weapon_with_the_body",
+    "text": "{NAME} was buried still holding the {WEAPON}.",
+    "notes": "weapon_fate with_the_body"
+  },
+  {
+    "phrase_id": "epi_support_platonic_C",
+    "text": "{PARTNER} knew {NAME} only a little, and said so.",
+    "notes": "platonic, tier C"
+  },
+  {
+    "phrase_id": "epi_support_platonic_B",
+    "text": "{PARTNER} kept {NAME}'s watch that night.",
+    "notes": "platonic, tier B"
+  },
+  {
+    "phrase_id": "epi_support_platonic_A",
+    "text": "{PARTNER} carried {NAME}'s name into every fight after.",
+    "notes": "platonic, tier A"
+  },
+  {
+    "phrase_id": "epi_support_romantic_C",
+    "text": "{PARTNER} had meant to say something, and did not.",
+    "notes": "romantic, tier C"
+  },
+  {
+    "phrase_id": "epi_support_romantic_B",
+    "text": "{PARTNER} sat with the body until morning.",
+    "notes": "romantic, tier B"
+  },
+  {
+    "phrase_id": "epi_support_romantic_A",
+    "text": "{PARTNER} would not speak of it.",
+    "notes": "romantic, tier A"
+  },
+  {
+    "phrase_id": "epi_support_romantic_S",
+    "text": "{PARTNER} stayed on the field until someone made them leave.",
+    "notes": "romantic, tier S"
+  },
+  {
+    "phrase_id": "epi_support_gone",
+    "text": "{PARTNER} was gone from the company by then.",
+    "notes": "the partner had defected or departed"
+  },
+  {
+    "phrase_id": "epi_support_fallen_before",
+    "text": "{PARTNER} had fallen already, and there was no one left to grieve.",
+    "notes": "the partner died earlier"
+  },
+  {
+    "phrase_id": "epi_support_fallen_after",
+    "text": "{PARTNER} did not outlive the war either.",
+    "notes": "the partner died later"
+  },
+  {
+    "phrase_id": "epi_support_alone",
+    "text": "No one at the fire was close enough to grieve properly.",
+    "notes": "unpaired: a quiet indictment of a run that never built the relationship"
+  },
+  {
+    "phrase_id": "epi_roll_title",
+    "text": "The Fallen",
+    "notes": "heading of the fallen roll"
+  },
+  {
+    "phrase_id": "epi_roll_empty",
+    "text": "No one has fallen. Yet.",
+    "notes": "the roll when it is empty"
+  }
+]

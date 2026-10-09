@@ -28,7 +28,8 @@ extends Node2D
 ## save, load or new game (save_screen.gd). U = free roam: ignore the locks (a
 ## testing aid, not saved). Escape inside any map returns here (see map_grid.gd).
 ##
-## F opens the forge where a master smith works (see forge.gd).
+## F opens the forge where a master smith works (see forge.gd). R reads the roll of the fallen
+## (epilogue.gd).
 ##
 ## A battle suspended with P (or quick-saved with F5) waits here: the party stands at its
 ## place, the panel says so, and Enter resumes it exactly where it stopped. X (pressed twice)
@@ -288,6 +289,18 @@ func open_forge() -> bool:
 		get_tree().change_scene_to_file(Forge.SCREEN_SCENE)
 	return true
 
+## R: the roll of the fallen (see Epilogue) in the panel; R again returns to the place.
+func toggle_roll() -> void:
+	if info_label == null:
+		return
+	_roll_open = not _roll_open
+	if _roll_open:
+		info_label.text = Epilogue.roll_text() + "\n\n(R returns.)"
+	else:
+		_show_location(selected_location if selected_location != "" else party_location, not is_walking())
+
+var _roll_open := false
+
 ## The map of a suspended battle ("" if none).
 func suspended_map() -> String:
 	return str(GameState.battle.get("map_id", ""))
@@ -544,6 +557,7 @@ func _blurb(row: Dictionary) -> String:
 ## The panel: where this is, what is here (each chapter and what state it is in), what
 ## Enter does, and the standing hints. `here` is false while the party is still walking.
 func _show_location(location_id: String, here: bool, extra: String = "") -> void:
+	_roll_open = false
 	_recolor_nodes()
 	if info_label == null:
 		return
@@ -579,6 +593,8 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 			lines.append("Everything here is won. Enter replays it.")
 	if Deputy.decided():
 		lines.append("The crown's deputy: %s%s." % [Deputy._unit_name(Deputy.deputy()), " (contested: Column B's supply is withheld)" if Deputy.contested() else ""])
+	if Epilogue.count() > 0:
+		lines.append("The fallen: %d. Press R to read the roll." % Epilogue.count())
 	var smiths := Forge.forges_at(location_id)
 	if not smiths.is_empty():
 		var names: Array[String] = []
@@ -618,6 +634,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
 		open_forge()
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_R:
+		toggle_roll()
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_X:
 		if GameState.battle.is_empty():

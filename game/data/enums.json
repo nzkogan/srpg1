@@ -284,6 +284,10 @@
     "value": "triumphal"
   },
   {
+    "category": "killed_by_type",
+    "value": "band"
+  },
+  {
     "category": "art",
     "value": "faith"
   },
@@ -302,6 +306,10 @@
   {
     "category": "tonal_register",
     "value": "elegiac"
+  },
+  {
+    "category": "killed_by_type",
+    "value": "hazard"
   },
   {
     "category": "art",

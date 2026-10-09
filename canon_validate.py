@@ -72,6 +72,7 @@ PRIMARY_KEYS = {
     "abilities": ("ability_id", "ab_"),
     "world_paths": ("path_id", "path_"),
     "cargo_units": ("cargo_id", "cargo_"),
+    "epilogue_text": ("phrase_id", "epi_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -538,6 +539,48 @@ def main():
                 fail("c07", "blocking", f"supports.{sp['chain_id']}", "reveals_about must be one of the chain's two units")
             if sp.get("reveals_at_rank") not in ("C", "B", "A", "S"):
                 fail("c07", "blocking", f"supports.{sp['chain_id']}", "reveals_at_rank must be C, B, A or S")
+
+    # --- c07p the epilogue generator: every phrase it reaches for exists with the placeholders it fills;
+    #     every enemy says whose it is and what its blow is called; a Named has a signature verb
+    phrases = {r["phrase_id"]: str(r.get("text") or "") for r in tabs["epilogue_text"]}
+    need_ph = {
+        "epi_head": ["{NAME}", "{TITLE}", "{PLACE}"], "epi_head_plain": ["{NAME}", "{PLACE}"],
+        "epi_tail_known": ["{KILLER}"], "epi_tail_unknown": [], "epi_tail_hazard": ["{HAZARD}"],
+        "epi_hazard_cold": [], "epi_killer_polity": ["{ADJ}", "{NOUN}"], "epi_killer_band": ["{WHO}", "{NOUN}"],
+        "epi_killer_named": ["{PHRASE}"], "epi_killer_defector": ["{DEFECTOR}"], "epi_killer_boss": ["{BOSS}"],
+        "epi_title_slayer_of": ["{TOKEN}", "{OBJECT}"], "epi_title_slayer_fallback": [], "epi_title_the": ["{TOKEN}"],
+        "epi_support_gone": ["{PARTNER}"], "epi_support_fallen_before": ["{PARTNER}"], "epi_support_fallen_after": ["{PARTNER}"],
+        "epi_support_alone": [], "epi_roll_title": [], "epi_roll_empty": [],
+    }
+    for fate in ("lost_to_enemy", "retrieved", "thrown_and_lost", "with_the_body"):
+        need_ph[f"epi_weapon_{fate}"] = ["{WEAPON}"]
+    for kind in ("platonic", "romantic"):
+        for tier in ("C", "B", "A") + (("S",) if kind == "romantic" else ()):
+            need_ph[f"epi_support_{kind}_{tier}"] = ["{PARTNER}"]
+    for pid, holes in need_ph.items():
+        if pid not in phrases:
+            fail("c07", "blocking", "epilogue_text", f"phrase '{pid}' is missing")
+            continue
+        for ph in holes:
+            if ph not in phrases[pid]:
+                fail("c07", "blocking", f"epilogue_text.{pid}", f"text lacks the placeholder {ph}")
+    for pid, text in phrases.items():
+        low = f" {text.lower()} "
+        if any(w in low for w in (" he ", " she ", " his ", " her ", " him ", " hers ")):
+            fail("c07", "warning", f"epilogue_text.{pid}", "uses a gendered pronoun for someone whose pronouns the game does not know")
+    for ea in tabs["enemy_archetypes"]:
+        if ea.get("affiliation") not in ("state", "band", "individual", "named"):
+            fail("c07", "blocking", f"enemy_archetypes.{ea['enemy_id']}", "affiliation must be state, band, individual or named")
+        if ea.get("affiliation") in ("state", "band") and not ea.get("death_noun"):
+            fail("c07", "blocking", f"enemy_archetypes.{ea['enemy_id']}", "a state or band enemy needs a death_noun")
+        if (ea.get("affiliation") == "named") != (ea.get("named_id") not in (None, "")):
+            fail("c07", "blocking", f"enemy_archetypes.{ea['enemy_id']}", "affiliation 'named' must match having a named_id")
+    for nm in tabs["named"]:
+        if not nm.get("death_phrase"):
+            fail("c07", "blocking", f"named.{nm['named_id']}", "a Named needs a death_phrase for the epilogue")
+    for pl in tabs["polities"]:
+        if not pl.get("epilogue_adjective"):
+            fail("c07", "blocking", f"polities.{pl['polity_id']}", "a polity needs an epilogue_adjective")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

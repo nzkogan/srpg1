@@ -217,6 +217,8 @@ func _ready() -> void:
 	chapter_route = chapter["route"] if chapter != null else ""
 	Supports.begin_map()
 	var snap := _take_suspension()
+	if snap.is_empty():
+		Epilogue.begin_map()      # a fresh attempt: falls from an abandoned one do not count
 	units = _build_units()
 	if map_id == "map_f00":
 		_index_structures()
@@ -923,7 +925,10 @@ var _reward_text := ""
 func _on_map_won() -> void:
 	_support_lines.clear()
 	var newly := not GameState.won_maps.has(map_id)
+	var fallen := Epilogue.commit(_death_fates())     # the map is won: this map's falls are final
 	_reward_text = _settle_rewards()
+	if not fallen.is_empty():
+		_reward_text = (_reward_text + "\n" + "\n".join(fallen)).strip_edges()
 	if map_id == "map_x11":
 		Deputy.ensure_decided()       # the Second Writ is won: the crown's pick stands if it was never contested
 	var forged := Forge.on_map_won(newly) if map_id != "map_f00" else []
@@ -1026,7 +1031,7 @@ func _apply_hazard_damage() -> void:
 			continue
 		unit_hp[pid] = max(0, unit_hp.get(pid, 0) - dmg)
 		if unit_hp[pid] == 0:
-			_kill_unit(pid)
+			_kill_unit(pid, {"type": "hazard", "id": "cold"})
 			info_label.text = "%s succumbs to the cold." % unit.get("name")
 	for inst in enemies:
 		if inst.defeated:
@@ -1171,7 +1176,7 @@ func _attack_enemy() -> void:
 		if map_won:
 			return
 	if int(unit_hp[pid]) == 0:
-		_kill_unit(pid)
+		_kill_unit(pid, _killer_of(target, true))
 		info_label.text += " %s falls." % unit.get("name")
 		_check_defeat()
 	else:
@@ -2017,7 +2022,7 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	if int(unit_hp[pid]) > 0:
 		enemy_log.append_array(_apply_weapon_effect(defender, def_weapon, inst, "def", result))
 	if int(unit_hp[pid]) == 0:
-		_kill_unit(pid)
+		_kill_unit(pid, _killer_of(inst, false))
 		enemy_log.append("%s falls." % uname)
 	elif int(result["def_strikes"]) > 0:
 		# the unit fought (countered): it earns EXP, though the log only shows level-ups
@@ -2167,7 +2172,10 @@ func _note_exchange(pid: String, inst: Dictionary, result: Dictionary, enemy_hp_
 	_note_damage(inst, pid, enemy_hp_before)
 	if int(inst.hp) == 0 and inst.kind == "boss" and inst["hit_by"].size() == 1 and inst["hit_by"].has(pid):
 		var uname: String = str(Canon.find_by("units", "unit_id", pid)["name"]) if Canon.find_by("units", "unit_id", pid) != null else pid
-		lines.append_array(_earn_deed(pid, "ep_bosskill", uname))
+		var earned := _earn_deed(pid, "ep_bosskill", uname)
+		if not earned.is_empty():
+			Epilogue.note_slain(pid, inst.archetype)
+		lines.append_array(earned)
 	return lines
 
 ## `pid` took `inst` from `hp_before` down to its current HP: it counts as having damaged
@@ -2582,14 +2590,43 @@ func _check_cargo_lost() -> void:
 		info_label.text = "Defeat. Press Escape to leave."
 		_update_forecast()
 
-## A player unit leaves play (dead): token, position and all.
-func _kill_unit(pid: String) -> void:
+## A player unit leaves play (dead): token, position and all. `killer` is who did it, for the
+## epilogue (see Epilogue.note_fall); a fall that is final once the map is won.
+func _kill_unit(pid: String, killer: Dictionary = {"type": "unknown"}) -> void:
+	Epilogue.note_fall(pid, map_id, killer)
 	var token = unit_tokens.get(pid)
 	if token:
 		token.container.queue_free()
 	unit_tokens.erase(pid)
 	unit_positions.erase(pid)
 	_check_cargo_lost()
+
+## Who struck a unit down, for the epilogue: Epilogue.classify plus whether the unit died on its
+## own action (a counter to its attack) and which enemy it was (for the weapon's fate).
+func _killer_of(inst: Dictionary, own_action: bool) -> Dictionary:
+	var k := Epilogue.classify(inst, map_id)
+	k["own_action"] = own_action
+	k["enemy_idx"] = -1
+	for i in enemies.size():
+		if is_same(enemies[i], inst):
+			k["enemy_idx"] = i
+			break
+	return k
+
+## Each pending fall's weapon fate: retrieved if the one who did it was killed or captured by the
+## end, otherwise left where it fell (see Epilogue.fate_for). A routed or talked-down killer keeps it.
+func _death_fates() -> Dictionary:
+	var out := {}
+	var pending: Dictionary = GameState.epilogue.get("pending", {})
+	for uid in pending:
+		var rec: Dictionary = pending[uid]
+		var idx := int(rec.get("enemy_idx", -1))
+		var holds := true
+		if idx >= 0 and idx < enemies.size():
+			var e: Dictionary = enemies[idx]
+			holds = not e.defeated or e.get("routed", false) or e.get("talked", false)
+		out[uid] = Epilogue.fate_for(rec, holds)
+	return out
 
 ## With every player unit gone no win is possible. Units that escaped no
 ## longer count as on the map, so this also ends a map where too few escaped.

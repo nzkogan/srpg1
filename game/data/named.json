@@ -7,7 +7,8 @@
     "terms": "answers whoever holds the feather, and answers anyone who holds it",
     "defection_trigger": "the feather changes hands; she arrives green and stops being green",
     "signature_mechanic": "5 HP/turn to rider and adjacent allies (flat, not percentage)",
-    "notes": "cleanses corruption; the only thing that can strip a pact without a Pardoner, and will not do it on request"
+    "notes": "cleanses corruption; the only thing that can strip a pact without a Pardoner, and will not do it on request",
+    "death_phrase": "the Simurgh's light"
   },
   {
     "named_id": "nmd_huma",
@@ -17,7 +18,8 @@
     "terms": "cannot be owned, only flown under; its shadow legitimizes whoever it falls on",
     "defection_trigger": "never defects because it was never yours",
     "signature_mechanic": "MAP HAZARD, NOT A MOUNT: drifts overhead; marked units gain stats and become targeting priority for every enemy",
-    "notes": "kill-taboo: whoever lands the blow dies in forty days, no reload undoes it"
+    "notes": "kill-taboo: whoever lands the blow dies in forty days, no reload undoes it",
+    "death_phrase": "the Huma's shadow"
   },
   {
     "named_id": "nmd_anzu",
@@ -27,7 +29,8 @@
     "terms": "contracts with whoever can READ the register, not who owns it",
     "defection_trigger": "someone demonstrates literacy you lack; ties to the hidden-literacy thread",
     "signature_mechanic": "contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead",
-    "notes": "COST: weapons it unmakes cannot be captured, so riding it starves your only supply line"
+    "notes": "COST: weapons it unmakes cannot be captured, so riding it starves your only supply line",
+    "death_phrase": "the Anzu's stoop"
   },
   {
     "named_id": "nmd_karkadann",
@@ -37,7 +40,8 @@
     "terms": "protects what it has decided to protect; nothing negotiates with it",
     "defection_trigger": "turns the moment you threaten the doves; state orders and its terms are simply incompatible",
     "signature_mechanic": "strong against mounted units; devastating charge that leaves it stuck one turn",
-    "notes": "the plain one on purpose -- the roster needs one straightforwardly good option"
+    "notes": "the plain one on purpose -- the roster needs one straightforwardly good option",
+    "death_phrase": "the Karkadann's charge"
   },
   {
     "named_id": "nmd_shadhavar",
@@ -47,6 +51,7 @@
     "terms": "pacts through beauty; the lure is what it IS, not a trick it performs",
     "defection_trigger": "uncontrolled by design",
     "signature_mechanic": "every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off",
-    "notes": "liability on escort maps, asset on defend maps"
+    "notes": "liability on escort maps, asset on defend maps",
+    "death_phrase": "the Shadhavar's song"
   }
 ]

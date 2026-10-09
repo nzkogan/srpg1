@@ -40,6 +40,8 @@ func state(defection_id: String) -> String:
 
 ## Whether a unit has left the company right now (and so is off the roster).
 func is_gone(unit_id: String) -> bool:
+	if Epilogue.is_dead(unit_id):         # the fallen have left the company too
+		return true
 	var r := row_for_unit(unit_id)
 	return not r.is_empty() and state(r["defection_id"]) == "gone"
 
@@ -85,7 +87,7 @@ func on_map_won(map_id: String, newly: bool) -> Array[String]:
 		var did: String = r["defection_id"]
 		var uid: String = r["unit_id"]
 		var st := state(did)
-		if st == "" and r.get("trigger_map_id") == map_id and joined(uid):
+		if st == "" and r.get("trigger_map_id") == map_id and joined(uid) and not Epilogue.is_dead(uid):
 			var unless = r.get("trigger_unless_map_id")
 			if unless == null or not GameState.won_maps.has(unless):
 				lines.append(_defect(r))
