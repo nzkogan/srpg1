@@ -701,6 +701,20 @@ func push_name(unit_id: String) -> String:
 func can_bribe(unit_id: String) -> bool:
 	return "bribe" in map_actions(unit_id)
 
+## Whether the unit's class carries the Breach / Mine actions (the Sapper).
+func can_breach(unit_id: String) -> bool:
+	return "breach" in map_actions(unit_id)
+
+func can_mine(unit_id: String) -> bool:
+	return "mine" in map_actions(unit_id)
+
+## Charges a Sapper has on one map (shared between Breach and Mine), and what a mine does.
+func sapper_limit() -> int:
+	return int(param("sapper_charges"))
+
+func mine_damage() -> int:
+	return int(param("mine_damage"))
+
 ## Gold to turn an enemy of this level neutral: bribe_cost_base + bribe_cost_per_level x level.
 func bribe_cost(enemy_level: int) -> int:
 	return int(param("bribe_cost_base") + param("bribe_cost_per_level") * maxi(0, enemy_level))

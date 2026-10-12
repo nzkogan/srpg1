@@ -214,7 +214,7 @@
     "route": "both",
     "join_chapter_id": "ch_b15",
     "join_condition": "talk; differs by route",
-    "base_class_id": "cls_tr_brawl",
+    "base_class_id": "cls_sapper",
     "growth_profile_id": "gp_bruiser",
     "venerated_candidate": "no",
     "deputy_candidate": "no",

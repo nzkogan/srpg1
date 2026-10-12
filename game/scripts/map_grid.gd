@@ -121,6 +121,7 @@ const LEGEND := {
 	"u": Color("6e655a"), # rubble, cold (a03)
 	"R": Color("d4af37"), # reliquary (a03)
 	"E": Color("4a8f5c"), # escape tile (a03)
+	"v": Color("7a6c5c"), # a breach: a wall a Sapper has brought down
 }
 
 const REACHABLE_TINT := Color(0.35, 0.65, 1.0, 0.45)
@@ -164,6 +165,11 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+var _sapper_mode := ""         # "breach" / "mine" after [D] / [M]: the next arrow key / click picks the tile
+var sapper_used := 0           # Sapper charges spent on this map (Breach and Mine share them)
+var breached: Dictionary = {}  # Vector2i -> true: walls brought down (terrain 'v')
+var mines: Dictionary = {}     # Vector2i -> {"by": unit id}: charges waiting for an enemy
+var mine_markers: Dictionary = {}  # Vector2i -> the marker node
 ## Test seam: false makes P write the suspend save without leaving for the overworld.
 var suspend_leaves := true
 var _talk_mode := false        # [T] pressed: the next arrow key / click picks who to talk to
@@ -650,6 +656,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_bribe_click(Vector2i(col, row))
 		elif _shove_mode:
 			_shove_click(Vector2i(col, row))
+		elif _sapper_mode != "":
+			_sapper_click(Vector2i(col, row))
 		elif row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
 			if not _try_target_click(Vector2i(col, row)):
 				_try_move_to(Vector2i(col, row))
@@ -664,6 +672,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _shove_mode:
 			_shove_key(key_event.keycode)
 			return
+		if _sapper_mode != "":
+			_sapper_key(key_event.keycode)
+			return
 		if key_event.keycode == KEY_P:
 			suspend(true)
 		elif key_event.keycode == KEY_F5:
@@ -676,6 +687,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_begin_bribe()
 		elif key_event.keycode == KEY_S:
 			_begin_shove()
+		elif key_event.keycode == KEY_D:
+			_begin_sapper("breach")
+		elif key_event.keycode == KEY_M:
+			_begin_sapper("mine")
 		elif key_event.keycode == KEY_A and map_id == "map_f00":
 			_attack_statue()
 		elif key_event.keycode == KEY_F:
@@ -824,6 +839,8 @@ func _recompute_and_draw() -> void:
 ## false everywhere else).
 func _effective_symbol(pos: Vector2i) -> String:
 	var symbol := grid[pos.y][pos.x]
+	if breached.has(pos):
+		return "v"
 	if symbol == "W" and wall_destroyed:
 		return "."
 	if symbol == "S" and statue_destroyed:
@@ -1345,6 +1362,7 @@ func _collide(who: Dictionary, pusher: String) -> int:
 ## to kill. There are no ledges to be pushed off.
 func _shove_toward(dir: Vector2i) -> void:
 	_shove_mode = false
+	_mine_notes.clear()
 	if units.is_empty() or map_won or map_lost:
 		return
 	var unit: Dictionary = units[selected_unit_index]
@@ -1414,6 +1432,146 @@ func _shove_toward(dir: Vector2i) -> void:
 	info_label.text = text
 	_update_status_label()
 	_update_forecast()
+
+# ------------------------------------------------------------------- the Sapper
+#
+# Rinsa's class. [D] Breach: bring down an adjacent wall or building the map allows (maps.breach_symbols
+# -- the same letter means a cliff on one map and a wall on another) into a breach, terrain 'v': passable
+# at a cost, so it opens a way for everyone, enemies included. [M] Mine: lay a charge on an adjacent open
+# tile; the first enemy to end a move there takes mine_damage and the charge is spent. Either takes the
+# unit's action and one of sapper_charges per map. Mines are marked on the map and hurt only enemies.
+
+func _breach_symbols() -> String:
+	var s = map_row.get("breach_symbols")
+	return str(s) if s != null else ""
+
+func _sapper_charges_left() -> int:
+	return maxi(0, Progression.sapper_limit() - sapper_used)
+
+## [D] / [M]: the selected unit offers the action; the next arrow key (or a click on an adjacent tile)
+## picks the tile. Any other key cancels.
+func _begin_sapper(kind: String) -> void:
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var ok := _is_roster_unit(unit) and (Progression.can_breach(pid) if kind == "breach" else Progression.can_mine(pid))
+	if not ok:
+		info_label.text = "%s has no %s action." % [unit.get("name"), kind.capitalize()]
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	if _sapper_charges_left() <= 0:
+		info_label.text = "%s has no charges left on this map." % unit.get("name")
+		return
+	_sapper_mode = kind
+	info_label.text = "%s: which tile? Arrow key or click an adjacent tile (any other key cancels). %d charge%s left." % [
+		kind.capitalize(), _sapper_charges_left(), "" if _sapper_charges_left() == 1 else "s"]
+
+func _sapper_key(keycode: int) -> void:
+	if ARROW_DIRS.has(keycode):
+		_sapper_toward(ARROW_DIRS[keycode])
+	else:
+		info_label.text = "%s cancelled." % _sapper_mode.capitalize()
+		_sapper_mode = ""
+
+func _sapper_click(tile: Vector2i) -> void:
+	var pos: Vector2i = unit_positions.get(units[selected_unit_index].get("punit_id", ""), Vector2i(-1, -1)) if not units.is_empty() else Vector2i(-1, -1)
+	if _distance(pos, tile) == 1:
+		_sapper_toward(tile - pos)
+	else:
+		info_label.text = "%s cancelled." % _sapper_mode.capitalize()
+		_sapper_mode = ""
+
+func _in_bounds(tile: Vector2i) -> bool:
+	return tile.y >= 0 and tile.y < grid.size() and tile.x >= 0 and tile.x < grid[0].length()
+
+func _sapper_toward(dir: Vector2i) -> void:
+	var kind := _sapper_mode
+	_sapper_mode = ""
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1) or attacked_this_turn.has(pid) or _sapper_charges_left() <= 0:
+		return
+	var tile := pos + dir
+	if not _in_bounds(tile):
+		info_label.text = "There is nothing there."
+		return
+	if kind == "breach":
+		if breached.has(tile) or not (grid[tile.y][tile.x] in _breach_symbols().split("", false)):
+			info_label.text = "Nothing there can be brought down."
+			return
+		breached[tile] = true
+		if tile_rects.has(tile):
+			tile_rects[tile].color = LEGEND["v"]
+		info_label.text = "%s brings the wall down at (%d, %d): a way through." % [unit.get("name"), tile.x, tile.y]
+	else:
+		if _terrain_cost(tile, "infantry") >= IMPASSABLE or not _occupant(tile).is_empty() or mines.has(tile):
+			info_label.text = "A charge can't be laid there."
+			return
+		mines[tile] = {"by": pid}
+		_draw_mine(tile)
+		info_label.text = "%s lays a charge at (%d, %d)." % [unit.get("name"), tile.x, tile.y]
+	sapper_used += 1
+	attacked_this_turn[pid] = true
+	info_label.text += " %d charge%s left." % [_sapper_charges_left(), "" if _sapper_charges_left() == 1 else "s"]
+	_update_status_label()
+	_update_forecast()
+
+func _draw_mine(tile: Vector2i) -> void:
+	if not is_inside_tree():
+		return
+	var marker := ColorRect.new()
+	marker.color = Color("c4443a")
+	marker.size = Vector2(12, 12)
+	marker.position = Vector2(tile.x * CELL_SIZE + (CELL_SIZE - 12) / 2.0, tile.y * CELL_SIZE + (CELL_SIZE - 12) / 2.0)
+	add_child(marker)
+	mine_markers[tile] = marker
+
+## An enemy has ended a move on `inst.pos`: a charge there goes off. Returns nothing; the line goes into
+## the enemy log. The damage is credited to the Sapper (a boss touched by a mine is no longer
+## "single combat"), and a kill counts as theirs.
+func _trip_mine(inst: Dictionary) -> void:
+	if not mines.has(inst.pos) or inst.defeated:
+		return
+	var by: String = str(mines[inst.pos].get("by", ""))
+	mines.erase(inst.pos)
+	if mine_markers.has(inst.pos):
+		mine_markers[inst.pos].queue_free()
+		mine_markers.erase(inst.pos)
+	var hp_before: int = inst.hp
+	inst.hp = maxi(0, int(inst.hp) - Progression.mine_damage())
+	_note_damage(inst, by, hp_before)
+	var line := "A mine goes off under the %s (%d damage)." % [inst.archetype.get("name", "enemy"), hp_before - int(inst.hp)]
+	if inst.hp == 0:
+		_credit_kill(by)
+		_defeat_enemy(inst)
+		line += " It falls."
+	enemy_log.append(line)
+	_mine_notes.append(line)
+
+var _mine_notes: Array[String] = []   # mine lines since the last shove, for its message
+
+func _restore_sapper(snap: Dictionary) -> void:
+	sapper_used = int(snap.get("sapper_used", 0))
+	breached.clear()
+	for p in snap.get("breached", []):
+		var t := _a2v(p)
+		breached[t] = true
+		if tile_rects.has(t):
+			tile_rects[t].color = LEGEND["v"]
+	for m in mine_markers.values():
+		m.queue_free()
+	mine_markers.clear()
+	mines.clear()
+	for m in snap.get("mines", []):
+		var t := _a2v(m["at"])
+		mines[t] = {"by": str(m["by"])}
+		_draw_mine(t)
 
 func _cap(text: String) -> String:
 	return text.substr(0, 1).to_upper() + text.substr(1)
@@ -2114,6 +2272,7 @@ func _enemy_move(inst: Dictionary, dest: Vector2i) -> void:
 	inst.pos = dest
 	if inst.token.has("container"):
 		inst.token.container.position = Vector2(dest.x * CELL_SIZE, dest.y * CELL_SIZE)
+	_trip_mine(inst)
 
 ## One fight's EXP for a main unit that fought `inst`: the lines to show (EXP
 ## gained, then one per level reached). Applies the level-ups to the roster row
@@ -2277,7 +2436,8 @@ func capture_state() -> Dictionary:
 		"positions": positions, "hp": unit_hp.duplicate(), "moved": moved_this_turn.duplicate(), "attacked": attacked_this_turn.duplicate(),
 		"struck": struck_units.duplicate(), "fought": fought_units.duplicate(), "hold": hold,
 		"enemies": enemy_rows, "dens": den_rows, "enemy_log": enemy_log.duplicate(),
-		"bribed": bribed_count, "escaped": escaped_count, "delivered": delivered.duplicate(),
+		"bribed": bribed_count, "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
+		"mines": mines.keys().map(func(p): return {"at": _v2a(p), "by": mines[p]["by"]}), "escaped": escaped_count, "delivered": delivered.duplicate(),
 	}
 
 ## Whether a snapshot looks usable for this scene (right map, right version, the keys we read).
@@ -2344,6 +2504,7 @@ func _restore_progress(snap: Dictionary) -> void:
 	for pid in snap.get("hold", {}):
 		hold_streak[pid] = {"tile": _a2v(snap["hold"][pid]["tile"]), "phases": int(snap["hold"][pid]["phases"])}
 	bribed_count = int(snap.get("bribed", 0))
+	_restore_sapper(snap)
 	escaped_count = int(snap.get("escaped", 0))
 	delivered.clear()
 	for id in snap.get("delivered", []):

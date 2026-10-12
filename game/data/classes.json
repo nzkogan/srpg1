@@ -661,15 +661,15 @@
     "class_id": "cls_sapper",
     "name": "Sapper",
     "tier": "personal",
-    "art_primary": "none",
+    "art_primary": "brawl",
     "art_secondary": "none",
     "movement": "infantry",
     "promotes_from": null,
     "signature_skill": null,
     "provenance": "no paperwork exists",
-    "notes": "IN DRAWER, not yet placed",
+    "notes": "Rinsa (PLACED 2026-10-21: the descender who leads people down into the dark, so she knows how to get under a thing). Brawl, so she still fights; Breach (bring a wall down into a way through) and Mine (a charge laid on a tile for the first enemy to step on), three charges a map between them.",
     "unlock_map_id": null,
-    "map_actions": null
+    "map_actions": "breach|mine"
   },
   {
     "class_id": "cls_bogatyr",

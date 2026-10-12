@@ -336,5 +336,18 @@
     "move_armor_wet": null,
     "hazard_dmg": 1,
     "notes": "map_a01's approaches: 'the ice (risky, fast).' 'Fast' isn't modeled (cost is the same 1 as everything else here, nothing to contrast it against); 'risky' is simplified to a minor 1 HP/turn hazard, a stand-in for a real slip mechanic this pass doesn't build."
+  },
+  {
+    "terrain_id": "ter_breach",
+    "symbol": "v",
+    "name": "breach (a broken wall)",
+    "move_infantry": 2,
+    "move_armor": 3,
+    "move_riding": 3,
+    "move_flying": 1,
+    "move_infantry_wet": null,
+    "move_armor_wet": null,
+    "hazard_dmg": 0,
+    "notes": "DRAFTED 2026-10-21: what a wall or building becomes once a Sapper has brought it down -- rubble to climb over, slower for armor and riders, nothing to a flier. No hazard."
   }
 ]

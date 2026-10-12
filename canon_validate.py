@@ -32,7 +32,7 @@ from openpyxl import load_workbook
 WORLD_W, WORLD_H = 1152, 540   # the overworld canvas locations.map_x / map_y live on
 PATH_ROUTES = {"diadem", "assembly", "both"}
 PATH_KINDS = {"road", "trail"}
-MAP_ACTIONS = {"capture", "shove", "smite", "bribe"}   # actions a class adds on the battle map (classes.map_actions)
+MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine"}   # actions a class adds on the battle map (classes.map_actions)
 
 PRIMARY_KEYS = {
     "sects": ("sect_id", "sect_"),
@@ -283,7 +283,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -595,6 +595,25 @@ def main():
             fail("c07", "blocking", f"epithets.{eid}", f"weapon_form does not carry its forge_vocab_token '{token}'")
         if "{OBJECT}" in form and "{BASE}" not in str(ep.get("weapon_form_bare") or ""):
             fail("c07", "blocking", f"epithets.{eid}", "a weapon_form with {OBJECT} needs a weapon_form_bare containing {BASE}")
+
+    # --- c07r the Sapper: the breach terrain exists and is passable; every breachable symbol is a real,
+    #     impassable one; the class that offers Breach/Mine is a personal class someone holds
+    terr = {t["terrain_id"]: t for t in tabs["terrain_costs"]}
+    sym = {t["symbol"]: t for t in tabs["terrain_costs"]}
+    br = terr.get("ter_breach")
+    if not br or br.get("symbol") != "v" or int(br.get("move_infantry") or 99) >= 99:
+        fail("c07", "blocking", "terrain_costs.ter_breach", "a passable breach terrain with symbol 'v' is required")
+    for m in tabs["maps"]:
+        for ch in str(m.get("breach_symbols") or ""):
+            t = sym.get(ch)
+            if not t or int(t.get("move_infantry") or 0) < 99:
+                fail("c07", "blocking", f"maps.{m['map_id']}", f"breach symbol '{ch}' must be an impassable terrain")
+    for c in tabs["classes"]:
+        acts = split_multi(c.get("map_actions"))
+        if ("breach" in acts or "mine" in acts) and c.get("tier") != "personal":
+            fail("c07", "blocking", f"classes.{c['class_id']}", "only a personal class may carry Breach or Mine")
+        if ("breach" in acts or "mine" in acts) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"]):
+            fail("c07", "warning", f"classes.{c['class_id']}", "no unit holds this class")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

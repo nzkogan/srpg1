@@ -448,5 +448,17 @@
     "value": 150,
     "text": null,
     "notes": "Weapon names: gold a master smith charges to reforge a marked weapon from the convoy, clearing its marks."
+  },
+  {
+    "param_id": "prm_sapper_charges",
+    "value": 3,
+    "text": null,
+    "notes": "Sapper: charges a Sapper has on one map, shared between Breach and Mine."
+  },
+  {
+    "param_id": "prm_mine_damage",
+    "value": 12,
+    "text": null,
+    "notes": "Sapper: flat damage a mine does to the first enemy that ends a move on it (a bit under a steel sword hit)."
   }
 ]
