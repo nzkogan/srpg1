@@ -123,7 +123,7 @@ function wRight(w){
      '<li>'+names.length+' of the classes can wield it'+(names.length?': '+esc(shown)+'.':'. No class has the pair yet.')+'</li></ul></section>';
   const sp=[];
   if(w.effective.length) sp.push('<li>Effective against '+w.effective.map(esc).join(", ")+' movement (double might).</li>');
-  if(w.effect) sp.push('<li>'+({heal_allies:"Heals each ally beside the wielder on a hit.",unmake:"Wears the foe’s weapon one step down on a hit.",pull:"Drags a hit foe a tile toward the wielder."})[w.effect]+'</li>');
+  if(w.effect) sp.push('<li>'+({heal_allies:"Heals each ally beside the wielder on a hit.",unmake:"Wears the foe’s weapon one step down on a hit.",pull:"Drags a hit foe a tile toward the wielder.",res_strike:"Strikes at the foe’s RES instead of its DEF: armor is no shelter.",renew:"The wielder recovers 5 HP with every blow that lands.",drain:"Returns half the damage it deals to the wielder as health.",recoil:"Costs the wielder 3 HP each time they fight with it, never the last of it."})[w.effect]+'</li>');
   if(sp.length) h+='<section class="blk"><h3>Special</h3><ul class="plain">'+sp.join("")+'</ul></section>';
   if(w.note) h+='<p class="note">'+esc(w.note)+'</p>';
   return h;

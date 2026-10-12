@@ -82,6 +82,11 @@ const EFFECTIVE_MULT := 2
 static func is_magic_art(art: String) -> bool:
 	return MAGIC_ARTS.has(art)
 
+## weapons.effect "res_strike" (Perun's Brand): the blow is physical (it uses the wielder's STR) but
+## is turned aside only by the foe's RES, so armor is no shelter from it.
+static func strikes_at_res(weapon: Dictionary) -> bool:
+	return is_magic_art(String(weapon.get("art", ""))) or str(weapon.get("effect", "")) == "res_strike"
+
 ## Sum of one effect (hit, avoid, crit, dodge, dmg, guard, speed) over a unit's
 ## abilities whose condition holds against `foe` while wielding `weapon`.
 static func ability_bonus(unit: Dictionary, foe: Dictionary, weapon: Dictionary, key: String) -> int:
@@ -193,7 +198,7 @@ static func damage(attacker: Dictionary, defender: Dictionary, weapon: Dictionar
 	var art: String = weapon.get("art", "")
 	var mod := triangle_modifier(triangle_art(weapon), defender.get("weapon_art", ""))
 	var atk_power: float = attacker.get("mag", 0) if is_magic_art(art) else attacker.get("str", 0)
-	var mitigation: float = (defender.get("res", 0) if is_magic_art(art) else defender.get("def", 0)) \
+	var mitigation: float = (defender.get("res", 0) if strikes_at_res(weapon) else defender.get("def", 0)) \
 		+ ability_bonus(defender, attacker, {}, "guard")
 	var base_might: float = weapon.get("might", 0) * (EFFECTIVE_MULT if is_effective(weapon, defender) else 1)
 	var might: float = base_might + mod.damage + ability_bonus(attacker, defender, weapon, "dmg")

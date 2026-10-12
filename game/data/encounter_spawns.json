@@ -10,7 +10,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Stands on the defend-point tile (D) -- literally where the crowd/townsfolk are.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_zographos_codex"
   },
   {
     "spawn_id": "spn_a02_mook1",
@@ -205,7 +205,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Same template, east crossing. Two instances of the same archetype, not two distinct characters -- consistent with nothing being named in the source text.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_perun_brand"
   },
   {
     "spawn_id": "spn_x11_mook1",
@@ -1011,7 +1011,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "No named identity, same reuse ch_v21's own encounter_spawns row already used ea_hardened_veteran for -- 'complicit hands' generally, the works' overseer guarding the archive doorway.",
-    "drop_weapon_id": "wpn_sword_mid"
+    "drop_weapon_id": "wpn_lemegeton"
   },
   {
     "spawn_id": "spn_pburiedworks_mook",
@@ -1037,7 +1037,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "The looter ringleader exploiting the dockside unrest -- see chapters.ch_d04's own note on why the protesters themselves aren't combatants.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_morningstar"
   },
   {
     "spawn_id": "spn_d04_mook",
@@ -1076,7 +1076,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Scavengers picking through the ruin -- the renunciants who live here are not combatants, see chapters.ch_d07.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_neith_bow"
   },
   {
     "spawn_id": "spn_d08_boss",
@@ -1167,7 +1167,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Opportunists working the medicine trade, same framing as ch_d04's harbour.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_morningstar"
   },
   {
     "spawn_id": "spn_a04_mook",
@@ -1245,7 +1245,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Bandits using the treeline for cover, not an organized force.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_vila_moonbow"
   },
   {
     "spawn_id": "spn_a09_boss",
@@ -1258,7 +1258,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "sect_march's own 'Prophecy NPCs convert green levies' -- levies mid-conversion.",
-    "drop_weapon_id": null
+    "drop_weapon_id": "wpn_miroslav_gospel"
   },
   {
     "spawn_id": "spn_a10_boss",
@@ -1323,7 +1323,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Paragon-tier capstone for the district's climax, guarding the colossus's base.",
-    "drop_weapon_id": "wpn_axe_high"
+    "drop_weapon_id": "wpn_astaroth_goetia"
   },
   {
     "spawn_id": "spn_k22_mook",

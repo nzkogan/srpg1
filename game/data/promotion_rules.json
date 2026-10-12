@@ -460,5 +460,23 @@
     "value": 12,
     "text": null,
     "notes": "Sapper: flat damage a mine does to the first enemy that ends a move on it (a bit under a steel sword hit)."
+  },
+  {
+    "param_id": "prm_renew_heal",
+    "value": 5,
+    "text": null,
+    "notes": "Weapons: HP the Miroslav Gospel's wielder recovers after every blow that lands."
+  },
+  {
+    "param_id": "prm_drain_pct",
+    "value": 50,
+    "text": null,
+    "notes": "Weapons: percent of the damage dealt that the Goetia of Astaroth returns to its reader as health (rounded down)."
+  },
+  {
+    "param_id": "prm_recoil_damage",
+    "value": 3,
+    "text": null,
+    "notes": "Weapons: HP The Lemegeton costs its reader each time they fight with it (never lethal: it stops at 1)."
   }
 ]

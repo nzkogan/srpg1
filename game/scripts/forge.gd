@@ -175,6 +175,14 @@ func effect_text(weapon: Dictionary) -> String:
 			return "Each hit wears the foe's weapon down; a worn one goes at once, leaving it unarmed."
 		"pull":
 			return "Drags the foe it hits a tile closer, and cannot be turned off."
+		"res_strike":
+			return "Strikes at the foe's RES instead of its DEF: armor is no shelter."
+		"renew":
+			return "The wielder recovers %d HP with every blow that lands." % int(Progression.param("renew_heal"))
+		"drain":
+			return "Returns %d%% of the damage it deals to the wielder as health." % int(Progression.param("drain_pct"))
+		"recoil":
+			return "Costs the wielder %d HP each time they fight with it (never lethal)." % int(Progression.param("recoil_damage"))
 	return ""
 
 ## How many hits unmake an enemy weapon of this tier: a worn one 1, a silver one 4.

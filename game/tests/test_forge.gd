@@ -85,8 +85,12 @@ func _run() -> void:
 	# ---- canon
 	_fresh()
 	var legend: Array = []
+	var forged := {}
+	for m in _canon.get_table("materials"):
+		if m.get("weapon_id") != null:
+			forged[m["weapon_id"]] = true
 	for w in _canon.get_table("weapons"):
-		if w["tier"] == "legendary":
+		if w["tier"] == "legendary" and forged.has(w["weapon_id"]):       # (the dropped relics are NEW_WEAPONS_DESIGN.md)
 			legend.append(w["weapon_id"])
 	check(legend == ["wpn_feather_blade", "wpn_karkadann_lance", "wpn_anzu_edge", "wpn_shadhavar_bow"], "four legendary weapons, one per usable Named (%s)" % str(legend))
 	var effects := {}

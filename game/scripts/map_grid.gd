@@ -2561,16 +2561,33 @@ func _apply_weapon_effect(unit: Dictionary, weapon: Dictionary, inst: Dictionary
 	var effect = weapon.get("effect")
 	if effect == null:
 		return lines
+	var pid: String = unit.get("punit_id", "")
+	if str(effect) == "recoil" and int(result.get("%s_strikes" % side, 0)) > 0:
+		# the price of the book: a little blood each time it is opened, never the last of it
+		var cost := mini(int(Progression.param("recoil_damage")), maxi(0, int(unit_hp.get(pid, 0)) - 1))
+		if cost > 0:
+			unit_hp[pid] = int(unit_hp[pid]) - cost
+			lines.append("The %s takes %d HP from %s." % [weapon.get("name", "book"), cost, unit.get("name")])
+		return lines
 	var hit := false
+	var dealt := 0
 	for st in result["strikes"]:
 		if st["by"] == side and st["hit"]:
 			hit = true
+			dealt += int(st["damage"])
 	if not hit:
 		return lines
-	var pid: String = unit.get("punit_id", "")
 	var ename: String = inst.archetype.get("name", "enemy")
 	var wname: String = weapon.get("name", "weapon")
 	match str(effect):
+		"renew", "drain":
+			var max_hp_self := int(unit.get("hp", 0))
+			var gain := int(Progression.param("renew_heal")) if str(effect) == "renew" else int(floor(dealt * Progression.param("drain_pct") / 100.0))
+			var now_hp := int(unit_hp.get(pid, 0))
+			var healed_by := mini(max_hp_self, now_hp + gain) - now_hp
+			if healed_by > 0 and now_hp > 0:
+				unit_hp[pid] = now_hp + healed_by
+				lines.append("The %s restores %d HP to %s." % [wname, healed_by, unit.get("name")])
 		"heal_allies":
 			var healed := 0
 			var amount := int(Progression.param("forge_heal"))
