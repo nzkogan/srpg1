@@ -881,7 +881,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Closing chapter of the invented War arc -- ea_warlord (boss-tier template) reused for 'where it finally stops,' the arc's toughest fight.",
-    "drop_weapon_id": "wpn_axe_high"
+    "drop_weapon_id": "wpn_axe_high|wpn_stgeorge_spear"
   },
   {
     "spawn_id": "spn_hw3_den",
@@ -907,7 +907,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "npcs.npc_macuil: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty. Repositioned (2026-09-24) to row5/col12 -- dry shoreline ground at the map's new eastern shore, next to the regrounded seize tile, not in the lake patch the old row5/col8 coordinate now falls inside.",
-    "drop_weapon_id": "wpn_axe_high"
+    "drop_weapon_id": "wpn_axe_high|wpn_rostam_bow"
   },
   {
     "spawn_id": "spn_pindech_boss",
@@ -920,7 +920,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "npcs.npc_indech: 'paralogue capstone,' same treatment as map_p_macuil.",
-    "drop_weapon_id": "wpn_axe_high"
+    "drop_weapon_id": "wpn_axe_high|wpn_svyatogor_grip"
   },
   {
     "spawn_id": "spn_pshadhavar_boss",
@@ -1011,7 +1011,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "No named identity, same reuse ch_v21's own encounter_spawns row already used ea_hardened_veteran for -- 'complicit hands' generally, the works' overseer guarding the archive doorway.",
-    "drop_weapon_id": "wpn_lemegeton"
+    "drop_weapon_id": "wpn_astaroth_goetia"
   },
   {
     "spawn_id": "spn_pburiedworks_mook",
@@ -1297,7 +1297,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Act3 tier per this session's own precedent (order/paragon-tier reuse, not commoner mooks) -- the district's defending captain.",
-    "drop_weapon_id": "wpn_axe_high"
+    "drop_weapon_id": "wpn_axe_high|wpn_svarog_cleaver"
   },
   {
     "spawn_id": "spn_k21_mook",
@@ -1323,7 +1323,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Paragon-tier capstone for the district's climax, guarding the colossus's base.",
-    "drop_weapon_id": "wpn_astaroth_goetia"
+    "drop_weapon_id": "wpn_lemegeton"
   },
   {
     "spawn_id": "spn_k22_mook",
@@ -1375,7 +1375,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "The pass's garrison captain -- 'held by whoever taxes it' reads as an organized force, not bandits.",
-    "drop_weapon_id": "wpn_lance_high"
+    "drop_weapon_id": "wpn_lance_high|wpn_slavonic_enoch"
   },
   {
     "spawn_id": "spn_rf20_boss",
@@ -1388,7 +1388,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "A contesting force at the reunion point itself.",
-    "drop_weapon_id": "wpn_sword_high"
+    "drop_weapon_id": "wpn_sword_high|wpn_marko_claymore"
   },
   {
     "spawn_id": "spn_rf20_mook1",

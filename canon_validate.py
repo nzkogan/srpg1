@@ -84,7 +84,7 @@ DECLARED_GAPS = {
 
 MATRIX_ARTS = ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
 MATRIX_MOVES = ["infantry", "armor", "riding", "flying"]
-WEAPON_TIERS = ["worn", "basic", "mid", "high", "legendary"]
+WEAPON_TIERS = ["worn", "basic", "mid", "high", "legendary", "mythic"]
 WEAPON_EFFECTS = {"heal_allies", "unmake", "pull", "res_strike", "renew", "drain", "recoil"}
 SPECIALTY_ARTS = {"edged": {"sword"}, "hafted": {"lance", "axe"}, "missile": {"bow"}}
 
@@ -273,9 +273,9 @@ def main():
         if q is not None and (not isinstance(q, (int, float)) or q < 0 or int(q) != q):
             fail("c07", "blocking", f"weapons.{r['weapon_id']}", f"convoy_qty '{q}' must be a non-negative integer")
     for r in tabs["encounter_spawns"]:
-        d = r.get("drop_weapon_id")
-        if d not in (None, "") and d not in weapon_by_id:
-            fail("c07", "blocking", f"encounter_spawns.{r['spawn_id']}", f"drop_weapon_id '{d}' does not exist")
+        for d in split_multi(r.get("drop_weapon_id")):
+            if d not in weapon_by_id:
+                fail("c07", "blocking", f"encounter_spawns.{r['spawn_id']}", f"drop_weapon_id '{d}' does not exist")
 
     # --- c07i progression: required parameters, ability tags and conditions, class unlocks
     REQUIRED_PARAMS = ["promote_min_level", "fee_base", "fee_per_level", "recert_fraction", "growth_bonus",
@@ -481,8 +481,8 @@ def main():
         if fg is None or fg.get("specialty") != mt.get("specialty_required"):
             fail("c07", "blocking", f"materials.{mid}", f"forge '{mt.get('forge_id')}' doesn't work the '{mt.get('specialty_required')}' specialty")
     for w in tabs["weapons"]:
-        if w.get("tier") == "legendary" and not any(m.get("weapon_id") == w["weapon_id"] for m in tabs["materials"]) \
-                and not any(e.get("drop_weapon_id") == w["weapon_id"] for e in tabs["encounter_spawns"]):
+        if w.get("tier") in ("legendary", "mythic") and not any(m.get("weapon_id") == w["weapon_id"] for m in tabs["materials"]) \
+                and not any(w["weapon_id"] in split_multi(e.get("drop_weapon_id")) for e in tabs["encounter_spawns"]):
             fail("c07", "warning", f"weapons.{w['weapon_id']}", "is legendary but nothing forges it and no one drops it")
 
     # --- c07n defections: a trigger and an appearance map; a recoverable defector has a way back
@@ -615,6 +615,16 @@ def main():
             fail("c07", "blocking", f"classes.{c['class_id']}", "only a personal class may carry Breach or Mine")
         if ("breach" in acts or "mine" in acts) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"]):
             fail("c07", "warning", f"classes.{c['class_id']}", "no unit holds this class")
+
+    # --- c07s the might ladder: each weapon tier hits harder than the one below it, so a Silver never out-hits a legend
+    band = {}
+    for w in tabs["weapons"]:
+        if isinstance(w.get("might"), (int, float)):
+            lo, hi = band.get(w["tier"], (999, -1))
+            band[w["tier"]] = (min(lo, w["might"]), max(hi, w["might"]))
+    for lower, higher in zip(WEAPON_TIERS, WEAPON_TIERS[1:]):
+        if lower in band and higher in band and band[higher][0] <= band[lower][1]:
+            fail("c07", "warning", f"weapons.{higher}", f"the weakest {higher} weapon (might {band[higher][0]}) does not beat the strongest {lower} one ({band[lower][1]})")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

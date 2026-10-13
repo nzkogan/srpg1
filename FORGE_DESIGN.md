@@ -57,7 +57,7 @@ remembers the wear.
 - The **standard forges** (requisition tier orders). The **epithet naming grammar** is WEAPON_NAMES_DESIGN.md (marks, reforging
   clears epithets), now built.
 - A smith's access being **lost** mid-run; the requisition tier; Named riding.
-- The legendary weapons' numbers (might 11-14, 30 uses) and the access rules are first-pass guesses.
+- The legendary weapons' numbers (now might 15-17, 30 uses, see NEW_WEAPONS_DESIGN.md) and the access rules are first-pass guesses.
 
 ## Where it lives
 

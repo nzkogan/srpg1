@@ -12,7 +12,7 @@ extends Node
 ## works_started); this autoload owns no data of its own.
 
 const SCREEN_SCENE := "res://scenes/forge_screen.tscn"
-const TIER_RANK := {"worn": 0, "basic": 1, "mid": 2, "high": 3, "legendary": 4}
+const TIER_RANK := {"worn": 0, "basic": 1, "mid": 2, "high": 3, "legendary": 4, "mythic": 5}
 
 # ------------------------------------------------------------------- canon
 

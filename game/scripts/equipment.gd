@@ -199,8 +199,12 @@ func store(unit_id: String, index: int) -> bool:
 func claim_drop(spawn_id: String, weapon_id) -> String:
 	if weapon_id == null or str(weapon_id) == "" or spawn_id == "" or GameState.drops_claimed.has(spawn_id):
 		return ""
-	if weapon_row(str(weapon_id)).is_empty():
+	var names: Array[String] = []
+	for wid in str(weapon_id).split("|", false):        # a boss may carry several weapons: "wpn_a|wpn_b"
+		if not weapon_row(wid).is_empty():
+			convoy_add(wid)
+			names.append(weapon_name(wid))
+	if names.is_empty():
 		return ""
 	GameState.drops_claimed[spawn_id] = true
-	convoy_add(str(weapon_id))
-	return weapon_name(str(weapon_id))
+	return ", ".join(names)

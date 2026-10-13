@@ -7,7 +7,7 @@ from pathlib import Path
 DATA = Path(__file__).resolve().parent.parent / "game" / "data"
 STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
 ARTS = ["sword", "lance", "axe", "bow", "brawl", "reason", "faith"]
-TIER_ORDER = ["worn", "basic", "mid", "high", "legendary"]
+TIER_ORDER = ["worn", "basic", "mid", "high", "legendary", "mythic"]
 
 
 def load(name):
@@ -101,10 +101,10 @@ def build():
         if int(w.get("convoy_qty") or 0) > 0:
             sources[wid].append({"kind": "convoy", "text": f"{int(w['convoy_qty'])} in the convoy from the start", "chapter": chap("ch_d01")})
     for s in load("encounter_spawns"):
-        if s.get("drop_weapon_id"):
+        for wid in pipe(s.get("drop_weapon_id")):
             c = chap_of_map(s["map_id"])
             who = "the boss" if s["kind"] == "boss" else "an enemy"
-            sources[s["drop_weapon_id"]].append({"kind": "drop", "text": f"Dropped by {who} of {c['title']}", "chapter": c})
+            sources[wid].append({"kind": "drop", "text": f"Dropped by {who} of {c['title']}", "chapter": c})
     archetypes = {e["enemy_id"]: e for e in load("enemy_archetypes")}
     for m in load("materials"):
         if m.get("weapon_id") and m.get("enemy_id"):
@@ -131,7 +131,8 @@ def build():
     for w in weapons:
         wid = w["weapon_id"]
         req = pipe(w.get("req_arts")) or ([w["art"]] if w["art"] in ARTS else [])
-        wielders = [c["name"] for c in classes if all(a in arts_of_class[c["class_id"]] for a in req)]
+        gate = "paragon" if w["tier"] == "mythic" else ("cert" if w["tier"] in ("high", "legendary") else "")
+        wielders = [c["name"] for c in classes if all(a in arts_of_class[c["class_id"]] for a in req) and (gate != "paragon" or c["tier"] == "paragon")]
         obtain = [s for s in sources[wid] if s["kind"] != "enemy"]
         first = min(obtain, key=lambda s: s["chapter"]["rank"]) if obtain else None
         tied = [s for s in obtain if first and s["chapter"]["rank"] == first["chapter"]["rank"]]
@@ -139,7 +140,7 @@ def build():
             "id": wid, "name": w["name"], "art": w["art"], "tier": w["tier"],
             "might": int(w["might"]), "hit": int(w["hit"]), "crit": int(w["crit"]), "weight": int(w["weight"]), "uses": int(w["uses"]),
             "range": [int(w["range_min"]), int(w["range_max"])],
-            "req": req, "hybrid": len(req) > 1, "gated": w["tier"] in ("high", "legendary"),
+            "req": req, "hybrid": len(req) > 1, "gated": bool(gate), "gate": gate,
             "effective": pipe(w.get("effective_vs")), "effect": w.get("effect"), "note": trim(w.get("notes")),
             "wielders": wielders, "sources": [{"kind": s["kind"], "text": s["text"], "chapter": s["chapter"]} for s in sources[wid]],
             "first": first, "firstTied": [t["chapter"] for t in tied if t["chapter"]["id"] != first["chapter"]["id"]] if first else [],
@@ -207,7 +208,7 @@ def build():
             join_c = chap(u["join_chapter_id"]) if u.get("join_chapter_id") else None
             held.append({"name": u["name"], "profile": u["growth_profile_id"].replace("gp_", ""), "rates": {s: gp[s] for s in STATS} if gp else {},
                          "join": join_c, "base": {s: int(stats_by_unit[u["unit_id"]][s]) for s in STATS} if u["unit_id"] in stats_by_unit else {}})
-        wpn = [{"id": w["id"], "name": w["name"], "tier": w["tier"], "art": w["art"], "gated": w["gated"], "hybrid": w["hybrid"]}
+        wpn = [{"id": w["id"], "name": w["name"], "tier": w["tier"], "art": w["art"], "gated": w["gated"], "gate": w["gate"], "hybrid": w["hybrid"]}
                for w in out_w if all(a in arts for a in w["req"]) and arts]
         out_c.append({
             "id": c["class_id"], "name": c["name"], "tier": tier, "arts": arts, "art2raw": c["art_secondary"], "movement": c["movement"],

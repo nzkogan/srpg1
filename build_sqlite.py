@@ -144,7 +144,7 @@ FKS = {
     ("enemy_archetypes", "named_id"): ("named", "named_id"),
     ("epithets", "deed_terrain"): ("terrain_costs", "terrain_id"),
     ("encounter_spawns", "enemy_id"): ("enemy_archetypes", "enemy_id"),
-    ("encounter_spawns", "drop_weapon_id"): ("weapons", "weapon_id"),
+    # encounter_spawns.drop_weapon_id may hold several weapons ("wpn_a|wpn_b"): checked by canon_validate c07h, not a foreign key
     ("supports", "unit_a_id"): ("units", "unit_id"),
     ("supports", "unit_b_id"): ("units", "unit_id"),
     ("supports", "sign_a"): ("signs", "sign_id"),

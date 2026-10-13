@@ -41,7 +41,7 @@ CLASSES_JS = r"""
 const TIERS=[["commoner","Commoner"],["trained","Trained"],["order","Order"],["hybrid","Hybrid"],["paragon","Paragon"],["personal","Personal"],["shadow","Shadow"]];
 const TIERN=Object.fromEntries(TIERS);
 const TIERBLURB={commoner:"Untrained",trained:"One art",order:"Certified",hybrid:"Certified, two arts",paragon:"Deed-gated",personal:"One bearer",shadow:"Off the matrix"};
-const WT=["worn","basic","mid","high","legendary"];
+const WT=["worn","basic","mid","high","legendary","mythic"];
 function classLeft(c,n,total){
   const arts=c.arts.map(a=>'<span class="tag art" style="color:'+HUE[a]+'">'+esc(a)+'</span>').join("");
   return '<div class="plate">Plate '+n+' of '+total+'</div>'+figureSvg(c)+'<h2>'+esc(c.name)+'</h2>'+
@@ -70,8 +70,9 @@ function growthBlock(c){
 function weaponsBlock(c){
   if(!c.weapons.length) return '<p class="small">No art, so no weapon it can wield. It fights with what it can do on the map.</p>';
   const by={}; c.weapons.forEach(w=>{(by[w.tier]=by[w.tier]||[]).push(w);});
-  const rows=WT.filter(t=>by[t]).map(t=>'<div class="wtier"><b>'+t+'</b>'+by[t].map(w=>'<span class="wchip'+(w.gated&&!c.promoted?' gate':'')+'" title="'+esc(w.art)+'">'+esc(w.name)+'</span>').join("")+'</div>').join("");
-  const gate=!c.promoted&&c.weapons.some(w=>w.gated)?'<p class="small">Dashed weapons are high or legendary tier: the unit must be certified first.</p>':"";
+  const closed=w=>(w.gate==="cert"&&!c.promoted)||(w.gate==="paragon"&&c.tier!=="paragon");
+  const rows=WT.filter(t=>by[t]).map(t=>'<div class="wtier"><b>'+t+'</b>'+by[t].map(w=>'<span class="wchip'+(closed(w)?' gate':'')+'" title="'+esc(w.art)+'">'+esc(w.name)+'</span>').join("")+'</div>').join("");
+  const gate=c.weapons.some(closed)?'<p class="small">Dashed weapons are closed to this class as it stands: high and legendary need a certified unit, mythic a paragon.</p>':"";
   return '<div class="who">'+rows+'</div>'+gate;
 }
 function classRight(c){
@@ -90,8 +91,8 @@ Flip({items:DATA.classes,title:"Class Flipbook",group:c=>c.tier,filters:[{id:"al
 
 WEAPONS_JS = r"""
 const ARTL=[["sword","Sword"],["lance","Lance"],["axe","Axe"],["bow","Bow"],["brawl","Brawl"],["reason","Reason"],["faith","Faith"]];
-const TIERBLURB={worn:"Scavenged",basic:"Iron",mid:"Steel",high:"Silver",legendary:"Named material"};
-const MAX={might:16,hit:100,crit:12,weight:14,uses:50};
+const TIERBLURB={worn:"Scavenged",basic:"Iron",mid:"Steel",high:"Silver",legendary:"Relic",mythic:"Paragon relic"};
+const MAX={might:21,hit:100,crit:20,weight:18,uses:50};
 function wkey(w){return w.hybrid?"hybrid":w.art;}
 function wLeft(w,n,total){
   const reqs=w.req.map(a=>'<span class="tag art" style="color:'+HUE[a]+'">'+esc(a)+'</span>').join("");
@@ -119,7 +120,7 @@ function wRight(w){
   h+='<section class="blk"><h3>Stats</h3>'+statHtml+'</section>';
   const names=w.wielders; const shown=names.slice(0,14).join(", ")+(names.length>14?" and "+(names.length-14)+" more":"");
   h+='<section class="blk"><h3>Requirements</h3><ul class="plain"><li>Proficiency in '+w.req.map(esc).join(" and ")+(w.hybrid?' (an overlap weapon: both).':'.')+'</li>'+
-     (w.gated?'<li>The wielder must be certified: high and legendary tiers are closed to uncertified units.</li>':'<li>Open to any unit with the art, certified or not.</li>')+
+     (w.gate==="paragon"?'<li>The wielder must be a paragon: the mythic tier is closed to every certified class below it.</li>':w.gated?'<li>The wielder must be certified: high and legendary tiers are closed to uncertified units.</li>':'<li>Open to any unit with the art, certified or not.</li>')+
      '<li>'+names.length+' of the classes can wield it'+(names.length?': '+esc(shown)+'.':'. No class has the pair yet.')+'</li></ul></section>';
   const sp=[];
   if(w.effective.length) sp.push('<li>Effective against '+w.effective.map(esc).join(", ")+' movement (double might).</li>');

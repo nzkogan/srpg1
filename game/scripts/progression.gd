@@ -582,6 +582,8 @@ func describe_ability(row: Dictionary) -> String:
 
 ## High-tier and legendary weapons need a promoted class; basic, mid and worn are open.
 func can_use_tier(unit_id: String, weapon_tier: String) -> bool:
+	if weapon_tier == "mythic":
+		return is_paragon(unit_id)       # a paragon's weapon: the tier above certification
 	return not (weapon_tier == "high" or weapon_tier == "legendary") or is_promoted(unit_id)
 
 # ------------------------------------------------------------------- deeds

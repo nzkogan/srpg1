@@ -70,6 +70,7 @@ func _arm(uid: String, weapon_id: String) -> void:
 	_p.state(uid)
 	_gs.progression[uid]["level"] = 20
 	_gs.progression[uid]["promoted"] = true
+	_gs.progression[uid]["paragon"] = true          # (a mythic book needs a paragon; the rest don't mind)
 	_gs.inventories[uid] = [{"weapon_id": weapon_id, "uses": 30}]
 
 func _unit_row(m: Node, uid: String) -> Dictionary:
@@ -78,7 +79,7 @@ func _unit_row(m: Node, uid: String) -> Dictionary:
 func _run() -> void:
 	# ---- canon: numbers, ranges, effects
 	var pb := _w("wpn_perun_brand")
-	check(pb["art"] == "sword" and pb["tier"] == "legendary" and pb["range_min"] == 1 and pb["range_max"] == 2 and pb["effect"] == "res_strike", "Perun's Brand: a legendary sword, range 1-2, res_strike")
+	check(pb["art"] == "sword" and pb["tier"] == "legendary" and pb["range_min"] == 1 and pb["range_max"] == 2 and pb["effect"] == "res_strike" and pb["might"] == 16, "Perun's Brand: a legendary sword, range 1-2, res_strike")
 	var ms := _w("wpn_morningstar")
 	check(ms["art"] == "axe" and ms["tier"] == "mid" and ms["range_min"] == 2 and ms["range_max"] == 2, "the Morningstar is a mid axe weapon that reaches only two tiles")
 	var vb := _w("wpn_vila_moonbow")
@@ -88,7 +89,7 @@ func _run() -> void:
 	check(_w("wpn_miroslav_gospel")["art"] == "faith" and _w("wpn_miroslav_gospel")["effect"] == "renew", "the Miroslav Gospel is a sacred text that renews")
 	check(_w("wpn_zographos_codex")["art"] == "faith" and _w("wpn_zographos_codex")["effect"] == null and _w("wpn_zographos_codex")["might"] > _w("wpn_faith_high")["might"], "the Zographos Codex is plain and hits harder than a Silver Rite")
 	check(_w("wpn_astaroth_goetia")["art"] == "reason" and _w("wpn_astaroth_goetia")["effect"] == "drain", "the Goetia of Astaroth is a grimoire that drains")
-	check(_w("wpn_lemegeton")["art"] == "reason" and _w("wpn_lemegeton")["effect"] == "recoil" and _w("wpn_lemegeton")["might"] == 18, "the Lemegeton is the strongest book, with a price")
+	check(_w("wpn_lemegeton")["art"] == "reason" and _w("wpn_lemegeton")["effect"] == "recoil" and _w("wpn_lemegeton")["tier"] == "mythic" and _w("wpn_lemegeton")["might"] == 20, "the Lemegeton is a mythic book with a price")
 	check(_p.param("renew_heal") == 5 and _p.param("drain_pct") == 50 and _p.param("recoil_damage") == 3, "parameters: renew 5, drain 50%, recoil 3")
 	# the forecast reads each special
 	for id in ["wpn_perun_brand", "wpn_miroslav_gospel", "wpn_astaroth_goetia", "wpn_lemegeton"]:
@@ -100,7 +101,7 @@ func _run() -> void:
 	var armored := {"def": 20, "res": 0, "lck": 0, "spd": 0, "movement_type": "armor", "weapon_art": ""}
 	var warded := {"def": 0, "res": 20, "lck": 0, "spd": 0, "movement_type": "infantry", "weapon_art": ""}
 	var iron := _w("wpn_sword_basic")
-	check(_combat.damage(atk, armored, pb, false) == 10 + 11 and _combat.damage(atk, warded, pb, false) == 10 + 11 - 20, "Perun's Brand ignores armor and meets RES (%d vs armor, %d vs ward)" % [_combat.damage(atk, armored, pb, false), _combat.damage(atk, warded, pb, false)])
+	check(_combat.damage(atk, armored, pb, false) == 10 + 16 and _combat.damage(atk, warded, pb, false) == 10 + 16 - 20, "Perun's Brand ignores armor and meets RES (%d vs armor, %d vs ward)" % [_combat.damage(atk, armored, pb, false), _combat.damage(atk, warded, pb, false)])
 	check(_combat.damage(atk, armored, iron, false) == 0 and _combat.damage(atk, warded, iron, false) == 10 + 5, "an Iron Sword is the opposite: DEF turns it, RES doesn't")
 	check(_combat.damage({"str": 3, "mag": 20}, warded, _w("wpn_reason_basic"), false) == 5, "(magic arts are unchanged: mag 20 + might 5 against res 20)")
 
@@ -177,7 +178,7 @@ func _run() -> void:
 
 	# ---- where each is found
 	var drops := {"spn_d04_boss": "wpn_morningstar", "spn_a04_boss": "wpn_morningstar", "spn_x11_captain_east": "wpn_perun_brand", "spn_a08_boss": "wpn_vila_moonbow",
-		"spn_d07_boss": "wpn_neith_bow", "spn_a09_boss": "wpn_miroslav_gospel", "spn_a02_boyan": "wpn_zographos_codex", "spn_k22_boss": "wpn_astaroth_goetia", "spn_pburiedworks_boss": "wpn_lemegeton"}
+		"spn_d07_boss": "wpn_neith_bow", "spn_a09_boss": "wpn_miroslav_gospel", "spn_a02_boyan": "wpn_zographos_codex", "spn_k22_boss": "wpn_lemegeton", "spn_pburiedworks_boss": "wpn_astaroth_goetia"}
 	for sid in drops:
 		var row = _canon.find_by("encounter_spawns", "spawn_id", sid)
 		check(row != null and row["drop_weapon_id"] == drops[sid], "%s drops %s" % [sid, drops[sid]])
