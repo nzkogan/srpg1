@@ -12,6 +12,45 @@
     "off_screen_purpose_on_exit": "Continues the Continuing Word's rebaptism fieldwork (prc_rebaptism) off-screen after departing -- cross-referencing parish/decan lists to enroll the plague dead by name.",
     "act3_payoff": "RECONSTRUCTION GAP -- not included in the changelog summary this row was built from; needs the real text from the source session (see calendar's decan-token row, which references this field directly).",
     "requires_defections": "def_anselm|def_maren",
-    "depart_map_id": "map_rf20"
+    "depart_map_id": "map_rf20",
+    "joins_after_map_id": null,
+    "column": null,
+    "stats_like_unit_id": null
+  },
+  {
+    "guest_id": "gst_qm_a",
+    "name": "Wolfram",
+    "sect_id": null,
+    "base_class_id": "cls_quartermaster",
+    "growth_profile_id": "gp_frail_lucky",
+    "trigger_condition": "Joins once the company has won its first Act 1 map on either route (the supply train catches up). With the main column on every map except Column B's.",
+    "joins": "After map_d01 or map_a01 is won.",
+    "departs": "Never.",
+    "support_shape": "None: a non-combatant.",
+    "off_screen_purpose_on_exit": null,
+    "act3_payoff": null,
+    "requires_defections": null,
+    "depart_map_id": null,
+    "joins_after_map_id": "map_d01|map_a01",
+    "column": "A",
+    "stats_like_unit_id": "u_kheldar"
+  },
+  {
+    "guest_id": "gst_qm_b",
+    "name": "Hildegund",
+    "sect_id": null,
+    "base_class_id": "cls_quartermaster",
+    "growth_profile_id": "gp_frail_lucky",
+    "trigger_condition": "Joins at the same time as Wolfram, but keeps the convoy for Column B: on a Column B map she is the quartermaster and Wolfram is not.",
+    "joins": "After map_d01 or map_a01 is won.",
+    "departs": "Never.",
+    "support_shape": "None: a non-combatant.",
+    "off_screen_purpose_on_exit": null,
+    "act3_payoff": null,
+    "requires_defections": null,
+    "depart_map_id": null,
+    "joins_after_map_id": "map_d01|map_a01",
+    "column": "B",
+    "stats_like_unit_id": "u_kheldar"
   }
 ]

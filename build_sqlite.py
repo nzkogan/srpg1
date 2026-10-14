@@ -139,6 +139,7 @@ FKS = {
     ("defections", "return_map_id"): ("maps", "map_id"),
     ("defections", "appears_map_id"): ("maps", "map_id"),
     ("guest_units", "depart_map_id"): ("maps", "map_id"),
+    ("guest_units", "stats_like_unit_id"): ("units", "unit_id"),
     ("materials", "enemy_id"): ("enemy_archetypes", "enemy_id"),
     ("materials", "weapon_id"): ("weapons", "weapon_id"),
     ("enemy_archetypes", "named_id"): ("named", "named_id"),

@@ -183,13 +183,31 @@ func guest_active(guest_id: String) -> bool:
 	var g = Canon.find_by("guest_units", "guest_id", guest_id)
 	if g == null:
 		return false
-	var need := str(g.get("requires_defections", "")).split("|", false)
-	if need.is_empty():
+	var need := _list(g.get("requires_defections"))
+	var after := _list(g.get("joins_after_map_id"))
+	if need.is_empty() and after.is_empty():
 		return false
 	for did in need:
 		if state(did) == "":
 			return false
+	if need.is_empty():                    # a quartermaster: with the company once any of these maps is won
+		for m in after:
+			if GameState.won_maps.has(m):
+				return true
+		return false
 	return true
+
+func _list(v) -> Array:
+	return [] if v == null else Array(str(v).split("|", false))
+
+func is_guest(unit_id: String) -> bool:
+	return Canon.find_by("guest_units", "guest_id", unit_id) != null
+
+## The map actions a guest's class carries (the quartermaster's Supply).
+func guest_actions(guest_id: String) -> Array:
+	var g = Canon.find_by("guest_units", "guest_id", guest_id)
+	var c = Canon.find_by("classes", "class_id", str(g.get("base_class_id", ""))) if g != null else null
+	return [] if c == null else _list(c.get("map_actions"))
 
 func active_guests() -> Array:
 	var out: Array = []
@@ -207,6 +225,10 @@ func guest_level(guest: Dictionary) -> int:
 
 ## The baseline stat row for a guest: the first unit with the same class and growth profile.
 func _guest_base(guest: Dictionary) -> Dictionary:
+	if guest.get("stats_like_unit_id") != null:       # a guest whose class no unit shares: borrow a unit's baseline
+		var like = Canon.find_by("unit_base_stats", "unit_id", str(guest["stats_like_unit_id"]))
+		if like != null:
+			return like
 	for u in Canon.get_table("units"):
 		if u.get("base_class_id") == guest.get("base_class_id") and u.get("growth_profile_id") == guest.get("growth_profile_id"):
 			var b = Canon.find_by("unit_base_stats", "unit_id", u["unit_id"])

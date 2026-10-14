@@ -162,7 +162,7 @@
     "route": "assembly",
     "join_chapter_id": "ch_a03",
     "join_condition": "auto",
-    "base_class_id": "cls_tr_faith",
+    "base_class_id": "cls_martyr",
     "growth_profile_id": "gp_healer",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",

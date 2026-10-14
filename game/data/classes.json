@@ -623,11 +623,11 @@
     "art_secondary": "none",
     "movement": "infantry",
     "promotes_from": null,
-    "signature_skill": null,
+    "signature_skill": "Convoy Keeper",
     "provenance": "no paperwork exists",
-    "notes": "Merlinus revival; one per column",
+    "notes": "Merlinus revival; one per column. BUILT 2026-10-25 as two GUESTS (Wolfram for the main column, Hildegund for Column B), not as roster units: a non-combatant who keeps the convoy. Supply hands an adjacent ally the best weapon in the convoy it can wield, and takes its old one back.",
     "unlock_map_id": null,
-    "map_actions": null
+    "map_actions": "supply"
   },
   {
     "class_id": "cls_martyr",
@@ -637,11 +637,11 @@
     "art_secondary": "none",
     "movement": "infantry",
     "promotes_from": null,
-    "signature_skill": null,
+    "signature_skill": "Miracle",
     "provenance": "no paperwork exists",
-    "notes": "Provoke + Miracle + Resolve",
+    "notes": "Provoke + Miracle + Resolve. PLACED 2026-10-25 on Anselm (SIMULTANEOUS with the Martyr's BUILD, see MARTYR_QUARTERMASTER_DESIGN.md). Provoke: for one enemy phase every enemy that can reach the Martyr must attack the Martyr. Miracle: once a map, a blow that would kill the Martyr leaves them at 1 HP. Resolve: stands firmer when hurt (the ability row).",
     "unlock_map_id": null,
-    "map_actions": null
+    "map_actions": "provoke"
   },
   {
     "class_id": "cls_skald",

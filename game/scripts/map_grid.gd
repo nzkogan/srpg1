@@ -165,6 +165,11 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+var _supply_mode := false      # [Q] pressed: the next arrow key / click picks the ally the quartermaster supplies
+var provoked_by := ""          # a Martyr who used Provoke this turn: the coming enemy phase must go for them
+var _active_provoker := ""     # (the same, while that enemy phase runs)
+var miracle_used: Dictionary = {}   # Martyrs whose Miracle has been spent on this map
+var _miracle_notes: Array[String] = []
 var _skald_mode := ""          # "refresh" / "steal" after [R] / [X]: the next arrow key / click picks the neighbour
 var _sapper_mode := ""         # "breach" / "mine" after [D] / [M]: the next arrow key / click picks the tile
 var sapper_used := 0           # Sapper charges spent on this map (Breach and Mine share them)
@@ -363,7 +368,10 @@ func _guest_rows(first_slot: int) -> Array:
 	var classes_by_id: Dictionary = {}
 	for c in Canon.get_table("classes"):
 		classes_by_id[c["class_id"]] = c
+	var column := "B" if _is_column_b() else "A"
 	for g in Defections.active_guests():
+		if g.get("column") != null and str(g["column"]) != column:
+			continue               # a quartermaster keeps one column's convoy
 		var cls: Dictionary = classes_by_id.get(g.get("base_class_id"), {})
 		var movement := str(cls.get("movement", "infantry"))
 		var art = cls.get("art_primary", "none")
@@ -661,6 +669,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_sapper_click(Vector2i(col, row))
 		elif _skald_mode != "":
 			_skald_click(Vector2i(col, row))
+		elif _supply_mode:
+			_supply_click(Vector2i(col, row))
 		elif row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
 			if not _try_target_click(Vector2i(col, row)):
 				_try_move_to(Vector2i(col, row))
@@ -681,6 +691,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _skald_mode != "":
 			_skald_key(key_event.keycode)
 			return
+		if _supply_mode:
+			_supply_key(key_event.keycode)
+			return
 		if key_event.keycode == KEY_P:
 			suspend(true)
 		elif key_event.keycode == KEY_F5:
@@ -693,6 +706,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_begin_bribe()
 		elif key_event.keycode == KEY_S:
 			_begin_shove()
+		elif key_event.keycode == KEY_V:
+			_provoke()
+		elif key_event.keycode == KEY_Q:
+			_begin_supply()
 		elif key_event.keycode == KEY_R:
 			_begin_skald("refresh")
 		elif key_event.keycode == KEY_X:
@@ -1057,9 +1074,11 @@ func _apply_hazard_damage() -> void:
 		if dmg <= 0:
 			continue
 		unit_hp[pid] = max(0, unit_hp.get(pid, 0) - dmg)
-		if unit_hp[pid] == 0:
+		if unit_hp[pid] == 0 and not _miracle_saves(pid):
 			_kill_unit(pid, {"type": "hazard", "id": "cold"})
 			info_label.text = "%s succumbs to the cold." % unit.get("name")
+		elif not _miracle_notes.is_empty():
+			info_label.text = " ".join(_take_miracle_notes())
 	for inst in enemies:
 		if inst.defeated:
 			continue
@@ -1202,11 +1221,13 @@ func _attack_enemy() -> void:
 			info_label.text += " " + " ".join(got)
 		if map_won:
 			return
-	if int(unit_hp[pid]) == 0:
+	if int(unit_hp[pid]) == 0 and not _miracle_saves(pid):
 		_kill_unit(pid, _killer_of(target, true))
 		info_label.text += " %s falls." % unit.get("name")
 		_check_defeat()
 	else:
+		if not _miracle_notes.is_empty():
+			info_label.text += " " + " ".join(_take_miracle_notes())
 		var gained := _award_exp(unit, target, target.hp == 0, rng)
 		if not gained.is_empty():
 			info_label.text += "\n" + " ".join(gained)
@@ -1582,6 +1603,125 @@ func _restore_sapper(snap: Dictionary) -> void:
 		var t := _a2v(m["at"])
 		mines[t] = {"by": str(m["by"])}
 		_draw_mine(t)
+
+# ------------------------------------------------------------ the Martyr and the Quartermaster
+#
+# The Martyr (Anselm). [V] Provoke: for the coming enemy phase every enemy that can reach the Martyr
+# attacks the Martyr (those that cannot act as usual). Miracle, passive: once a map (miracle_per_map) a
+# blow that would kill them leaves them at 1 HP. Resolve is an ability row (stands firmer when hurt).
+#
+# The Quartermaster (a guest, one per column). [Q] Supply: an adjacent roster ally swaps their weapon for
+# the strongest one in the convoy they can wield, and the convoy takes the old one back.
+
+func _provoke() -> void:
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or not Progression.can_provoke(pid):
+		info_label.text = "%s has no Provoke action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	provoked_by = pid
+	attacked_this_turn[pid] = true
+	info_label.text = "%s stands and calls the enemy out: every foe that can reach %s will go for them this phase." % [unit.get("name"), unit.get("name")]
+	_update_status_label()
+	_update_forecast()
+
+## Miracle: a Martyr who would die and has not yet spent it this map is left at 1 HP. True if it saved them.
+func _miracle_saves(pid: String) -> bool:
+	if map_id == "map_f00" or not Progression.is_known_unit(pid) or not Progression.has_miracle(pid):
+		return false
+	if int(miracle_used.get(pid, 0)) >= Progression.miracle_limit():
+		return false
+	miracle_used[pid] = int(miracle_used.get(pid, 0)) + 1
+	unit_hp[pid] = 1
+	var name := str(defender_row_for(pid).get("name", pid))
+	_miracle_notes.append("A miracle: %s is left standing at 1 HP." % name)
+	return true
+
+func _take_miracle_notes() -> Array[String]:
+	var out: Array[String] = _miracle_notes.duplicate()
+	_miracle_notes.clear()
+	return out
+
+## [Q]: the selected quartermaster offers Supply; the next arrow key (or a click on an adjacent ally) picks them.
+func _begin_supply() -> void:
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _can_supply(pid):
+		info_label.text = "%s has no Supply action." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	_supply_mode = true
+	info_label.text = "Supply: which ally? Arrow key or click an adjacent unit (any other key cancels)."
+
+func _can_supply(pid: String) -> bool:
+	return "supply" in (Progression.map_actions(pid) if Progression.is_known_unit(pid) else Defections.guest_actions(pid))
+
+func _supply_key(keycode: int) -> void:
+	if ARROW_DIRS.has(keycode):
+		_supply_toward(ARROW_DIRS[keycode])
+	else:
+		_supply_mode = false
+		info_label.text = "Supply cancelled."
+
+func _supply_click(tile: Vector2i) -> void:
+	var pos: Vector2i = unit_positions.get(units[selected_unit_index].get("punit_id", ""), Vector2i(-1, -1)) if not units.is_empty() else Vector2i(-1, -1)
+	if _distance(pos, tile) == 1:
+		_supply_toward(tile - pos)
+	else:
+		_supply_mode = false
+		info_label.text = "Supply cancelled."
+
+func _supply_toward(dir: Vector2i) -> void:
+	_supply_mode = false
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1) or attacked_this_turn.has(pid):
+		return
+	var who := _occupant(pos + dir)
+	if not who.has("ally") or _is_cargo(who["ally"]) or Canon.find_by("units", "unit_id", who["ally"]) == null:
+		info_label.text = "There is no one beside %s to supply." % unit.get("name")
+		return
+	var ally: String = who["ally"]
+	var label := _occupant_label(who)
+	var held := Equipment.equipped(ally)
+	var held_might := int(Equipment.weapon_row(str(held.get("weapon_id", ""))).get("might", -1)) if not held.is_empty() else -1
+	var convoy := Equipment.convoy()
+	var best := -1
+	var best_might := held_might
+	for i in convoy.size():
+		var row := Equipment.weapon_row(str(convoy[i]["weapon_id"]))
+		if Equipment.can_wield(ally, str(convoy[i]["weapon_id"])) and int(row.get("might", 0)) > best_might:
+			best = i
+			best_might = int(row.get("might", 0))
+	if best < 0:
+		info_label.text = "Nothing in the convoy beats what %s carries." % label
+		return
+	var inv := Equipment.inventory(ally)
+	var old_name := Provenance.name_of(held) if not held.is_empty() else ""
+	if not held.is_empty():
+		Equipment.store(ally, Equipment.equipped_index(ally))       # the old weapon goes back (to the end: the chosen index stays valid)
+	elif inv.size() >= Equipment.INVENTORY_SIZE:
+		info_label.text = "%s has no room to carry another weapon." % _cap(label)
+		return
+	var new_name := Provenance.name_of(convoy[best])
+	Equipment.take(ally, best)
+	Equipment.equip(ally, Equipment.inventory(ally).size() - 1)
+	attacked_this_turn[pid] = true
+	info_label.text = "%s hands %s the %s%s." % [unit.get("name"), label, new_name, " and takes back the %s" % old_name if old_name != "" else ""]
+	_update_status_label()
+	_update_forecast()
 
 # --------------------------------------------------------------------- the Skald
 #
@@ -2202,7 +2342,10 @@ const COUNTER_WEIGHT := 0.5
 func _enemy_phase() -> void:
 	enemy_log.clear()
 	_phase_targets.clear()
+	_active_provoker = provoked_by          # a Provoke lasts exactly one enemy phase
+	provoked_by = ""
 	if not enemy_phase_enabled:
+		_active_provoker = ""
 		return
 	var rng := rng_override
 	if rng == null:
@@ -2213,6 +2356,7 @@ func _enemy_phase() -> void:
 			continue
 		_enemy_act(inst, rng)
 		_check_defeat()
+	_active_provoker = ""
 	enemy_log.append_array(_update_solo_holds())
 
 ## The live roster row for a player unit id ({} if none).
@@ -2235,6 +2379,25 @@ func _exchange_score(fc: Dictionary, target_hp: int) -> float:
 		score += KILL_BONUS
 	return score
 
+## The best (tile, target) an enemy can attack from among `pids`: {"dest", "pid", "distance"}, or {}.
+func _best_attack(attacker: Dictionary, weapon: Dictionary, reach: Dictionary, occupied: Dictionary, inst: Dictionary, pids: Array) -> Dictionary:
+	var best := {}
+	var best_score := -INF
+	for dest in reach:
+		if dest != inst.pos and occupied.has(dest):
+			continue
+		for pid in pids:
+			var d := _distance(dest, unit_positions[pid])
+			if d < int(weapon.get("range_min", 1)) or d > int(weapon.get("range_max", 1)):
+				continue
+			var defender := _combatant_for_unit(pid)
+			var fc := Combat.forecast(attacker, defender, weapon, _weapon_for_unit(defender), d)
+			var score := _exchange_score(fc, int(unit_hp.get(pid, 0))) - 0.01 * int(reach[dest])  # tie-break: shorter walk
+			if score > best_score:
+				best_score = score
+				best = {"dest": dest, "pid": pid, "distance": d}
+	return best
+
 func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	if not unit_positions.is_empty() and Progression.is_routing(inst.archetype, int(inst.hp), int(inst.max_hp), inst.kind == "boss"):
 		_enemy_flee(inst)
@@ -2254,20 +2417,10 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	var attacker: Dictionary = inst.archetype.duplicate()
 
 	var best := {}
-	var best_score := -INF
-	for dest in reach:
-		if dest != inst.pos and occupied.has(dest):
-			continue
-		for pid in unit_positions:
-			var d := _distance(dest, unit_positions[pid])
-			if d < int(weapon.get("range_min", 1)) or d > int(weapon.get("range_max", 1)):
-				continue
-			var defender := _combatant_for_unit(pid)
-			var fc := Combat.forecast(attacker, defender, weapon, _weapon_for_unit(defender), d)
-			var score := _exchange_score(fc, int(unit_hp.get(pid, 0))) - 0.01 * int(reach[dest])  # tie-break: shorter walk
-			if score > best_score:
-				best_score = score
-				best = {"dest": dest, "pid": pid, "distance": d}
+	if _active_provoker != "" and unit_positions.has(_active_provoker):
+		best = _best_attack(attacker, weapon, reach, occupied, inst, [_active_provoker])   # a Provoke: the Martyr, if it can reach them
+	if best.is_empty():
+		best = _best_attack(attacker, weapon, reach, occupied, inst, unit_positions.keys())
 
 	if best.is_empty():
 		if budget > 0:
@@ -2295,9 +2448,11 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 		enemy_log.append(broke.strip_edges())
 	if int(unit_hp[pid]) > 0:
 		enemy_log.append_array(_apply_weapon_effect(defender, def_weapon, inst, "def", result))
-	if int(unit_hp[pid]) == 0:
+	if int(unit_hp[pid]) == 0 and not _miracle_saves(pid):
 		_kill_unit(pid, _killer_of(inst, false))
 		enemy_log.append("%s falls." % uname)
+	elif not _miracle_notes.is_empty():
+		enemy_log.append_array(_take_miracle_notes())
 	elif int(result["def_strikes"]) > 0:
 		# the unit fought (countered): it earns EXP, though the log only shows level-ups
 		enemy_log.append_array(_award_exp(defender_row_for(pid), inst, inst.hp == 0, rng, false))
@@ -2552,7 +2707,7 @@ func capture_state() -> Dictionary:
 		"positions": positions, "hp": unit_hp.duplicate(), "moved": moved_this_turn.duplicate(), "attacked": attacked_this_turn.duplicate(),
 		"struck": struck_units.duplicate(), "fought": fought_units.duplicate(), "hold": hold,
 		"enemies": enemy_rows, "dens": den_rows, "enemy_log": enemy_log.duplicate(),
-		"bribed": bribed_count, "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
+		"bribed": bribed_count, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
 		"mines": mines.keys().map(func(p): return {"at": _v2a(p), "by": mines[p]["by"]}), "escaped": escaped_count, "delivered": delivered.duplicate(),
 	}
 
@@ -2621,6 +2776,10 @@ func _restore_progress(snap: Dictionary) -> void:
 		hold_streak[pid] = {"tile": _a2v(snap["hold"][pid]["tile"]), "phases": int(snap["hold"][pid]["phases"])}
 	bribed_count = int(snap.get("bribed", 0))
 	_restore_sapper(snap)
+	provoked_by = str(snap.get("provoked", ""))
+	miracle_used.clear()
+	for pid in snap.get("miracle", []):
+		miracle_used[str(pid)] = true
 	escaped_count = int(snap.get("escaped", 0))
 	delivered.clear()
 	for id in snap.get("delivered", []):

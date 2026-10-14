@@ -508,5 +508,11 @@
     "value": 9,
     "text": null,
     "notes": "Skald: the most hit and avoid the aura can give one ally (three deeds' worth)."
+  },
+  {
+    "param_id": "prm_miracle_per_map",
+    "value": 1,
+    "text": null,
+    "notes": "Martyr: how many times on one map a blow that would kill a Martyr leaves them at 1 HP instead."
   }
 ]

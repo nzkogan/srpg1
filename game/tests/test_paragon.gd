@@ -142,8 +142,10 @@ func _options() -> void:
 	check(ver["pool"] == "class:cls_krivis" and _p.pool("u_maren").size() > 0 and _p.pool("u_maren")[0]["ability_id"] == "ab_verdict", "Verdict is pooled to the Krivis alone")
 	check(not _p.pool("u_ricberta").any(func(a): return a["ability_id"] == "ab_verdict"), "(nobody else can pick it)")
 	# a Bishop's own personal-class cousins: Anselm, a faith unit, sees it too
-	_certified("u_anselm", "cls_great_shield", 30)
-	check(_names(_p.paragon_options("u_anselm")) == ["Krivis"], "Anselm, a Great shield (faith, armor), sees it as well")
+	_certified("u_anselm", "cls_martyr", 30)
+	check(_names(_p.paragon_options("u_anselm")) == ["Martyr"], "Anselm is the Martyr, a personal class: his paragon step is a milestone, not a choice")
+	_gs.progression["u_anselm"]["class_id"] = "cls_great_shield"        # (lend the class: a Great shield is faith and armor)
+	check(_names(_p.paragon_options("u_anselm")) == ["Krivis"], "a Great shield (faith, armor) sees the Krivis as well")
 	# hybrids with faith as a second art see it next to their other paragon
 	_reset()
 	_certified("u_emmerich", "cls_warlock", 30)

@@ -717,6 +717,17 @@ func sapper_limit() -> int:
 func mine_damage() -> int:
 	return int(param("mine_damage"))
 
+## The Martyr's kit: Provoke (an action), Miracle (a signature skill: a blow that would kill leaves
+## them at 1 HP, once a map).
+func can_provoke(unit_id: String) -> bool:
+	return "provoke" in map_actions(unit_id)
+
+func has_miracle(unit_id: String) -> bool:
+	return str(class_row(unit_id).get("signature_skill", "")) == "Miracle"
+
+func miracle_limit() -> int:
+	return int(param("miracle_per_map"))
+
 ## The Skald's kit: Refresh (an ally who has acted acts again), Steal (an enemy's weapon), and the
 ## Epithet Aura, a signature skill that lifts every ally near her by the deeds it has earned.
 func can_refresh(unit_id: String) -> bool:

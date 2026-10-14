@@ -32,7 +32,7 @@ from openpyxl import load_workbook
 WORLD_W, WORLD_H = 1152, 540   # the overworld canvas locations.map_x / map_y live on
 PATH_ROUTES = {"diadem", "assembly", "both"}
 PATH_KINDS = {"road", "trail"}
-MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine", "refresh", "steal"}   # actions a class adds on the battle map (classes.map_actions)
+MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine", "refresh", "steal", "provoke", "supply"}   # actions a class adds on the battle map (classes.map_actions)
 
 PRIMARY_KEYS = {
     "sects": ("sect_id", "sect_"),
@@ -283,7 +283,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -512,8 +512,16 @@ def main():
         for need in split_multi(g.get("requires_defections")):
             if need not in defection_ids:
                 fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"requires_defections '{need}' is not a defection")
-        if g.get("depart_map_id") not in maps_known:
+        if g.get("depart_map_id") not in (None, "") and g.get("depart_map_id") not in maps_known:
             fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"depart_map_id '{g.get('depart_map_id')}' is not a map")
+        joins = split_multi(g.get("joins_after_map_id"))
+        if not joins and not split_multi(g.get("requires_defections")):
+            fail("c07", "blocking", f"guest_units.{g['guest_id']}", "a guest needs requires_defections or joins_after_map_id")
+        for jm in joins:
+            if jm not in maps_known:
+                fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"joins_after_map_id '{jm}' is not a map")
+        if g.get("column") not in (None, "", "A", "B"):
+            fail("c07", "blocking", f"guest_units.{g['guest_id']}", "column must be A or B")
 
     # --- c07o the deputy ledger: every scoring factor the code uses is present, once, with a weight;
     #     a support that reveals literacy names a real rank
@@ -613,8 +621,8 @@ def main():
         acts = split_multi(c.get("map_actions"))
         if ("breach" in acts or "mine" in acts) and c.get("tier") != "personal":
             fail("c07", "blocking", f"classes.{c['class_id']}", "only a personal class may carry Breach or Mine")
-        if ("breach" in acts or "mine" in acts) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"]):
-            fail("c07", "warning", f"classes.{c['class_id']}", "no unit holds this class")
+        if ("breach" in acts or "mine" in acts) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"] + tabs["guest_units"]):
+            fail("c07", "warning", f"classes.{c['class_id']}", "no unit or guest holds this class")
 
     # --- c07s the might ladder: each weapon tier hits harder than the one below it, so a Silver never out-hits a legend
     band = {}
@@ -633,8 +641,22 @@ def main():
         aura = c.get("signature_skill") == "Epithet Aura"
         if ("refresh" in acts or "steal" in acts or aura) and c.get("tier") != "personal":
             fail("c07", "blocking", f"classes.{c['class_id']}", "Refresh, Steal and the Epithet Aura belong to a personal class")
-        if ("refresh" in acts or "steal" in acts or aura) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"]):
-            fail("c07", "warning", f"classes.{c['class_id']}", "no unit holds this class")
+        if ("refresh" in acts or "steal" in acts or aura) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"] + tabs["guest_units"]):
+            fail("c07", "warning", f"classes.{c['class_id']}", "no unit or guest holds this class")
+
+    # --- c07u the Martyr and the Quartermaster: personal classes, held (a Quartermaster by a guest, one per column)
+    for c in tabs["classes"]:
+        acts = split_multi(c.get("map_actions"))
+        special = {"provoke", "supply"} & set(acts) or {c.get("signature_skill")} & {"Miracle", "Convoy Keeper"}
+        if special and c.get("tier") != "personal":
+            fail("c07", "blocking", f"classes.{c['class_id']}", "Provoke, Supply, Miracle and Convoy Keeper belong to a personal class")
+        if "supply" in acts:
+            cols = sorted(g.get("column") for g in tabs["guest_units"] if g.get("base_class_id") == c["class_id"])
+            if cols != ["A", "B"] and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"]):
+                fail("c07", "blocking", f"classes.{c['class_id']}", f"a Quartermaster is needed for each column (A and B); the guests cover {cols}")
+    for g in tabs["guest_units"]:
+        if g.get("stats_like_unit_id") not in (None, "") and g["stats_like_unit_id"] not in unit_known:
+            fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"stats_like_unit_id '{g['stats_like_unit_id']}' is not a unit")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

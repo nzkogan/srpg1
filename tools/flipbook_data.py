@@ -161,6 +161,9 @@ def build():
     holders = {}
     for u in units.values():
         holders.setdefault(u["base_class_id"], []).append(u)
+    for g in load("guest_units"):          # a guest holds a class too (the Quartermasters)
+        if str(g.get("guest_id", "")).startswith("gst_"):
+            holders.setdefault(g["base_class_id"], []).append({"unit_id": g["guest_id"], "name": g["name"] + " (guest)", "growth_profile_id": g["growth_profile_id"], "join_chapter_id": None})
     stats_by_unit = {s["unit_id"]: s for s in load("unit_base_stats")}
     gating = [e for e in load("epithets") if e.get("gates_paragon") == "yes"]
     out_c = []
@@ -194,7 +197,10 @@ def build():
         elif tier == "personal":
             who = ", ".join(u["name"] for u in holders.get(c["class_id"], [])) or "no one yet"
             req.append(f"Held by {who}. No paperwork exists, so no one else can take it.")
-            req.append("Takes a milestone at level 15 and again at 30 instead of changing class.")
+            if who != "no one yet" and all("(guest)" in str(u["name"]) for u in holders.get(c["class_id"], [])):
+                req.append("Guests do not level or certify: they travel with the company and keep its convoy.")
+            else:
+                req.append("Takes a milestone at level 15 and again at 30 instead of changing class.")
         elif tier == "shadow":
             req.append(f"Off the matrix: advances along its own line{', from ' + prom['name'] if prom else ''}.")
         promoted = tier in ("order", "hybrid", "paragon")
