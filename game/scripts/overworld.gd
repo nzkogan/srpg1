@@ -28,7 +28,7 @@ extends Node2D
 ## save, load or new game (save_screen.gd). U = free roam: ignore the locks (a
 ## testing aid, not saved). Escape inside any map returns here (see map_grid.gd).
 ##
-## F opens the forge where a master smith works (see forge.gd). R reads the roll of the fallen
+## F opens the forge where a master smith works (see forge.gd); O the requisitions (standard forges). R reads the roll of the fallen
 ## (epilogue.gd).
 ##
 ## A battle suspended with P (or quick-saved with F5) waits here: the party stands at its
@@ -285,6 +285,16 @@ func open_forge() -> bool:
 		_show_location(party_location, true, "No master smith works here.")
 		return false
 	GameState.world_location = party_location
+	if launch_enabled:
+		get_tree().change_scene_to_file(Forge.SCREEN_SCENE)
+	return true
+
+## O: the requisitions: order ordinary weapons from the standard forge, anywhere.
+func open_orders() -> bool:
+	if is_walking():
+		return false
+	GameState.world_location = party_location
+	Forge.orders_mode = true
 	if launch_enabled:
 		get_tree().change_scene_to_file(Forge.SCREEN_SCENE)
 	return true
@@ -603,7 +613,7 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 		lines.append("A master smith works here: %s. Press F." % ", ".join(names))
 	var verdict_text := "no sentence recommended yet" if GameState.get_flag(HIEROPHANT_FLAG) == null \
 		else "verdict: %s" % GameState.get_flag(HIEROPHANT_FLAG)
-	lines.append("Click a place to walk there. S supports, C convoy, B barracks, F forge, L to save or load, U free roam%s. %s(The Kaisareia Trial: %s.)" % [
+	lines.append("Click a place to walk there. S supports, C convoy, B barracks, F forge, L to save or load, O requisitions, U free roam%s. %s(The Kaisareia Trial: %s.)" % [
 		" (ON)" if free_roam else "", _autosave_hint(), verdict_text])
 	info_label.text = "\n".join(lines)
 
@@ -637,6 +647,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		toggle_roll()
+		return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_O:
+		open_orders()
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_X:
 		if GameState.battle.is_empty():

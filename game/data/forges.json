@@ -8,10 +8,11 @@
     "smith_notes": null,
     "cycle_length": "1 chapter",
     "access_logic": "requisition tier only (1/2/3 open orders at tier 1/2/3)",
-    "design_note": "the ordinary spine sidequest; no master required",
+    "design_note": "the ordinary spine sidequest; no master required. BUILT 2026-10-26 (STANDARD_FORGES_DESIGN.md): orders of ordinary weapons for gold, one chapter, up to your requisition tier open at once, anywhere. The Diadem's house arts (cheaper here): sword, lance, reason, faith -- the capital's library and armories.",
     "location_id": null,
-    "access_rule": null,
-    "cycle_n": null
+    "access_rule": "always",
+    "cycle_n": 1,
+    "house_arts": "sword|lance|reason|faith"
   },
   {
     "forge_id": "frg_standard_b",
@@ -22,10 +23,11 @@
     "smith_notes": null,
     "cycle_length": "1 chapter",
     "access_logic": "requisition tier only (1/2/3 open orders at tier 1/2/3)",
-    "design_note": "the ordinary spine sidequest; no master required",
+    "design_note": "the ordinary spine sidequest; no master required. BUILT 2026-10-26 (STANDARD_FORGES_DESIGN.md): the same orders at the Assembly's forge. Its house arts (cheaper here): axe, bow, brawl -- timber, horse-country and the lake towns.",
     "location_id": null,
-    "access_rule": null,
-    "cycle_n": null
+    "access_rule": "always",
+    "cycle_n": 1,
+    "house_arts": "axe|bow|brawl"
   },
   {
     "forge_id": "frg_kaisareia",
@@ -39,7 +41,8 @@
     "design_note": "the baseline master, always reachable if the crown is willing",
     "location_id": "loc_kaisareia_walls",
     "access_rule": "always",
-    "cycle_n": 2
+    "cycle_n": 2,
+    "house_arts": null
   },
   {
     "forge_id": "frg_vashti",
@@ -53,7 +56,8 @@
     "design_note": "arms lances and axes: the common soldier's tools, not the officer's. Fitting that the hardest-won master smith makes the plainest weapons",
     "location_id": "loc_vashti_gate",
     "access_rule": "won:map_ct19",
-    "cycle_n": 2
+    "cycle_n": 2,
+    "house_arts": null
   },
   {
     "forge_id": "frg_herd",
@@ -67,6 +71,7 @@
     "design_note": "the master smith outside the state's reach entirely, which is the point",
     "location_id": "loc_ostrova",
     "access_rule": "won:map_x11",
-    "cycle_n": 2
+    "cycle_n": 2,
+    "house_arts": null
   }
 ]

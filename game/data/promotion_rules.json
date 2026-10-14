@@ -514,5 +514,41 @@
     "value": 1,
     "text": null,
     "notes": "Martyr: how many times on one map a blow that would kill a Martyr leaves them at 1 HP instead."
+  },
+  {
+    "param_id": "prm_requisition_tier_2",
+    "value": 2,
+    "text": "map_x11",
+    "notes": "Requisition tier 2 (two open orders) once this map is won: the Second Writ."
+  },
+  {
+    "param_id": "prm_requisition_tier_3",
+    "value": 3,
+    "text": "map_rf20",
+    "notes": "Requisition tier 3 (three open orders, and silver weapons) once this map is won: the Reunion."
+  },
+  {
+    "param_id": "prm_standard_cost_basic",
+    "value": 150,
+    "text": null,
+    "notes": "Standard forge: gold for a basic (iron) weapon."
+  },
+  {
+    "param_id": "prm_standard_cost_mid",
+    "value": 300,
+    "text": null,
+    "notes": "Standard forge: gold for a mid (steel) weapon."
+  },
+  {
+    "param_id": "prm_standard_cost_high",
+    "value": 800,
+    "text": null,
+    "notes": "Standard forge: gold for a high (silver) weapon, which needs requisition tier 3."
+  },
+  {
+    "param_id": "prm_standard_house_discount_pct",
+    "value": 20,
+    "text": null,
+    "notes": "Standard forge: percent off the weapons of that forge's house arts (forges.house_arts)."
   }
 ]

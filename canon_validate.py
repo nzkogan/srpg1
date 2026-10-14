@@ -283,7 +283,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -657,6 +657,21 @@ def main():
     for g in tabs["guest_units"]:
         if g.get("stats_like_unit_id") not in (None, "") and g["stats_like_unit_id"] not in unit_known:
             fail("c07", "blocking", f"guest_units.{g['guest_id']}", f"stats_like_unit_id '{g['stats_like_unit_id']}' is not a unit")
+
+    # --- c07v standard forges: always open, a cycle, house arts that are real arts; the requisition tiers name maps
+    for f in tabs["forges"]:
+        if f.get("tier") != "standard":
+            continue
+        fid = f["forge_id"]
+        if f.get("access_rule") != "always" or not isinstance(f.get("cycle_n"), int) or f["cycle_n"] < 1:
+            fail("c07", "blocking", f"forges.{fid}", "a standard forge is always open and has a cycle_n of at least 1 chapter")
+        arts = split_multi(f.get("house_arts"))
+        if not arts or any(a not in MATRIX_ARTS for a in arts):
+            fail("c07", "blocking", f"forges.{fid}", f"house_arts must be real arts (got {arts})")
+    for need in ("requisition_tier_2", "requisition_tier_3"):
+        row = next((r for r in tabs["promotion_rules"] if r["param_id"] == f"prm_{need}"), None)
+        if row is None or row.get("text") not in {m["map_id"] for m in tabs["maps"]}:
+            fail("c07", "blocking", "promotion_rules", f"prm_{need} must name a map in its text column")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

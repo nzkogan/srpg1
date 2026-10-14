@@ -14,6 +14,7 @@ const GOLD := "#e8c14a"
 const DIM := "#8a8a92"
 
 var location_id := ""
+var standard := false             # opened with O: the standard forges' requisitions, not a master
 var forge_rows: Array = []        # the masters at this place
 var _rows: Array = []             # {kind: commission|collect|waiting|none, forge_id, ...}
 var _index := 0
@@ -27,7 +28,9 @@ var _footer: Label
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	location_id = GameState.world_location
-	forge_rows = Forge.forges_at(location_id)
+	standard = Forge.orders_mode
+	Forge.orders_mode = false
+	forge_rows = Forge.standard_forges() if standard else Forge.forges_at(location_id)
 	_build_ui()
 	_refresh()
 
@@ -68,6 +71,8 @@ func _build_ui() -> void:
 ## weapons, its commissionable materials, and its works in progress; or one "none" row.
 func rows() -> Array:
 	var out: Array = []
+	if standard:
+		return _standard_rows()
 	for f in forge_rows:
 		var fid: String = f["forge_id"]
 		for i in Forge.orders_for(fid):
@@ -88,8 +93,27 @@ func rows() -> Array:
 		out.append({"kind": "none"})
 	return out
 
+## The requisitions screen: every finished order to collect, every one in the forge, then what the
+## forge for this place will make.
+func _standard_rows() -> Array:
+	var out: Array = []
+	for f in forge_rows:
+		for i in Forge.orders_for(f["forge_id"]):
+			if GameState.forge_orders[i]["ready"]:
+				out.append({"kind": "collect", "forge_id": f["forge_id"], "order_index": i})
+	for f in forge_rows:
+		for i in Forge.orders_for(f["forge_id"]):
+			if not GameState.forge_orders[i]["ready"]:
+				out.append({"kind": "waiting", "forge_id": f["forge_id"], "order_index": i})
+	var here := Forge.standard_forge_for(location_id)
+	for e in Forge.catalogue(here):
+		out.append({"kind": "order", "forge_id": here, "weapon_id": e["weapon_id"], "cost": e["cost"]})
+	return out
+
 func row_label(row: Dictionary) -> String:
 	match row["kind"]:
+		"order":
+			return "Order: %s (%d gold)" % [Equipment.weapon_name(row["weapon_id"]), row["cost"]]
 		"collect":
 			var o: Dictionary = GameState.forge_orders[row["order_index"]]
 			return "Collect: %s (%s)" % [Equipment.weapon_name(o["weapon_id"]), o["quality"]]
@@ -106,7 +130,7 @@ func row_label(row: Dictionary) -> String:
 func _weapon_lines(weapon_id: String, quality: String) -> Array[String]:
 	var w := Equipment.weapon_row(weapon_id)
 	var lines: Array[String] = []
-	lines.append("[b]%s[/b]  (%s, legendary)" % [w.get("name", weapon_id), w.get("art", "?")])
+	lines.append("[b]%s[/b]  (%s, %s)" % [w.get("name", weapon_id), w.get("art", "?"), w.get("tier", "?")])
 	lines.append("Might %d   Hit %d   Crit %d   Weight %d   Range %d%s   Uses %d" % [int(w.get("might", 0)), int(w.get("hit", 0)), int(w.get("crit", 0)),
 		int(w.get("weight", 0)), int(w.get("range_min", 1)), "" if int(w.get("range_max", 1)) == int(w.get("range_min", 1)) else "-%d" % int(w.get("range_max", 1)),
 		Forge.uses_for(weapon_id, quality)])
@@ -117,7 +141,10 @@ func _weapon_lines(weapon_id: String, quality: String) -> Array[String]:
 		lines.append("[color=%s]%s[/color]" % [GOLD, fx])
 	if quality == "diminished":
 		lines.append("[color=%s]A harvested material: half the uses.[/color]" % DIM)
-	lines.append("[color=%s]Needs a certified class to wield.[/color]" % DIM)
+	if w.get("tier") in ["high", "legendary"]:
+		lines.append("[color=%s]Needs a certified class to wield.[/color]" % DIM)
+	elif w.get("tier") == "mythic":
+		lines.append("[color=%s]Needs a paragon to wield.[/color]" % DIM)
 	return lines
 
 func detail_text(row: Dictionary) -> String:
@@ -132,11 +159,20 @@ func detail_text(row: Dictionary) -> String:
 		lines.append_array(_status_lines())
 		return "\n".join(lines)
 	var f := Forge.forge_row(row["forge_id"])
-	lines.append("[b][font_size=18]%s[/font_size][/b]  [color=%s]%s -- %s[/color]" % [f["name"], DIM, f.get("specialty", ""), f.get("smith_notes", "")])
+	if standard:
+		lines.append("[b][font_size=18]%s[/font_size][/b]  [color=%s]house arts: %s[/color]" % [f["name"], DIM, str(f.get("house_arts", "")).replace("|", ", ")])
+	else:
+		lines.append("[b][font_size=18]%s[/font_size][/b]  [color=%s]%s -- %s[/color]" % [f["name"], DIM, f.get("specialty", ""), f.get("smith_notes", "")])
 	var acc := Forge.access(row["forge_id"])
 	lines.append("[color=%s]%s[/color]" % [GOOD if acc["ok"] else BAD, "Open to you." if acc["ok"] else "Closed: " + acc["reason"] + "."])
 	lines.append("")
 	match row["kind"]:
+		"order":
+			lines.append_array(_weapon_lines(row["weapon_id"], "standard"))
+			lines.append("")
+			var oc := Forge.can_order(row["forge_id"], row["weapon_id"])
+			lines.append("[color=%s]%s[/color]" % [GOOD if oc["ok"] else BAD,
+				"Enter orders it for %d gold. It is ready after %d newly won chapter%s." % [oc["cost"], int(f.get("cycle_n", 1)), "" if int(f.get("cycle_n", 1)) == 1 else "s"] if oc["ok"] else "Can't order: %s." % oc["reason"]])
 		"commission":
 			var m := Forge.material_row(row["material_id"])
 			var q: String = GameState.materials[row["material_id"]]
@@ -170,6 +206,8 @@ func detail_text(row: Dictionary) -> String:
 	return "\n".join(lines)
 
 func _status_lines() -> Array[String]:
+	if standard:
+		return ["[color=%s]Requisition tier %d: %d of %d orders open. Gold: %d.[/color]" % [DIM, Forge.requisition_tier(), Forge.open_standard_orders(), Forge.open_order_limit(), GameState.gold]]
 	var lines: Array[String] = ["[color=%s]Master works commissioned: %d of %d.[/color]" % [DIM, GameState.works_started, Forge.works_cap()]]
 	var held := Forge.held()
 	if held.is_empty():
@@ -188,6 +226,11 @@ func activate() -> bool:
 		return false
 	var row: Dictionary = all[_index]
 	match row["kind"]:
+		"order":
+			var o := Forge.order(row["forge_id"], row["weapon_id"])
+			_message = "The forge takes the order: %s for %d gold, ready after %d chapter%s." % [Equipment.weapon_name(row["weapon_id"]), o["cost"], int(o["order"]["chapters_left"]), "" if int(o["order"]["chapters_left"]) == 1 else "s"] if o["ok"] else "Can't: %s." % o["reason"]
+			_refresh()
+			return o["ok"]
 		"commission":
 			var r := Forge.commission(row["material_id"])
 			_message = "The smith takes the work: %s in %d chapters." % [Equipment.weapon_name(r["order"]["weapon_id"]), r["order"]["chapters_left"]] if r["ok"] else "Can't: %s." % r["reason"]
@@ -210,14 +253,17 @@ func activate() -> bool:
 func _refresh() -> void:
 	var all := rows()
 	_index = clampi(_index, 0, all.size() - 1)
-	_title.text = "The forge -- %s" % (", ".join(forge_rows.map(func(f): return f["name"])) if not forge_rows.is_empty() else "no master smith here")
+	if standard:
+		_title.text = "Requisitions -- %s (tier %d)" % [Forge.forge_row(Forge.standard_forge_for(location_id)).get("name", "the forge"), Forge.requisition_tier()]
+	else:
+		_title.text = "The forge -- %s" % (", ".join(forge_rows.map(func(f): return f["name"])) if not forge_rows.is_empty() else "no master smith here")
 	_list.clear()
 	for row in all:
 		_list.add_item(row_label(row))
 	if _list.item_count > 0:
 		_list.select(_index)
 	_refresh_detail()
-	_footer.text = "%s\nUp/Down choose   Enter commission, collect or reforge   Esc back" % _message
+	_footer.text = "%s\nUp/Down choose   Enter %s   Esc back" % [_message, "order or collect" if standard else "commission, collect or reforge"]
 
 func _refresh_detail() -> void:
 	var all := rows()

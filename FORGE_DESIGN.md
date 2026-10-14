@@ -54,9 +54,9 @@ remembers the wear.
 - **Intact** capture (a marked weapon that keeps its ability / a Named mount) and the kill-taboo on the Huma.
 - "Better weapon" for a kill (here a kill gives a prime material, which just means full uses), the Named's mutual
   knowledge ("kill one and the next will not be captured"), and the Anzu's cost ("weapons it unmakes cannot be captured").
-- The **standard forges** (requisition tier orders). The **epithet naming grammar** is WEAPON_NAMES_DESIGN.md (marks, reforging
+- The **standard forges** and requisition tier are STANDARD_FORGES_DESIGN.md. The **epithet naming grammar** is WEAPON_NAMES_DESIGN.md (marks, reforging
   clears epithets), now built.
-- A smith's access being **lost** mid-run; the requisition tier; Named riding.
+- A smith's access being **lost** mid-run; Named riding.
 - The legendary weapons' numbers (now might 15-17, 30 uses, see NEW_WEAPONS_DESIGN.md) and the access rules are first-pass guesses.
 
 ## Where it lives

@@ -639,7 +639,7 @@
     "promotes_from": null,
     "signature_skill": "Miracle",
     "provenance": "no paperwork exists",
-    "notes": "Provoke + Miracle + Resolve. PLACED 2026-10-25 on Anselm (SIMULTANEOUS with the Martyr's BUILD, see MARTYR_QUARTERMASTER_DESIGN.md). Provoke: for one enemy phase every enemy that can reach the Martyr must attack the Martyr. Miracle: once a map, a blow that would kill the Martyr leaves them at 1 HP. Resolve: stands firmer when hurt (the ability row).",
+    "notes": "Provoke + Miracle + Resolve. PLACED 2026-10-25 on Anselm (MARTYR_QUARTERMASTER_DESIGN.md). Provoke: for one enemy phase every enemy that can reach the Martyr must attack the Martyr. Miracle: once a map, a blow that would kill the Martyr leaves them at 1 HP. Resolve: stands firmer when hurt (the ability row).",
     "unlock_map_id": null,
     "map_actions": "provoke"
   },

@@ -12,6 +12,10 @@ extends Node
 ## works_started); this autoload owns no data of its own.
 
 const SCREEN_SCENE := "res://scenes/forge_screen.tscn"
+
+## Set by the overworld's O key just before it opens the forge screen: show the standard forges'
+## requisitions instead of the master smith where the party stands. The screen clears it.
+var orders_mode := false
 const TIER_RANK := {"worn": 0, "basic": 1, "mid": 2, "high": 3, "legendary": 4, "mythic": 5}
 
 # ------------------------------------------------------------------- canon
@@ -132,6 +136,9 @@ func on_map_won(newly: bool) -> Array[String]:
 		order["chapters_left"] = int(order["chapters_left"]) - 1
 		if int(order["chapters_left"]) <= 0:
 			order["ready"] = true
+			if is_standard(str(order["forge_id"])):
+				lines.append("Your order of a %s is ready: press O on the overworld to collect it." % Equipment.weapon_name(order["weapon_id"]))
+				continue
 			lines.append("%s has finished the %s: collect it at %s." % [forge_row(order["forge_id"]).get("name", "the smith"),
 				Equipment.weapon_name(order["weapon_id"]), forge_row(order["forge_id"]).get("name", "the forge")])
 	return lines
@@ -163,6 +170,107 @@ func collect(order_index: int) -> Dictionary:
 	Equipment.convoy_add(order["weapon_id"], uses_for(order["weapon_id"], order["quality"]))
 	GameState.forge_orders.remove_at(order_index)
 	return {"ok": true, "reason": "", "weapon_id": order["weapon_id"], "quality": order["quality"]}
+
+# ------------------------------------------------------- the standard forges
+#
+# Canon's frg_standard_a (the Diadem's forge orders) and frg_standard_b (the Assembly's): the ordinary
+# spine sidequest, no master, no place on the map ("wherever your column currently is"). You order an
+# ordinary weapon for gold; it is ready after one newly won chapter and collected into the convoy. How
+# many orders may be open at once is your REQUISITION TIER, 1 to 3, which rises as the war does: tier 2
+# once the Second Writ is won, tier 3 once the Reunion is (canon's "1/2/3 open orders at tier 1/2/3"). Silver
+# weapons are for tier 3. A forge makes its house arts (forges.house_arts) for less. Orders live in
+# GameState.forge_orders beside the master works, but are not master works (no cap, no material).
+
+func standard_forges() -> Array:
+	var out: Array = []
+	for row in Canon.get_table("forges"):
+		if row.get("tier") == "standard":
+			out.append(row)
+	return out
+
+func is_standard(forge_id: String) -> bool:
+	return forge_row(forge_id).get("tier") == "standard"
+
+## 1, 2 or 3: the war's requisition tier, from the maps won.
+func requisition_tier() -> int:
+	var tier := 1
+	for t in [2, 3]:
+		var row = Canon.find_by("promotion_rules", "param_id", "prm_requisition_tier_%d" % t)
+		if row != null and row.get("text") != null and GameState.won_maps.has(str(row["text"])):
+			tier = t
+	return tier
+
+## How many standard orders may be open (ordered and not yet collected) at once.
+func open_order_limit() -> int:
+	return requisition_tier()
+
+func open_standard_orders() -> int:
+	var n := 0
+	for o in GameState.forge_orders:
+		if is_standard(str(o.get("forge_id", ""))):
+			n += 1
+	return n
+
+## Which standard forge serves a place: the Assembly's where the chapters are the Assembly's route,
+## the Diadem's anywhere else.
+func standard_forge_for(location_id: String) -> String:
+	for ch in Canon.get_table("chapters"):
+		if ch.get("location_id") == location_id and ch.get("route") == "assembly":
+			return "frg_standard_b"
+	return "frg_standard_a"
+
+## What a standard forge will make: [{weapon_id, name, art, tier, cost}], cheapest tier first. Basic and
+## mid weapons always; silver only at requisition tier 3. One-art weapons only (no overlap weapons).
+func catalogue(forge_id: String) -> Array:
+	var out: Array = []
+	var house := str(forge_row(forge_id).get("house_arts", "")).split("|", false)
+	for w in Canon.get_table("weapons"):
+		if not str(w.get("weapon_id", "")).begins_with("wpn_") or w.get("req_arts") != null:
+			continue
+		var tier := str(w.get("tier", ""))
+		if not (tier in ["basic", "mid", "high"]) or w.get("effect") != null or (tier == "high" and requisition_tier() < 3):
+			continue
+		out.append({"weapon_id": w["weapon_id"], "name": w["name"], "art": w["art"], "tier": tier, "cost": order_cost(w, house)})
+	out.sort_custom(func(a, b): return int(TIER_RANK[a["tier"]]) < int(TIER_RANK[b["tier"]]))
+	return out
+
+func order_cost(weapon: Dictionary, house_arts: Array) -> int:
+	var cost := int(Progression.param("standard_cost_%s" % weapon.get("tier", "basic")))
+	if house_arts.has(weapon.get("art")):
+		cost = int(floor(cost * (100.0 - Progression.param("standard_house_discount_pct")) / 100.0))
+	return cost
+
+## Whether the company could order this weapon from this forge now: {"ok", "reason", "cost"}.
+func can_order(forge_id: String, weapon_id: String) -> Dictionary:
+	if not is_standard(forge_id):
+		return {"ok": false, "reason": "that is not a standard forge", "cost": 0}
+	var entry := {}
+	for e in catalogue(forge_id):
+		if e["weapon_id"] == weapon_id:
+			entry = e
+	if entry.is_empty():
+		var w := Equipment.weapon_row(weapon_id)
+		var why := "the forge does not make it"
+		if w.get("tier") == "high" and requisition_tier() < 3:
+			why = "silver weapons need requisition tier 3 (you are at tier %d)" % requisition_tier()
+		return {"ok": false, "reason": why, "cost": 0}
+	if open_standard_orders() >= open_order_limit():
+		return {"ok": false, "reason": "your requisition tier (%d) allows %d open order%s" % [requisition_tier(), open_order_limit(), "" if open_order_limit() == 1 else "s"], "cost": entry["cost"]}
+	if GameState.gold < int(entry["cost"]):
+		return {"ok": false, "reason": "it costs %d gold (you have %d)" % [entry["cost"], GameState.gold], "cost": entry["cost"]}
+	return {"ok": true, "reason": "", "cost": entry["cost"]}
+
+## Places an order: pays, and it is ready after the forge's cycle_n newly won chapters.
+func order(forge_id: String, weapon_id: String) -> Dictionary:
+	var check := can_order(forge_id, weapon_id)
+	if not check["ok"]:
+		return check
+	GameState.gold -= int(check["cost"])
+	var o := {"forge_id": forge_id, "weapon_id": weapon_id, "quality": "standard",
+		"chapters_left": int(forge_row(forge_id).get("cycle_n", 1)), "ready": false}
+	GameState.forge_orders.append(o)
+	check["order"] = o
+	return check
 
 # ------------------------------------------------------------ weapon effects
 
