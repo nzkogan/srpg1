@@ -717,6 +717,36 @@ func sapper_limit() -> int:
 func mine_damage() -> int:
 	return int(param("mine_damage"))
 
+## The Skald's kit: Refresh (an ally who has acted acts again), Steal (an enemy's weapon), and the
+## Epithet Aura, a signature skill that lifts every ally near her by the deeds it has earned.
+func can_refresh(unit_id: String) -> bool:
+	return "refresh" in map_actions(unit_id)
+
+func can_steal(unit_id: String) -> bool:
+	return "steal" in map_actions(unit_id)
+
+func has_epithet_aura(unit_id: String) -> bool:
+	return str(class_row(unit_id).get("signature_skill", "")) == "Epithet Aura"
+
+func aura_radius() -> int:
+	return int(param("aura_radius"))
+
+## How many epithets the unit has earned (deeds that are complete, not part-way).
+func earned_deed_count(unit_id: String) -> int:
+	var n := 0
+	for ep in Canon.get_table("epithets"):
+		if str(ep.get("epithet_id", "")).begins_with("ep_") and has_deed(unit_id, ep["epithet_id"]):
+			n += 1
+	return n
+
+## The hit and avoid the aura gives a unit with this many earned deeds: aura_per_deed each, to aura_cap.
+func aura_bonus(deeds: int) -> int:
+	return mini(int(param("aura_cap")), int(param("aura_per_deed")) * maxi(0, deeds))
+
+## Percent chance a Skald of speed `my_spd` steals from an enemy of speed `their_spd`.
+func steal_chance(my_spd: int, their_spd: int) -> int:
+	return clampi(int(param("steal_base")) + int(param("steal_per_spd")) * (my_spd - their_spd), 5, 95)
+
 ## Gold to turn an enemy of this level neutral: bribe_cost_base + bribe_cost_per_level x level.
 func bribe_cost(enemy_level: int) -> int:
 	return int(param("bribe_cost_base") + param("bribe_cost_per_level") * maxi(0, enemy_level))

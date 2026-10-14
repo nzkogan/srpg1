@@ -651,11 +651,11 @@
     "art_secondary": "none",
     "movement": "infantry",
     "promotes_from": null,
-    "signature_skill": null,
+    "signature_skill": "Epithet Aura",
     "provenance": "no paperwork exists",
-    "notes": "Edda; Refresh + Steal + epithet aura",
+    "notes": "Edda; Refresh + Steal + epithet aura. BUILT 2026-10-24 (SKALD_DESIGN.md): Refresh gives an adjacent ally who has acted another turn; Steal lifts an adjacent enemy's weapon (never a boss's) and leaves it unarmed; the Epithet Aura gives every ally near her a little hit and avoid for each deed they have earned.",
     "unlock_map_id": null,
-    "map_actions": null
+    "map_actions": "refresh|steal"
   },
   {
     "class_id": "cls_sapper",

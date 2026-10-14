@@ -165,6 +165,7 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+var _skald_mode := ""          # "refresh" / "steal" after [R] / [X]: the next arrow key / click picks the neighbour
 var _sapper_mode := ""         # "breach" / "mine" after [D] / [M]: the next arrow key / click picks the tile
 var sapper_used := 0           # Sapper charges spent on this map (Breach and Mine share them)
 var breached: Dictionary = {}  # Vector2i -> true: walls brought down (terrain 'v')
@@ -658,6 +659,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_shove_click(Vector2i(col, row))
 		elif _sapper_mode != "":
 			_sapper_click(Vector2i(col, row))
+		elif _skald_mode != "":
+			_skald_click(Vector2i(col, row))
 		elif row >= 0 and row < grid.size() and col >= 0 and col < grid[0].length():
 			if not _try_target_click(Vector2i(col, row)):
 				_try_move_to(Vector2i(col, row))
@@ -675,6 +678,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _sapper_mode != "":
 			_sapper_key(key_event.keycode)
 			return
+		if _skald_mode != "":
+			_skald_key(key_event.keycode)
+			return
 		if key_event.keycode == KEY_P:
 			suspend(true)
 		elif key_event.keycode == KEY_F5:
@@ -687,6 +693,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_begin_bribe()
 		elif key_event.keycode == KEY_S:
 			_begin_shove()
+		elif key_event.keycode == KEY_R:
+			_begin_skald("refresh")
+		elif key_event.keycode == KEY_X:
+			_begin_skald("steal")
 		elif key_event.keycode == KEY_D:
 			_begin_sapper("breach")
 		elif key_event.keycode == KEY_M:
@@ -1573,6 +1583,97 @@ func _restore_sapper(snap: Dictionary) -> void:
 		mines[t] = {"by": str(m["by"])}
 		_draw_mine(t)
 
+# --------------------------------------------------------------------- the Skald
+#
+# Edda's class. [R] Refresh: an adjacent ally who has already moved or acted may move and act again.
+# [X] Steal: lift an adjacent enemy's weapon into the convoy, leaving it unarmed (a boss holds its own
+# fast); the chance rises with the Skald's speed over the enemy's, and a failed try puts the enemy on
+# its guard (no second go). Each takes the Skald's action. The third part of her kit, the Epithet
+# Aura, is passive (see _aura_for).
+
+func _begin_skald(kind: String) -> void:
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var ok := _is_roster_unit(unit) and (Progression.can_refresh(pid) if kind == "refresh" else Progression.can_steal(pid))
+	if not ok:
+		info_label.text = "%s has no %s action." % [unit.get("name"), kind.capitalize()]
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	_skald_mode = kind
+	info_label.text = "%s: which neighbour? Arrow key or click an adjacent %s (any other key cancels)." % [kind.capitalize(), "ally" if kind == "refresh" else "enemy"]
+
+func _skald_key(keycode: int) -> void:
+	if ARROW_DIRS.has(keycode):
+		_skald_toward(ARROW_DIRS[keycode])
+	else:
+		info_label.text = "%s cancelled." % _skald_mode.capitalize()
+		_skald_mode = ""
+
+func _skald_click(tile: Vector2i) -> void:
+	var pos: Vector2i = unit_positions.get(units[selected_unit_index].get("punit_id", ""), Vector2i(-1, -1)) if not units.is_empty() else Vector2i(-1, -1)
+	if _distance(pos, tile) == 1:
+		_skald_toward(tile - pos)
+	else:
+		info_label.text = "%s cancelled." % _skald_mode.capitalize()
+		_skald_mode = ""
+
+func _skald_toward(dir: Vector2i) -> void:
+	var kind := _skald_mode
+	_skald_mode = ""
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var pos: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	if pos == Vector2i(-1, -1) or attacked_this_turn.has(pid):
+		return
+	var who := _occupant(pos + dir)
+	if kind == "refresh":
+		if not who.has("ally") or _is_cargo(who["ally"]):
+			info_label.text = "There is no one beside %s to refresh." % unit.get("name")
+			return
+		var ally: String = who["ally"]
+		if not (moved_this_turn.has(ally) or attacked_this_turn.has(ally)):
+			info_label.text = "%s has not acted yet: there is nothing to refresh." % _occupant_label(who)
+			return
+		moved_this_turn.erase(ally)
+		attacked_this_turn.erase(ally)
+		for i in units.size():
+			_refresh_token_color(i)
+		info_label.text = "%s sings %s's deeds back to life: %s may move and act again." % [unit.get("name"), _occupant_label(who), _occupant_label(who)]
+	else:
+		if not who.has("enemy"):
+			info_label.text = "There is no enemy there to rob."
+			return
+		var inst: Dictionary = who["enemy"]
+		var name := str(inst.archetype.get("name", "enemy"))
+		if inst.kind == "boss":
+			info_label.text = "The %s holds its weapon fast." % name
+			return
+		var weapon := _enemy_weapon(inst)
+		if weapon.is_empty() or inst.get("wary", false):
+			info_label.text = "The %s has %s." % [name, "nothing left to steal" if weapon.is_empty() else "its eye on %s now: it will not be robbed twice" % unit.get("name")]
+			return
+		var rng := rng_override
+		if rng == null:
+			rng = RandomNumberGenerator.new()
+			rng.randomize()
+		var chance := Progression.steal_chance(int(unit.get("spd", 0)), int(inst.archetype.get("spd", 0)))
+		if rng.randi_range(1, 100) <= chance:
+			inst["unarmed"] = true
+			Equipment.convoy_add(str(weapon.get("weapon_id", "")))
+			info_label.text = "%s lifts the %s from the %s (%d%%): it is unarmed, and the %s is in the convoy." % [unit.get("name"), weapon.get("name"), name, chance, weapon.get("name")]
+		else:
+			inst["wary"] = true
+			info_label.text = "%s reaches for the %s's %s (%d%%) and is seen. It will not be robbed twice." % [unit.get("name"), name, weapon.get("name"), chance]
+	attacked_this_turn[pid] = true
+	_update_status_label()
+	_update_forecast()
+
 func _cap(text: String) -> String:
 	return text.substr(0, 1).to_upper() + text.substr(1)
 
@@ -1906,7 +2007,22 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 	c["cur_hp"] = int(unit_hp.get(pid, 0))     # for the abilities' HP conditions
 	c["max_hp"] = int(row.get("hp", 0))
 	c.merge(Supports.combat_keys(Supports.best_partner(pid, unit_positions, chapter_route).get("effect", {})))
+	var aura := _aura_for(pid)
+	if aura > 0:
+		c["sup_hit"] = int(c.get("sup_hit", 0)) + aura
+		c["sup_avoid"] = int(c.get("sup_avoid", 0)) + aura
 	return c
+
+## The hit/avoid the Epithet Aura gives `pid` right now: the strongest of the Skalds on the map
+## who are alive and within aura_radius of it (auras do not stack), by the deeds `pid` has earned.
+func _aura_for(pid: String) -> int:
+	if map_id == "map_f00" or not unit_positions.has(pid) or not Progression.is_known_unit(pid):
+		return 0
+	var here: Vector2i = unit_positions[pid]
+	for other in unit_positions:
+		if Progression.is_known_unit(other) and Progression.has_epithet_aura(other) and _distance(unit_positions[other], here) <= Progression.aura_radius():
+			return Progression.aura_bonus(Progression.earned_deed_count(pid))
+	return 0
 
 ## Everything the forecast panel and an exchange need for `unit` attacking `inst`.
 func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:

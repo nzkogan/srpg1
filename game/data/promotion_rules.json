@@ -478,5 +478,35 @@
     "value": 3,
     "text": null,
     "notes": "Weapons: HP The Lemegeton costs its reader each time they fight with it (never lethal: it stops at 1)."
+  },
+  {
+    "param_id": "prm_steal_base",
+    "value": 50,
+    "text": null,
+    "notes": "Skald: percent chance a Steal succeeds against an enemy of equal speed."
+  },
+  {
+    "param_id": "prm_steal_per_spd",
+    "value": 5,
+    "text": null,
+    "notes": "Skald: percentage points of Steal chance for each point of the Skald's speed over the enemy's (and minus for each under). Never below 5% or above 95%."
+  },
+  {
+    "param_id": "prm_aura_radius",
+    "value": 2,
+    "text": null,
+    "notes": "Skald: tiles around her (Manhattan) in which the Epithet Aura reaches, herself included."
+  },
+  {
+    "param_id": "prm_aura_per_deed",
+    "value": 3,
+    "text": null,
+    "notes": "Skald: hit and avoid each ally in the aura gains for every deed (epithet) it has earned."
+  },
+  {
+    "param_id": "prm_aura_cap",
+    "value": 9,
+    "text": null,
+    "notes": "Skald: the most hit and avoid the aura can give one ally (three deeds' worth)."
   }
 ]

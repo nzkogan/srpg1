@@ -32,7 +32,7 @@ from openpyxl import load_workbook
 WORLD_W, WORLD_H = 1152, 540   # the overworld canvas locations.map_x / map_y live on
 PATH_ROUTES = {"diadem", "assembly", "both"}
 PATH_KINDS = {"road", "trail"}
-MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine"}   # actions a class adds on the battle map (classes.map_actions)
+MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine", "refresh", "steal"}   # actions a class adds on the battle map (classes.map_actions)
 
 PRIMARY_KEYS = {
     "sects": ("sect_id", "sect_"),
@@ -283,7 +283,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -625,6 +625,16 @@ def main():
     for lower, higher in zip(WEAPON_TIERS, WEAPON_TIERS[1:]):
         if lower in band and higher in band and band[higher][0] <= band[lower][1]:
             fail("c07", "warning", f"weapons.{higher}", f"the weakest {higher} weapon (might {band[higher][0]}) does not beat the strongest {lower} one ({band[lower][1]})")
+
+    # --- c07t the Skald: Refresh and Steal are personal-class actions, the aura is a signature skill of a
+    #     personal class someone holds
+    for c in tabs["classes"]:
+        acts = split_multi(c.get("map_actions"))
+        aura = c.get("signature_skill") == "Epithet Aura"
+        if ("refresh" in acts or "steal" in acts or aura) and c.get("tier") != "personal":
+            fail("c07", "blocking", f"classes.{c['class_id']}", "Refresh, Steal and the Epithet Aura belong to a personal class")
+        if ("refresh" in acts or "steal" in acts or aura) and not any(u.get("base_class_id") == c["class_id"] for u in tabs["units"]):
+            fail("c07", "warning", f"classes.{c['class_id']}", "no unit holds this class")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
