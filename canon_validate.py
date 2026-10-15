@@ -284,7 +284,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -693,6 +693,22 @@ def main():
                 fail("c07", "blocking", f"mounts.{mid}", "the Huma is a map hazard, not a mount")
     if not any(m.get("kind") == "horse" for m in tabs["mounts"]):
         fail("c07", "blocking", "mounts", "there is no ordinary mount to order")
+
+    # --- c07x the Huma's shadow: real maps to drift over, a patch that moves, a start column on the road
+    huma = {r["param_id"]: r for r in tabs["promotion_rules"] if str(r["param_id"]).startswith("prm_huma_")}
+    map_ids = {m["map_id"]: m for m in tabs["maps"]}
+    huma_maps = split_multi((huma.get("prm_huma_maps") or {}).get("text"))
+    if not huma_maps or any(m not in map_ids for m in huma_maps):
+        fail("c07", "blocking", "promotion_rules", f"prm_huma_maps must name real maps in its text column (got {huma_maps})")
+    for need in ("huma_radius", "huma_drift", "huma_bonus"):
+        val = (huma.get("prm_" + need) or {}).get("value")
+        if not isinstance(val, (int, float)) or val < 1:
+            fail("c07", "blocking", "promotion_rules", f"prm_{need} must be at least 1 (got {val})")
+    start = (huma.get("prm_huma_start_col") or {}).get("value")
+    for m in huma_maps:
+        w = map_ids.get(m, {}).get("width")
+        if isinstance(start, (int, float)) and isinstance(w, int) and not (0 <= start < w):
+            fail("c07", "blocking", f"maps.{m}", f"prm_huma_start_col {start} is outside the map's {w} columns")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

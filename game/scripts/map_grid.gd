@@ -129,6 +129,7 @@ const ORIGIN_TINT := Color(1.0, 0.9, 0.3, 0.7)
 const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
 const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
 const TOKEN_MOVED_COLOR := Color(0.35, 0.35, 0.4, 0.9)
+const SHADOW_TINT := Color(0.25, 0.1, 0.4, 0.35)       # the Huma's shadow
 const ENEMY_TOKEN_COLOR := Color(0.55, 0.12, 0.12, 0.95)
 const NEUTRAL_TOKEN_COLOR := Color(0.62, 0.55, 0.18, 0.95) # a bribed enemy: stood down for the map
 const ARROW_DIRS := {KEY_UP: Vector2i(0, -1), KEY_DOWN: Vector2i(0, 1), KEY_LEFT: Vector2i(-1, 0), KEY_RIGHT: Vector2i(1, 0)}
@@ -217,6 +218,7 @@ var map_won := false:
 var chapter_route := ""  # this map's chapter route ("diadem"/"assembly"/"both"); gates cross-route supports
 
 var highlight_layer: Node2D
+var shadow_layer: Node2D
 var info_label: Label
 var status_label: Label
 
@@ -244,6 +246,8 @@ func _ready() -> void:
 	_draw_grid()
 	_draw_axis_labels()
 
+	shadow_layer = Node2D.new()
+	add_child(shadow_layer)
 	highlight_layer = Node2D.new()
 	add_child(highlight_layer)
 
@@ -284,6 +288,7 @@ func _ready() -> void:
 	if not snap.is_empty():
 		_restore_progress(snap)
 	_update_status_label()
+	_draw_shadow()
 	if not units.is_empty():
 		_select_unit(_first_present_unit(int(snap.get("selected", 0))) if not snap.is_empty() else 0)
 	else:
@@ -957,6 +962,7 @@ func _next_turn() -> void:
 	moved_this_turn.clear()
 	move_cost.clear()
 	var mount_lines := _mount_turn_start()
+	_draw_shadow()
 	for i in units.size():
 		_refresh_token_color(i)
 	if map_id == "map_f00" and turn == 1 and not wall_destroyed:
@@ -1236,7 +1242,7 @@ func _attack_enemy() -> void:
 		if map_won:
 			return
 	if int(unit_hp[pid]) == 0 and not _miracle_saves(pid):
-		_kill_unit(pid, _killer_of(target, true))
+		_kill_unit(pid, _killer_of(target, true, pid))
 		info_label.text += " %s falls." % unit.get("name")
 		_check_defeat()
 	else:
@@ -2245,7 +2251,41 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 	if aura > 0:
 		c["sup_hit"] = int(c.get("sup_hit", 0)) + aura
 		c["sup_avoid"] = int(c.get("sup_avoid", 0)) + aura
+	if unit_positions.has(pid) and _marked(unit_positions[pid]):
+		c = Huma.boost(c)
 	return c
+
+## An enemy's combat stats: its archetype, plus the Huma's mark if it stands in the shadow.
+func _enemy_combatant(inst: Dictionary) -> Dictionary:
+	var c: Dictionary = inst.archetype.duplicate()
+	if _marked(inst.pos):
+		c = Huma.boost(c)
+	return c
+
+## Whether a tile lies in the Huma's shadow this turn (only on the maps it drifts over).
+func _marked(pos: Vector2i) -> bool:
+	return not grid.is_empty() and Huma.covers(pos, map_id, turn, grid[0].length(), grid.size())
+
+## The player units the shadow lies over, for the enemies to prefer.
+func _marked_pids() -> Array:
+	var out: Array = []
+	for pid in unit_positions:
+		if _marked(unit_positions[pid]):
+			out.append(pid)
+	return out
+
+## Draws (or clears) the shadow over the map; called at the start and again every turn.
+func _draw_shadow() -> void:
+	if shadow_layer == null:
+		return
+	for child in shadow_layer.get_children():
+		child.queue_free()
+	for tile in Huma.tiles(map_id, turn, grid[0].length(), grid.size()):
+		var rect := ColorRect.new()
+		rect.color = SHADOW_TINT
+		rect.size = Vector2(CELL_SIZE - 1, CELL_SIZE - 1)
+		rect.position = Vector2(tile.x * CELL_SIZE, tile.y * CELL_SIZE)
+		shadow_layer.add_child(rect)
 
 ## The hit/avoid the Epithet Aura gives `pid` right now: the strongest of the Skalds on the map
 ## who are alive and within aura_radius of it (auras do not stack), by the deeds `pid` has earned.
@@ -2264,7 +2304,7 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 	var weapon := _weapon_for_unit(unit)
 	var def_weapon := _enemy_weapon(inst)
 	var attacker := _combatant_for_unit(pid)
-	var defender: Dictionary = inst.archetype.duplicate()
+	var defender: Dictionary = _enemy_combatant(inst)
 	var distance := _distance(unit_positions[pid], inst.pos)
 	var support := Supports.best_partner(pid, unit_positions, chapter_route)
 	return {
@@ -2509,11 +2549,15 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	for other in enemies:
 		if other != inst and not other.defeated:
 			occupied[other.pos] = true
-	var attacker: Dictionary = inst.archetype.duplicate()
+	var attacker: Dictionary = _enemy_combatant(inst)
 
 	var best := {}
 	if _active_provoker != "" and unit_positions.has(_active_provoker):
 		best = _best_attack(attacker, weapon, reach, occupied, inst, [_active_provoker])   # a Provoke: the Martyr, if it can reach them
+	if best.is_empty():
+		var marked := _marked_pids()
+		if not marked.is_empty():
+			best = _best_attack(attacker, weapon, reach, occupied, inst, marked)       # the Huma's mark draws every enemy
 	if best.is_empty():
 		best = _best_attack(attacker, weapon, reach, occupied, inst, unit_positions.keys())
 
@@ -2544,7 +2588,7 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 	if int(unit_hp[pid]) > 0:
 		enemy_log.append_array(_apply_weapon_effect(defender, def_weapon, inst, "def", result))
 	if int(unit_hp[pid]) == 0 and not _miracle_saves(pid):
-		_kill_unit(pid, _killer_of(inst, false))
+		_kill_unit(pid, _killer_of(inst, false, pid))
 		enemy_log.append("%s falls." % uname)
 	elif not _miracle_notes.is_empty():
 		enemy_log.append_array(_take_miracle_notes())
@@ -3157,8 +3201,10 @@ func _kill_unit(pid: String, killer: Dictionary = {"type": "unknown"}) -> void:
 
 ## Who struck a unit down, for the epilogue: Epilogue.classify plus whether the unit died on its
 ## own action (a counter to its attack) and which enemy it was (for the weapon's fate).
-func _killer_of(inst: Dictionary, own_action: bool) -> Dictionary:
+func _killer_of(inst: Dictionary, own_action: bool, pid: String = "") -> Dictionary:
 	var k := Epilogue.classify(inst, map_id)
+	if pid != "" and unit_positions.has(pid) and _marked(unit_positions[pid]):
+		k.merge(Huma.killer(), true)          # they fell in the Huma's shadow: the epilogue says so
 	k["own_action"] = own_action
 	k["enemy_idx"] = -1
 	for i in enemies.size():
@@ -3292,4 +3338,7 @@ func _update_info_label(reachable_count := -1) -> void:
 		lines.append("At (%d, %d) -- %d tiles reachable" % [origin.x, origin.y, reachable_count])
 	if not enemy_log.is_empty():
 		lines.append("Enemy phase: " + " ".join(enemy_log.slice(maxi(0, enemy_log.size() - MAX_ENEMY_LOG_SHOWN))))
+	var shadow_line := Huma.describe(map_id, turn, grid[0].length(), grid.size())
+	if shadow_line != "":
+		lines.append(shadow_line + (" You are in it." if _marked(origin) else ""))
 	info_label.text = "\n".join(lines)

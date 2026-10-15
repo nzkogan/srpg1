@@ -45,4 +45,4 @@ the per-map horse count.
 
 ## Not built
 
-- Mounts in the flipbooks; mount HP, stats or deeds; the Named's mutual-knowledge rule; the Huma and its kill-taboo; inheritance beyond recovery (no heirloom passing between riders).
+- Mounts in the flipbooks; mount HP, stats or deeds; the Named's mutual-knowledge rule; the Huma (a hazard, see HUMA_DESIGN.md); inheritance beyond recovery (no heirloom passing between riders).

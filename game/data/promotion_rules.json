@@ -580,5 +580,35 @@
     "value": 1,
     "text": null,
     "notes": "Mounts: the most Warhorses one map's captures of mounted enemies can bring in."
+  },
+  {
+    "param_id": "prm_huma_maps",
+    "value": 1,
+    "text": "map_p_huma",
+    "notes": "The Huma: the maps its shadow drifts over (pipe-delimited ids in the text column). Canon: a map hazard, not a mount -- it never lands, so it belongs to the open road."
+  },
+  {
+    "param_id": "prm_huma_radius",
+    "value": 2,
+    "text": null,
+    "notes": "The Huma: the shadow covers every tile within this many tiles of its centre, in both directions (2 = a 5 x 5 patch)."
+  },
+  {
+    "param_id": "prm_huma_drift",
+    "value": 2,
+    "text": null,
+    "notes": "The Huma: columns the shadow's centre drifts east each turn; it wraps to the west edge at the far end. Its row is the middle of the map."
+  },
+  {
+    "param_id": "prm_huma_start_col",
+    "value": 8,
+    "text": null,
+    "notes": "The Huma: the column the shadow's centre lies over on turn 1."
+  },
+  {
+    "param_id": "prm_huma_bonus",
+    "value": 2,
+    "text": null,
+    "notes": "The Huma: every unit standing in the shadow (yours or theirs) gains this much str, mag, def, res and spd -- 'marked units gain stats'."
   }
 ]

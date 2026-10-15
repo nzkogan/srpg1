@@ -18,7 +18,7 @@
     "terms": "cannot be owned, only flown under; its shadow legitimizes whoever it falls on",
     "defection_trigger": "never defects because it was never yours",
     "signature_mechanic": "MAP HAZARD, NOT A MOUNT: drifts overhead; marked units gain stats and become targeting priority for every enemy",
-    "notes": "kill-taboo: whoever lands the blow dies in forty days, no reload undoes it",
+    "notes": "kill-taboo: whoever lands the blow dies in forty days, no reload undoes it ADDENDUM (2026-10-28, HUMA_DESIGN.md): the shadow is built as a drifting patch on its paralogue (promotion_rules prm_huma_*); marked units gain stats and every enemy prefers them; the Huma is never a unit, so the taboo is kept by making the blow impossible; a unit who falls while marked is credited to 'the Huma's shadow' in the epilogue.",
     "death_phrase": "the Huma's shadow"
   },
   {
