@@ -108,21 +108,26 @@ func _standard_rows() -> Array:
 	var here := Forge.standard_forge_for(location_id)
 	for e in Forge.catalogue(here):
 		out.append({"kind": "order", "forge_id": here, "weapon_id": e["weapon_id"], "cost": e["cost"]})
+	var horse := Forge.mount_offer()
+	if not horse.is_empty():
+		out.append({"kind": "order", "forge_id": here, "weapon_id": "", "mount_id": horse["mount_id"], "cost": horse["cost"]})
 	return out
 
 func row_label(row: Dictionary) -> String:
 	match row["kind"]:
 		"order":
+			if row.get("mount_id", "") != "":
+				return "Order: %s, a mount (%d gold)" % [Mounts.name_of(row["mount_id"]), row["cost"]]
 			return "Order: %s (%d gold)" % [Equipment.weapon_name(row["weapon_id"]), row["cost"]]
 		"collect":
 			var o: Dictionary = GameState.forge_orders[row["order_index"]]
-			return "Collect: %s (%s)" % [Equipment.weapon_name(o["weapon_id"]), o["quality"]]
+			return "Collect: %s (%s)" % [Forge.order_name(o), o["quality"]]
 		"commission":
 			var m := Forge.material_row(row["material_id"])
 			return "Commission from %s (%s)" % [m.get("drop", "a material"), GameState.materials[row["material_id"]]]
 		"waiting":
 			var o2: Dictionary = GameState.forge_orders[row["order_index"]]
-			return "In the forge: %s -- %d chapter%s to go" % [Equipment.weapon_name(o2["weapon_id"]), o2["chapters_left"], "" if int(o2["chapters_left"]) == 1 else "s"]
+			return "In the forge: %s -- %d chapter%s to go" % [Forge.order_name(o2), o2["chapters_left"], "" if int(o2["chapters_left"]) == 1 else "s"]
 		"reforge":
 			return "Reforge: %s" % Provenance.name_of(Equipment.convoy()[row["convoy_index"]])
 	return "Nothing to do here yet"
@@ -147,6 +152,10 @@ func _weapon_lines(weapon_id: String, quality: String) -> Array[String]:
 		lines.append("[color=%s]Needs a paragon to wield.[/color]" % DIM)
 	return lines
 
+func _mount_lines(mount_id: String) -> Array[String]:
+	var m := Mounts.row(mount_id)
+	return ["[b]%s[/b]  (a mount)" % m.get("name", mount_id), Mounts.describe(mount_id), "[color=%s]Goes to the stable; give it to a rider in the barracks (5).[/color]" % DIM]
+
 func detail_text(row: Dictionary) -> String:
 	var lines: Array[String] = []
 	if row["kind"] == "none":
@@ -168,9 +177,10 @@ func detail_text(row: Dictionary) -> String:
 	lines.append("")
 	match row["kind"]:
 		"order":
-			lines.append_array(_weapon_lines(row["weapon_id"], "standard"))
+			var is_mount: bool = row.get("mount_id", "") != ""
+			lines.append_array(_mount_lines(row["mount_id"]) if is_mount else _weapon_lines(row["weapon_id"], "standard"))
 			lines.append("")
-			var oc := Forge.can_order(row["forge_id"], row["weapon_id"])
+			var oc := Forge.can_order_mount(row["forge_id"]) if is_mount else Forge.can_order(row["forge_id"], row["weapon_id"])
 			lines.append("[color=%s]%s[/color]" % [GOOD if oc["ok"] else BAD,
 				"Enter orders it for %d gold. It is ready after %d newly won chapter%s." % [oc["cost"], int(f.get("cycle_n", 1)), "" if int(f.get("cycle_n", 1)) == 1 else "s"] if oc["ok"] else "Can't order: %s." % oc["reason"]])
 		"commission":
@@ -185,7 +195,7 @@ func detail_text(row: Dictionary) -> String:
 				"Enter commissions it. It takes %d chapters." % int(f.get("cycle_n", 2)) if check["ok"] else "Can't commission: %s." % check["reason"]])
 		"collect":
 			var o: Dictionary = GameState.forge_orders[row["order_index"]]
-			lines.append_array(_weapon_lines(o["weapon_id"], o["quality"]))
+			lines.append_array(_mount_lines(o["mount_id"]) if str(o.get("mount_id", "")) != "" else _weapon_lines(o["weapon_id"], o["quality"]))
 			lines.append("")
 			lines.append("[color=%s]Finished. Enter takes it into the convoy.[/color]" % GOOD)
 		"reforge":
@@ -198,7 +208,7 @@ func detail_text(row: Dictionary) -> String:
 				"Enter reforges it for %d gold. The marks are wiped; it goes back to being a plain %s." % [rc["fee"], Equipment.weapon_name(entry["weapon_id"])] if rc["ok"] else "Can't reforge: %s." % rc["reason"]])
 		"waiting":
 			var o2: Dictionary = GameState.forge_orders[row["order_index"]]
-			lines.append_array(_weapon_lines(o2["weapon_id"], o2["quality"]))
+			lines.append_array(_mount_lines(o2["mount_id"]) if str(o2.get("mount_id", "")) != "" else _weapon_lines(o2["weapon_id"], o2["quality"]))
 			lines.append("")
 			lines.append("[color=%s]%d more newly won chapter%s and it is done.[/color]" % [DIM, o2["chapters_left"], "" if int(o2["chapters_left"]) == 1 else "s"])
 	lines.append("")
@@ -227,8 +237,8 @@ func activate() -> bool:
 	var row: Dictionary = all[_index]
 	match row["kind"]:
 		"order":
-			var o := Forge.order(row["forge_id"], row["weapon_id"])
-			_message = "The forge takes the order: %s for %d gold, ready after %d chapter%s." % [Equipment.weapon_name(row["weapon_id"]), o["cost"], int(o["order"]["chapters_left"]), "" if int(o["order"]["chapters_left"]) == 1 else "s"] if o["ok"] else "Can't: %s." % o["reason"]
+			var o := Forge.order_mount(row["forge_id"]) if row.get("mount_id", "") != "" else Forge.order(row["forge_id"], row["weapon_id"])
+			_message = "The forge takes the order: %s for %d gold, ready after %d chapter%s." % [Forge.order_name(o["order"]) if o["ok"] else "", o["cost"], int(o["order"]["chapters_left"]), "" if int(o["order"]["chapters_left"]) == 1 else "s"] if o["ok"] else "Can't: %s." % o["reason"]
 			_refresh()
 			return o["ok"]
 		"commission":
@@ -238,7 +248,7 @@ func activate() -> bool:
 			return r["ok"]
 		"collect":
 			var c := Forge.collect(row["order_index"])
-			_message = "The %s is yours (added to the convoy)." % Equipment.weapon_name(c["weapon_id"]) if c["ok"] else "Can't: %s." % c["reason"]
+			_message = ("%s joins the stable." % Mounts.name_of(c["mount_id"]) if c.get("mount_id", "") != "" else "The %s is yours (added to the convoy)." % Equipment.weapon_name(c["weapon_id"])) if c["ok"] else "Can't: %s." % c["reason"]
 			_refresh()
 			return c["ok"]
 		"reforge":

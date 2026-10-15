@@ -61,6 +61,7 @@ PK = {
     "promotion_rules": ("param_id", "prm_"), "abilities": ("ability_id", "ab_"),
     "world_paths": ("path_id", "path_"), "cargo_units": ("cargo_id", "cargo_"),
     "epilogue_text": ("phrase_id", "epi_"),
+    "mounts": ("mount_id", "mnt_"),
     "enemy_archetypes": ("enemy_id", "ea_"),
     "encounter_spawns": ("spawn_id", "spn_"),
     "deputy_ledger": (None, None),  # no natural id -- 'factor' is descriptive text
@@ -90,6 +91,7 @@ NUMERIC = {
     "epithets": {"count_needed"},
     "locations": {"map_x", "map_y"},
     "forges": {"cycle_n"},
+    "mounts": {"requisition_cost"},
     "deputy_ledger": {"weight"},
     "cargo_units": {"hp", "def", "res", "spawn_row", "spawn_col"},
 }
@@ -133,6 +135,7 @@ FKS = {
     ("chapters", "location_id"): ("locations", "location_id"),
     ("cargo_units", "map_id"): ("maps", "map_id"),
     ("maps", "enemy_polity_id"): ("polities", "polity_id"),
+    ("mounts", "named_id"): ("named", "named_id"),
     ("forges", "location_id"): ("locations", "location_id"),
     ("defections", "trigger_map_id"): ("maps", "map_id"),
     ("defections", "trigger_unless_map_id"): ("maps", "map_id"),

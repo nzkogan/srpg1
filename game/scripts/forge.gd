@@ -137,7 +137,7 @@ func on_map_won(newly: bool) -> Array[String]:
 		if int(order["chapters_left"]) <= 0:
 			order["ready"] = true
 			if is_standard(str(order["forge_id"])):
-				lines.append("Your order of a %s is ready: press O on the overworld to collect it." % Equipment.weapon_name(order["weapon_id"]))
+				lines.append("Your order of a %s is ready: press O on the overworld to collect it." % order_name(order))
 				continue
 			lines.append("%s has finished the %s: collect it at %s." % [forge_row(order["forge_id"]).get("name", "the smith"),
 				Equipment.weapon_name(order["weapon_id"]), forge_row(order["forge_id"]).get("name", "the forge")])
@@ -167,6 +167,10 @@ func collect(order_index: int) -> Dictionary:
 	var acc := access(order["forge_id"])
 	if not acc["ok"]:
 		return {"ok": false, "reason": "the smith %s" % acc["reason"]}
+	if str(order.get("mount_id", "")) != "":                 # a mount goes to the stable, not the convoy
+		Mounts.add_to_stable(str(order["mount_id"]))
+		GameState.forge_orders.remove_at(order_index)
+		return {"ok": true, "reason": "", "weapon_id": "", "mount_id": order["mount_id"], "quality": order["quality"]}
 	Equipment.convoy_add(order["weapon_id"], uses_for(order["weapon_id"], order["quality"]))
 	GameState.forge_orders.remove_at(order_index)
 	return {"ok": true, "reason": "", "weapon_id": order["weapon_id"], "quality": order["quality"]}
@@ -259,6 +263,40 @@ func can_order(forge_id: String, weapon_id: String) -> Dictionary:
 	if GameState.gold < int(entry["cost"]):
 		return {"ok": false, "reason": "it costs %d gold (you have %d)" % [entry["cost"], GameState.gold], "cost": entry["cost"]}
 	return {"ok": true, "reason": "", "cost": entry["cost"]}
+
+## The name of what an order is for: a weapon, or a mount.
+func order_name(order: Dictionary) -> String:
+	if str(order.get("mount_id", "")) != "":
+		return Mounts.name_of(str(order["mount_id"]))
+	return Equipment.weapon_name(str(order.get("weapon_id", "")))
+
+## The ordinary mount a standard forge will breed for gold: {"mount_id", "name", "cost"} or {} if none.
+func mount_offer() -> Dictionary:
+	for m in Mounts.rows():
+		if m.get("kind") == "horse" and m.get("requisition_cost") != null:
+			return {"mount_id": m["mount_id"], "name": m["name"], "cost": int(m["requisition_cost"])}
+	return {}
+
+func can_order_mount(forge_id: String) -> Dictionary:
+	var offer := mount_offer()
+	if not is_standard(forge_id) or offer.is_empty():
+		return {"ok": false, "reason": "that forge has no mounts", "cost": 0}
+	if open_standard_orders() >= open_order_limit():
+		return {"ok": false, "reason": "your requisition tier (%d) allows %d open order%s" % [requisition_tier(), open_order_limit(), "" if open_order_limit() == 1 else "s"], "cost": offer["cost"]}
+	if GameState.gold < int(offer["cost"]):
+		return {"ok": false, "reason": "it costs %d gold (you have %d)" % [offer["cost"], GameState.gold], "cost": offer["cost"]}
+	return {"ok": true, "reason": "", "cost": offer["cost"]}
+
+func order_mount(forge_id: String) -> Dictionary:
+	var check := can_order_mount(forge_id)
+	if not check["ok"]:
+		return check
+	GameState.gold -= int(check["cost"])
+	var o := {"forge_id": forge_id, "weapon_id": "", "mount_id": mount_offer()["mount_id"], "quality": "standard",
+		"chapters_left": int(forge_row(forge_id).get("cycle_n", 1)), "ready": false}
+	GameState.forge_orders.append(o)
+	check["order"] = o
+	return check
 
 ## Places an order: pays, and it is ready after the forge's cycle_n newly won chapters.
 func order(forge_id: String, weapon_id: String) -> Dictionary:

@@ -1,0 +1,52 @@
+[
+  {
+    "mount_id": "mnt_warhorse",
+    "name": "Warhorse",
+    "kind": "horse",
+    "named_id": null,
+    "movement": "riding",
+    "effect": null,
+    "requisition_cost": 400,
+    "notes": "DRAFTED 2026-10-27. The ordinary mount: acquired by requisition (the standard forges' orders), by capturing a mounted enemy, or by inheritance (a fallen rider's, if it is recovered). Grants riding movement."
+  },
+  {
+    "mount_id": "mnt_simurgh",
+    "name": "the Simurgh",
+    "kind": "named",
+    "named_id": "nmd_simurgh",
+    "movement": "flying",
+    "effect": "rider_heal",
+    "requisition_cost": null,
+    "notes": "Canon: 5 HP/turn to rider and adjacent allies (flat, not percentage). Taken intact from the Simurgh's paralogue."
+  },
+  {
+    "mount_id": "mnt_shadhavar",
+    "name": "the Shadhavar",
+    "kind": "named",
+    "named_id": "nmd_shadhavar",
+    "movement": "riding",
+    "effect": "pull_foe",
+    "requisition_cost": null,
+    "notes": "Canon: every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off. A liability on escort maps, an asset on defend maps."
+  },
+  {
+    "mount_id": "mnt_karkadann",
+    "name": "the Karkadann",
+    "kind": "named",
+    "named_id": "nmd_karkadann",
+    "movement": "riding",
+    "effect": "charge",
+    "requisition_cost": null,
+    "notes": "Canon: strong against mounted units; a devastating charge that leaves it stuck one turn. The plain one on purpose."
+  },
+  {
+    "mount_id": "mnt_anzu",
+    "name": "the Anzu",
+    "kind": "named",
+    "named_id": "nmd_anzu",
+    "movement": "flying",
+    "effect": "unmake_touch",
+    "requisition_cost": null,
+    "notes": "Canon: contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead. COST: an enemy it has left unarmed drops nothing, so riding it starves your only supply line."
+  }
+]

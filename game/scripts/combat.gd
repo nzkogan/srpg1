@@ -139,8 +139,10 @@ static func triangle_art(weapon: Dictionary) -> String:
 	return HYBRID_ART if is_hybrid(weapon) else String(weapon.get("art", ""))
 
 ## True if the weapon is effective against this defender's movement type.
-static func is_effective(weapon: Dictionary, defender: Dictionary) -> bool:
-	return _pipe(weapon.get("effective_vs")).has(defender.get("movement_type", ""))
+static func is_effective(weapon: Dictionary, defender: Dictionary, attacker: Dictionary = {}) -> bool:
+	# a Karkadann rider's blows are effective against mounted foes whatever the weapon (attacker["mount_effective_vs"])
+	return _pipe(weapon.get("effective_vs")).has(defender.get("movement_type", "")) \
+		or (attacker.get("mount_effective_vs", []) as Array).has(defender.get("movement_type", ""))
 
 ## Attack speed = spd, less whatever the weapon's weight exceeds the wielder's
 ## strength by (magic weapons burden against mag instead). The weights in
@@ -200,8 +202,8 @@ static func damage(attacker: Dictionary, defender: Dictionary, weapon: Dictionar
 	var atk_power: float = attacker.get("mag", 0) if is_magic_art(art) else attacker.get("str", 0)
 	var mitigation: float = (defender.get("res", 0) if strikes_at_res(weapon) else defender.get("def", 0)) \
 		+ ability_bonus(defender, attacker, {}, "guard")
-	var base_might: float = weapon.get("might", 0) * (EFFECTIVE_MULT if is_effective(weapon, defender) else 1)
-	var might: float = base_might + mod.damage + ability_bonus(attacker, defender, weapon, "dmg")
+	var base_might: float = weapon.get("might", 0) * (EFFECTIVE_MULT if is_effective(weapon, defender, attacker) else 1)
+	var might: float = base_might + mod.damage + ability_bonus(attacker, defender, weapon, "dmg") + attacker.get("charge_dmg", 0)
 	var power := atk_power + might
 	if is_crit:
 		power *= 3
@@ -246,7 +248,7 @@ static func _side(me: Dictionary, foe: Dictionary, my_weapon: Dictionary, foe_we
 		"crit": crit_chance(me_view, foe_view, my_weapon),
 		"speed": attack_speed(me, my_weapon),
 		"triangle": signi(int(tri.hit)),
-		"effective": is_effective(my_weapon, foe),
+		"effective": is_effective(my_weapon, foe, me),
 		"hits": 1,
 	}
 

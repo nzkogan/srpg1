@@ -66,7 +66,9 @@ func _initialize() -> void:
 	s._unhandled_input(_key(KEY_4))
 	check(s._mode == 3 and s._title.text.contains("[Paragon]"), "4 selects Paragon")
 	s._unhandled_input(_key(KEY_TAB))
-	check(s._mode == 0, "Tab wraps from Paragon back to Certify")
+	check(s._mode == 4 and s._title.text.contains("[Mount]"), "Tab goes on from Paragon to Mount")
+	s._unhandled_input(_key(KEY_TAB))
+	check(s._mode == 0, "...and wraps from Mount back to Certify")
 	s._unhandled_input(_key(KEY_1))
 	check(s._mode == 0, "1 selects Certify")
 

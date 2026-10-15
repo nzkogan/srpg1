@@ -125,7 +125,7 @@ func _run() -> void:
 	await process_frame
 	check(not _f.orders_mode and sc.standard, "the screen reads the flag once and clears it")
 	var rows: Array = sc.rows()
-	check(rows.all(func(r): return r["kind"] == "order" and r["forge_id"] == "frg_standard_b") and rows.size() == 15, "at an Assembly place it offers the Assembly's fifteen weapons")
+	check(rows.all(func(r): return r["kind"] == "order" and r["forge_id"] == "frg_standard_b") and rows.size() == 16, "at an Assembly place it offers the Assembly's fifteen weapons and a Warhorse")
 	var ix := -1
 	for i in rows.size():
 		if rows[i]["weapon_id"] == "wpn_axe_basic":

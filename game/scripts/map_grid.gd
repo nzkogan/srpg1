@@ -165,6 +165,9 @@ var _target_idx := 0
 var _shove_mode := false       # [S] pressed: the next arrow key / click picks who to push
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
+var move_cost: Dictionary = {}       # pid -> movement spent this turn (the Karkadann's charge reads it)
+var charge_stuck: Dictionary = {}    # pid -> the turn on which a charging Karkadann rider cannot move
+var horses_captured := 0             # Warhorses this map's captures have brought in (mount_capture_per_map)
 var _supply_mode := false      # [Q] pressed: the next arrow key / click picks the ally the quartermaster supplies
 var provoked_by := ""          # a Martyr who used Provoke this turn: the coming enemy phase must go for them
 var _active_provoker := ""     # (the same, while that enemy phase runs)
@@ -335,7 +338,7 @@ func _build_units() -> Array:
 			var current := Progression.class_row(unit_id)
 			if not current.is_empty():
 				class_row = current
-		var movement_type: String = class_row.get("movement", "infantry")
+		var movement_type: String = Mounts.movement_for(unit_id, str(class_row.get("movement", "infantry")))   # a mount gives its movement
 		var art = class_row.get("art_primary", "none")
 		if art == "none":
 			art = null
@@ -775,6 +778,9 @@ func _try_move_to(pos: Vector2i) -> void:
 	if moved_this_turn.has(pid):
 		info_label.text = "%s has already moved this turn." % unit.get("name")
 		return
+	if int(charge_stuck.get(pid, -1)) == turn:
+		info_label.text = "%s is stuck after the charge and cannot move this turn." % unit.get("name")
+		return
 	if not current_reachable.has(pos):
 		info_label.text = "Out of range for %s." % unit.get("name")
 		return
@@ -785,6 +791,7 @@ func _try_move_to(pos: Vector2i) -> void:
 
 	unit_positions[pid] = pos
 	moved_this_turn[pid] = true
+	move_cost[pid] = int(current_reachable[pos])
 	var token = unit_tokens.get(pid)
 	if token:
 		token.container.position = Vector2(pos.x * CELL_SIZE, pos.y * CELL_SIZE)
@@ -948,6 +955,8 @@ func _next_turn() -> void:
 	turn += 1
 	attacked_this_turn.clear()
 	moved_this_turn.clear()
+	move_cost.clear()
+	var mount_lines := _mount_turn_start()
 	for i in units.size():
 		_refresh_token_color(i)
 	if map_id == "map_f00" and turn == 1 and not wall_destroyed:
@@ -960,6 +969,8 @@ func _next_turn() -> void:
 	if not map_won:
 		_update_status_label()
 		_update_info_label()
+		if not mount_lines.is_empty():
+			info_label.text += "\n" + " ".join(mount_lines)
 
 var _support_lines: Array[String] = []
 var _support_entries: Array = []   # this win's Supports.settle_map() results
@@ -1208,6 +1219,9 @@ func _attack_enemy() -> void:
 	var effect_lines := _apply_weapon_effect(unit, weapon, target, "atk", result)
 	if not effect_lines.is_empty():
 		info_label.text += " " + " ".join(effect_lines)
+	if Mounts.effect_of(pid) == "charge" and _charged(pid):
+		charge_stuck[pid] = turn + 1
+		info_label.text += " The charge lands: %s will be stuck next turn." % unit.get("name")
 
 	if target.hp == 0:
 		info_label.text += " The %s falls." % ename
@@ -1281,9 +1295,23 @@ func _capture_enemy() -> void:
 	target["captured"] = true
 	_remove_enemy_token(target)
 	info_label.text = "%s takes the %s alive. It leaves the map and drops nothing." % [unit.get("name"), ename]
-	var harvest := _named_material(target, "captured")
-	if harvest != "":
-		info_label.text += " " + harvest
+	var named = target.archetype.get("named_id")
+	if named != null and Mounts.is_intact_capture(int(target.hp), int(target.max_hp)):
+		var bond := Mounts.bond_named(str(named))       # taken INTACT: the creature itself, as a mount
+		if bond != "":
+			info_label.text += " " + bond
+		else:
+			var harvest0 := _named_material(target, "captured")
+			if harvest0 != "":
+				info_label.text += " " + harvest0
+	else:
+		var harvest := _named_material(target, "captured")
+		if harvest != "":
+			info_label.text += " " + harvest
+	if named == null and str(target.archetype.get("movement_type", "")) == "riding" and horses_captured < int(Progression.param("mount_capture_per_map")):
+		horses_captured += 1
+		Mounts.add_to_stable("mnt_warhorse")
+		info_label.text += " Its horse is taken too: a Warhorse joins the stable."
 	var more := _award_exp(unit, target, true, rng)
 	more.append_array(_capture_deed(pid, unit.get("name")))
 	info_label.text += "\n" + " ".join(more)
@@ -1603,6 +1631,68 @@ func _restore_sapper(snap: Dictionary) -> void:
 		var t := _a2v(m["at"])
 		mines[t] = {"by": str(m["by"])}
 		_draw_mine(t)
+
+# ---------------------------------------------------------------------- mounts
+#
+# See the Mounts autoload. On the map: the Simurgh heals its rider and the allies beside them at the start of
+# each turn; the Shadhavar pulls the nearest enemy a tile closer at the start of the enemy phase; the
+# Karkadann's rider hits mounted foes as effective and gains charge damage (then is stuck); the Anzu's rider's
+# hits unmake an enemy's weapon (see _apply_weapon_effect).
+
+## Whether a Karkadann rider has moved far enough this turn for a charge.
+func _charged(pid: String) -> bool:
+	return int(move_cost.get(pid, 0)) >= int(Progression.param("charge_distance"))
+
+func _riders(effect: String) -> Array:
+	var out: Array = []
+	for pid in unit_positions:
+		if Progression.is_known_unit(pid) and Mounts.effect_of(pid) == effect:
+			out.append(pid)
+	return out
+
+## Start of the player turn: a Simurgh rider and the allies beside them recover HP.
+func _mount_turn_start() -> Array[String]:
+	var lines: Array[String] = []
+	var amount := int(Progression.param("mount_heal"))
+	for rider in _riders("rider_heal"):
+		var healed: Array[String] = []
+		for pid in unit_positions:
+			if pid != rider and _distance(unit_positions[pid], unit_positions[rider]) != 1:
+				continue
+			if _is_cargo(pid):
+				continue
+			var max_hp := int(defender_row_for(pid).get("hp", 0))
+			var now := int(unit_hp.get(pid, 0))
+			if now > 0 and now < max_hp:
+				unit_hp[pid] = mini(max_hp, now + amount)
+				healed.append(str(defender_row_for(pid).get("name", pid)))
+		if not healed.is_empty():
+			lines.append("The Simurgh restores %d HP to %s." % [amount, ", ".join(healed)])
+	return lines
+
+## Start of the enemy phase: each Shadhavar rider pulls the nearest enemy (never a boss) a tile closer.
+func _mount_pull() -> Array[String]:
+	var lines: Array[String] = []
+	for rider in _riders("pull_foe"):
+		var from_pos: Vector2i = unit_positions[rider]
+		var nearest: Dictionary = {}
+		var nearest_d := 999999
+		for inst in enemies:
+			if inst.defeated or inst.get("neutral", false) or inst.kind == "boss":
+				continue
+			var d := _distance(inst.pos, from_pos)
+			if d < nearest_d:
+				nearest_d = d
+				nearest = inst
+		if nearest.is_empty() or nearest_d < 2:
+			continue
+		var gap: Vector2i = from_pos - nearest.pos
+		var dir := Vector2i(signi(gap.x), 0) if absi(gap.x) >= absi(gap.y) else Vector2i(0, signi(gap.y))
+		var path := _push_path(nearest.pos, dir, 1, str(nearest.archetype.get("movement_type", "infantry")))
+		if path["dest"] != nearest.pos:
+			_enemy_move(nearest, path["dest"])
+			lines.append("The Shadhavar's song drags the %s a tile closer." % nearest.archetype.get("name", "enemy"))
+	return lines
 
 # ------------------------------------------------------------ the Martyr and the Quartermaster
 #
@@ -2147,6 +2237,10 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 	c["cur_hp"] = int(unit_hp.get(pid, 0))     # for the abilities' HP conditions
 	c["max_hp"] = int(row.get("hp", 0))
 	c.merge(Supports.combat_keys(Supports.best_partner(pid, unit_positions, chapter_route).get("effect", {})))
+	if Mounts.effect_of(pid) == "charge":
+		c["mount_effective_vs"] = ["riding"]               # the Karkadann: strong against the mounted
+		if _charged(pid):
+			c["charge_dmg"] = int(Progression.param("charge_bonus"))
 	var aura := _aura_for(pid)
 	if aura > 0:
 		c["sup_hit"] = int(c.get("sup_hit", 0)) + aura
@@ -2287,7 +2381,7 @@ func _try_target_click(pos: Vector2i) -> bool:
 func _defeat_enemy(inst: Dictionary) -> String:
 	inst.defeated = true
 	_remove_enemy_token(inst)
-	var drop := Equipment.claim_drop(str(inst.get("spawn_id", "")), inst.get("drop"))
+	var drop := "" if inst.get("unarmed", false) else Equipment.claim_drop(str(inst.get("spawn_id", "")), inst.get("drop"))   # an unarmed foe has nothing to drop
 	var material := _named_material(inst, "killed")
 	if material != "":
 		_material_notes.append(material)
@@ -2347,6 +2441,7 @@ func _enemy_phase() -> void:
 	if not enemy_phase_enabled:
 		_active_provoker = ""
 		return
+	enemy_log.append_array(_mount_pull())
 	var rng := rng_override
 	if rng == null:
 		rng = RandomNumberGenerator.new()
@@ -2707,7 +2802,7 @@ func capture_state() -> Dictionary:
 		"positions": positions, "hp": unit_hp.duplicate(), "moved": moved_this_turn.duplicate(), "attacked": attacked_this_turn.duplicate(),
 		"struck": struck_units.duplicate(), "fought": fought_units.duplicate(), "hold": hold,
 		"enemies": enemy_rows, "dens": den_rows, "enemy_log": enemy_log.duplicate(),
-		"bribed": bribed_count, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
+		"bribed": bribed_count, "charge_stuck": charge_stuck.duplicate(), "move_cost": move_cost.duplicate(), "horses": horses_captured, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
 		"mines": mines.keys().map(func(p): return {"at": _v2a(p), "by": mines[p]["by"]}), "escaped": escaped_count, "delivered": delivered.duplicate(),
 	}
 
@@ -2777,6 +2872,9 @@ func _restore_progress(snap: Dictionary) -> void:
 	bribed_count = int(snap.get("bribed", 0))
 	_restore_sapper(snap)
 	provoked_by = str(snap.get("provoked", ""))
+	charge_stuck = (snap.get("charge_stuck", {}) as Dictionary).duplicate()
+	move_cost = (snap.get("move_cost", {}) as Dictionary).duplicate()
+	horses_captured = int(snap.get("horses", 0))
 	miracle_used.clear()
 	for pid in snap.get("miracle", []):
 		miracle_used[str(pid)] = true
@@ -2834,9 +2932,11 @@ func suspend(leave: bool) -> void:
 func _apply_weapon_effect(unit: Dictionary, weapon: Dictionary, inst: Dictionary, side: String, result: Dictionary) -> Array[String]:
 	var lines: Array[String] = []
 	var effect = weapon.get("effect")
+	var pid: String = unit.get("punit_id", "")
+	if effect == null and side == "atk" and Mounts.effect_of(pid) == "unmake_touch":
+		effect = "unmake"          # the Anzu's touch wears a weapon down whatever the rider swings
 	if effect == null:
 		return lines
-	var pid: String = unit.get("punit_id", "")
 	if str(effect) == "recoil" and int(result.get("%s_strikes" % side, 0)) > 0:
 		# the price of the book: a little blood each time it is opened, never the last of it
 		var cost := mini(int(Progression.param("recoil_damage")), maxi(0, int(unit_hp.get(pid, 0)) - 1))

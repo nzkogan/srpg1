@@ -18,7 +18,8 @@ const MODE_CERTIFY := 0
 const MODE_RECERTIFY := 1
 const MODE_ABILITIES := 2
 const MODE_PARAGON := 3
-const MODE_NAMES := ["Certify", "Recertify", "Abilities", "Paragon"]
+const MODE_MOUNT := 4
+const MODE_NAMES := ["Certify", "Recertify", "Abilities", "Paragon", "Mount"]
 const COLUMN_UNITS := 0
 const COLUMN_OPTIONS := 1
 const INACTIVE_TINT := Color(1, 1, 1, 0.6)
@@ -124,6 +125,14 @@ func options() -> Array:
 		MODE_PARAGON:
 			for o in Progression.paragon_options(u):
 				out.append({"kind": "class", "id": o["class_id"], "data": o, "locked": o["locked"]})
+		MODE_MOUNT:
+			# every mount in the stable (and, first, the option of giving up the one they ride)
+			if Mounts.mount_of(u) != "":
+				out.append({"kind": "mount", "id": "", "mount": "", "locked": false, "data": {"name": "(give up %s)" % Mounts.name_of(Mounts.mount_of(u)), "locked": false}})
+			for m in Mounts.stable():
+				var ok := Mounts.can_mount(u, m)
+				out.append({"kind": "mount", "id": m, "mount": m, "locked": not ok["ok"], "reason": ok["reason"],
+					"data": {"name": "%s (%s)" % [Mounts.name_of(m), Mounts.row(m).get("movement", "riding")], "locked": not ok["ok"]}})
 		MODE_ABILITIES:
 			var chosen: Array = Progression.chosen(u)
 			for row in Progression.pool(u):
@@ -160,7 +169,7 @@ func _refresh() -> void:
 	_units_list.clear()
 	for id in unit_ids:
 		_units_list.add_item(unit_row_text(id))
-	_options_caption.text = ["Certify into", "Switch to", "Abilities (%d / %d slots)" % [Progression.chosen(u).size(), Progression.slots(u)], "Paragon classes"][_mode]
+	_options_caption.text = ["Certify into", "Switch to", "Abilities (%d / %d slots)" % [Progression.chosen(u).size(), Progression.slots(u)], "Paragon classes", "Mounts in the stable"][_mode]
 	_options_list.clear()
 	var opts := options()
 	for i in opts.size():
@@ -175,7 +184,7 @@ func _refresh() -> void:
 	_units_list.modulate = Color.WHITE if _column == COLUMN_UNITS else INACTIVE_TINT
 	_options_list.modulate = Color.WHITE if _column == COLUMN_OPTIONS else INACTIVE_TINT
 	_detail.text = detail_text()
-	_footer.text = "%s\nUp/Down choose   Left/Right column   Tab or 1-4 mode   Enter confirm   Esc back   (* = ready to certify, ^ = ready for paragon)" % _message
+	_footer.text = "%s\nUp/Down choose   Left/Right column   Tab or 1-5 mode   Enter confirm   Esc back   (* = ready to certify, ^ = ready for paragon)" % _message
 
 func _stat_line(u: String) -> String:
 	var stats := Progression.stats_for(u)
@@ -210,6 +219,7 @@ func detail_text() -> String:
 		MODE_CERTIFY: lines.append_array(_certify_text(u, st, opt))
 		MODE_RECERTIFY: lines.append_array(_recertify_text(u, st, opt))
 		MODE_PARAGON: lines.append_array(_paragon_text(u, st, opt))
+		MODE_MOUNT: lines.append_array(_mount_text(u, opt))
 		_: lines.append_array(_ability_text(u, opt))
 	return "\n".join(lines)
 
@@ -277,6 +287,23 @@ func _paragon_text(u: String, st: Dictionary, opt: Dictionary) -> Array[String]:
 	return lines
 
 ## The four deeds that gate paragon, earned ones ticked; untracked ones say so.
+func _mount_text(u: String, opt: Dictionary) -> Array[String]:
+	var lines: Array[String] = []
+	var mine := Mounts.summary(u)
+	lines.append("Rides: %s" % (mine if mine != "" else "nothing"))
+	if mine != "":
+		lines.append("[color=%s]%s[/color]" % [DIM, Mounts.describe(Mounts.mount_of(u))])
+	lines.append("")
+	if opt.is_empty():
+		lines.append("[color=%s]The stable is empty. Mounts come from a requisition (O on the overworld), from capturing a mounted enemy, or from taking a Named creature intact.[/color]" % DIM)
+	elif opt["id"] == "":
+		lines.append("Enter hands %s back to the stable." % Mounts.name_of(Mounts.mount_of(u)))
+	else:
+		lines.append("[b]%s[/b]" % Mounts.name_of(opt["id"]))
+		lines.append(Mounts.describe(opt["id"]))
+		lines.append("[color=%s]%s[/color]" % [BAD if opt["locked"] else GOOD, "Can't ride it: %s." % opt["reason"] if opt["locked"] else "Enter gives it to %s. Movement becomes %s." % [_name_of(u), Mounts.row(opt["id"]).get("movement", "riding")]])
+	return lines
+
 func _append_deeds(lines: Array[String], u: String) -> void:
 	lines.append("[b]Deeds that gate paragon[/b]")
 	for row in Progression.gating_epithets():
@@ -397,6 +424,13 @@ func activate() -> void:
 		MODE_PARAGON:
 			var r := Progression.take_paragon(u, opt["id"])
 			_message = "%s becomes %s for %d gold." % [_name_of(u), _a(opt["data"]["name"]), r["fee"]] if r["ok"] else "Can't take paragon: %s." % r["reason"]
+		MODE_MOUNT:
+			if opt["id"] == "":
+				Mounts.unassign(u)
+				_message = "%s gives up the mount." % _name_of(u)
+			else:
+				var r := Mounts.assign(u, opt["id"])
+				_message = "%s takes %s." % [_name_of(u), Mounts.name_of(opt["id"])] if r["ok"] else "Can't: %s." % r["reason"]
 		_:
 			var now = Progression.toggle_ability(u, opt["id"])
 			_message = "" if now != null else "No free slot -- remove an ability first."
@@ -424,6 +458,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_2: set_mode(MODE_RECERTIFY)
 		KEY_3: set_mode(MODE_ABILITIES)
 		KEY_4: set_mode(MODE_PARAGON)
+		KEY_5: set_mode(MODE_MOUNT)
 		KEY_ENTER, KEY_KP_ENTER: activate()
 		KEY_ESCAPE: leave()
 		_: return

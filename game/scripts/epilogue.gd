@@ -209,6 +209,9 @@ func commit(fates: Dictionary = {}) -> Array[String]:
 		rec["pack"] = []
 		_deaths()[uid] = rec
 		out.append(sentence(rec))
+		var mount_line: String = Mounts.on_rider_fell(uid, fate == "retrieved" or fate == "with_the_body")   # the same fate rule as the weapon
+		if mount_line != "":
+			out.append(mount_line)
 	GameState.epilogue["pending"] = {}
 	return out
 

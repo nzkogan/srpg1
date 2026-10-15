@@ -550,5 +550,35 @@
     "value": 20,
     "text": null,
     "notes": "Standard forge: percent off the weapons of that forge's house arts (forges.house_arts)."
+  },
+  {
+    "param_id": "prm_capture_intact_hp_pct",
+    "value": 25,
+    "text": null,
+    "notes": "Mounts: a Named creature captured at or below this percent of its max HP is taken INTACT (a mount); between this and capture_hp_pct it is harvested for a diminished material."
+  },
+  {
+    "param_id": "prm_mount_heal",
+    "value": 5,
+    "text": null,
+    "notes": "Mounts: HP the Simurgh restores at the start of each of your turns to its rider and every ally beside them (canon: 5 flat)."
+  },
+  {
+    "param_id": "prm_charge_distance",
+    "value": 3,
+    "text": null,
+    "notes": "Mounts: tiles the Karkadann's rider must have moved this turn for the charge to count."
+  },
+  {
+    "param_id": "prm_charge_bonus",
+    "value": 4,
+    "text": null,
+    "notes": "Mounts: damage added to the Karkadann rider's attack after a charge; the rider is then stuck (cannot move) on their next turn."
+  },
+  {
+    "param_id": "prm_mount_capture_per_map",
+    "value": 1,
+    "text": null,
+    "notes": "Mounts: the most Warhorses one map's captures of mounted enemies can bring in."
   }
 ]

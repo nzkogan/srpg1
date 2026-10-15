@@ -73,6 +73,7 @@ PRIMARY_KEYS = {
     "world_paths": ("path_id", "path_"),
     "cargo_units": ("cargo_id", "cargo_"),
     "epilogue_text": ("phrase_id", "epi_"),
+    "mounts": ("mount_id", "mnt_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -283,7 +284,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -672,6 +673,26 @@ def main():
         row = next((r for r in tabs["promotion_rules"] if r["param_id"] == f"prm_{need}"), None)
         if row is None or row.get("text") not in {m["map_id"] for m in tabs["maps"]}:
             fail("c07", "blocking", "promotion_rules", f"prm_{need} must name a map in its text column")
+
+    # --- c07w mounts: a real movement, a known effect, a horse that can be ordered, a Named that is an enemy
+    #     stand-in (and not the Huma), and no Named mount for a creature with no mount row's room to bond
+    MOUNT_EFFECTS = {"rider_heal", "pull_foe", "charge", "unmake_touch"}
+    enemy_named = {e.get("named_id") for e in tabs["enemy_archetypes"] if e.get("named_id")}
+    for mt in tabs["mounts"]:
+        mid = mt["mount_id"]
+        if mt.get("movement") not in ("riding", "flying"):
+            fail("c07", "blocking", f"mounts.{mid}", "a mount grants riding or flying movement")
+        if mt.get("effect") not in (None, "") and mt["effect"] not in MOUNT_EFFECTS:
+            fail("c07", "blocking", f"mounts.{mid}", f"effect '{mt['effect']}' is not one of {sorted(MOUNT_EFFECTS)}")
+        if mt.get("kind") == "horse" and not isinstance(mt.get("requisition_cost"), int):
+            fail("c07", "blocking", f"mounts.{mid}", "a horse needs a requisition_cost")
+        if mt.get("kind") == "named":
+            if mt.get("named_id") not in enemy_named:
+                fail("c07", "blocking", f"mounts.{mid}", "a Named mount needs a Named with an enemy stand-in to be taken from")
+            if mt.get("named_id") == "nmd_huma":
+                fail("c07", "blocking", f"mounts.{mid}", "the Huma is a map hazard, not a mount")
+    if not any(m.get("kind") == "horse" for m in tabs["mounts"]):
+        fail("c07", "blocking", "mounts", "there is no ordinary mount to order")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
