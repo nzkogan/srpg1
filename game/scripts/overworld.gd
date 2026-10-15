@@ -599,6 +599,9 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 		var nxt := next_chapter(location_id)
 		if not nxt.is_empty():
 			lines.append("Enter plays %s." % nxt.chapter.get("title"))
+			var day := Almanac.briefing(str(nxt.chapter.get("chapter_id", "")))
+			if day != "":
+				lines.append(day)
 		elif location_status(location_id) == "won":
 			lines.append("Everything here is won. Enter replays it.")
 	if Deputy.decided():

@@ -74,6 +74,7 @@ PRIMARY_KEYS = {
     "cargo_units": ("cargo_id", "cargo_"),
     "epilogue_text": ("phrase_id", "epi_"),
     "mounts": ("mount_id", "mnt_"),
+    "signs": ("sign_id", "sgn_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -284,7 +285,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -732,6 +733,25 @@ def main():
     for e in mercy:
         if e["trial_reading"] != "mercy":
             fail("c07", "blocking", f"epithets.{e['epithet_id']}", f"trial_reading '{e['trial_reading']}' is not 'mercy'")
+
+    # --- c07z the calendar: the court keeps one, every roster unit has a sign, every Named has one
+    sign_ids = [g["sign_id"] for g in tabs["signs"] if str(g.get("sign_id", "")).startswith("sgn_")]
+    court = next((x for x in tabs["sects"] if x["sect_id"] == "sect_court"), {})
+    if court.get("calendar_sign_id") not in sign_ids:
+        fail("c07", "blocking", "sects.sect_court", "the court's calendar needs a real sign (chapters with no sect keep it)")
+    for x in tabs["sects"]:
+        if x.get("calendar_sign_id") not in (None, "") and x["calendar_sign_id"] not in sign_ids:
+            fail("c07", "blocking", f"sects.{x['sect_id']}", f"calendar_sign_id '{x['calendar_sign_id']}' is not a sign")
+    for nmd in tabs["named"]:
+        if str(nmd.get("named_id", "")).startswith("nmd_") and nmd.get("sign_id") not in sign_ids:
+            fail("c07", "blocking", f"named.{nmd['named_id']}", "every Named is governed by a sign")
+    unit_signs = set()
+    for sp in tabs["supports"]:
+        if sp.get("sign_a"): unit_signs.add(sp.get("unit_a_id"))
+        if sp.get("sign_b"): unit_signs.add(sp.get("unit_b_id"))
+    for u in tabs["units"]:
+        if u.get("status") == "recruitable" and u["unit_id"] not in unit_signs:
+            fail("c07", "warning", f"units.{u['unit_id']}", "no sign in any support chain, so no day favours them")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

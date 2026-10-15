@@ -112,6 +112,8 @@ FKS = {
     ("regions", "claimed_by_sect_id"): ("sects", "sect_id"),
     ("regions", "named_id"): ("named", "named_id"),
     ("named", "region_id"): ("regions", "region_id"),
+    ("named", "sign_id"): ("signs", "sign_id"),
+    ("sects", "calendar_sign_id"): ("signs", "sign_id"),
     ("states", "court_sect_id"): ("sects", "sect_id"),
     ("defections", "unit_id"): ("units", "unit_id"),
     ("locations", "region_id"): ("regions", "region_id"),

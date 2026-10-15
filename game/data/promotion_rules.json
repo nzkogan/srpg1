@@ -622,5 +622,11 @@
     "value": 3,
     "text": null,
     "notes": "The Kaisareia Trial (ch_h32): the commission holder's own docket -- each recorded mercy (a deed whose epithets.trial_reading is 'mercy': capture, talk, dispersal) counts this many kills; the commission recommends MERCY when mercies x weight >= kills, otherwise EXECUTION."
+  },
+  {
+    "param_id": "prm_calendar_bonus",
+    "value": 5,
+    "text": null,
+    "notes": "The calendar's soft advantage (calendar tab, MECHANICAL FOOTPRINT): on a chapter whose governing sign is a unit's own (or a Named's), that unit gains this much hit and avoid. Light on purpose -- 'do not let this become a second stat system'."
   }
 ]

@@ -264,6 +264,8 @@ func _ready() -> void:
 		_spawn_encounter()
 	else:
 		_restore_enemies(snap)
+	if snap.is_empty():
+		_add_day_briefing()
 
 	status_label = Label.new()
 	status_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
@@ -297,6 +299,17 @@ func _ready() -> void:
 		info_label.text = "Resumed at turn %d.\n%s" % [turn, info_label.text]
 	elif not _intro_lines.is_empty():
 		info_label.text = "%s\n%s" % ["\n".join(_intro_lines), info_label.text]
+
+## The calendar's line for the pre-battle briefing: whose day it is, and any Named the day favours.
+func _add_day_briefing() -> void:
+	var line := Almanac.briefing(_day_chapter())
+	if line == "":
+		return
+	for inst in enemies:
+		var nid = inst.archetype.get("named_id")
+		if nid != null and Almanac.named_bonus(str(nid), _day_chapter()) > 0:
+			line += " It is the %s's day too." % str(inst.archetype.get("name", "creature")).trim_prefix("The ").trim_prefix("the ")
+	_intro_lines.append(line)
 
 func _index_map_row() -> void:
 	for row in Canon.get_table("maps"):
@@ -2260,13 +2273,26 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 		c["sup_avoid"] = int(c.get("sup_avoid", 0)) + aura
 	if unit_positions.has(pid) and _marked(unit_positions[pid]):
 		c = Huma.boost(c)
+	var day := Almanac.unit_bonus(pid, _day_chapter())       # the day's sign is theirs
+	if day > 0:
+		c["sup_hit"] = int(c.get("sup_hit", 0)) + day
+		c["sup_avoid"] = int(c.get("sup_avoid", 0)) + day
 	return c
+
+## The chapter whose calendar governs this map's day ("" on the prologue, which keeps none).
+func _day_chapter() -> String:
+	return "" if map_id == "map_f00" else str(map_row.get("chapter_id", ""))
 
 ## An enemy's combat stats: its archetype, plus the Huma's mark if it stands in the shadow.
 func _enemy_combatant(inst: Dictionary) -> Dictionary:
 	var c: Dictionary = inst.archetype.duplicate()
 	if _marked(inst.pos):
 		c = Huma.boost(c)
+	if inst.archetype.get("named_id") != null:
+		var day := Almanac.named_bonus(str(inst.archetype["named_id"]), _day_chapter())
+		if day > 0:
+			c["sup_hit"] = int(c.get("sup_hit", 0)) + day
+			c["sup_avoid"] = int(c.get("sup_avoid", 0)) + day
 	return c
 
 ## Whether a tile lies in the Huma's shadow this turn (only on the maps it drifts over).
