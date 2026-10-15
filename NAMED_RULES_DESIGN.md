@@ -28,6 +28,6 @@ Canon: "COST: weapons it unmakes cannot be captured, so riding it starves your o
 ## Not built
 
 - The Named's own reactions (a dialogue at the next paralogue, a stand-in that flees or fights harder); a way to make amends.
-- The Named *defection triggers* from canon (the feather changing hands, the doves threatened, the register read by someone literate) for Named already in the stable.
+- (The Named defection triggers for mounts are NAMED_DEFECTIONS_DESIGN.md.)
 
 Tests: `tests/test_named_rules.gd` (20 checks, mutation-checked). The validator's required-parameters list includes `named_wary_kills`.

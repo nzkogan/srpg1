@@ -16,7 +16,11 @@ extends Node
 ## diminished material, between that and capture_hp_pct; a kill, a prime material). A rider who falls
 ## leaves the mount riderless: it comes back to the stable if whoever killed the rider is dealt with by
 ## the end of the map (the same fate rule as a fallen unit's weapon), and is lost otherwise.
-## State: GameState.mounts = {"stable": [mount ids], "assigned": {unit_id: mount_id}, "claimed": {named_id: true}}.
+## A Named mount can LEAVE on its creature's own defection trigger (mounts.leaves_when, see check_departures
+## and assign): the Simurgh when the feather changes hands, the Karkadann when the Ashland is written off or the
+## crown's orders are taken, the Anzu when someone shows a literacy its rider lacks. The Shadhavar never does.
+## State: GameState.mounts = {"stable": [mount ids], "assigned": {unit_id: mount_id}, "claimed": {named_id: true},
+## "holders": {mount_id: the unit who first held it}, "writ_seen" / "literacy_seen": the triggers already noticed}.
 
 func _s() -> Dictionary:
 	if not GameState.mounts.has("stable"):
@@ -25,6 +29,8 @@ func _s() -> Dictionary:
 		GameState.mounts["assigned"] = {}
 	if not GameState.mounts.has("claimed"):
 		GameState.mounts["claimed"] = {}
+	if not GameState.mounts.has("holders"):
+		GameState.mounts["holders"] = {}
 	return GameState.mounts
 
 func rows() -> Array:
@@ -108,10 +114,97 @@ func assign(unit_id: String, mount_id: String) -> Dictionary:
 	var i: int = st["stable"].find(mount_id)
 	if i < 0:
 		return {"ok": false, "reason": "%s is not in the stable" % name_of(mount_id)}
+	if _handed_on(unit_id, mount_id):
+		return {"ok": true, "left": true, "reason": _depart(mount_id)}        # the feather has changed hands
 	st["stable"].remove_at(i)
 	unassign(unit_id)
 	st["assigned"][unit_id] = mount_id
+	if not _holder_valid(str(st["holders"].get(mount_id, ""))):
+		st["holders"][mount_id] = unit_id
 	return {"ok": true, "reason": ""}
+
+# ------------------------------------------------------------- leaving
+
+## The triggers on which a mount leaves the company: handed_on, map_won, writ, literacy (none for most).
+func leaves(mount_id: String) -> Array:
+	var out: Array = []
+	var v = row(mount_id).get("leaves_when")
+	if v == null:
+		return out
+	for part in str(v).split("|"):
+		out.append(part.strip_edges())
+	return out
+
+## Whether a unit still counts as a living member of the company.
+func _holder_valid(unit_id: String) -> bool:
+	return unit_id != "" and Progression.is_known_unit(unit_id) and not Epilogue.is_dead(unit_id) and not Defections.is_gone(unit_id)
+
+## Giving a mount that leaves when the feather changes hands to someone other than the living unit who first held it.
+func _handed_on(unit_id: String, mount_id: String) -> bool:
+	if not leaves(mount_id).has("handed_on"):
+		return false
+	var holder := str(_s()["holders"].get(mount_id, ""))
+	return holder != unit_id and _holder_valid(holder)
+
+## A mount goes back to the wild (the creature can be won again). Returns what the player is told.
+func _depart(mount_id: String) -> String:
+	var st := _s()
+	st["stable"].erase(mount_id)
+	for u in st["assigned"].keys():
+		if st["assigned"][u] == mount_id:
+			st["assigned"].erase(u)
+	st["holders"].erase(mount_id)
+	st["claimed"].erase(row(mount_id).get("named_id"))
+	return str(row(mount_id).get("leaves_line", "%s leaves." % name_of(mount_id).capitalize()))
+
+## The mounts held right now (in the stable or ridden), in canon order.
+func owned() -> Array:
+	var st := _s()
+	var out: Array = []
+	for r in rows():
+		var mid: String = r["mount_id"]
+		if st["stable"].has(mid) or st["assigned"].values().has(mid):
+			out.append(mid)
+	return out
+
+## Units whose literacy a support has revealed (canon: the hidden-literacy thread -- Ricberta).
+func _literate() -> Array:
+	var out: Array = []
+	for r in Canon.get_table("supports"):
+		if r.get("reveals") == "literacy" and not out.has(r.get("reveals_about")) and Deputy.literacy_revealed(str(r.get("reveals_about"))):
+			out.append(r.get("reveals_about"))
+	return out
+
+## A map has been won (`newly`: for the first time) and its supports settled: any Named mount whose creature's
+## trigger has just come true leaves. Returns the lines to show. Run on every win -- it also keeps the
+## writ and literacy triggers' memory, so a mount acquired later is not hit by an old event.
+func check_departures(map_id: String, newly: bool) -> Array[String]:
+	var st := _s()
+	var literate := _literate()
+	var writ_now := Deputy.decided()
+	var writ_flip: bool = writ_now and not st.get("writ_seen", false)
+	var lit_flip: bool = not literate.is_empty() and not st.get("literacy_seen", false)
+	st["writ_seen"] = writ_now
+	st["literacy_seen"] = not literate.is_empty()
+	var out: Array[String] = []
+	for mid in owned():
+		var kinds := leaves(mid)
+		var go := false
+		var r := row(mid)
+		if kinds.has("map_won") and newly and map_id == str(r.get("leaves_map_id")) \
+				and (r.get("leaves_unless_map_id") == null or not GameState.won_maps.has(str(r.get("leaves_unless_map_id")))):
+			go = true
+		if kinds.has("writ") and writ_flip:
+			go = true
+		if kinds.has("literacy") and lit_flip:
+			var rider := ""
+			for u in st["assigned"]:
+				if st["assigned"][u] == mid:
+					rider = u
+			go = not literate.has(rider)         # the one who can read the register keeps it
+		if go:
+			out.append(_depart(mid))
+	return out
 
 ## Takes a unit's mount back to the stable. False if they had none.
 func unassign(unit_id: String) -> bool:
@@ -147,6 +240,7 @@ func on_rider_fell(unit_id: String, recovered: bool) -> String:
 		return ""
 	var mount: String = st["assigned"][unit_id]
 	st["assigned"].erase(unit_id)
+	st["holders"].erase(mount)               # the dead no longer hold the feather: an heir may take it
 	if recovered:
 		st["stable"].append(mount)
 		return "%s is recovered, riderless, and goes back to the stable." % name_of(mount).capitalize()

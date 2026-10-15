@@ -136,6 +136,8 @@ FKS = {
     ("cargo_units", "map_id"): ("maps", "map_id"),
     ("maps", "enemy_polity_id"): ("polities", "polity_id"),
     ("mounts", "named_id"): ("named", "named_id"),
+    ("mounts", "leaves_map_id"): ("maps", "map_id"),
+    ("mounts", "leaves_unless_map_id"): ("maps", "map_id"),
     ("forges", "location_id"): ("locations", "location_id"),
     ("defections", "trigger_map_id"): ("maps", "map_id"),
     ("defections", "trigger_unless_map_id"): ("maps", "map_id"),

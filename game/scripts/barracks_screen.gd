@@ -430,7 +430,10 @@ func activate() -> void:
 				_message = "%s gives up the mount." % _name_of(u)
 			else:
 				var r := Mounts.assign(u, opt["id"])
-				_message = "%s takes %s." % [_name_of(u), Mounts.name_of(opt["id"])] if r["ok"] else "Can't: %s." % r["reason"]
+				if r.get("left", false):
+					_message = r["reason"]              # the creature would not be handed on
+				else:
+					_message = "%s takes %s." % [_name_of(u), Mounts.name_of(opt["id"])] if r["ok"] else "Can't: %s." % r["reason"]
 		_:
 			var now = Progression.toggle_ability(u, opt["id"])
 			_message = "" if now != null else "No free slot -- remove an ability first."

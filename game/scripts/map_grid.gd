@@ -1000,6 +1000,13 @@ func _on_map_won() -> void:
 	if _reward_text != "":
 		call_deferred("_show_rewards")
 	_support_entries = Supports.settle_map(map_id)
+	if map_id != "map_f00":
+		var left := Mounts.check_departures(map_id, newly)
+		if not left.is_empty():
+			var was_empty := _reward_text == ""
+			_reward_text = (_reward_text + " " + " ".join(left)).strip_edges()
+			if was_empty:
+				call_deferred("_show_rewards")
 	GameState.won_maps[map_id] = true
 	if GameState.battle.get("map_id", "") == map_id:
 		GameState.battle = {}      # the suspended battle was this one, and it is won

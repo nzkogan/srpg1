@@ -45,4 +45,4 @@ the per-map horse count.
 
 ## Not built
 
-- Mounts in the flipbooks; mount HP, stats or deeds; the Named's defection triggers (the mutual-knowledge rule is NAMED_RULES_DESIGN.md); the Huma (a hazard, see HUMA_DESIGN.md); inheritance beyond recovery (no heirloom passing between riders).
+- Mounts in the flipbooks; mount HP, stats or deeds; the Named's defection triggers are NAMED_DEFECTIONS_DESIGN.md, the mutual-knowledge rule NAMED_RULES_DESIGN.md; the Huma (a hazard, see HUMA_DESIGN.md); inheritance beyond recovery (no heirloom passing between riders).

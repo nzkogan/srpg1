@@ -7,7 +7,11 @@
     "movement": "riding",
     "effect": null,
     "requisition_cost": 400,
-    "notes": "DRAFTED 2026-10-27. The ordinary mount: acquired by requisition (the standard forges' orders), by capturing a mounted enemy, or by inheritance (a fallen rider's, if it is recovered). Grants riding movement."
+    "notes": "DRAFTED 2026-10-27. The ordinary mount: acquired by requisition (the standard forges' orders), by capturing a mounted enemy, or by inheritance (a fallen rider's, if it is recovered). Grants riding movement.",
+    "leaves_when": null,
+    "leaves_map_id": null,
+    "leaves_unless_map_id": null,
+    "leaves_line": null
   },
   {
     "mount_id": "mnt_simurgh",
@@ -17,7 +21,11 @@
     "movement": "flying",
     "effect": "rider_heal",
     "requisition_cost": null,
-    "notes": "Canon: 5 HP/turn to rider and adjacent allies (flat, not percentage). Taken intact from the Simurgh's paralogue."
+    "notes": "Canon: 5 HP/turn to rider and adjacent allies (flat, not percentage). Taken intact from the Simurgh's paralogue.",
+    "leaves_when": "handed_on",
+    "leaves_map_id": null,
+    "leaves_unless_map_id": null,
+    "leaves_line": "She arrives green and stops being green: the feather has changed hands, and the Simurgh is gone from the stable."
   },
   {
     "mount_id": "mnt_shadhavar",
@@ -27,7 +35,11 @@
     "movement": "riding",
     "effect": "pull_foe",
     "requisition_cost": null,
-    "notes": "Canon: every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off. A liability on escort maps, an asset on defend maps."
+    "notes": "Canon: every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off. A liability on escort maps, an asset on defend maps.",
+    "leaves_when": null,
+    "leaves_map_id": null,
+    "leaves_unless_map_id": null,
+    "leaves_line": null
   },
   {
     "mount_id": "mnt_karkadann",
@@ -37,7 +49,11 @@
     "movement": "riding",
     "effect": "charge",
     "requisition_cost": null,
-    "notes": "Canon: strong against mounted units; a devastating charge that leaves it stuck one turn. The plain one on purpose."
+    "notes": "Canon: strong against mounted units; a devastating charge that leaves it stuck one turn. The plain one on purpose.",
+    "leaves_when": "map_won|writ",
+    "leaves_map_id": "map_b15",
+    "leaves_unless_map_id": "map_ct19",
+    "leaves_line": "The Karkadann turns: it guards the doves, and a company that writes the Ashland off, or takes the crown's orders, is not one whose terms it can keep."
   },
   {
     "mount_id": "mnt_anzu",
@@ -47,6 +63,10 @@
     "movement": "flying",
     "effect": "unmake_touch",
     "requisition_cost": null,
-    "notes": "Canon: contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead. COST: an enemy it has left unarmed drops nothing, so riding it starves your only supply line."
+    "notes": "Canon: contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead. COST: an enemy it has left unarmed drops nothing, so riding it starves your only supply line.",
+    "leaves_when": "literacy",
+    "leaves_map_id": null,
+    "leaves_unless_map_id": null,
+    "leaves_line": "Someone has shown a literacy its rider lacks, and the Anzu turns to the one who can read the register."
   }
 ]

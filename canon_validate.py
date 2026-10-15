@@ -691,6 +691,21 @@ def main():
                 fail("c07", "blocking", f"mounts.{mid}", "a Named mount needs a Named with an enemy stand-in to be taken from")
             if mt.get("named_id") == "nmd_huma":
                 fail("c07", "blocking", f"mounts.{mid}", "the Huma is a map hazard, not a mount")
+    LEAVES = {"handed_on", "map_won", "writ", "literacy"}
+    for mt in tabs["mounts"]:
+        mid = mt["mount_id"]
+        kinds = split_multi(mt.get("leaves_when"))
+        for k in kinds:
+            if k not in LEAVES:
+                fail("c07", "blocking", f"mounts.{mid}", f"leaves_when '{k}' is not one of {sorted(LEAVES)}")
+        if kinds and mt.get("kind") != "named":
+            fail("c07", "blocking", f"mounts.{mid}", "only a Named mount can leave on its own trigger")
+        if kinds and not mt.get("leaves_line"):
+            fail("c07", "blocking", f"mounts.{mid}", "a mount that can leave needs a leaves_line to tell the player")
+        if "map_won" in kinds and not mt.get("leaves_map_id"):
+            fail("c07", "blocking", f"mounts.{mid}", "map_won needs a leaves_map_id")
+        if mt.get("leaves_map_id") and "map_won" not in kinds:
+            fail("c07", "blocking", f"mounts.{mid}", "leaves_map_id is only read by map_won")
     if not any(m.get("kind") == "horse" for m in tabs["mounts"]):
         fail("c07", "blocking", "mounts", "there is no ordinary mount to order")
 
