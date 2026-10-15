@@ -61,7 +61,7 @@
     "speaker_ids": "u_avatar|npc_methodios",
     "depends_on_flags": null,
     "depends_on_units": null,
-    "summary": "the Diadem convenes at Kaisareia; the avatar (or whoever holds the relevant commission) recommends sentence; SETS flag_hierophant_verdict (mercy | execution), forking to ch_h33_mercy or ch_h34_war1",
+    "summary": "the Diadem convenes at Kaisareia; the avatar (or whoever holds the relevant commission) recommends sentence; SETS flag_hierophant_verdict (mercy | execution), forking to ch_h33_mercy or ch_h34_war1 ADDENDUM (2026-10-31, TRIAL_DESIGN.md): built as the crown's ledger machine -- the commission holder (the deputy, else the avatar) is read out with the company's docket of mercies and kills; the avatar may recommend in person, or let the commission recommend off the holder's own record; the sentence is final and recorded.",
     "status": "drafted",
     "word_count": "0"
   },

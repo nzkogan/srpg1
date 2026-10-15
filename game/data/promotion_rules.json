@@ -616,5 +616,11 @@
     "value": 1,
     "text": null,
     "notes": "The Named know each other (named.notes): once this many Named stand-ins have been KILLED (a run-long count, one per creature), no Named will be captured -- no intact mount, no harvest. Canon is 'kill one and the next will not be captured', so 1."
+  },
+  {
+    "param_id": "prm_trial_mercy_weight",
+    "value": 3,
+    "text": null,
+    "notes": "The Kaisareia Trial (ch_h32): the commission holder's own docket -- each recorded mercy (a deed whose epithets.trial_reading is 'mercy': capture, talk, dispersal) counts this many kills; the commission recommends MERCY when mercies x weight >= kills, otherwise EXECUTION."
   }
 ]

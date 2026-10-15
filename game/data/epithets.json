@@ -10,7 +10,8 @@
     "count_needed": 1,
     "deed_terrain": null,
     "weapon_form": "{BASE}, Slayer of {OBJECT}",
-    "weapon_form_bare": "Slayer's {BASE}"
+    "weapon_form_bare": "Slayer's {BASE}",
+    "trial_reading": null
   },
   {
     "epithet_id": "ep_solohold",
@@ -23,7 +24,8 @@
     "count_needed": 1,
     "deed_terrain": null,
     "weapon_form": "{BASE} of the Ford",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": null
   },
   {
     "epithet_id": "ep_nohit",
@@ -36,7 +38,8 @@
     "count_needed": 1,
     "deed_terrain": null,
     "weapon_form": "Untouched {BASE}",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": null
   },
   {
     "epithet_id": "ep_miasma",
@@ -49,7 +52,8 @@
     "count_needed": 5,
     "deed_terrain": "ter_miasma",
     "weapon_form": "Ash-walker's {BASE}",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": null
   },
   {
     "epithet_id": "ep_delivery",
@@ -62,7 +66,8 @@
     "count_needed": 1,
     "deed_terrain": null,
     "weapon_form": "Carter's {BASE}",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": null
   },
   {
     "epithet_id": "ep_dispersal",
@@ -75,7 +80,8 @@
     "count_needed": 3,
     "deed_terrain": null,
     "weapon_form": "Merciful {BASE}",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": "mercy"
   },
   {
     "epithet_id": "ep_talk",
@@ -88,7 +94,8 @@
     "count_needed": 1,
     "deed_terrain": null,
     "weapon_form": "Peacemaker's {BASE}",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": "mercy"
   },
   {
     "epithet_id": "ep_capture",
@@ -101,6 +108,7 @@
     "count_needed": 5,
     "deed_terrain": null,
     "weapon_form": "Taker's {BASE}",
-    "weapon_form_bare": null
+    "weapon_form_bare": null,
+    "trial_reading": "mercy"
   }
 ]

@@ -187,3 +187,74 @@ func supply_attachment_gold(map_id: String) -> int:
 
 func supply_withheld() -> bool:
 	return decided() and contested()
+
+# ------------------------------------------------------------------ the Kaisareia Trial
+
+## The trial (ch_h32) runs through this same ledger machine (endings.end_hierophant): the crown reads out
+## a docket -- the mercies the company has shown (deeds whose epithets.trial_reading is 'mercy') against
+## the kills the auditor wrote down -- and the avatar, or whoever holds the commission (the deputy), recommends
+## a sentence. The commission recommends off its holder's OWN record: mercy when mercies x trial_mercy_weight
+## >= kills. The sentence is final; it sets flag_hierophant_verdict and is kept in GameState.trial.
+
+const TRIAL_FLAG := "flag_hierophant_verdict"
+
+## The epithet ids whose deeds the court reads as mercy.
+func mercy_epithets() -> Array:
+	var out: Array = []
+	for e in Canon.get_table("epithets"):
+		if e.get("trial_reading") == "mercy":
+			out.append(e["epithet_id"])
+	return out
+
+## What the ledger holds against / for one unit: {"mercies", "kills"}.
+func docket(unit_id: String) -> Dictionary:
+	var mercies := 0
+	for ep in mercy_epithets():
+		mercies += Progression.deed_count(unit_id, ep)
+	return {"mercies": mercies, "kills": count(unit_id, "raw_kill") + count(unit_id, "unwitnessed_kill")}
+
+## The whole company's docket: every unit who has joined and not defected.
+func company_docket() -> Dictionary:
+	var m := 0
+	var k := 0
+	for u in Canon.get_table("units"):
+		var uid: String = u["unit_id"]
+		if Defections.joined(uid) and not Defections.is_gone(uid):
+			var d := docket(uid)
+			m += int(d["mercies"])
+			k += int(d["kills"])
+	return {"mercies": m, "kills": k}
+
+## Who holds the relevant commission: the crown's deputy, if one was named (else nobody -- the avatar alone).
+func trial_holder() -> String:
+	return deputy() if decided() else ""
+
+## What the commission would recommend, off its holder's own docket: {"verdict", "mercies", "kills", "weight"}.
+func commission_reading(holder: String) -> Dictionary:
+	var d := docket(holder)
+	var w := int(Progression.param("trial_mercy_weight"))
+	return {"verdict": "mercy" if int(d["mercies"]) * w >= int(d["kills"]) else "execution", "mercies": d["mercies"], "kills": d["kills"], "weight": w}
+
+func trial_done() -> bool:
+	return not GameState.trial.is_empty()
+
+## The sentence is recommended, once. `by` is "avatar" or the commission holder's unit id (their own reading
+## is then what is recorded: `verdict` must match it). -> {"ok", "reason"}.
+func recommend(by: String, verdict: String) -> Dictionary:
+	if trial_done() or GameState.get_flag(TRIAL_FLAG) != null:
+		return {"ok": false, "reason": "a sentence has been recommended"}
+	if verdict != "mercy" and verdict != "execution":
+		return {"ok": false, "reason": "the court hears mercy or execution"}
+	var company := company_docket()
+	var rec := {"by": by, "verdict": verdict, "company_mercies": company["mercies"], "company_kills": company["kills"], "commission": by != "avatar"}
+	if by != "avatar":
+		if by != trial_holder():
+			return {"ok": false, "reason": "that is not the commission's holder"}
+		var reading := commission_reading(by)
+		if reading["verdict"] != verdict:
+			return {"ok": false, "reason": "the commission recommends by its own record"}
+		rec["mercies"] = reading["mercies"]
+		rec["kills"] = reading["kills"]
+	GameState.trial = rec
+	GameState.set_flag(TRIAL_FLAG, verdict)
+	return {"ok": true, "reason": ""}

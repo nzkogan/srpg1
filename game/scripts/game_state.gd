@@ -104,6 +104,10 @@ var mounts: Dictionary = {}
 ## other, so after named_wary_kills of these none will be captured (see the Forge autoload).
 var named_slain: Array = []
 
+## The Kaisareia Trial's record (see the Deputy autoload): {} until a sentence is recommended, then
+## {"by": "avatar" or the commission holder, "verdict", "commission", the company's docket, the holder's own}.
+var trial: Dictionary = {}
+
 ## A suspended battle (a mid-map save): {} when there is none, else the snapshot
 ## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
 ## a copy of the rest of the playthrough as it was, so resuming rolls everything back
@@ -128,7 +132,7 @@ const PERSISTED := {
 	"materials": TYPE_DICTIONARY, "materials_claimed": TYPE_DICTIONARY, "forge_orders": TYPE_ARRAY, "works_started": TYPE_INT,
 	"defections": TYPE_DICTIONARY, "guests": TYPE_DICTIONARY,
 	"deputy_ledger": TYPE_DICTIONARY, "deputy": TYPE_DICTIONARY, "epilogue": TYPE_DICTIONARY, "mounts": TYPE_DICTIONARY,
-	"named_slain": TYPE_ARRAY,
+	"named_slain": TYPE_ARRAY, "trial": TYPE_DICTIONARY,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.
