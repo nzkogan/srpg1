@@ -52,8 +52,8 @@ remembers the wear.
 ## Not built
 
 - **Intact** capture of a Named as a mount is built (MOUNTS_DESIGN.md); still unbuilt: intact for a marked weapon that keeps its ability, and the Huma (HUMA_DESIGN.md: the hazard is built, the taboo is kept by making the blow impossible).
-- "Better weapon" for a kill (here a kill gives a prime material, which just means full uses), the Named's mutual
-  knowledge ("kill one and the next will not be captured"), and the Anzu's cost ("weapons it unmakes cannot be captured").
+- "Better weapon" for a kill (here a kill gives a prime material, which just means full uses), (built: NAMED_RULES_DESIGN.md -- the Named's mutual
+  knowledge, and the Anzu's cost with the mounts).
 - The **standard forges** and requisition tier are STANDARD_FORGES_DESIGN.md. The **epithet naming grammar** is WEAPON_NAMES_DESIGN.md (marks, reforging
   clears epithets), now built.
 - A smith's access being **lost** mid-run; Named riding.

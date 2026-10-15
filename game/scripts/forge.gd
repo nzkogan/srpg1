@@ -84,6 +84,38 @@ func held() -> Array:
 ## A Named stand-in has fallen: `how` is "killed" (a prime material) or "captured" (a
 ## diminished one). Returns the line to show ("" if it yields nothing, or already did).
 func on_named_defeated(enemy_id: String, how: String) -> String:
+	var warning := note_named_slain(enemy_id) if how == "killed" else ""
+	var line := _material_line(enemy_id, how)
+	var parts: Array = [line, warning].filter(func(t): return t != "")
+	return " ".join(parts)
+
+# ------------------------------------------------------- the Named know each other
+
+## A Named stand-in has been killed: remember its creature, once. Returns the line that warns the
+## rest have heard of it ("" if this is not a Named, was recorded already, or changes nothing).
+func note_named_slain(enemy_id: String) -> String:
+	var arch = Canon.find_by("enemy_archetypes", "enemy_id", enemy_id)
+	var named_id := str(arch.get("named_id")) if arch != null and arch.get("named_id") != null else ""
+	if named_id == "" or GameState.named_slain.has(named_id):
+		return ""
+	GameState.named_slain.append(named_id)
+	if GameState.named_slain.size() != int(Progression.param("named_wary_kills")):
+		return ""
+	return "The Named know each other: word of it will go before you, and none of the rest will be taken now."
+
+## Whether the Named have heard enough of the killing to refuse capture (canon: "kill one and the next
+## will not be captured"; named_wary_kills is how many it takes, 1 in canon).
+func named_wary() -> bool:
+	return GameState.named_slain.size() >= int(Progression.param("named_wary_kills"))
+
+## Why a Named will not be taken now ("" if it will): names the creature whose death it has heard of.
+func wary_reason() -> String:
+	if not named_wary():
+		return ""
+	var n = Canon.find_by("named", "named_id", str(GameState.named_slain[0]))
+	return "the Named know each other, and it has heard of the death of %s" % (str(n.get("name")) if n != null else "another")
+
+func _material_line(enemy_id: String, how: String) -> String:
 	var mat := material_for_enemy(enemy_id)
 	if mat.is_empty() or GameState.materials_claimed.has(mat["material_id"]):
 		return ""

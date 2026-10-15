@@ -1287,7 +1287,7 @@ func _capture_enemy() -> void:
 		info_label.text = "No enemy in range for %s." % unit.get("name")
 		return
 	var ename: String = target.archetype.get("name")
-	var check := Progression.capture_check(int(target.hp), int(target.max_hp), target.kind == "boss", target.archetype.get("named_id") != null)
+	var check := _capture_gate(target)
 	if not check["ok"]:
 		info_label.text = "The %s cannot be captured: %s." % [ename, check["reason"]]
 		return
@@ -2320,12 +2320,20 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 		"forecast": Combat.forecast(attacker, defender, weapon, def_weapon, distance),
 	}
 
+## Whether this enemy can be taken now: Progression's rule, plus the Named refusing once they have heard of a kill.
+func _capture_gate(inst: Dictionary) -> Dictionary:
+	var named = inst.archetype.get("named_id")
+	var check := Progression.capture_check(int(inst.hp), int(inst.max_hp), inst.kind == "boss", named != null)
+	if check["ok"] and named != null and map_id != "map_f00" and Forge.named_wary():
+		return {"ok": false, "reason": Forge.wary_reason()}
+	return check
+
 ## The forecast panel's Capture line for a unit that has the action: "" for one
 ## that doesn't, otherwise whether this enemy can be taken now, and why not.
 func _capture_text(pid: String, inst: Dictionary) -> String:
 	if not Progression.can_capture(pid):
 		return ""
-	var check := Progression.capture_check(int(inst.hp), int(inst.max_hp), inst.kind == "boss", inst.archetype.get("named_id") != null)
+	var check := _capture_gate(inst)
 	if not check["ok"]:
 		return "Capture: %s." % check["reason"]
 	return "Capture ready: no kill, no drop, +%d gold ransom." % int(Progression.param("income_per_capture"))

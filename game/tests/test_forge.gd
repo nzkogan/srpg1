@@ -117,7 +117,7 @@ func _run() -> void:
 	# ---- materials come from Named stand-ins
 	_fresh()
 	var msg: String = _f.on_named_defeated("ea_simurgh", "killed")
-	check(msg == "The Simurgh yields the feather (a prime material)." and _gs.materials == {"mat_simurgh": "prime"}, "killing the Simurgh yields a prime feather (%s)" % msg)
+	check(msg.begins_with("The Simurgh yields the feather (a prime material).") and _gs.materials == {"mat_simurgh": "prime"}, "killing the Simurgh yields a prime feather (%s)" % msg)
 	check(_f.on_named_defeated("ea_simurgh", "killed") == "" and _gs.materials.size() == 1, "once only: a replay yields nothing")
 	msg = _f.on_named_defeated("ea_karkadann", "captured")
 	check(msg == "The Karkadann yields the horn (a diminished material, harvested)." and _gs.materials["mat_karkadann"] == "diminished", "capturing the Karkadann yields a diminished horn (%s)" % msg)

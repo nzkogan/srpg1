@@ -610,5 +610,11 @@
     "value": 2,
     "text": null,
     "notes": "The Huma: every unit standing in the shadow (yours or theirs) gains this much str, mag, def, res and spd -- 'marked units gain stats'."
+  },
+  {
+    "param_id": "prm_named_wary_kills",
+    "value": 1,
+    "text": null,
+    "notes": "The Named know each other (named.notes): once this many Named stand-ins have been KILLED (a run-long count, one per creature), no Named will be captured -- no intact mount, no harvest. Canon is 'kill one and the next will not be captured', so 1."
   }
 ]
