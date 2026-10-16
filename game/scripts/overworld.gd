@@ -749,10 +749,19 @@ func scene_for(entry: Dictionary) -> String:
 	var map_id: String = entry.map_row.get("map_id", "")
 	return AVAILABLE_SCENES.get(map_id, "")
 
+## The scene to load for a chapter: its map, or the chapter's pre-battle scenes first (staged to lead on to the
+## map) if any are waiting. "" if nothing is built.
+func launch_path(entry: Dictionary) -> String:
+	var path := scene_for(entry)
+	if path == "" or path == Deputy.SCREEN_SCENE:
+		return path
+	var before := Scenes.pending(str(entry.chapter.get("chapter_id", "")), "pre-battle")
+	return path if before.is_empty() else Scenes.stage(before, path)
+
 func _launch(entry: Dictionary) -> void:
 	chapter_launched.emit(entry.chapter.get("chapter_id", ""))
 	if not launch_enabled:
 		return
-	var path := scene_for(entry)
+	var path := launch_path(entry)
 	if path != "":
 		get_tree().change_scene_to_file(path)

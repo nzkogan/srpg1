@@ -313,6 +313,14 @@ func _add_day_briefing() -> void:
 			line += " It is the %s's day too." % str(inst.archetype.get("name", "creature")).trim_prefix("The ").trim_prefix("the ")
 	_intro_lines.append(line)
 
+## Where Escape leads after the battle: the overworld, by way of the chapter's post-battle scenes on a win.
+func _way_out() -> String:
+	if map_won and not _is_flashback():
+		var after := Scenes.pending(str(map_row.get("chapter_id", "")), "post-battle")
+		if not after.is_empty():
+			return Scenes.stage(after, Scenes.OVERWORLD)
+	return Scenes.OVERWORLD
+
 var _flash := -1     # 1 if this map is a flashback (the prologue, F1, F2), 0 if not; cached
 
 ## Flashbacks break the map laws (see the Flashback autoload): no permadeath, forge, income, deputy ledger,
@@ -685,7 +693,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventKey and event.pressed:
 			var key := (event as InputEventKey).keycode
 			if key == KEY_ESCAPE:
-				get_tree().change_scene_to_file("res://scenes/overworld.tscn")
+				get_tree().change_scene_to_file(_way_out())
 			elif key == KEY_S and map_won and not _support_entries.is_empty():
 				open_support_viewer()
 		return
