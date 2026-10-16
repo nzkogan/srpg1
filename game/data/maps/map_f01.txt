@@ -1,0 +1,16 @@
+# map_f01 -- The scribes' quarter   16 x 12
+# Reads top to bottom (row0 = top). FLASHBACK F1.
+#   b building / wall (impassable)   d gate street   i the scriptorium (indoor)   p the plaza (deploy)   . yard
+
+bbbbbbbbdbbbbbbb
+b..............b
+b..bbbbbbbbbb..b
+b..biiiiiiiib..b
+b..biiiiiiiib..b
+b..bbbbiibbbb..b
+d..............d
+b..............b
+b..............b
+b..pppppppppp..b
+b..pppppppppp..b
+bbbbbbbbbbbbbbbb

@@ -46,5 +46,53 @@
     "spawn_row": 11,
     "spawn_col": 8,
     "notes": "map_a01: the winter dole's cart; civilians chasing it aren't modelled"
+  },
+  {
+    "cargo_id": "cargo_f01_copyist1",
+    "map_id": "map_f01",
+    "name": "Copyist (first desk)",
+    "movement": "armor",
+    "hp": 14,
+    "def": 0,
+    "res": 0,
+    "spawn_row": 4,
+    "spawn_col": 5,
+    "notes": "map_f01: a copyist at a desk (cargo_needed 3 of 4 must live to the eighth turn)"
+  },
+  {
+    "cargo_id": "cargo_f01_copyist2",
+    "map_id": "map_f01",
+    "name": "Copyist (second desk)",
+    "movement": "armor",
+    "hp": 14,
+    "def": 0,
+    "res": 0,
+    "spawn_row": 4,
+    "spawn_col": 7,
+    "notes": null
+  },
+  {
+    "cargo_id": "cargo_f01_copyist3",
+    "map_id": "map_f01",
+    "name": "Copyist (third desk)",
+    "movement": "armor",
+    "hp": 14,
+    "def": 0,
+    "res": 0,
+    "spawn_row": 4,
+    "spawn_col": 9,
+    "notes": null
+  },
+  {
+    "cargo_id": "cargo_f01_copyist4",
+    "map_id": "map_f01",
+    "name": "Copyist (fourth desk)",
+    "movement": "armor",
+    "hp": 14,
+    "def": 0,
+    "res": 0,
+    "spawn_row": 4,
+    "spawn_col": 11,
+    "notes": null
   }
 ]

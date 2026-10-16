@@ -101,6 +101,7 @@ func _run() -> void:
 	var plain_hit: int = int(m._enemy_combatant(m.enemies[2]).get("sup_hit", 0))
 	check(int(bc["sup_hit"]) > plain_hit, "(and is what Combat.hit_chance reads)")
 	m.map_id = "map_f00"
+	m._flash = -1                       # (the map reads its kind once)
 	check(m._day_chapter() == "" and m.map_row != null, "the prologue keeps no calendar")
 	m.queue_free()
 	await process_frame

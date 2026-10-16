@@ -140,7 +140,7 @@ func note_slain(unit_id: String, arch: Dictionary) -> void:
 ## "enemy_idx" (which enemy did it, for the weapon's fate). Returns the pending record, or {}
 ## when the fall is not recorded.
 func note_fall(unit_id: String, map_id: String, killer: Dictionary) -> Dictionary:
-	if map_id == "map_f00" or not eligible(unit_id) or is_dead(unit_id):
+	if Flashback.is_flashback(map_id) or not eligible(unit_id) or is_dead(unit_id):
 		return {}
 	var held: Array = []
 	for ep in Canon.get_table("epithets"):

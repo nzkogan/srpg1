@@ -285,7 +285,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -376,7 +376,7 @@ def main():
         if lid not in loc_ids:
             fail("c07", "blocking", f"chapters.{c['chapter_id']}", f"location_id '{lid}' does not exist")
         used.add(lid)
-        if lid not in adj and c.get("act") != "prologue":
+        if lid not in adj and c.get("act") not in ("prologue", "flashback"):
             fail("c07", "blocking", f"chapters.{c['chapter_id']}", f"is placed at {lid}, which no path reaches (only the prologue flashback may stand alone)")
     for lid in sorted(loc_ids - used):
         fail("c07", "warning", f"locations.{lid}", "no chapter is placed here")
@@ -412,7 +412,8 @@ def main():
         cargo_by_map[cu["map_id"]] += 1
         if m is None:
             continue
-        if m.get("objective_verb") not in ("escort", "escape"):
+        chap_act = next((c.get("act") for c in tabs["chapters"] if c.get("chapter_id") == m.get("chapter_id")), None)
+        if m.get("objective_verb") not in ("escort", "escape") and not (chap_act == "flashback" and m.get("objective_verb") == "defend"):
             fail("c07", "blocking", f"cargo_units.{cid}", f"is on {cu['map_id']}, which is a '{m.get('objective_verb')}' map, not an escort")
         r, c = cu.get("spawn_row"), cu.get("spawn_col")
         if not (isinstance(r, int) and isinstance(c, int) and 0 <= r < m["height"] and 0 <= c < m["width"]):
@@ -946,6 +947,8 @@ def main():
         run = 0
         since_calm = 0
         for r in chs:
+            if r.get("act") == "flashback":
+                continue           # a memory sits outside the campaign's pacing
             tone = (r.get("tonal_register") or "").strip()
             if not tone:
                 fail("c15", "warning", f"chapters.{r['chapter_id']}", "no tonal_register assigned")

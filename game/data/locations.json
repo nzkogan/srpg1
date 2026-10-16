@@ -394,5 +394,27 @@
     "what_the_ground_is_for": "a flashback, 800 years early, in a city that no longer exists: not on the world map; the overworld draws it as a memory in the corner",
     "map_x": 80,
     "map_y": 60
+  },
+  {
+    "location_id": "loc_scribes_quarter",
+    "name": "The scribes' quarter (a memory)",
+    "region_id": null,
+    "route": "both",
+    "chapters": "1",
+    "acts": "flashback",
+    "what_the_ground_is_for": "a flashback ~780 years early, the first copy of the First Register under deadline: not on the world map; the overworld draws it as a memory in the corner, and the party is taken there when it falls due",
+    "map_x": 200,
+    "map_y": 60
+  },
+  {
+    "location_id": "loc_last_court",
+    "name": "The last court of the Long Reign (a memory)",
+    "region_id": null,
+    "route": "both",
+    "chapters": "2",
+    "acts": "flashback",
+    "what_the_ground_is_for": "a flashback, the day the church that held the realm together stopped being believed: not on the world map; a memory in the corner, taken at the end of Act 2",
+    "map_x": 320,
+    "map_y": 60
   }
 ]

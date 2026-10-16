@@ -814,5 +814,37 @@
     "teaches_system": "what each side kept, what each side lost",
     "location_id": "loc_reunion_field",
     "unlock_after": "ch_tp19|ch_ct19"
+  },
+  {
+    "chapter_id": "ch_f01",
+    "act": "flashback",
+    "route": "both",
+    "column": "unified",
+    "number": 1,
+    "title": "The scribes' quarter",
+    "map_id": "map_f01",
+    "sect_id": null,
+    "recruits_unit_ids": null,
+    "notes": "fb_f1 (flashbacks tab), act 1 -> 2: the First Register is copied for the first time, under deadline. Protect the copyists; a page is lost and the game does not tell you which; a clerk records deeds as they happen (teaches the epithet ledger). The missing name enters the world here, as an accident nobody notices. Opens after the Act 1 finale (ch_d10|ch_a10) and takes the party into the memory.",
+    "tonal_register": "eerie",
+    "teaches_system": "the epithet ledger, by watching a clerk write",
+    "location_id": "loc_scribes_quarter",
+    "unlock_after": "ch_d10|ch_a10"
+  },
+  {
+    "chapter_id": "ch_f02",
+    "act": "flashback",
+    "route": "both",
+    "column": "unified",
+    "number": 2,
+    "title": "The last court of the Long Reign",
+    "map_id": "map_f02",
+    "sect_id": null,
+    "recruits_unit_ids": null,
+    "notes": "fb_f2, act 2 -> 3: the church that held the realm together, on the day it stopped being believed. A defence with no reinforcements and no supply; the state simply runs out. The only flashback the player can lose without a restart: losing is the ending of the memory. Teaches what the pact layer costs by letting you spend it freely and lose anyway. Opens after the Reunion (ch_rf20).",
+    "tonal_register": "elegiac",
+    "teaches_system": "what the pact layer costs",
+    "location_id": "loc_last_court",
+    "unlock_after": "ch_rf20"
   }
 ]

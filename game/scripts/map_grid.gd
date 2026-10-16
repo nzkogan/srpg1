@@ -6,7 +6,7 @@ extends Node2D
 ## @export vars below rather than hardcoded to the prologue.
 ##
 ## map_f00 keeps its own bespoke mechanics (wall/statue destruction, the
-## Sargath-only seize) gated behind `map_id == "map_f00"` checks -- they were
+## Sargath-only seize) gated behind `_is_flashback()` checks -- they were
 ## never general systems, so genericizing didn't try to force them into one.
 ## What IS shared across all three maps: terrain rendering, Dijkstra movement
 ## range, unit/enemy tokens and turn order, weapon-range combat through
@@ -167,6 +167,8 @@ var _shove_mode := false       # [S] pressed: the next arrow key / click picks w
 var _bribe_mode := false       # [B] pressed: the next arrow key / click picks who to bribe
 var bribed_count := 0          # enemies turned neutral on this map (Kheldar's bribe)
 var move_cost: Dictionary = {}       # pid -> movement spent this turn (the Karkadann's charge reads it)
+var _clerk_lines: Array[String] = []   # F1: what the clerk has written down since the last turn began
+var _clerk_counts: Dictionary = {}     # F1: who has brought down how many
 var charge_stuck: Dictionary = {}    # pid -> the turn on which a charging Karkadann rider cannot move
 var horses_captured := 0             # Warhorses this map's captures have brought in (mount_capture_per_map)
 var _supply_mode := false      # [Q] pressed: the next arrow key / click picks the ally the quartermaster supplies
@@ -311,6 +313,15 @@ func _add_day_briefing() -> void:
 			line += " It is the %s's day too." % str(inst.archetype.get("name", "creature")).trim_prefix("The ").trim_prefix("the ")
 	_intro_lines.append(line)
 
+var _flash := -1     # 1 if this map is a flashback (the prologue, F1, F2), 0 if not; cached
+
+## Flashbacks break the map laws (see the Flashback autoload): no permadeath, forge, income, deputy ledger,
+## suspending or Named; one weapon each; a roster of their own.
+func _is_flashback() -> bool:
+	if _flash < 0:
+		_flash = 1 if Flashback.is_flashback(map_id) else 0
+	return _flash == 1
+
 func _index_map_row() -> void:
 	for row in Canon.get_table("maps"):
 		if row["map_id"] == map_id:
@@ -324,8 +335,10 @@ func _index_map_row() -> void:
 ## along deploy_row -- there's no per-unit deploy tile data for the 18 main
 ## roster the way there is for the 8 prologue units.
 func _build_units() -> Array:
-	if map_id == "map_f00":
-		return Canon.get_table("prologue_roster")
+	if _is_flashback():
+		var memory: Array = Flashback.roster(map_id).duplicate()      # the memory's own people
+		memory.append_array(_cargo_rows())
+		return memory
 
 	var units_by_id: Dictionary = {}
 	for row in Canon.get_table("units"):
@@ -565,7 +578,7 @@ func _spawn_encounter() -> void:
 ## Defectors who now stand on this map as lieutenants: next to the boss (else the first foe,
 ## else the middle of the map), on the nearest free tile they can stand on. Never the boss.
 func _spawn_lieutenants(next_id: int) -> void:
-	if map_id == "map_f00":
+	if _is_flashback():
 		return
 	for lt in Defections.lieutenants_for(map_id):
 		var anchor := Vector2i(grid[0].length() / 2, grid.size() / 2)
@@ -990,6 +1003,9 @@ func _next_turn() -> void:
 		_update_info_label()
 		if not mount_lines.is_empty():
 			info_label.text += "\n" + " ".join(mount_lines)
+		if not _clerk_lines.is_empty():
+			info_label.text += "\n" + " ".join(_clerk_lines) + " (The clerk's tally: %s.)" % Flashback.clerk_tally(_clerk_counts)
+			_clerk_lines.clear()
 
 var _support_lines: Array[String] = []
 var _support_entries: Array = []   # this win's Supports.settle_map() results
@@ -1003,17 +1019,22 @@ func _on_map_won() -> void:
 	_reward_text = _settle_rewards()
 	if not fallen.is_empty():
 		_reward_text = (_reward_text + "\n" + "\n".join(fallen)).strip_edges()
+	if _is_flashback() and Flashback.has_rule(map_id, "lost_page"):
+		Flashback.lose_a_page(rng_override)       # F1: a page of the copy is lost, and nothing says which
+		_reward_text = (_reward_text + " The clerk counts the sheets and is satisfied.").strip_edges()
 	if map_id == "map_x11":
 		Deputy.ensure_decided()       # the Second Writ is won: the crown's pick stands if it was never contested
-	var forged := Forge.on_map_won(newly) if map_id != "map_f00" else []
-	if map_id != "map_f00":
+	var forged: Array[String] = []
+	if not _is_flashback():
+		forged = Forge.on_map_won(newly)
+	if not _is_flashback():
 		forged.append_array(Defections.on_map_won(map_id, newly))
 	if not forged.is_empty():
 		_reward_text = (_reward_text + " " + " ".join(forged)).strip_edges()
 	if _reward_text != "":
 		call_deferred("_show_rewards")
 	_support_entries = Supports.settle_map(map_id)
-	if map_id != "map_f00":
+	if not _is_flashback():
 		var left := Mounts.check_departures(map_id, newly)
 		if not left.is_empty():
 			var was_empty := _reward_text == ""
@@ -1039,7 +1060,7 @@ const MAX_SUPPORT_LINES_SHOWN := 2
 ## Income and class unlocks for a win. Gold: 200 + 15 per enemy defeated + 25 per
 ## enemy captured + 10 per enemy routed + 20 per enemy talked down (x1.5 if Kheldar is still on the map), paid once per map. Returns the line to show.
 func _settle_rewards() -> String:
-	if map_id == "map_f00":
+	if _is_flashback():
 		return ""     # the prologue has no income and none of the main roster
 	var kills := 0
 	var captures := 0
@@ -1145,6 +1166,11 @@ func _check_defend_win() -> void:
 	var limit := int(map_row.get("turn_limit", 0))
 	if limit > 0 and turn >= limit:
 		map_won = true
+		if _is_flashback() and Flashback.has_rule(map_id, "falls"):
+			Flashback.on_fallen(true)
+			status_label.text = "DAWN. The court has held the night."
+			info_label.text = "It falls regardless. The memory ends."
+			return
 		status_label.text = "SURVIVED. Turn %d reached." % turn
 		info_label.text = "Victory."
 
@@ -1251,7 +1277,7 @@ func _attack_enemy() -> void:
 
 	if target.hp == 0:
 		info_label.text += " The %s falls." % ename
-		_credit_kill(pid)
+		_credit_kill(pid, target)
 		_last_actor = pid
 		var drop := _defeat_enemy(target)
 		if drop != "":
@@ -1633,7 +1659,7 @@ func _trip_mine(inst: Dictionary) -> void:
 	_note_damage(inst, by, hp_before)
 	var line := "A mine goes off under the %s (%d damage)." % [inst.archetype.get("name", "enemy"), hp_before - int(inst.hp)]
 	if inst.hp == 0:
-		_credit_kill(by)
+		_credit_kill(by, inst)
 		_defeat_enemy(inst)
 		line += " It falls."
 	enemy_log.append(line)
@@ -1748,7 +1774,13 @@ func _provoke() -> void:
 
 ## Miracle: a Martyr who would die and has not yet spent it this map is left at 1 HP. True if it saved them.
 func _miracle_saves(pid: String) -> bool:
-	if map_id == "map_f00" or not Progression.is_known_unit(pid) or not Progression.has_miracle(pid):
+	if _is_flashback():
+		if not Flashback.free_pact(map_id, pid, miracle_used):      # F2: every pact answers once, free
+			return false
+		unit_hp[pid] = 1
+		_miracle_notes.append("The pact answers: %s is left standing at 1 HP." % str(defender_row_for(pid).get("name", pid)))
+		return true
+	if not Progression.is_known_unit(pid) or not Progression.has_miracle(pid):
 		return false
 	if int(miracle_used.get(pid, 0)) >= Progression.miracle_limit():
 		return false
@@ -2039,7 +2071,7 @@ func _begin_talk() -> void:
 		return
 	var unit: Dictionary = units[selected_unit_index]
 	var pid: String = unit.get("punit_id", "")
-	if not _is_roster_unit(unit) or map_id == "map_f00":
+	if not _is_roster_unit(unit) or _is_flashback():
 		info_label.text = "%s has no one to talk to here." % unit.get("name")
 		return
 	if attacked_this_turn.has(pid):
@@ -2095,7 +2127,7 @@ func _talk_toward(dir: Vector2i) -> void:
 		return
 	var unit: Dictionary = units[selected_unit_index]
 	var pid: String = unit.get("punit_id", "")
-	if not _is_roster_unit(unit) or map_id == "map_f00":
+	if not _is_roster_unit(unit) or _is_flashback():
 		info_label.text = "%s has no one to talk to here." % unit.get("name")
 		return
 	if attacked_this_turn.has(pid):
@@ -2149,7 +2181,7 @@ func _talk_deed(pid: String, unit_name: String) -> Array[String]:
 ## One more capture for `pid`: announces the deed when it is earned, else how far along it is.
 func _capture_deed(pid: String, unit_name: String) -> Array[String]:
 	var lines := _earn_deed(pid, "ep_capture", unit_name)
-	if lines.is_empty() and Progression.is_known_unit(pid) and map_id != "map_f00":
+	if lines.is_empty() and Progression.is_known_unit(pid) and not _is_flashback():
 		var need := Progression.count_needed("ep_capture")
 		var got := Progression.deed_count(pid, "ep_capture")
 		if got < need:
@@ -2281,7 +2313,7 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 
 ## The chapter whose calendar governs this map's day ("" on the prologue, which keeps none).
 func _day_chapter() -> String:
-	return "" if map_id == "map_f00" else str(map_row.get("chapter_id", ""))
+	return "" if _is_flashback() else str(map_row.get("chapter_id", ""))
 
 ## An enemy's combat stats: its archetype, plus the Huma's mark if it stands in the shadow.
 func _enemy_combatant(inst: Dictionary) -> Dictionary:
@@ -2323,7 +2355,7 @@ func _draw_shadow() -> void:
 ## The hit/avoid the Epithet Aura gives `pid` right now: the strongest of the Skalds on the map
 ## who are alive and within aura_radius of it (auras do not stack), by the deeds `pid` has earned.
 func _aura_for(pid: String) -> int:
-	if map_id == "map_f00" or not unit_positions.has(pid) or not Progression.is_known_unit(pid):
+	if _is_flashback() or not unit_positions.has(pid) or not Progression.is_known_unit(pid):
 		return 0
 	var here: Vector2i = unit_positions[pid]
 	for other in unit_positions:
@@ -2357,7 +2389,7 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 func _capture_gate(inst: Dictionary) -> Dictionary:
 	var named = inst.archetype.get("named_id")
 	var check := Progression.capture_check(int(inst.hp), int(inst.max_hp), inst.kind == "boss", named != null)
-	if check["ok"] and named != null and map_id != "map_f00" and Forge.named_wary():
+	if check["ok"] and named != null and not _is_flashback() and Forge.named_wary():
 		return {"ok": false, "reason": Forge.wary_reason()}
 	return check
 
@@ -2476,7 +2508,7 @@ func _defeat_enemy(inst: Dictionary) -> String:
 ## A Named creature's stand-in has fallen (`how` is "killed" or "captured"): the beast
 ## material it yields, as a line ("" if it yields none, or already did).
 func _named_material(inst: Dictionary, how: String) -> String:
-	if map_id == "map_f00" or inst.archetype.get("named_id") == null:
+	if _is_flashback() or inst.archetype.get("named_id") == null:
 		return ""
 	return Forge.on_named_defeated(str(inst.archetype.get("enemy_id", "")), how)
 
@@ -2638,7 +2670,7 @@ func _enemy_act(inst: Dictionary, rng: RandomNumberGenerator) -> void:
 		enemy_log.append_array(_award_exp(defender_row_for(pid), inst, inst.hp == 0, rng, false))
 	if inst.hp == 0:
 		enemy_log.append("The %s falls." % ename)
-		_credit_kill(pid)
+		_credit_kill(pid, inst)
 		_last_actor = pid
 		var drop := _defeat_enemy(inst)
 		if drop != "":
@@ -2691,7 +2723,7 @@ func _rout_off(inst: Dictionary) -> Array[String]:
 	_remove_enemy_token(inst)
 	var lines: Array[String] = []
 	var pid: String = str(inst.get("rout_blow", ""))
-	if pid != "" and Progression.is_known_unit(pid) and map_id != "map_f00":
+	if pid != "" and Progression.is_known_unit(pid) and not _is_flashback():
 		var row = Canon.find_by("units", "unit_id", pid)
 		var uname: String = str(row["name"]) if row != null else pid
 		lines.append_array(_earn_deed(pid, "ep_dispersal", uname))
@@ -2755,7 +2787,7 @@ func _award_exp(unit: Dictionary, inst: Dictionary, killed: bool, rng: RandomNum
 ## it wasn't new, or the unit isn't a main-roster unit).
 func _earn_deed(pid: String, epithet_id: String, unit_name: String, object: String = "") -> Array[String]:
 	var out: Array[String] = []
-	if map_id == "map_f00" or not Progression.is_known_unit(pid):
+	if _is_flashback() or not Progression.is_known_unit(pid):
 		return out
 	if Progression.record_deed(pid, epithet_id):
 		Provenance.mark_equipped(pid, epithet_id, object)      # the deed is written on the blade in hand
@@ -2904,7 +2936,7 @@ func _snapshot_ok(snap: Dictionary) -> bool:
 ## it (the rest of _ready then builds the battle from it); a damaged one is dropped. {} when
 ## this is a fresh start.
 func _take_suspension() -> Dictionary:
-	if map_id == "map_f00" or GameState.battle.is_empty() or GameState.battle.get("map_id", "") != map_id:
+	if _is_flashback() or GameState.battle.is_empty() or GameState.battle.get("map_id", "") != map_id:
 		return {}
 	var snap: Dictionary = GameState.restore(GameState.battle.duplicate(true))
 	if not _snapshot_ok(snap) or GameState.validate(snap["state"]) != "":
@@ -2986,7 +3018,7 @@ func _first_present_unit(want: int) -> int:
 ## `leave`, also returns to the overworld, where Enter resumes it. Refused in the
 ## prologue and once the map is over.
 func suspend(leave: bool) -> void:
-	if map_id == "map_f00":
+	if _is_flashback():
 		info_label.text = "The prologue is a memory that can't be paused."
 		return
 	if map_won or map_lost or units.is_empty():
@@ -3094,7 +3126,7 @@ func _apply_weapon_effect(unit: Dictionary, weapon: Dictionary, inst: Dictionary
 # into the ledger (Deputy autoload), worth more if done within the surveyor's radius.
 
 func _place_surveyor() -> void:
-	if map_id == "map_f00" or units.is_empty():
+	if _is_flashback() or units.is_empty():
 		return
 	var total := 0
 	var counted := 0
@@ -3119,12 +3151,16 @@ func _witnessed(pid: String) -> bool:
 	return surveyor_pos != Vector2i(-1, -1) and unit_positions.has(pid) \
 		and _distance(unit_positions[pid], surveyor_pos) <= int(Progression.param("surveyor_radius"))
 
-func _credit_kill(pid: String) -> void:
-	if map_id != "map_f00" and Progression.is_known_unit(pid):
+func _credit_kill(pid: String, inst: Dictionary = {}) -> void:
+	if not _is_flashback() and Progression.is_known_unit(pid):
 		Deputy.on_kill(pid, map_id, _witnessed(pid))
+	if _is_flashback() and Flashback.has_rule(map_id, "clerk_ledger") and not inst.is_empty():
+		var who := str(defender_row_for(pid).get("name", pid))
+		_clerk_lines.append(Flashback.clerk_line(who, str(inst.archetype.get("name", "foe"))))      # F1: the clerk writes it down
+		_clerk_counts[who] = int(_clerk_counts.get(who, 0)) + 1
 
 func _credit_objective(pid: String) -> void:
-	if map_id != "map_f00" and Progression.is_known_unit(pid):
+	if not _is_flashback() and Progression.is_known_unit(pid):
 		Deputy.on_objective(pid, map_id, _witnessed(pid))
 
 # ----------------------------------------------------------- miasma and cargo
@@ -3139,7 +3175,7 @@ func _credit_objective(pid: String) -> void:
 func _miasma_deeds() -> Array[String]:
 	var lines: Array[String] = []
 	var terrain_id := Progression.deed_terrain("ep_miasma")
-	if terrain_id == "" or map_id == "map_f00":
+	if terrain_id == "" or _is_flashback():
 		return lines
 	for pid in unit_positions.keys():
 		if not Progression.is_known_unit(pid):
@@ -3275,6 +3311,14 @@ func _check_defeat() -> void:
 	if map_won or map_lost or units.is_empty() or not unit_positions.is_empty():
 		return
 	map_lost = true
+	if _is_flashback() and Flashback.has_rule(map_id, "falls"):
+		Flashback.on_fallen(false)           # losing is the ending of this memory: it counts as played
+		GameState.won_maps[map_id] = true
+		SaveGame.autosave()
+		status_label.text = "THE COURT FALLS."
+		info_label.text = "No one is left. The memory ends. Press Escape to leave."
+		_update_forecast()
+		return
 	status_label.text = "DEFEAT. No units are left on the map."
 	info_label.text = "Defeat. Press Escape to leave."
 	_update_forecast()
@@ -3341,7 +3385,7 @@ func _update_status_label() -> void:
 		var push := Progression.push_name(u.get("punit_id", "")) if _is_roster_unit(u) else ""
 		if push != "" and not push_names.has(push):
 			push_names.append(push)
-	if map_id != "map_f00":
+	if not _is_flashback():
 		controls = controls.replace("[E] weapon", "[T] talk -- [E] weapon")
 		controls += " -- [P] suspend -- [F5] quick save"
 	if _cargo_needed() > 0:

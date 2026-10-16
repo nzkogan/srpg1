@@ -103,12 +103,12 @@ func _run() -> void:
 	var by_map := {}
 	for c in cargo:
 		by_map[c["map_id"]] = int(by_map.get(c["map_id"], 0)) + 1
-	check(by_map == {"map_d03": 3, "map_a01": 1}, "canon has three wagons on d03 and the cart on a01 (%s)" % str(by_map))
+	check(by_map == {"map_d03": 3, "map_a01": 1, "map_f01": 4}, "canon has three wagons on d03, the cart on a01 and four copyists in the scribes' quarter (%s)" % str(by_map))
 	var needs := {}
 	for mrow in _canon.get_table("maps"):
 		if mrow.get("cargo_needed") != null:
 			needs[mrow["map_id"]] = int(mrow["cargo_needed"])
-	check(needs == {"map_d03": 2, "map_a01": 1}, "d03 needs 2 of its 3 delivered, a01 needs its 1 (%s)" % str(needs))
+	check(needs == {"map_d03": 2, "map_a01": 1, "map_f01": 3}, "d03 needs 2 of its 3 delivered, a01 needs its 1, the copyists 3 of 4 (%s)" % str(needs))
 
 	# ---- miasma
 	_reset()

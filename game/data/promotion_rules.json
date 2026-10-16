@@ -628,5 +628,11 @@
     "value": 5,
     "text": null,
     "notes": "The calendar's soft advantage (calendar tab, MECHANICAL FOOTPRINT): on a chapter whose governing sign is a unit's own (or a Named's), that unit gains this much hit and avoid. Light on purpose -- 'do not let this become a second stat system'."
+  },
+  {
+    "param_id": "prm_flashback_register_pages",
+    "value": 12,
+    "text": null,
+    "notes": "Flashback F1: how many pages the First Register's first copy has; one is lost when the copy is finished, and the game never says which (the number is only kept as a hidden flag)."
   }
 ]

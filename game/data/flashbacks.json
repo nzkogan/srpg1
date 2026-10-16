@@ -8,7 +8,9 @@
     "premise": "the player's first battle is 800 years early, in a city that no longer exists",
     "rules_that_differ": "chariots, no requisition, no permadeath, no forge; one weapon each, no repair",
     "what_it_teaches": "teaches: movement, terrain cost, the weapon triangle -- nothing else",
-    "the_turn": "ends with the city taken and its patron written into a book; the player did that. THE NAME IS NEVER SHOWN: the scribe's hand covers the page, the angle is wrong, the rain is on it. The player performs the founding crime without learning what was written."
+    "the_turn": "ends with the city taken and its patron written into a book; the player did that. THE NAME IS NEVER SHOWN: the scribe's hand covers the page, the angle is wrong, the rain is on it. The player performs the founding crime without learning what was written.",
+    "chapter_id": "ch_f00",
+    "engine_rule": "prologue"
   },
   {
     "flashback_id": "fb_f1",
@@ -19,7 +21,9 @@
     "premise": "the First Register is copied for the first time, under deadline",
     "rules_that_differ": "protect the copyists; a page is lost and the game does not tell you which",
     "what_it_teaches": "teaches: the epithet ledger, by showing you a clerk recording deeds",
-    "the_turn": "the missing name enters the world here, as an accident nobody notices"
+    "the_turn": "the missing name enters the world here, as an accident nobody notices",
+    "chapter_id": "ch_f01",
+    "engine_rule": "copyists|clerk_ledger|lost_page"
   },
   {
     "flashback_id": "fb_f2",
@@ -30,6 +34,8 @@
     "premise": "the church that held the realm together, on the day it stopped being believed",
     "rules_that_differ": "a defence with no reinforcements and no supply; the state simply runs out",
     "what_it_teaches": "teaches: what the pact layer costs, by letting you spend it freely and lose anyway",
-    "the_turn": "the only flashback the player can lose without a restart; losing is the ending"
+    "the_turn": "the only flashback the player can lose without a restart; losing is the ending",
+    "chapter_id": "ch_f02",
+    "engine_rule": "free_pact|falls"
   }
 ]

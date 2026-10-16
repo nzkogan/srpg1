@@ -37,6 +37,8 @@ extends Node2D
 
 const AVAILABLE_SCENES := {
 	"map_f00": "res://scenes/map_f00.tscn",
+	"map_f01": "res://scenes/map_f01.tscn",
+	"map_f02": "res://scenes/map_f02.tscn",
 	"map_d01": "res://scenes/map_d01.tscn",
 	"map_a02": "res://scenes/map_a02.tscn",
 	"map_a03": "res://scenes/map_a03.tscn",
@@ -218,6 +220,9 @@ func _initial_location() -> String:
 	var held := suspended_location()
 	if held != "":
 		return held
+	var due := due_memory_location()
+	if due != "":
+		return due                  # a flashback has fallen due: the party is taken into the memory
 	var saved: String = GameState.world_location
 	if saved != "" and locations.has(saved):
 		return saved
@@ -226,6 +231,21 @@ func _initial_location() -> String:
 	return START_LOCATION if locations.has(START_LOCATION) else locations.keys()[0]
 
 # ------------------------------------------------------------------ unlocks
+
+## Whether a location is a memory (a flashback's, drawn in the corner and reached only by falling due).
+func is_memory(location_id: String) -> bool:
+	return locations.has(location_id) and str(locations[location_id]["row"].get("acts", "")) in ["prologue", "flashback"]
+
+## The memory a flashback chapter that has fallen due stands in ("" if none is due). F1 falls due after the
+## Act 1 finale, F2 after the Reunion; the prologue is handled by the start location.
+func due_memory_location() -> String:
+	for ch in Flashback.chapters():
+		var lid = ch.get("location_id")
+		if lid != null and locations.has(lid):
+			for entry in locations[lid]["chapters"]:
+				if entry.chapter.get("chapter_id") == ch.get("chapter_id") and chapter_state(entry)["status"] == "open":
+					return lid
+	return ""
 
 ## What a chapter is right now: {"status": "won" | "open" | "noscene" | "locked", "reason": String}.
 ##   won      its map has been won (the Trial: its verdict has been given)
@@ -491,9 +511,12 @@ func _draw_regions() -> void:
 		add_child(label)
 
 func _draw_flashback_frame() -> void:
-	if not locations.has(FLASHBACK_LOCATION):
-		return
-	var p: Vector2 = locations[FLASHBACK_LOCATION]["pos"]
+	for lid in locations:
+		if is_memory(lid):
+			_draw_memory_frame(lid)
+
+func _draw_memory_frame(lid: String) -> void:
+	var p: Vector2 = locations[lid]["pos"]
 	var frame := ColorRect.new()
 	frame.size = Vector2(120, 78)
 	frame.position = p - Vector2(60, 28)

@@ -60,7 +60,7 @@ func _run() -> void:
 	# ---- the graph, as canon lays it out
 	var ow := _fresh()
 	await process_frame
-	check(ow.locations.size() == 36 and ow.edges.size() == 38, "36 locations and 38 paths load (%d, %d)" % [ow.locations.size(), ow.edges.size()])
+	check(ow.locations.size() == 38 and ow.edges.size() == 38, "38 locations (three of them memories) and 38 paths load (%d, %d)" % [ow.locations.size(), ow.edges.size()])
 	var on_canvas := true
 	for lid in ow.locations:
 		var p: Vector2 = ow.locations[lid]["pos"]
@@ -73,9 +73,9 @@ func _run() -> void:
 	check(distinct.size() == ow.locations.size(), "and no two share a spot")
 	var unreachable: Array[String] = []
 	for lid in ow.locations:
-		if lid != ow.FLASHBACK_LOCATION and ow.path_between("loc_tally_house", lid).is_empty():
+		if not ow.is_memory(lid) and ow.path_between("loc_tally_house", lid).is_empty():
 			unreachable.append(lid)
-	check(unreachable.is_empty(), "every place but the memory can be walked to from the tally house (%s)" % str(unreachable))
+	check(unreachable.is_empty(), "every place but the memories can be walked to from the tally house (%s)" % str(unreachable))
 	check(ow.path_between("loc_tally_house", ow.FLASHBACK_LOCATION).is_empty() and ow.path_between(ow.FLASHBACK_LOCATION, "loc_tally_house").is_empty(), "the memory has no road in or out")
 	check(ow.path_between("loc_tally_house", "loc_tally_house") == ["loc_tally_house"], "a trip to where you are is just there")
 	check(ow.path_between("loc_tally_house", "loc_weighbridge") == ["loc_tally_house", "loc_weighbridge"], "neighbours are one step")

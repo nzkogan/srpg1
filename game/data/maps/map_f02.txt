@@ -1,0 +1,18 @@
+# map_f02 -- The last court of the Long Reign   20 x 14
+# Reads top to bottom (row0 = top). FLASHBACK F2.
+#   x wall / column (impassable)   T the dais   D the throne   t the steps   i the nave   d a door
+
+xxxxxxxxxxxxxxxxxxxx
+xTTTTTTTTTTTTTTTTTTx
+xTTTTTTTTDTTTTTTTTTx
+xTTTTTTTTTTTTTTTTTTx
+xttttttttttttttttttx
+xiiiiiiiiiiiiiiiiiix
+xiixiiiixiiiixiiixix
+diiiiiiiiiiiiiiiiiid
+xiixiiiixiiiixiiixix
+xiiiiiiiiiiiiiiiiiix
+xiixiiiixiiiixiiixix
+xiiiiiiiiiiiiiiiiiix
+xiiiiiiiiiiiiiiiiiix
+xxxxxxxxxddxxxxxxxxx
