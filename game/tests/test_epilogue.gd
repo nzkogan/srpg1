@@ -208,8 +208,14 @@ func _run() -> void:
 	var roll: Array = _e.roll()
 	check(roll.size() == 2 and roll[0]["unit_id"] == "u_jost" and roll[1]["unit_id"] == "u_rinsa", "the roll is in order")
 	check(_e.roll_text().begins_with("The Fallen") and _e.roll_text().contains("Rinsa fell at"), "the roll reads")
+	check(not _e.roll_text().contains("entered by name"), "...and does not close with the enrolment while Anna is still with the company")
+	_gs.guests["gst_anna"] = "departed"
+	check(_e.roll_text().ends_with("Each of them is entered by name in the parish lists, and the name is spoken."), "once Anna has gone the roll closes with the dead entered by name")
+	_gs.guests.erase("gst_anna")
 	_fresh()
-	check(_e.roll_text() == "No one has fallen. Yet.", "an empty roll says so")
+	_gs.guests["gst_anna"] = "departed"
+	check(_e.roll_text() == "No one has fallen. Yet.", "an empty roll says so (Anna's enrolment has no one to enrol)")
+	_gs.guests.erase("gst_anna")
 	# a dead unit does not defect; and persists
 	_join(["u_anselm"])
 	_e.note_fall("u_anselm", "map_c21", {"type": "unknown"})

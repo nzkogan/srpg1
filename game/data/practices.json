@@ -37,6 +37,6 @@
     "cost": "free",
     "what_happens": "the plague dead are rebaptised by name, read off the parish lists",
     "what_it_claims": "nobody is enrolled without their name being spoken",
-    "notes": "puts the prophets and the crown's clerks in the same archive, for opposite reasons"
+    "notes": "puts the prophets and the crown's clerks in the same archive, for opposite reasons ADDENDUM (2026-11-04): the one practice the game carries: once Anna (gst_anna) has gone, the fallen roll closes with the dead entered by name (epilogue_text.epi_roll_enrolled)."
   }
 ]

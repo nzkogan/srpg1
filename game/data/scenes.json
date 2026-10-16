@@ -394,5 +394,16 @@
     "summary": "Two columns that split back at the tally house and the winter dole make camp within sight of each other for the first time since. What each brings back says as much as what each lost on the way -- neither needs saying out loud for the other to read it.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_anna_fixed",
+    "chapter_id": "ch_rf20",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar|gst_anna",
+    "depends_on_flags": null,
+    "depends_on_units": "gst_anna",
+    "summary": "ANNA'S ONE FIXED SCENE (DRAFTED 2026-11-04; stands in for a support chain, which guest_units.support_shape says she has none of). On the eve of the Reunion, before she leaves, Anna lays the parish lists she has been cross-referencing beside the decan tables for the avatar and shows the places where the two will not agree; she does not say what the disagreement means, only that someone must go on enrolling the dead by name, and that it will be her. Nothing here settles the calendar: her Act 3 payoff (the decan token) is still the reconstruction gap in guest_units.gst_anna.act3_payoff.",
+    "status": "drafted",
+    "word_count": "0"
   }
 ]

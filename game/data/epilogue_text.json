@@ -153,5 +153,10 @@
     "phrase_id": "epi_roll_empty",
     "text": "No one has fallen. Yet.",
     "notes": "the roll when it is empty"
+  },
+  {
+    "phrase_id": "epi_roll_enrolled",
+    "text": "Each of them is entered by name in the parish lists, and the name is spoken.",
+    "notes": "closes the fallen roll once Anna has gone: she continues the Continuing Word's rebaptism fieldwork (prc_rebaptism: nobody is enrolled without their name being spoken) off-screen after departing (guest_units.gst_anna.off_screen_purpose_on_exit)"
   }
 ]

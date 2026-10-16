@@ -4,7 +4,7 @@ extends Node
 ## Canon lists 36 scenes by chapter: 'pre-battle' scenes (shown before the map), 'post-battle' scenes (after
 ## the win) and one 'narrative' scene (the Kaisareia Trial, which is a screen of its own). Each has speakers, a
 ## summary, and optional conditions: depends_on_flags (the flags it reads -- flag_deaths is the epilogue record,
-## always there) and depends_on_units (a scene featuring them: shown if ANY of them has joined the company).
+## always there) and depends_on_units (a scene featuring them: shown if ANY of them has joined the company -- a guest counts while with it or once gone).
 ## Every scene is still 'drafted' with word_count 0 -- the canon has summaries, not scripts -- so the card shows
 ## the summary and says so; when a script is authored it is what the card will show. A scene is shown once
 ## (GameState.scenes_seen). The overworld stages pre-battle scenes before a chapter's map, and a won map stages its
@@ -39,7 +39,7 @@ func available(r: Dictionary) -> bool:
 	if not units.is_empty():
 		var any := false
 		for u in units:
-			if Defections.joined(u):
+			if (Defections.guest_met(u) if Defections.is_guest(u) else Defections.joined(u)):      # a guest is "met" while with the company, or after
 				any = true
 		if not any:
 			return false
@@ -76,6 +76,10 @@ func speakers(r: Dictionary) -> String:
 		var u = Canon.find_by("units", "unit_id", sp)
 		if u != null:
 			names.append(str(u.get("name")))
+			continue
+		var g = Canon.find_by("guest_units", "guest_id", sp)
+		if g != null:
+			names.append(str(g.get("name")))
 			continue
 		var n = Canon.find_by("npcs", "npc_id", sp)
 		names.append(str(n.get("name")) if n != null else sp)

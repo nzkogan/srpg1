@@ -200,6 +200,14 @@ func guest_active(guest_id: String) -> bool:
 func _list(v) -> Array:
 	return [] if v == null else Array(str(v).split("|", false))
 
+## Whether a guest has gone for good (their departure map was won).
+func guest_departed(guest_id: String) -> bool:
+	return GameState.guests.get(guest_id, "") == "departed"
+
+## Whether a guest has been with the company at all: with it now, or departed.
+func guest_met(guest_id: String) -> bool:
+	return guest_active(guest_id) or guest_departed(guest_id)
+
 func is_guest(unit_id: String) -> bool:
 	return Canon.find_by("guest_units", "guest_id", unit_id) != null
 

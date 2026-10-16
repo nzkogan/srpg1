@@ -321,4 +321,6 @@ func roll_text() -> String:
 	for r in rows:
 		lines.append(r["text"])
 		lines.append("")
+	if Defections.guest_departed("gst_anna"):
+		lines.append(fill("epi_roll_enrolled"))       # Anna has gone to enrol the dead by name (prc_rebaptism)
 	return "\n".join(lines).strip_edges()
