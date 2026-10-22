@@ -32,7 +32,7 @@ from openpyxl import load_workbook
 WORLD_W, WORLD_H = 1152, 540   # the overworld canvas locations.map_x / map_y live on
 PATH_ROUTES = {"diadem", "assembly", "both"}
 PATH_KINDS = {"road", "trail"}
-MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine", "refresh", "steal", "provoke", "supply"}   # actions a class adds on the battle map (classes.map_actions)
+MAP_ACTIONS = {"capture", "shove", "smite", "bribe", "breach", "mine", "refresh", "steal", "provoke", "supply", "unseal"}   # actions a class adds on the battle map (classes.map_actions)
 
 PRIMARY_KEYS = {
     "sects": ("sect_id", "sect_"),
@@ -287,7 +287,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages", "patron_chance_king", "patron_chance_prince", "patron_chance_duke", "patron_chance_marquis", "patron_chance_earl", "patron_chance_president", "patron_chance_knight", "patron_lean_step", "patron_lean_cap", "patron_lean_pct", "patron_chance_min", "patron_chance_max", "morph_unlock_level", "morph_unlock_lean", "morph_turns", "morph_base_chance", "morph_lean_chance", "morph_fail_damage", "morph_stat_angel", "morph_stat_demon", "morph_blessing_angel_pct", "morph_curse_angel_pct", "morph_blessing_demon_pct", "morph_curse_demon_pct", "morph_pull"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages", "patron_chance_king", "patron_chance_prince", "patron_chance_duke", "patron_chance_marquis", "patron_chance_earl", "patron_chance_president", "patron_chance_knight", "patron_lean_step", "patron_lean_cap", "patron_lean_pct", "patron_chance_min", "patron_chance_max", "morph_unlock_level", "morph_unlock_lean", "morph_turns", "morph_base_chance", "morph_lean_chance", "morph_fail_damage", "morph_stat_angel", "morph_stat_demon", "morph_blessing_angel_pct", "morph_curse_angel_pct", "morph_blessing_demon_pct", "morph_curse_demon_pct", "morph_pull", "seal_angel_blessing_pct", "seal_angel_curse_pct", "seal_demon_blessing_pct", "seal_demon_curse_pct", "seal_balanced_pct", "seal_home_pct"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -810,6 +810,19 @@ def main():
         if st_ not in (1, 2, 3, 4) or not all(isinstance(v, int) for v in (c_, r_, w_, h_)) or w_ < 1 or h_ < 1 \
                 or c_ < 0 or r_ < 0 or c_ + w_ > mrow["width"] or r_ + h_ > mrow["height"]:
             fail("c07", "blocking", f"maps.{mrow['map_id']}", f"the image needs a stage 1-4 and a place inside the {mrow['width']}x{mrow['height']} map (got {st_} at {c_},{r_} size {w_}x{h_})")
+
+    # --- c07s bound ground: seals sit on passable tiles inside the map, of a chapter whose location has a patron pair
+    for mrow in tabs["maps"]:
+        if mrow.get("seal_tiles") in (None, ""):
+            continue
+        for tile in split_multi(mrow["seal_tiles"]):
+            try:
+                tx, ty = (int(v) for v in tile.split(":"))
+            except ValueError:
+                fail("c07", "blocking", f"maps.{mrow['map_id']}", f"seal tile '{tile}' is not col:row")
+                continue
+            if not (0 <= tx < mrow["width"] and 0 <= ty < mrow["height"]):
+                fail("c07", "blocking", f"maps.{mrow['map_id']}", f"seal tile {tile} is outside the {mrow['width']}x{mrow['height']} map")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

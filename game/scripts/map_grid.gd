@@ -171,6 +171,8 @@ var bribed_count := 0          # enemies turned neutral on this map (Kheldar's b
 var move_cost: Dictionary = {}       # pid -> movement spent this turn (the Karkadann's charge reads it)
 var _clerk_lines: Array[String] = []   # F1: what the clerk has written down since the last turn began
 var _clerk_counts: Dictionary = {}     # F1: who has brought down how many
+var seals: Dictionary = {}               # Vector2i -> the sigil node: this map's bound ground (canon maps.seal_tiles) still unbroken
+var seal_ground: Dictionary = {}         # {"patron": row, "side": ...} the pair that holds this map's ground
 var morphs: Dictionary = {}              # pid -> {"side": "angel"/"demon", "left": player turns the form still holds}
 var morph_tried: Dictionary = {}         # pid -> true once they have gambled this battle
 var charge_stuck: Dictionary = {}    # pid -> the turn on which a charging Karkadann rider cannot move
@@ -252,6 +254,7 @@ func _ready() -> void:
 	_draw_grid()
 	_draw_axis_labels()
 	_draw_image()
+	_draw_seals()
 
 	shadow_layer = Node2D.new()
 	add_child(shadow_layer)
@@ -309,6 +312,8 @@ func _ready() -> void:
 
 ## The calendar's line for the pre-battle briefing: whose day it is, and any Named the day favours.
 func _add_day_briefing() -> void:
+	if not seals.is_empty():
+		_intro_lines.append("%s of %s marks this field (%d seal%s): those who stand on it are answered louder or softer, as its holder is." % [_first_up(Patrons.ground_word(str(seal_ground["side"]))), Patrons.name_for(seal_ground["patron"], str(seal_ground["side"])), seals.size(), "" if seals.size() == 1 else "s"])
 	var line := Almanac.briefing(_day_chapter())
 	if line == "":
 		return
@@ -706,6 +711,66 @@ func _draw_image() -> void:
 	add_child(fig)
 	image_figure = fig
 
+## Bound ground: a seal of the location's patron pair on each tile canon names (see Patrons).
+func _draw_seals() -> void:
+	seal_ground = {} if _is_flashback() else Patrons.ground_of_chapter(str(map_row.get("chapter_id", "")))
+	var tiles = map_row.get("seal_tiles")
+	if tiles == null or seal_ground.is_empty():
+		return
+	for part in str(tiles).split("|", false):
+		var xy := part.split(":")
+		if xy.size() != 2:
+			continue
+		var tile := Vector2i(int(xy[0]), int(xy[1]))
+		var sg := Patrons.make_sigil(seal_ground["patron"], str(seal_ground["side"]), 11.0)
+		if sg == null:
+			continue
+		sg.position = Vector2(tile.x * CELL_SIZE + CELL_SIZE / 2.0, tile.y * CELL_SIZE + CELL_SIZE / 2.0)
+		sg.color.a = 0.8
+		add_child(sg)
+		seals[tile] = sg
+
+## Breaks the seal at a tile (false if there is none).
+func _break_seal(tile: Vector2i) -> bool:
+	if not seals.has(tile):
+		return false
+	seals[tile].queue_free()
+	seals.erase(tile)
+	return true
+
+## The procs of a fighter standing at `pos`, scaled by the seal there if there is one.
+func _on_seal(procs: Array, pos: Vector2i) -> Array:
+	if not seals.has(pos) or procs.is_empty():
+		return procs
+	return Patrons.seal_scale(procs, str(seal_ground["side"]), str(seal_ground["patron"]["patron_id"]))
+
+## [U]: a Pardoner breaks the seal on or beside them: it takes their action.
+func _unseal() -> void:
+	if units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	if not _is_roster_unit(unit) or not Progression.can_unseal(pid):
+		info_label.text = "%s has no way to break a seal." % unit.get("name")
+		return
+	if attacked_this_turn.has(pid):
+		info_label.text = "%s has already acted this turn." % unit.get("name")
+		return
+	var here: Vector2i = unit_positions.get(pid, Vector2i(-1, -1))
+	var found := Vector2i(-1, -1)
+	for tile in seals:
+		if _distance(tile, here) <= 1:
+			found = tile
+			break
+	if found == Vector2i(-1, -1):
+		info_label.text = "No seal on or beside %s to break." % unit.get("name")
+		return
+	_break_seal(found)
+	attacked_this_turn[pid] = true
+	info_label.text = "%s breaks the seal of %s: the ground is bound no longer." % [unit.get("name"), Patrons.name_for(seal_ground["patron"], str(seal_ground["side"]))]
+	_update_status_label()
+	_update_forecast()
+
 func _draw_axis_labels() -> void:
 	var width := grid[0].length() if not grid.is_empty() else 0
 	for col in width:
@@ -787,6 +852,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_begin_supply()
 		elif key_event.keycode == KEY_G:
 			_morph()
+		elif key_event.keycode == KEY_U:
+			_unseal()
 		elif key_event.keycode == KEY_R:
 			_begin_skald("refresh")
 		elif key_event.keycode == KEY_X:
@@ -2389,6 +2456,7 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 	if not _is_flashback() and Progression.is_known_unit(pid):
 		var form: String = str(morphs[pid]["side"]) if morphs.has(pid) else ""
 		c["procs"] = Patrons.procs_for_unit(pid, form)           # born under a patron's five days: a blessing and a curse
+		c["procs"] = _on_seal(c["procs"], unit_positions.get(pid, Vector2i(-1, -1)))       # louder or softer on bound ground
 		if form != "":
 			c = Patrons.form_boost(c, form)                      # and, in a patron's form, stronger for it
 	var day := Almanac.unit_bonus(pid, _day_chapter())       # the day's sign is theirs
@@ -2408,7 +2476,7 @@ func _enemy_combatant(inst: Dictionary) -> Dictionary:
 		c = Huma.boost(c)
 	c["max_hp"] = int(inst.max_hp)
 	if not _is_flashback():
-		c["procs"] = Patrons.procs_for_enemy(inst.archetype, _enemy_key(inst))
+		c["procs"] = _on_seal(Patrons.procs_for_enemy(inst.archetype, _enemy_key(inst)), inst.pos)
 	if inst.archetype.get("named_id") != null:
 		var day := Almanac.named_bonus(str(inst.archetype["named_id"]), _day_chapter())
 		if day > 0:
@@ -3089,7 +3157,7 @@ func capture_state() -> Dictionary:
 		"positions": positions, "hp": unit_hp.duplicate(), "moved": moved_this_turn.duplicate(), "attacked": attacked_this_turn.duplicate(),
 		"struck": struck_units.duplicate(), "fought": fought_units.duplicate(), "hold": hold,
 		"enemies": enemy_rows, "dens": den_rows, "enemy_log": enemy_log.duplicate(),
-		"bribed": bribed_count, "charge_stuck": charge_stuck.duplicate(), "move_cost": move_cost.duplicate(), "morphs": morphs.duplicate(true), "morph_tried": morph_tried.duplicate(), "horses": horses_captured, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
+		"bribed": bribed_count, "charge_stuck": charge_stuck.duplicate(), "move_cost": move_cost.duplicate(), "morphs": morphs.duplicate(true), "morph_tried": morph_tried.duplicate(), "seals_left": seals.keys().map(func(t): return _v2a(t)), "horses": horses_captured, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
 		"mines": mines.keys().map(func(p): return {"at": _v2a(p), "by": mines[p]["by"]}), "escaped": escaped_count, "delivered": delivered.duplicate(),
 	}
 
@@ -3162,6 +3230,13 @@ func _restore_progress(snap: Dictionary) -> void:
 	charge_stuck = (snap.get("charge_stuck", {}) as Dictionary).duplicate()
 	move_cost = (snap.get("move_cost", {}) as Dictionary).duplicate()
 	horses_captured = int(snap.get("horses", 0))
+	if snap.has("seals_left"):
+		var left := {}
+		for a in snap["seals_left"]:
+			left[_a2v(a)] = true
+		for tile in seals.keys():
+			if not left.has(tile):
+				_break_seal(tile)
 	morphs = (snap.get("morphs", {}) as Dictionary).duplicate(true)
 	morph_tried = (snap.get("morph_tried", {}) as Dictionary).duplicate()
 	miracle_used.clear()
@@ -3569,6 +3644,8 @@ func _update_status_label() -> void:
 			break
 	if not push_names.is_empty():
 		controls = controls.replace("[E] weapon", "[S] " + "/".join(push_names).to_lower() + " -- [E] weapon")
+	if not seals.is_empty() and units.any(func(u): return _is_roster_unit(u) and Progression.can_unseal(str(u.get("punit_id", "")))):
+		controls = controls.replace("[E] weapon", "[U] unseal -- [E] weapon")
 	if not _is_flashback() and units.any(func(u): return _is_roster_unit(u) and Patrons.can_morph(str(u.get("punit_id", "")))["ok"]):
 		controls = controls.replace("[E] weapon", "[G] gamble -- [E] weapon")
 	if map_id == "map_f00":
@@ -3602,3 +3679,7 @@ func _update_info_label(reachable_count := -1) -> void:
 	if shadow_line != "":
 		lines.append(shadow_line + (" You are in it." if _marked(origin) else ""))
 	info_label.text = "\n".join(lines)
+
+
+func _first_up(text: String) -> String:
+	return text.substr(0, 1).to_upper() + text.substr(1)

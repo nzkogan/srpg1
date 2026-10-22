@@ -790,5 +790,41 @@
     "value": 1,
     "text": null,
     "notes": "The Morph gamble: a bearer who still holds the form when the battle ends is pulled this far toward that side for good (added to their lean)."
+  },
+  {
+    "param_id": "prm_seal_angel_blessing_pct",
+    "value": 150,
+    "text": null,
+    "notes": "Bound ground: on a seal held by the angel, blessing chances go to this percent."
+  },
+  {
+    "param_id": "prm_seal_angel_curse_pct",
+    "value": 50,
+    "text": null,
+    "notes": "Bound ground: ... and curse chances to this percent (the angel's ground softens the price)."
+  },
+  {
+    "param_id": "prm_seal_demon_blessing_pct",
+    "value": 150,
+    "text": null,
+    "notes": "Bound ground: on a seal held by the demon, blessing chances go to this percent."
+  },
+  {
+    "param_id": "prm_seal_demon_curse_pct",
+    "value": 150,
+    "text": null,
+    "notes": "Bound ground: ... and curse chances to this percent (the demon's ground raises everything)."
+  },
+  {
+    "param_id": "prm_seal_balanced_pct",
+    "value": 125,
+    "text": null,
+    "notes": "Bound ground: on a seal shared by the pair, both blessing and curse chances go to this percent."
+  },
+  {
+    "param_id": "prm_seal_home_pct",
+    "value": 150,
+    "text": null,
+    "notes": "Bound ground: a bearer born under the very pair the seal belongs to is at home: their blessings are scaled by this percent on top."
   }
 ]

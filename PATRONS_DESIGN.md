@@ -61,7 +61,7 @@ Tests: `tests/test_morph.gd` (40 checks, mutation-checked; two survivors are red
 
 ## Not built yet
 
-- The patron of a chapter's day (the calendar footprint and this are still separate), and the proc odds shown in the forecast panel.
-- "The image" as one escalating silhouette across the statue, the colossus and the Idol; seals on the ground of a map; the 72 patrons' own offices as skills beyond the six-and-six catalogue.
+- The patron of a chapter's day (the calendar footprint and this are still separate), and the 72 patrons' own offices as skills beyond the six-and-six catalogue.
+- (Built since: the proc odds in the forecast and the image, see IMAGE_DESIGN.md; seals on map ground, see BOUND_GROUND_DESIGN.md.)
 
 Tests: `tests/test_patrons.gd` (72 checks, mutation-checked). The validator's c07p checks the 72 pairs, the quinaries, the effects, births and places.

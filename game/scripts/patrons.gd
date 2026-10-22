@@ -267,3 +267,46 @@ func proc_summary(procs: Array) -> String:
 	for pr in procs:
 		parts.append("%s %s %d%%" % [gift_word(pr["side"]), pr["label"], int(pr["chance"])])
 	return ", ".join(parts)
+
+# ------------------------------------------------------------------ bound ground
+##
+## Canon maps.seal_tiles mark a map's BOUND GROUND: seals of the patron pair of the chapter's location (locations.patron_id and
+## patron_side). Whoever stands on one, on either side, has its gifts scaled by the side that holds it: the angel's ground softens
+## curses and lifts blessings, the demon's raises both, a shared one raises both a little. A bearer born under the very pair is at
+## home and is answered louder. A Pardoner can break a seal.
+
+## The pair and side that hold a chapter's ground: {"patron": row, "side": "angel"/"demon"/"balanced"}, or {} if it has none.
+func ground_of_chapter(chapter_id: String) -> Dictionary:
+	var ch = Canon.find_by("chapters", "chapter_id", chapter_id)
+	if ch == null or ch.get("location_id") == null:
+		return {}
+	var loc = Canon.find_by("locations", "location_id", str(ch["location_id"]))
+	if loc == null or loc.get("patron_id") == null:
+		return {}
+	var p := row(str(loc["patron_id"]))
+	return {} if p.is_empty() else {"patron": p, "side": str(loc.get("patron_side", "balanced"))}
+
+## A fighter's procs scaled by the seal it stands on (`side`, and the seal's `patron_id` for the home bearer).
+func seal_scale(procs: Array, side: String, patron_id: String) -> Array:
+	var out: Array = []
+	for pr in procs:
+		var blessing: bool = pr["side"] == "blessing"
+		var pct: float
+		match side:
+			"angel": pct = float(Progression.param("seal_angel_blessing_pct" if blessing else "seal_angel_curse_pct"))
+			"demon": pct = float(Progression.param("seal_demon_blessing_pct" if blessing else "seal_demon_curse_pct"))
+			_: pct = float(Progression.param("seal_balanced_pct"))
+		if blessing and pr.get("patron") == patron_id:
+			pct = pct * float(Progression.param("seal_home_pct")) / 100.0
+		var c := int(round(pr["chance"] * pct / 100.0))
+		if c > 0:
+			var q: Dictionary = pr.duplicate()
+			q["chance"] = mini(c, int(Progression.param("patron_chance_max")) * 2)
+			out.append(q)
+	return out
+
+## What the bound ground is called: before the reveal the patron's own ground, after it the side that holds it.
+func ground_word(side: String) -> String:
+	if not revealed():
+		return "bound ground"
+	return "the angel's ground" if side == "angel" else ("the demon's ground" if side == "demon" else "shared ground")

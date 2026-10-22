@@ -26,7 +26,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "5:5|9:5"
   },
   {
     "map_id": "map_d02",
@@ -55,7 +56,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|10:6"
   },
   {
     "map_id": "map_d03",
@@ -84,7 +86,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:7|13:7"
   },
   {
     "map_id": "map_a01",
@@ -113,7 +116,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|10:6"
   },
   {
     "map_id": "map_a02",
@@ -142,7 +146,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:5|12:5"
   },
   {
     "map_id": "map_a03",
@@ -171,7 +176,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": null
   },
   {
     "map_id": "map_x11",
@@ -200,7 +206,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "8:7|16:7"
   },
   {
     "map_id": "map_b15",
@@ -229,7 +236,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:7|12:7"
   },
   {
     "map_id": "map_d05",
@@ -258,7 +266,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "8:7|13:7"
   },
   {
     "map_id": "map_f00",
@@ -287,7 +296,8 @@
     "image_row": 0,
     "image_w": 3,
     "image_h": 3,
-    "image_note": "the statue of the patron, the one people can still see; it goes still only once it is rubble (the figure breaks when the statue does)"
+    "image_note": "the statue of the patron, the one people can still see; it goes still only once it is rubble (the figure breaks when the statue does)",
+    "seal_tiles": null
   },
   {
     "map_id": "map_v21",
@@ -316,7 +326,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|12:6"
   },
   {
     "map_id": "map_v22",
@@ -345,7 +356,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|10:6"
   },
   {
     "map_id": "map_c21",
@@ -374,7 +386,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|12:6"
   },
   {
     "map_id": "map_m21",
@@ -403,7 +416,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "8:7|11:7"
   },
   {
     "map_id": "map_m22",
@@ -432,7 +446,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "4:6|9:6"
   },
   {
     "map_id": "map_r16",
@@ -461,7 +476,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:7|13:7"
   },
   {
     "map_id": "map_e31",
@@ -490,7 +506,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "8:8|14:8"
   },
   {
     "map_id": "map_e32_sanctified",
@@ -519,7 +536,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "9:9|17:9"
   },
   {
     "map_id": "map_e32_perverse",
@@ -548,7 +566,8 @@
     "image_row": 7,
     "image_w": 4,
     "image_h": 4,
-    "image_note": "the Idol: a false godhood assembled from what was taken"
+    "image_note": "the Idol: a false godhood assembled from what was taken",
+    "seal_tiles": "8:9|16:9"
   },
   {
     "map_id": "map_h31",
@@ -577,7 +596,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "8:8|14:8"
   },
   {
     "map_id": "map_h33_mercy",
@@ -606,7 +626,8 @@
     "image_row": 0,
     "image_w": 4,
     "image_h": 4,
-    "image_note": "the movement gone underground: the same image kept in hiding (a visual callback to the Idol)"
+    "image_note": "the movement gone underground: the same image kept in hiding (a visual callback to the Idol)",
+    "seal_tiles": "7:7|13:7"
   },
   {
     "map_id": "map_h34_war1",
@@ -635,7 +656,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:7|13:7"
   },
   {
     "map_id": "map_h34_war2",
@@ -664,7 +686,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:7|13:7"
   },
   {
     "map_id": "map_h34_war3",
@@ -693,7 +716,8 @@
     "image_row": 2,
     "image_w": 6,
     "image_h": 4,
-    "image_note": "the Hierophant's colossus, convergent with the Idol"
+    "image_note": "the Hierophant's colossus, convergent with the Idol",
+    "seal_tiles": "8:8|14:8"
   },
   {
     "map_id": "map_p_macuil",
@@ -722,7 +746,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "4:6|10:6"
   },
   {
     "map_id": "map_p_indech",
@@ -751,7 +776,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:7|14:7"
   },
   {
     "map_id": "map_p_shadhavar",
@@ -780,7 +806,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:5|10:5"
   },
   {
     "map_id": "map_p_simurgh",
@@ -809,7 +836,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:7|10:7"
   },
   {
     "map_id": "map_p_karkadann",
@@ -838,7 +866,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|10:6"
   },
   {
     "map_id": "map_p_anzu",
@@ -867,7 +896,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:6|12:6"
   },
   {
     "map_id": "map_p_huma",
@@ -896,7 +926,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:5|13:5"
   },
   {
     "map_id": "map_p_buried_works",
@@ -925,7 +956,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "5:6|10:6"
   },
   {
     "map_id": "map_d04",
@@ -954,7 +986,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:3|10:3"
   },
   {
     "map_id": "map_d06",
@@ -983,7 +1016,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:4|10:4"
   },
   {
     "map_id": "map_d07",
@@ -1012,7 +1046,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "5:3|9:3"
   },
   {
     "map_id": "map_d08",
@@ -1041,7 +1076,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:5|13:5"
   },
   {
     "map_id": "map_d09",
@@ -1070,7 +1106,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:5|13:5"
   },
   {
     "map_id": "map_d10",
@@ -1099,7 +1136,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:5|10:5"
   },
   {
     "map_id": "map_a04",
@@ -1128,7 +1166,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:3|10:3"
   },
   {
     "map_id": "map_a05",
@@ -1157,7 +1196,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:3|10:3"
   },
   {
     "map_id": "map_a06",
@@ -1186,7 +1226,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:5|11:5"
   },
   {
     "map_id": "map_a07",
@@ -1215,7 +1256,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:3|12:3"
   },
   {
     "map_id": "map_a08",
@@ -1244,7 +1286,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": null
   },
   {
     "map_id": "map_a09",
@@ -1273,7 +1316,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:5|10:5"
   },
   {
     "map_id": "map_a10",
@@ -1302,7 +1346,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:5|10:5"
   },
   {
     "map_id": "map_k21",
@@ -1331,7 +1376,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "8:8|14:8"
   },
   {
     "map_id": "map_k22",
@@ -1360,7 +1406,8 @@
     "image_row": 5,
     "image_w": 4,
     "image_h": 6,
-    "image_note": "the synod's colossus, fed from the granary district"
+    "image_note": "the synod's colossus, fed from the granary district",
+    "seal_tiles": "8:8|14:8"
   },
   {
     "map_id": "map_ct19",
@@ -1389,7 +1436,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:5|13:5"
   },
   {
     "map_id": "map_tp19",
@@ -1418,7 +1466,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "6:4|12:4"
   },
   {
     "map_id": "map_rf20",
@@ -1447,7 +1496,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": "7:7|13:7"
   },
   {
     "map_id": "map_f01",
@@ -1476,7 +1526,8 @@
     "image_row": null,
     "image_w": null,
     "image_h": null,
-    "image_note": null
+    "image_note": null,
+    "seal_tiles": null
   },
   {
     "map_id": "map_f02",
@@ -1505,6 +1556,7 @@
     "image_row": 1,
     "image_w": 3,
     "image_h": 3,
-    "image_note": "the church's image on its dais, on the day it stopped being believed"
+    "image_note": "the church's image on its dais, on the day it stopped being believed",
+    "seal_tiles": null
   }
 ]

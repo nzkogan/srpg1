@@ -681,6 +681,10 @@ func map_actions(unit_id: String) -> Array:
 func can_capture(unit_id: String) -> bool:
 	return "capture" in map_actions(unit_id)
 
+## Whether the unit's class can break a patron's seal on bound ground (the Pardoner: "seal not kill").
+func can_unseal(unit_id: String) -> bool:
+	return "unseal" in map_actions(unit_id)
+
 ## Tiles the unit's Shove/Smite pushes a target, before the target's weight is
 ## counted; 0 if the class has neither. A 'smite' class (the Housecarl) has the
 ## long push from the start; a 'shove' class (Gunnar) gets it on certification.
