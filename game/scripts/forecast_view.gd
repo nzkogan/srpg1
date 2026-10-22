@@ -13,6 +13,7 @@ extends RefCounted
 ##   "def": {"name", "weapon", "hp", "max_hp"},
 ##   "forecast": Combat.forecast(...) result,
 ##   "support_text": optional one line about the attacker's support bonus,
+##   "patron_text": optional one line of each side's favour and burden odds (Patrons),
 ##   "capture_text": optional one line about the Capture action (units that have it),
 ## }
 
@@ -112,6 +113,8 @@ static func bbcode(info: Dictionary) -> String:
 		lines.append("[color=%s]%s's weapon is effective here (x2 might).[/color]" % [GOLD, def["name"]])
 	if info.get("support_text", "") != "":
 		lines.append("[color=%s]%s[/color]" % [GREEN, info["support_text"]])
+	if str(info.get("patron_text", "")) != "":
+		lines.append("[color=%s]%s[/color]" % [DIM, info["patron_text"]])
 	var effect_text := str(info.get("effect_text", ""))
 	if effect_text != "":
 		lines.append("[color=%s]%s[/color]" % [GOLD, effect_text])

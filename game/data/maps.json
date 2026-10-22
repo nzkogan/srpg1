@@ -20,7 +20,13 @@
     "approaches": "dock frontage|warehouse lane",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": "b"
+    "breach_symbols": "b",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d02",
@@ -43,7 +49,13 @@
     "approaches": "hedgerow foot path|open road (riding)|the weighbridge itself",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d03",
@@ -66,7 +78,13 @@
     "approaches": "bridge choke|southern ford (foot only)|north bank escort line",
     "cargo_needed": 2,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a01",
@@ -89,7 +107,13 @@
     "approaches": "the dole road|the ice (risky, fast)",
     "cargo_needed": 1,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a02",
@@ -112,7 +136,13 @@
     "approaches": "wide street (riding)|narrow street (foot)|rooftops (flying)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": "b"
+    "breach_symbols": "b",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a03",
@@ -135,7 +165,13 @@
     "approaches": "cloister (indoors, no cold)|open ward (fast, costly)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_x11",
@@ -158,7 +194,13 @@
     "approaches": "west crossing|east crossing",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_b15",
@@ -181,7 +223,13 @@
     "approaches": "the arcade (blocks bows)|the open bazaar|the porters' alley",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d05",
@@ -204,7 +252,13 @@
     "approaches": "the weather deck|below, through the hold|the rigging (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_f00",
@@ -227,7 +281,13 @@
     "approaches": "the terraces (foot)|the aqueduct span (one tile)|the channels (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": 1,
+    "image_col": 8,
+    "image_row": 0,
+    "image_w": 3,
+    "image_h": 3,
+    "image_note": "the statue of the patron, the one people can still see; it goes still only once it is rubble (the figure breaks when the statue does)"
   },
   {
     "map_id": "map_v21",
@@ -250,7 +310,13 @@
     "approaches": "ash flats (foot)|the old road (riding)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_v22",
@@ -273,7 +339,13 @@
     "approaches": "the nave (foot)|the cloister walk (flying blocked)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_c21",
@@ -296,7 +368,13 @@
     "approaches": "the hall (foot)|the courtyard (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_m21",
@@ -319,7 +397,13 @@
     "approaches": "the causeway (foot)|open floodwater (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_m22",
@@ -342,7 +426,13 @@
     "approaches": "the reading room (foot)|the stacks (foot only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_r16",
@@ -365,7 +455,13 @@
     "approaches": "the toll road (riding)|the counting house (foot)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_e31",
@@ -388,7 +484,13 @@
     "approaches": "the counting floor (foot)|the loading yard (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_e32_sanctified",
@@ -411,7 +513,13 @@
     "approaches": "the processional (foot)|the high road (riding)|open sky (flying)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_e32_perverse",
@@ -434,7 +542,13 @@
     "approaches": "the approach (foot)|the colossus itself (any)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": 4,
+    "image_col": 10,
+    "image_row": 7,
+    "image_w": 4,
+    "image_h": 4,
+    "image_note": "the Idol: a false godhood assembled from what was taken"
   },
   {
     "map_id": "map_h31",
@@ -457,7 +571,13 @@
     "approaches": "the muster line (foot)|the siege road (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_h33_mercy",
@@ -480,7 +600,13 @@
     "approaches": "the hidden approach (foot)|the open field (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": 3,
+    "image_col": 8,
+    "image_row": 0,
+    "image_w": 4,
+    "image_h": 4,
+    "image_note": "the movement gone underground: the same image kept in hiding (a visual callback to the Idol)"
   },
   {
     "map_id": "map_h34_war1",
@@ -503,7 +629,13 @@
     "approaches": "the front line (foot)|the flank road (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_h34_war2",
@@ -526,7 +658,13 @@
     "approaches": "the front line (foot)|the flank road (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_h34_war3",
@@ -549,7 +687,13 @@
     "approaches": "the last field (foot)|the high ground (riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": 3,
+    "image_col": 8,
+    "image_row": 2,
+    "image_w": 6,
+    "image_h": 4,
+    "image_note": "the Hierophant's colossus, convergent with the Idol"
   },
   {
     "map_id": "map_p_macuil",
@@ -572,7 +716,13 @@
     "approaches": "the shoreline farmland (foot)|the lake (flying only, ground blocked around the tower)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_indech",
@@ -595,7 +745,13 @@
     "approaches": "the shores (foot)|the ford, 3 tiles wide (foot only)|open water (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_shadhavar",
@@ -618,7 +774,13 @@
     "approaches": "the lowest terrace (foot, riding)|the upper terraces (riding blocked)|the sea (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_simurgh",
@@ -641,7 +803,13 @@
     "approaches": "the nest plateau (foot, riding)|the slopes (riding blocked)|the lake far below (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_karkadann",
@@ -664,7 +832,13 @@
     "approaches": "the clearing (foot, riding, safe)|the ash field (all movement, 2 HP/turn hazard)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_anzu",
@@ -687,7 +861,13 @@
     "approaches": "the open flat (all movement, no cover, no chokepoints)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_huma",
@@ -710,7 +890,13 @@
     "approaches": "the road (all movement, open, no cover)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_p_buried_works",
@@ -733,7 +919,13 @@
     "approaches": "the south corridor (all movement, clear)|straight through the rubble (foot favored, hazardous)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": "x"
+    "breach_symbols": "x",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d04",
@@ -756,7 +948,13 @@
     "approaches": "the quay (foot, riding)|the warehouse sheds (blocks flying)|open water (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d06",
@@ -779,7 +977,13 @@
     "approaches": "the lower terrace (foot, riding)|the upper terraces (riding blocked)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": "b"
+    "breach_symbols": "b",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d07",
@@ -802,7 +1006,13 @@
     "approaches": "the ruin floor (foot, riding)|the terrace above (riding blocked)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": "b"
+    "breach_symbols": "b",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d08",
@@ -825,7 +1035,13 @@
     "approaches": "the open ground (all movement, no cover, no chokepoints)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d09",
@@ -848,7 +1064,13 @@
     "approaches": "the road (foot, riding)|the lava-fan narrows (all movement, hazard)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_d10",
@@ -871,7 +1093,13 @@
     "approaches": "the ash-field approach (all movement, hazard)|the gate itself (foot, riding)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_assembly",
-    "breach_symbols": "x"
+    "breach_symbols": "x",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a04",
@@ -894,7 +1122,13 @@
     "approaches": "the quay (foot, riding)|the warehouse sheds (blocks flying)|open water (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a05",
@@ -917,7 +1151,13 @@
     "approaches": "the old shoreline (foot, riding)|the water (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a06",
@@ -940,7 +1180,13 @@
     "approaches": "the open steppe (all movement, no cover)|the settlement edge (foot, riding)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": "b"
+    "breach_symbols": "b",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a07",
@@ -963,7 +1209,13 @@
     "approaches": "the cliff-edge shelf (foot, riding, narrow)|the void beyond it (flying only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a08",
@@ -986,7 +1238,13 @@
     "approaches": "the forest road (foot, riding)|the canopy (blocks flying)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a09",
@@ -1009,7 +1267,13 @@
     "approaches": "the shrine yard (foot, riding)|the shrine steps (foot only)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": "x"
+    "breach_symbols": "x",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_a10",
@@ -1032,7 +1296,13 @@
     "approaches": "the chapel yard (foot, riding)|the chapel walls (foot only, breach point)",
     "cargo_needed": null,
     "enemy_polity_id": "pol_diadem",
-    "breach_symbols": "x"
+    "breach_symbols": "x",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_k21",
@@ -1055,7 +1325,13 @@
     "approaches": "the plaza (foot, riding)|the covered market (blocks flying)|the silo blocks (impassable, all types)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": "b"
+    "breach_symbols": "b",
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_k22",
@@ -1078,7 +1354,13 @@
     "approaches": "the rubble field (all movement, hazard)|the colossus base (foot, riding)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": 2,
+    "image_col": 15,
+    "image_row": 5,
+    "image_w": 4,
+    "image_h": 6,
+    "image_note": "the synod's colossus, fed from the granary district"
   },
   {
     "map_id": "map_ct19",
@@ -1101,7 +1383,13 @@
     "approaches": "the clear ground (foot, riding)|the ash band (all movement, hazard)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_tp19",
@@ -1124,7 +1412,13 @@
     "approaches": "the channel (foot, riding)|the flanking cliffs (impassable, flying passes)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_rf20",
@@ -1147,7 +1441,13 @@
     "approaches": "the open field (all movement)|the camps (blocks flying)",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_f01",
@@ -1170,7 +1470,13 @@
     "approaches": "the north gate|the west gate|the east gate",
     "cargo_needed": 3,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": null,
+    "image_col": null,
+    "image_row": null,
+    "image_w": null,
+    "image_h": null,
+    "image_note": null
   },
   {
     "map_id": "map_f02",
@@ -1193,6 +1499,12 @@
     "approaches": "the street doors|the side doors",
     "cargo_needed": null,
     "enemy_polity_id": null,
-    "breach_symbols": null
+    "breach_symbols": null,
+    "image_stage": 1,
+    "image_col": 8,
+    "image_row": 1,
+    "image_w": 3,
+    "image_h": 3,
+    "image_note": "the church's image on its dais, on the day it stopped being believed"
   }
 ]

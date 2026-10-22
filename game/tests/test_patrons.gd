@@ -250,6 +250,11 @@ func _run() -> void:
 	check(m.enemies[0].token.container.get_child_count() == 3 and m.enemies[1].token.container.get_child_count() == 2, "a boss carries a seal; a common soldier does not")
 	var ec: Dictionary = m._enemy_combatant(m.enemies[0])
 	check(ec["procs"].size() == 2 and ec["max_hp"] == 40, "...but every enemy has its own birth and procs")
+	m.unit_positions["u_jost"] = Vector2i(9, 8)
+	var jrow: Dictionary = m.units.filter(func(u): return u["punit_id"] == "u_jost")[0]
+	var finfo: Dictionary = m._forecast_info(jrow, m.enemies[0])
+	check(finfo["patron_text"].begins_with("Yours: favour Echo 16%, burden Recoil 12%.  Theirs: ") and m.ForecastView.bbcode(finfo).contains("Yours: favour Echo 16%"), "the forecast shows both sides' odds: %s" % finfo["patron_text"])
+	check(m._patron_forecast({}, {}) == "" and m._patron_forecast({"procs": []}, ec).begins_with("Yours: none.  Theirs: favour"), "(and says 'none' for a side with no gifts)")
 	var text: String = m._describe_exchange({"strikes": [{"by": "atk", "hit": true, "crit": false, "damage": 9, "procs": [{"by": "atk", "side": "blessing", "kind": "echo", "label": "Echo", "amount": 0, "patron": "pat_02"}, {"by": "def", "side": "curse", "kind": "expose", "label": "Exposed", "amount": 3, "patron": "pat_02"}]}]}, "Jost", "the looter")
 	check(text.contains("Jost's favour answers: a second blow follows.") and text.contains("The looter's burden weighs: +3 damage taken."), "the log names what fired: %s" % text)
 	_gs.won_maps["map_f02"] = true

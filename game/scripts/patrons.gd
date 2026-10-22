@@ -260,3 +260,10 @@ func form_word(side: String) -> String:
 ## Holding the form to the battle's end pulls the bearer toward its side.
 func add_pull(unit_id: String, side: String) -> void:
 	GameState.patron_pull[unit_id] = int(GameState.patron_pull.get(unit_id, 0)) + (1 if side == "angel" else -1) * int(Progression.param("morph_pull"))
+
+## "favour Echo 16%, burden Recoil 12%": what a fighter's procs are, in the words of the moment ("" if none).
+func proc_summary(procs: Array) -> String:
+	var parts: Array[String] = []
+	for pr in procs:
+		parts.append("%s %s %d%%" % [gift_word(pr["side"]), pr["label"], int(pr["chance"])])
+	return ", ".join(parts)

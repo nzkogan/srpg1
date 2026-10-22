@@ -251,6 +251,7 @@ func _ready() -> void:
 
 	_draw_grid()
 	_draw_axis_labels()
+	_draw_image()
 
 	shadow_layer = Node2D.new()
 	add_child(shadow_layer)
@@ -690,6 +691,20 @@ func _draw_grid() -> void:
 			rect.position = Vector2(col * CELL_SIZE, row * CELL_SIZE)
 			add_child(rect)
 			tile_rects[Vector2i(col, row)] = rect
+
+const ImageFigureScript := preload("res://scripts/image_figure.gd")
+var image_figure: Node2D = null       # THE IMAGE on the maps where canon shows it (maps.image_*), drawn above the tiles and below the tokens
+
+func _draw_image() -> void:
+	var stage = map_row.get("image_stage")
+	if stage == null:
+		return
+	var fig: Node2D = ImageFigureScript.new()
+	fig.stage = int(stage)
+	fig.size = Vector2(int(map_row["image_w"]) * CELL_SIZE, int(map_row["image_h"]) * CELL_SIZE)
+	fig.position = Vector2(int(map_row["image_col"]) * CELL_SIZE, int(map_row["image_row"]) * CELL_SIZE)
+	add_child(fig)
+	image_figure = fig
 
 func _draw_axis_labels() -> void:
 	var width := grid[0].length() if not grid.is_empty() else 0
@@ -1254,6 +1269,9 @@ func _attack_statue() -> void:
 
 	if statue_hp == 0:
 		statue_destroyed = true
+		if image_figure != null:
+			image_figure.broken = true             # the image is rubble: the same silhouette, fallen
+			image_figure.queue_redraw()
 		_recolor_symbol("S", LEGEND["."])
 		_recompute_and_draw()
 		info_label.text = "The statue is rubble. It goes still."
@@ -2519,6 +2537,7 @@ func _forecast_info(unit: Dictionary, inst: Dictionary) -> Dictionary:
 		"attacker": attacker, "defender": defender, "weapon": weapon, "def_weapon": def_weapon,
 		"distance": distance, "support": support, "support_text": _support_line(support),
 		"capture_text": _capture_text(pid, inst),
+		"patron_text": _patron_forecast(attacker, defender),
 		"effect_text": Forge.effect_text(weapon),
 		"atk": {"name": unit.get("name"), "weapon": _weapon_label(weapon, _uses_of(unit)), "uses": _uses_of(unit),
 			"level": unit.get("level", -1),
@@ -2535,6 +2554,14 @@ func _capture_gate(inst: Dictionary) -> Dictionary:
 	if check["ok"] and named != null and not _is_flashback() and Forge.named_wary():
 		return {"ok": false, "reason": Forge.wary_reason()}
 	return check
+
+## The forecast's patron line: each side's favour and burden as odds ("" if neither has any).
+func _patron_forecast(attacker: Dictionary, defender: Dictionary) -> String:
+	var mine := Patrons.proc_summary(attacker.get("procs", []))
+	var theirs := Patrons.proc_summary(defender.get("procs", []))
+	if mine == "" and theirs == "":
+		return ""
+	return "Yours: %s.  Theirs: %s." % [mine if mine != "" else "none", theirs if theirs != "" else "none"]
 
 ## The forecast panel's Capture line for a unit that has the action: "" for one
 ## that doesn't, otherwise whether this enemy can be taken now, and why not.

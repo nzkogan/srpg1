@@ -802,6 +802,15 @@ def main():
     if reveal is None or reveal.get("text") not in {m["map_id"] for m in tabs["maps"]}:
         fail("c07", "blocking", "promotion_rules", "prm_patron_reveal_map must name a map in its text column")
 
+    # --- c07i the image: a stage 1-4, placed inside the map
+    for mrow in tabs["maps"]:
+        if mrow.get("image_stage") in (None, ""):
+            continue
+        st_, c_, r_, w_, h_ = (mrow.get(k) for k in ("image_stage", "image_col", "image_row", "image_w", "image_h"))
+        if st_ not in (1, 2, 3, 4) or not all(isinstance(v, int) for v in (c_, r_, w_, h_)) or w_ < 1 or h_ < 1 \
+                or c_ < 0 or r_ < 0 or c_ + w_ > mrow["width"] or r_ + h_ > mrow["height"]:
+            fail("c07", "blocking", f"maps.{mrow['map_id']}", f"the image needs a stage 1-4 and a place inside the {mrow['width']}x{mrow['height']} map (got {st_} at {c_},{r_} size {w_}x{h_})")
+
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------
     for r in tabs["prologue_roster"]:

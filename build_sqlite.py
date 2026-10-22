@@ -73,7 +73,7 @@ PK = {
 NUMERIC = {
     "growths": {"hp", "str", "mag", "dex", "spd", "lck", "def", "res", "total_check"},
     "maps": {"width", "height", "turn_limit", "min_solution_units", "cargo_needed",
-             "boss_gated_until_turn", "deploy_slots"},
+             "boss_gated_until_turn", "deploy_slots", "image_stage", "image_col", "image_row", "image_w", "image_h"},
     "chapters": {"number"},
     "prologue_roster": {"move", "hp", "dmg_vs_statue", "deploy_row", "deploy_col",
                         "str", "mag", "dex", "spd", "lck", "def", "res"},
