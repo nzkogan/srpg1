@@ -8,7 +8,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "night docks, neutral porters; where the avatar starts as a clerk",
     "map_x": 450,
-    "map_y": 320
+    "map_y": 320,
+    "patron_id": "pat_72",
+    "patron_side": "balanced",
+    "patron_note": "night docks and tallies: the finder of what was stolen"
   },
   {
     "location_id": "loc_weighbridge",
@@ -19,7 +22,10 @@
     "acts": "1",
     "what_the_ground_is_for": "hedgerow country; a requisition writ enforced on a reluctant house",
     "map_x": 545,
-    "map_y": 335
+    "map_y": 335,
+    "patron_id": "pat_27",
+    "patron_side": "demon",
+    "patron_note": "a writ enforced by rhetoric and favours"
   },
   {
     "location_id": "loc_grain_road",
@@ -30,7 +36,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "bridge choke and a foot-only ford; wagons move 4",
     "map_x": 625,
-    "map_y": 320
+    "map_y": 320,
+    "patron_id": "pat_45",
+    "patron_side": "balanced",
+    "patron_note": "a bridge choke: the builder and breaker of crossings"
   },
   {
     "location_id": "loc_thessala",
@@ -41,7 +50,10 @@
     "acts": "1",
     "what_the_ground_is_for": "south coast; grain bought abroad, unloaded under protest",
     "map_x": 650,
-    "map_y": 440
+    "map_y": 440,
+    "patron_id": "pat_61",
+    "patron_side": "balanced",
+    "patron_note": "grain bought abroad: the changer of one thing into another"
   },
   {
     "location_id": "loc_salt_ford",
@@ -52,7 +64,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "the rift crossed where it is shallow; the only southern crossing",
     "map_x": 540,
-    "map_y": 420
+    "map_y": 420,
+    "patron_id": "pat_43",
+    "patron_side": "balanced",
+    "patron_note": "the only southern crossing, fortified"
   },
   {
     "location_id": "loc_anthe",
@@ -63,7 +78,10 @@
     "acts": "1",
     "what_the_ground_is_for": "a port stranded above its own water; three levels of street",
     "map_x": 300,
-    "map_y": 435
+    "map_y": 435,
+    "patron_id": "pat_06",
+    "patron_side": "demon",
+    "patron_note": "a port above its own water: the familiar who incites theft"
   },
   {
     "location_id": "loc_stranded_harbour",
@@ -74,7 +92,10 @@
     "acts": "1",
     "what_the_ground_is_for": "ruin on the middle terrace; the renunciants live in it",
     "map_x": 210,
-    "map_y": 365
+    "map_y": 365,
+    "patron_id": "pat_55",
+    "patron_side": "angel",
+    "patron_note": "the renunciants' ruin: the faithful spirit that will not deceive"
   },
   {
     "location_id": "loc_dry_country",
@@ -85,7 +106,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "open ground, no cover, the map that punishes slow armies",
     "map_x": 400,
-    "map_y": 365
+    "map_y": 365,
+    "patron_id": "pat_64",
+    "patron_side": "demon",
+    "patron_note": "no cover: the burner"
   },
   {
     "location_id": "loc_vashti_road",
@@ -96,7 +120,10 @@
     "acts": "1",
     "what_the_ground_is_for": "the single road east; lava fans narrow it to one lane in places",
     "map_x": 790,
-    "map_y": 330
+    "map_y": 330,
+    "patron_id": "pat_07",
+    "patron_side": "demon",
+    "patron_note": "lava on the road: the one who breathes fire"
   },
   {
     "location_id": "loc_vashti_gate",
@@ -107,7 +134,10 @@
     "acts": "1, 2, 3",
     "what_the_ground_is_for": "the occupied seat; the Unstained will not talk to you",
     "map_x": 890,
-    "map_y": 290
+    "map_y": 290,
+    "patron_id": "pat_15",
+    "patron_side": "demon",
+    "patron_note": "an occupied seat: the knower of wars and the favour of lords"
   },
   {
     "location_id": "loc_vetch_gate",
@@ -118,7 +148,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "medicine cart to a gate; civilians chase it, looters follow",
     "map_x": 280,
-    "map_y": 120
+    "map_y": 120,
+    "patron_id": "pat_10",
+    "patron_side": "angel",
+    "patron_note": "the winter dole: the healer"
   },
   {
     "location_id": "loc_still_town",
@@ -129,7 +162,10 @@
     "acts": "1",
     "what_the_ground_is_for": "three streets of different widths; a preacher converting one a turn",
     "map_x": 350,
-    "map_y": 170
+    "map_y": 170,
+    "patron_id": "pat_05",
+    "patron_side": "balanced",
+    "patron_note": "the apothecary town: cure and plague in one hand"
   },
   {
     "location_id": "loc_chapterhouse",
@@ -140,7 +176,10 @@
     "acts": "1",
     "what_the_ground_is_for": "escape map; relic hunters reinforce forever; a reliquary to take or give",
     "map_x": 440,
-    "map_y": 120
+    "map_y": 120,
+    "patron_id": "pat_18",
+    "patron_side": "balanced",
+    "patron_note": "a ruin of relics: the knower of stones and herbs"
   },
   {
     "location_id": "loc_halder",
@@ -151,7 +190,10 @@
     "acts": "1",
     "what_the_ground_is_for": "north coast; exotic medicines bought from people who know it",
     "map_x": 400,
-    "map_y": 50
+    "map_y": 50,
+    "patron_id": "pat_31",
+    "patron_side": "balanced",
+    "patron_note": "exotic medicines: herbs and gems"
   },
   {
     "location_id": "loc_lake_shore",
@@ -162,7 +204,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "the drowned town; a bell tower breaking the surface in dry years",
     "map_x": 520,
-    "map_y": 80
+    "map_y": 80,
+    "patron_id": "pat_41",
+    "patron_side": "demon",
+    "patron_note": "the drowned town: the drowner of men"
   },
   {
     "location_id": "loc_ostrova",
@@ -173,7 +218,10 @@
     "acts": "1",
     "what_the_ground_is_for": "steppe edge; the Assembly's eastern city, closer to the Plains than to Vetch",
     "map_x": 680,
-    "map_y": 70
+    "map_y": 70,
+    "patron_id": "pat_13",
+    "patron_side": "balanced",
+    "patron_note": "steppe riders: the king on the pale horse"
   },
   {
     "location_id": "loc_upper_scar",
@@ -184,7 +232,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "escarpment fighting; the rift where it is still a cliff",
     "map_x": 770,
-    "map_y": 135
+    "map_y": 135,
+    "patron_id": "pat_39",
+    "patron_side": "balanced",
+    "patron_note": "a cliff: the builder of towers"
   },
   {
     "location_id": "loc_timber_road",
@@ -195,7 +246,10 @@
     "acts": "1, 3",
     "what_the_ground_is_for": "forest; the map where fliers are worthless and archers are not",
     "map_x": 690,
-    "map_y": 190
+    "map_y": 190,
+    "patron_id": "pat_63",
+    "patron_side": "demon",
+    "patron_note": "a forest of ambush: the sower of discord"
   },
   {
     "location_id": "loc_march_shrine",
@@ -206,7 +260,10 @@
     "acts": "1",
     "what_the_ground_is_for": "living prophecy; a sect that thinks revelation never stopped",
     "map_x": 580,
-    "map_y": 175
+    "map_y": 175,
+    "patron_id": "pat_11",
+    "patron_side": "angel",
+    "patron_note": "living prophecy: the one who answers every question"
   },
   {
     "location_id": "loc_vetch_chapel",
@@ -217,7 +274,10 @@
     "acts": "1, 2, 3",
     "what_the_ground_is_for": "the court sect at home; obedience belongs to the throne",
     "map_x": 230,
-    "map_y": 190
+    "map_y": 190,
+    "patron_id": "pat_09",
+    "patron_side": "balanced",
+    "patron_note": "the throne's obedience: the king who commands"
   },
   {
     "location_id": "loc_muster_field",
@@ -228,7 +288,10 @@
     "acts": "2, 3",
     "what_the_ground_is_for": "largest map; whole army deployed once; two timed objectives, one force",
     "map_x": 600,
-    "map_y": 230
+    "map_y": 230,
+    "patron_id": "pat_35",
+    "patron_side": "demon",
+    "patron_note": "the whole army at once: the strong fighter"
   },
   {
     "location_id": "loc_cinder_track",
@@ -239,7 +302,10 @@
     "acts": "2",
     "what_the_ground_is_for": "column A; ash underfoot, bad air, the Karkadann's country",
     "map_x": 830,
-    "map_y": 400
+    "map_y": 400,
+    "patron_id": "pat_46",
+    "patron_side": "demon",
+    "patron_note": "ash and graves: the mover of the dead"
   },
   {
     "location_id": "loc_caravanserai",
@@ -250,7 +316,10 @@
     "acts": "2",
     "what_the_ground_is_for": "column B; prices rise every turn a fight is visible in the bazaar",
     "map_x": 1010,
-    "map_y": 330
+    "map_y": 330,
+    "patron_id": "pat_28",
+    "patron_side": "balanced",
+    "patron_note": "prices that rise: the maker of gold, and a liar"
   },
   {
     "location_id": "loc_throat_pass",
@@ -261,7 +330,10 @@
     "acts": "2",
     "what_the_ground_is_for": "column B; the road east, held by whoever taxes it this year",
     "map_x": 1060,
-    "map_y": 430
+    "map_y": 430,
+    "patron_id": "pat_62",
+    "patron_side": "balanced",
+    "patron_note": "a toll on the only road: the keeper of treasure"
   },
   {
     "location_id": "loc_glass_edge",
@@ -272,7 +344,10 @@
     "acts": "2, 3",
     "what_the_ground_is_for": "column A; straight-edged fused ground, nothing grows, nobody agrees why",
     "map_x": 780,
-    "map_y": 480
+    "map_y": 480,
+    "patron_id": "pat_57",
+    "patron_side": "demon",
+    "patron_note": "straight-edged ground nobody can explain: the changer of shapes"
   },
   {
     "location_id": "loc_reunion_field",
@@ -283,7 +358,10 @@
     "acts": "2",
     "what_the_ground_is_for": "columns meet; whatever each lost is visible in what each brings",
     "map_x": 700,
-    "map_y": 360
+    "map_y": 360,
+    "patron_id": "pat_08",
+    "patron_side": "angel",
+    "patron_note": "two columns meet: the reconciler of friends and powers"
   },
   {
     "location_id": "loc_kaisareia_walls",
@@ -294,7 +372,10 @@
     "acts": "3",
     "what_the_ground_is_for": "the capital as a battlefield; the synod's colossus is fed from here",
     "map_x": 500,
-    "map_y": 270
+    "map_y": 270,
+    "patron_id": "pat_01",
+    "patron_side": "demon",
+    "patron_note": "the capital and its colossus: the first of them all"
   },
   {
     "location_id": "loc_simurgh_nest",
@@ -305,7 +386,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "the Simurgh; a foster-mother who answers whoever holds the feather",
     "map_x": 600,
-    "map_y": 30
+    "map_y": 30,
+    "patron_id": "pat_37",
+    "patron_side": "angel",
+    "patron_note": "the foster-mother bird: the one who rises again"
   },
   {
     "location_id": "loc_dove_colony",
@@ -316,7 +400,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "the Karkadann; it guards what it has decided to guard",
     "map_x": 930,
-    "map_y": 435
+    "map_y": 435,
+    "patron_id": "pat_36",
+    "patron_side": "angel",
+    "patron_note": "a nest guarded: the owl of herbs and stars"
   },
   {
     "location_id": "loc_flats_interior",
@@ -327,7 +414,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "the Anzu; arrows come apart, and it reads what you cannot",
     "map_x": 880,
-    "map_y": 505
+    "map_y": 505,
+    "patron_id": "pat_65",
+    "patron_side": "balanced",
+    "patron_note": "straight edges and reading: the geometer"
   },
   {
     "location_id": "loc_lowest_terrace",
@@ -338,7 +428,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "the Shadhavar; the song pulls the nearest enemy one tile a turn",
     "map_x": 190,
-    "map_y": 470
+    "map_y": 470,
+    "patron_id": "pat_67",
+    "patron_side": "balanced",
+    "patron_note": "the song that bends the trees"
   },
   {
     "location_id": "loc_open_road",
@@ -349,7 +442,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "the Huma; it never lands, so it belongs to a road, not a place",
     "map_x": 980,
-    "map_y": 495
+    "map_y": 495,
+    "patron_id": "pat_20",
+    "patron_side": "balanced",
+    "patron_note": "a shadow that legitimises: the king who reveals"
   },
   {
     "location_id": "loc_hermit_lake",
@@ -360,7 +456,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "a hermit who refuses to adjudicate; fisher cult around him",
     "map_x": 105,
-    "map_y": 410
+    "map_y": 410,
+    "patron_id": "pat_70",
+    "patron_side": "balanced",
+    "patron_note": "a saint who refuses to adjudicate: neither good nor evil"
   },
   {
     "location_id": "loc_north_wind",
@@ -371,7 +470,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "the second hermit; likewise refuses",
     "map_x": 300,
-    "map_y": 45
+    "map_y": 45,
+    "patron_id": "pat_34",
+    "patron_side": "balanced",
+    "patron_note": "the second hermit: the thunder and the wind"
   },
   {
     "location_id": "loc_buried_works",
@@ -382,7 +484,10 @@
     "acts": "paralogue",
     "what_the_ground_is_for": "records, complicit clerks, a shrine built over a facility",
     "map_x": 960,
-    "map_y": 220
+    "map_y": 220,
+    "patron_id": "pat_24",
+    "patron_side": "demon",
+    "patron_note": "records and complicit clerks: the restorer of lost honours"
   },
   {
     "location_id": "loc_ur_nashet",
@@ -393,7 +498,10 @@
     "acts": "prologue",
     "what_the_ground_is_for": "a flashback, 800 years early, in a city that no longer exists: not on the world map; the overworld draws it as a memory in the corner",
     "map_x": 80,
-    "map_y": 60
+    "map_y": 60,
+    "patron_id": "pat_68",
+    "patron_side": "demon",
+    "patron_note": "the founding crime, 800 years early: the king made next after the first"
   },
   {
     "location_id": "loc_scribes_quarter",
@@ -404,7 +512,10 @@
     "acts": "flashback",
     "what_the_ground_is_for": "a flashback ~780 years early, the first copy of the First Register under deadline: not on the world map; the overworld draws it as a memory in the corner, and the party is taken there when it falls due",
     "map_x": 200,
-    "map_y": 60
+    "map_y": 60,
+    "patron_id": "pat_60",
+    "patron_side": "balanced",
+    "patron_note": "the first copy: the teacher of crafts and professions"
   },
   {
     "location_id": "loc_last_court",
@@ -415,6 +526,9 @@
     "acts": "flashback",
     "what_the_ground_is_for": "a flashback, the day the church that held the realm together stopped being believed: not on the world map; a memory in the corner, taken at the end of Act 2",
     "map_x": 320,
-    "map_y": 60
+    "map_y": 60,
+    "patron_id": "pat_32",
+    "patron_side": "balanced",
+    "patron_note": "the church that stopped being believed: the king who teaches the sciences"
   }
 ]

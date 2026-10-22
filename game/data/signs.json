@@ -7,7 +7,9 @@
     "archetype": "the one who goes first and does not look back",
     "virtue": "decisive under pressure",
     "failure_mode": "cannot sit still long enough to be told the plan",
-    "calendar_note": "the Diadem keeps the Venerated's feast here: born at the lambing, hence the title"
+    "calendar_note": "the Diadem keeps the Venerated's feast here: born at the lambing, hence the title",
+    "blessing_effect": "eff_echo",
+    "curse_effect": "eff_recoil"
   },
   {
     "sign_id": "sgn_bull",
@@ -17,7 +19,9 @@
     "archetype": "the one who will not be moved",
     "virtue": "holds ground nobody else could",
     "failure_mode": "mistakes stubbornness for principle",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_aegis",
+    "curse_effect": "eff_stumble"
   },
   {
     "sign_id": "sgn_twins",
@@ -27,7 +31,9 @@
     "archetype": "the one who argues both sides",
     "virtue": "sees the case against their own position",
     "failure_mode": "will not commit while a better argument exists",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_veil",
+    "curse_effect": "eff_faltering"
   },
   {
     "sign_id": "sgn_crab",
@@ -37,7 +43,9 @@
     "archetype": "the one who guards the house",
     "virtue": "loyal past reason",
     "failure_mode": "the loyalty is to people, not to the cause, and it shows",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_mending",
+    "curse_effect": "eff_bleeding"
   },
   {
     "sign_id": "sgn_lion",
@@ -47,7 +55,9 @@
     "archetype": "the one who must be seen",
     "virtue": "leads from in front because being watched steadies them",
     "failure_mode": "cannot take a demotion gracefully",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_surge",
+    "curse_effect": "eff_exposed"
   },
   {
     "sign_id": "sgn_maiden",
@@ -57,7 +67,9 @@
     "archetype": "the one who keeps the record",
     "virtue": "notices the discrepancy nobody else did",
     "failure_mode": "corrects people who did not ask",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_clarity",
+    "curse_effect": "eff_marked"
   },
   {
     "sign_id": "sgn_scales",
@@ -67,7 +79,9 @@
     "archetype": "the one who weighs",
     "virtue": "the fairest arbiter in the room",
     "failure_mode": "delay disguised as deliberation",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_aegis",
+    "curse_effect": "eff_faltering"
   },
   {
     "sign_id": "sgn_scorpion",
@@ -77,7 +91,9 @@
     "archetype": "the one who does not forget",
     "virtue": "carries the grudge that keeps everyone honest",
     "failure_mode": "carries it long after it stopped being useful",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_echo",
+    "curse_effect": "eff_bleeding"
   },
   {
     "sign_id": "sgn_archer",
@@ -87,7 +103,9 @@
     "archetype": "the one who goes further out",
     "virtue": "the scout who comes back with the thing you needed",
     "failure_mode": "says the true thing at the worst moment",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_clarity",
+    "curse_effect": "eff_exposed"
   },
   {
     "sign_id": "sgn_goat",
@@ -97,7 +115,9 @@
     "archetype": "the one who climbs",
     "virtue": "will do the unglamorous work for years",
     "failure_mode": "measures people by what they have built",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_surge",
+    "curse_effect": "eff_stumble"
   },
   {
     "sign_id": "sgn_vessel",
@@ -107,7 +127,9 @@
     "archetype": "the one who pours out",
     "virtue": "gives away what they needed",
     "failure_mode": "belongs to everyone and therefore to nobody",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_mending",
+    "curse_effect": "eff_bleeding"
   },
   {
     "sign_id": "sgn_fishes",
@@ -117,6 +139,8 @@
     "archetype": "the one who dissolves the boundary",
     "virtue": "understands the enemy too well to hate them",
     "failure_mode": "understands the enemy too well to fight them",
-    "calendar_note": null
+    "calendar_note": null,
+    "blessing_effect": "eff_veil",
+    "curse_effect": "eff_stumble"
   }
 ]

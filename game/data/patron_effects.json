@@ -1,0 +1,110 @@
+[
+  {
+    "effect_id": "eff_surge",
+    "name": "Surge",
+    "side": "blessing",
+    "trigger": "on_attack",
+    "kind": "power",
+    "amount": 3,
+    "description": "When you strike, the blow lands harder (+amount damage)."
+  },
+  {
+    "effect_id": "eff_clarity",
+    "name": "Clarity",
+    "side": "blessing",
+    "trigger": "on_attack",
+    "kind": "focus",
+    "amount": 0,
+    "description": "When you strike, the blow cannot miss."
+  },
+  {
+    "effect_id": "eff_echo",
+    "name": "Echo",
+    "side": "blessing",
+    "trigger": "on_attack",
+    "kind": "echo",
+    "amount": 0,
+    "description": "When you strike, a second blow follows at once (once an exchange)."
+  },
+  {
+    "effect_id": "eff_aegis",
+    "name": "Aegis",
+    "side": "blessing",
+    "trigger": "on_defend",
+    "kind": "ward",
+    "amount": 4,
+    "description": "When you are struck, the blow is turned aside by amount."
+  },
+  {
+    "effect_id": "eff_veil",
+    "name": "Veil",
+    "side": "blessing",
+    "trigger": "on_defend",
+    "kind": "evade",
+    "amount": 0,
+    "description": "When you are struck, the blow misses outright."
+  },
+  {
+    "effect_id": "eff_mending",
+    "name": "Mending",
+    "side": "blessing",
+    "trigger": "on_hit",
+    "kind": "mend",
+    "amount": 3,
+    "description": "When you land a blow, you recover amount HP."
+  },
+  {
+    "effect_id": "eff_stumble",
+    "name": "Stumble",
+    "side": "curse",
+    "trigger": "on_attack",
+    "kind": "miss",
+    "amount": 0,
+    "description": "When you strike, the blow goes wide."
+  },
+  {
+    "effect_id": "eff_recoil",
+    "name": "Recoil",
+    "side": "curse",
+    "trigger": "on_attack",
+    "kind": "recoil",
+    "amount": 3,
+    "description": "When you strike, you take amount damage yourself."
+  },
+  {
+    "effect_id": "eff_faltering",
+    "name": "Faltering",
+    "side": "curse",
+    "trigger": "on_attack",
+    "kind": "weak",
+    "amount": 3,
+    "description": "When you strike, the blow lands softer (-amount damage)."
+  },
+  {
+    "effect_id": "eff_exposed",
+    "name": "Exposed",
+    "side": "curse",
+    "trigger": "on_defend",
+    "kind": "expose",
+    "amount": 3,
+    "description": "When you are struck, the blow lands harder (+amount damage)."
+  },
+  {
+    "effect_id": "eff_bleeding",
+    "name": "Bleeding",
+    "side": "curse",
+    "trigger": "on_hurt",
+    "kind": "sap",
+    "amount": 2,
+    "description": "When you are hurt, you lose amount more HP."
+  },
+  {
+    "effect_id": "eff_marked",
+    "name": "Marked",
+    "side": "curse",
+    "trigger": "on_defend",
+    "kind": "jinx",
+    "amount": 0,
+    "description": "When you are struck, the blow cannot miss."
+  }
+]

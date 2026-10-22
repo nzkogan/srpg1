@@ -9,7 +9,8 @@
     "signature_mechanic": "5 HP/turn to rider and adjacent allies (flat, not percentage)",
     "notes": "cleanses corruption; the only thing that can strip a pact without a Pardoner, and will not do it on request",
     "death_phrase": "the Simurgh's light",
-    "sign_id": "sgn_crab"
+    "sign_id": "sgn_crab",
+    "birth_day": 17
   },
   {
     "named_id": "nmd_huma",
@@ -21,7 +22,8 @@
     "signature_mechanic": "MAP HAZARD, NOT A MOUNT: drifts overhead; marked units gain stats and become targeting priority for every enemy",
     "notes": "kill-taboo: whoever lands the blow dies in forty days, no reload undoes it ADDENDUM (2026-10-28, HUMA_DESIGN.md): the shadow is built as a drifting patch on its paralogue (promotion_rules prm_huma_*); marked units gain stats and every enemy prefers them; the Huma is never a unit, so the taboo is kept by making the blow impossible; a unit who falls while marked is credited to 'the Huma's shadow' in the epilogue.",
     "death_phrase": "the Huma's shadow",
-    "sign_id": "sgn_lion"
+    "sign_id": "sgn_lion",
+    "birth_day": 4
   },
   {
     "named_id": "nmd_anzu",
@@ -33,7 +35,8 @@
     "signature_mechanic": "contact degrades enemy weapons; only bites what is already worn; broken means unarmed, not dead",
     "notes": "COST: weapons it unmakes cannot be captured, so riding it starves your only supply line",
     "death_phrase": "the Anzu's stoop",
-    "sign_id": "sgn_maiden"
+    "sign_id": "sgn_maiden",
+    "birth_day": 26
   },
   {
     "named_id": "nmd_karkadann",
@@ -45,7 +48,8 @@
     "signature_mechanic": "strong against mounted units; devastating charge that leaves it stuck one turn",
     "notes": "the plain one on purpose -- the roster needs one straightforwardly good option",
     "death_phrase": "the Karkadann's charge",
-    "sign_id": "sgn_bull"
+    "sign_id": "sgn_bull",
+    "birth_day": 9
   },
   {
     "named_id": "nmd_shadhavar",
@@ -57,6 +61,7 @@
     "signature_mechanic": "every turn, pulls the nearest enemy one tile toward the rider; CANNOT be turned off",
     "notes": "liability on escort maps, asset on defend maps",
     "death_phrase": "the Shadhavar's song",
-    "sign_id": "sgn_fishes"
+    "sign_id": "sgn_fishes",
+    "birth_day": 22
   }
 ]

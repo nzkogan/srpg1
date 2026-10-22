@@ -75,6 +75,8 @@ PRIMARY_KEYS = {
     "epilogue_text": ("phrase_id", "epi_"),
     "mounts": ("mount_id", "mnt_"),
     "signs": ("sign_id", "sgn_"),
+    "patrons": ("patron_id", "pat_"),
+    "patron_effects": ("effect_id", "eff_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -285,7 +287,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages", "patron_chance_king", "patron_chance_prince", "patron_chance_duke", "patron_chance_marquis", "patron_chance_earl", "patron_chance_president", "patron_chance_knight", "patron_lean_step", "patron_lean_cap", "patron_lean_pct", "patron_chance_min", "patron_chance_max"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -753,6 +755,52 @@ def main():
     for u in tabs["units"]:
         if u.get("status") == "recruitable" and u["unit_id"] not in unit_signs:
             fail("c07", "warning", f"units.{u['unit_id']}", "no sign in any support chain, so no day favours them")
+
+    # --- c07p patrons: 72 pairs, five days each, twelve signs of thirty days; effects, births and locations resolve
+    effects = {x["effect_id"]: x for x in tabs["patron_effects"]}
+    for x in tabs["patron_effects"]:
+        if x.get("side") not in ("blessing", "curse") or x.get("trigger") not in ("on_attack", "on_defend", "on_hit", "on_hurt"):
+            fail("c07", "blocking", f"patron_effects.{x['effect_id']}", "side is blessing or curse; trigger is on_attack, on_defend, on_hit or on_hurt")
+    RANKS = {"King", "Prince", "Duke", "Marquis", "Earl", "President", "Knight"}
+    pats = tabs["patrons"]
+    if len(pats) != 72 or sorted(p["number"] for p in pats) != list(range(1, 73)):
+        fail("c07", "blocking", "patrons", f"there must be 72 patrons numbered 1 to 72 (found {len(pats)})")
+    sign_ids_p = [g["sign_id"] for g in tabs["signs"] if str(g.get("sign_id", "")).startswith("sgn_")]
+    cover = {}
+    for p in pats:
+        pid = p["patron_id"]
+        if p.get("demon_rank") not in RANKS:
+            fail("c07", "blocking", f"patrons.{pid}", f"demon_rank '{p.get('demon_rank')}' is not one of {sorted(RANKS)}")
+        if not p.get("demon_name") or not p.get("angel_name"):
+            fail("c07", "blocking", f"patrons.{pid}", "a patron has a demon and an angel")
+        be, ce = effects.get(p.get("blessing_effect")), effects.get(p.get("curse_effect"))
+        if be is None or be["side"] != "blessing" or ce is None or ce["side"] != "curse":
+            fail("c07", "blocking", f"patrons.{pid}", "blessing_effect must be a blessing and curse_effect a curse in patron_effects")
+        if p.get("sign_id") not in sign_ids_p or not (1 <= p["first_day"] <= p["last_day"] <= 30) or p["last_day"] - p["first_day"] != 4:
+            fail("c07", "blocking", f"patrons.{pid}", "a patron holds five days of one sign's thirty")
+        for d in range(int(p["first_day"] or 0), int(p["last_day"] or 0) + 1):
+            cover.setdefault((p.get("sign_id"), d), []).append(pid)
+    for sg_ in sign_ids_p:
+        for d in range(1, 31):
+            if len(cover.get((sg_, d), [])) != 1:
+                fail("c07", "blocking", f"patrons.{sg_}", f"day {d} has {len(cover.get((sg_, d), []))} patrons (exactly one)")
+    for g in tabs["signs"]:
+        if str(g.get("sign_id", "")).startswith("sgn_") and (g.get("blessing_effect") not in effects or g.get("curse_effect") not in effects):
+            fail("c07", "blocking", f"signs.{g['sign_id']}", "every sign gives a blessing and a curse")
+    for u in tabs["units"]:
+        if u.get("status") == "recruitable":
+            if u.get("birth_sign") not in sign_ids_p or not isinstance(u.get("birth_day"), int) or not 1 <= u["birth_day"] <= 30:
+                fail("c07", "blocking", f"units.{u['unit_id']}", "a unit is born under a sign on a day 1-30")
+    pat_ids = {p["patron_id"] for p in pats}
+    for l in tabs["locations"]:
+        if l.get("patron_id") not in pat_ids or l.get("patron_side") not in ("angel", "demon", "balanced"):
+            fail("c07", "blocking", f"locations.{l['location_id']}", "every place has a patron pair and a side (angel, demon, balanced)")
+    for nmd in tabs["named"]:
+        if str(nmd.get("named_id", "")).startswith("nmd_") and not (isinstance(nmd.get("birth_day"), int) and 1 <= nmd["birth_day"] <= 30):
+            fail("c07", "blocking", f"named.{nmd['named_id']}", "a Named is born on a day 1-30 of its sign")
+    reveal = next((r for r in tabs["promotion_rules"] if r["param_id"] == "prm_patron_reveal_map"), None)
+    if reveal is None or reveal.get("text") not in {m["map_id"] for m in tabs["maps"]}:
+        fail("c07", "blocking", "promotion_rules", "prm_patron_reveal_map must name a map in its text column")
 
     # --- c07d prologue_roster.weapon_art must be real or null (pu_nashar is
     #     the one deliberate non-combatant) -------------------------------------

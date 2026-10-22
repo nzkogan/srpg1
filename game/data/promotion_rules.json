@@ -634,5 +634,83 @@
     "value": 12,
     "text": null,
     "notes": "Flashback F1: how many pages the First Register's first copy has; one is lost when the copy is finished, and the game never says which (the number is only kept as a hidden flag)."
+  },
+  {
+    "param_id": "prm_patron_chance_king",
+    "value": 18,
+    "text": null,
+    "notes": "Patrons: the base percent chance a blessing or curse procs, by the patron's Ars Goetia rank (king)."
+  },
+  {
+    "param_id": "prm_patron_chance_prince",
+    "value": 16,
+    "text": null,
+    "notes": "Patrons: base proc chance, prince."
+  },
+  {
+    "param_id": "prm_patron_chance_duke",
+    "value": 14,
+    "text": null,
+    "notes": "Patrons: base proc chance, duke."
+  },
+  {
+    "param_id": "prm_patron_chance_marquis",
+    "value": 12,
+    "text": null,
+    "notes": "Patrons: base proc chance, marquis."
+  },
+  {
+    "param_id": "prm_patron_chance_earl",
+    "value": 10,
+    "text": null,
+    "notes": "Patrons: base proc chance, earl."
+  },
+  {
+    "param_id": "prm_patron_chance_president",
+    "value": 8,
+    "text": null,
+    "notes": "Patrons: base proc chance, president."
+  },
+  {
+    "param_id": "prm_patron_chance_knight",
+    "value": 6,
+    "text": null,
+    "notes": "Patrons: base proc chance, knight."
+  },
+  {
+    "param_id": "prm_patron_lean_step",
+    "value": 6,
+    "text": null,
+    "notes": "Patrons: net conduct (mercies x trial_mercy_weight less kills, from the crown's ledger) that moves a unit one step toward the angel (mercy) or the demon (kills)."
+  },
+  {
+    "param_id": "prm_patron_lean_cap",
+    "value": 4,
+    "text": null,
+    "notes": "Patrons: the furthest a unit's lean can go either way (birth day gives -1..+1, conduct the rest)."
+  },
+  {
+    "param_id": "prm_patron_lean_pct",
+    "value": 15,
+    "text": null,
+    "notes": "Patrons: percent each lean point bends the odds: toward the angel raises blessings and lowers curses by this much of their base, toward the demon the reverse."
+  },
+  {
+    "param_id": "prm_patron_chance_min",
+    "value": 2,
+    "text": null,
+    "notes": "Patrons: a proc is never rarer than this percent."
+  },
+  {
+    "param_id": "prm_patron_chance_max",
+    "value": 40,
+    "text": null,
+    "notes": "Patrons: a proc is never likelier than this percent."
+  },
+  {
+    "param_id": "prm_patron_reveal_map",
+    "value": 1,
+    "text": "map_f02",
+    "notes": "Patrons: the map whose win reveals the patrons for what they are (demons and angels); before it they are called patrons, their gifts favours and burdens."
   }
 ]

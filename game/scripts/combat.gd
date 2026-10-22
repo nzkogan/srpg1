@@ -45,6 +45,9 @@ class_name Combat
 ## dictionaries on a stat dict (hit/avoid/crit/dodge/dmg/guard/speed, each with a
 ## "cond"), plus "cur_hp"/"max_hp" for the HP conditions. No key = no effect.
 ##
+## Patron procs (Patrons.procs_for) arrive as an optional "procs" array of {side, trigger, kind, amount, chance, label, patron}
+## on a stat dict; resolve_exchange rolls them (see there). No key = no procs.
+##
 ## Support effects (Supports.RANK_EFFECTS) arrive as optional keys on the
 ## stat dicts, all default 0 when absent: sup_hit / sup_crit on the attacker,
 ## sup_avoid / sup_dodge on the defender. Supports.combat_keys() builds them.
@@ -271,6 +274,14 @@ static func forecast(attacker: Dictionary, defender: Dictionary, atk_weapon: Dic
 		def["hits"] = 2
 	return {"distance": distance, "atk": atk, "def": def, "def_speed": def_speed}
 
+## The procs of `trigger` that fire this time: each rolls its percent chance on `prng`.
+static func _fire(procs: Array, trigger: String, prng: RandomNumberGenerator) -> Array:
+	var out: Array = []
+	for p in procs:
+		if p.get("trigger") == trigger and prng.randi_range(1, 100) <= int(p.get("chance", 0)):
+			out.append(p)
+	return out
+
 static func _strike(side: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
 	var hit_roll := rng.randi_range(1, 100)
 	if hit_roll > int(side["hit"]):
@@ -300,13 +311,70 @@ static func resolve_exchange(attacker: Dictionary, defender: Dictionary, atk_wea
 		order.append("def")
 	var strikes: Array = []
 	var made := {"atk": 0, "def": 0}
-	for who in order:
+	# Patron procs (Patrons autoload): rolled on a stream of their own, seeded from the main one without advancing it, so a
+	# fighter with none leaves every other roll exactly where it was.
+	var prng: RandomNumberGenerator = null
+	var echoed := {"atk": false, "def": false}
+	var idx := 0
+	while idx < order.size():
+		var who: String = order[idx]
+		idx += 1
 		if atk_hp <= 0 or def_hp <= 0:
 			break
 		var uses: int = atk_uses if who == "atk" else def_uses
 		if uses == 0:
 			continue   # a broken weapon strikes no more
 		var res := _strike(fc[who], rng)
+		var striker: Dictionary = attacker if who == "atk" else defender
+		var target: Dictionary = defender if who == "atk" else attacker
+		var fired: Array = []
+		var sp: Array = striker.get("procs", [])
+		var tp: Array = target.get("procs", [])
+		if not sp.is_empty() or not tp.is_empty():
+			if prng == null:
+				prng = RandomNumberGenerator.new()
+				prng.seed = rng.state ^ 0x5DEECE66D
+			var mine := _fire(sp, "on_attack", prng)
+			var theirs := _fire(tp, "on_defend", prng)
+			var force_miss := false
+			var force_hit := false
+			var delta := 0
+			var self_dmg := 0
+			for pr in mine + theirs:
+				match pr["kind"]:
+					"miss", "evade": force_miss = true
+					"focus", "jinx": force_hit = true
+					"power", "expose": delta += int(pr["amount"])
+					"weak", "ward": delta -= int(pr["amount"])
+					"recoil": self_dmg += int(pr["amount"])
+					"echo":
+						if not echoed[who]:
+							echoed[who] = true
+							order.insert(idx, who)       # the second blow follows at once
+				fired.append({"by": who if pr in mine else ("def" if who == "atk" else "atk"), "label": pr["label"], "side": pr["side"], "kind": pr["kind"], "amount": pr["amount"], "patron": pr["patron"]})
+			if force_miss:
+				res = {"hit": false, "crit": false, "damage": 0}
+			elif force_hit and not res["hit"]:
+				res = {"hit": true, "crit": false, "damage": int(fc[who]["damage"])}
+			if res["hit"]:
+				res["damage"] = maxi(0, int(res["damage"]) + delta)
+				for pr in _fire(sp, "on_hit", prng):
+					fired.append({"by": who, "label": pr["label"], "side": pr["side"], "kind": pr["kind"], "amount": pr["amount"], "patron": pr["patron"]})
+					if pr["kind"] == "mend":
+						if who == "atk":
+							atk_hp = mini(int(striker.get("max_hp", 9999)), atk_hp + int(pr["amount"]))
+						else:
+							def_hp = mini(int(striker.get("max_hp", 9999)), def_hp + int(pr["amount"]))
+				if int(res["damage"]) > 0:
+					for pr in _fire(tp, "on_hurt", prng):
+						fired.append({"by": "def" if who == "atk" else "atk", "label": pr["label"], "side": pr["side"], "kind": pr["kind"], "amount": pr["amount"], "patron": pr["patron"]})
+						if pr["kind"] == "sap":
+							res["damage"] = int(res["damage"]) + int(pr["amount"])
+			if self_dmg > 0:
+				if who == "atk":
+					atk_hp = maxi(0, atk_hp - self_dmg)
+				else:
+					def_hp = maxi(0, def_hp - self_dmg)
 		if who == "atk":
 			def_hp = maxi(0, def_hp - int(res["damage"]))
 			res["target_hp"] = def_hp
@@ -319,6 +387,7 @@ static func resolve_exchange(attacker: Dictionary, defender: Dictionary, atk_wea
 				def_uses -= 1
 		res["broke"] = uses > 0 and (atk_uses if who == "atk" else def_uses) == 0
 		res["by"] = who
+		res["procs"] = fired
 		made[who] += 1
 		strikes.append(res)
 	return {"strikes": strikes, "atk_hp": atk_hp, "def_hp": def_hp,

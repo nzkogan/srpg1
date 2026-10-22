@@ -550,6 +550,11 @@ func _draw_nodes() -> void:
 		var label := Label.new()
 		var nm := str(locations[lid]["row"].get("name", lid))
 		label.text = nm.get_slice(",", 0).get_slice(" (", 0) if lid != FLASHBACK_LOCATION else "Ur-Nashet"
+		var pat := Patrons.row(str(locations[lid]["row"].get("patron_id", "")))
+		var sigil := Patrons.make_sigil(pat, str(locations[lid]["row"].get("patron_side", "balanced")), 6.0)
+		if sigil != null:
+			sigil.position = locations[lid]["pos"] + Vector2(NODE_SIZE * 0.5 + 9, 0)       # the ground's patron, and the side that holds it
+			add_child(sigil)
 		label.position = locations[lid]["pos"] + Vector2(-52, NODE_SIZE * 0.5 + 1)
 		label.custom_minimum_size = Vector2(104, 14)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -599,6 +604,9 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 	var row: Dictionary = loc["row"]
 	var region_name := str(_regions_by_id.get(row.get("region_id"), {}).get("name", ""))
 	lines.append("%s%s -- %s" % [row.get("name", location_id), " (%s)" % region_name if region_name != "" else "", _blurb(row)])
+	var ground := Patrons.ground_text(row)
+	if ground != "":
+		lines.append(ground)
 	if extra != "":
 		lines.append(extra)
 	var shown := 0

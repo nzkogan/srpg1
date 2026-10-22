@@ -496,6 +496,13 @@ func _draw_unit_tokens() -> void:
 		label.add_theme_color_override("font_color", Color.WHITE)
 		container.add_child(label)
 
+		if not _is_flashback() and Progression.is_known_unit(pid):
+			var birth := Patrons.birth_of_unit(pid)
+			var sg := Patrons.make_sigil(Patrons.patron_for(str(birth["sign"]), int(birth["day"])), Patrons.side_of(Patrons.lean_of_unit(pid)), 5.0)
+			if sg != null:
+				sg.position = Vector2(CELL_SIZE - 9, 9)         # the pact mark: their patron's seal, in the hand of the side they lean to
+				container.add_child(sg)
+
 		unit_tokens[pid] = {"container": container, "bg": bg}
 
 ## Mirrors _draw_unit_tokens but for one enemy instance, in
@@ -520,6 +527,13 @@ func _draw_enemy_token(inst: Dictionary) -> void:
 	label.add_theme_font_size_override("font_size", 11)
 	label.add_theme_color_override("font_color", Color.WHITE)
 	container.add_child(label)
+
+	if not _is_flashback() and (inst.kind == "boss" or inst.archetype.get("named_id") != null):
+		var b := Patrons.birth_of_enemy(inst.archetype, _enemy_key(inst))       # the pact-holders carry their patron's seal
+		var sg := Patrons.make_sigil(Patrons.patron_for(str(b["sign"]), int(b["day"])), Patrons.side_of(Patrons.lean_of_enemy(b)), 5.0)
+		if sg != null:
+			sg.position = Vector2(CELL_SIZE - 9, 9)
+			container.add_child(sg)
 
 	inst.token = {"container": container, "bg": bg}
 
@@ -2212,7 +2226,29 @@ func _describe_exchange(result: Dictionary, atk_label: String, def_label: String
 		else:
 			var crit := " CRITICAL HIT!" if s["crit"] else ""
 			parts.append("%s %s %s for %d damage.%s" % [subject, "hits" if by_atk else "counters, hitting", object, s["damage"], crit])
+		for pr in s.get("procs", []):
+			var bearer: String = atk_label if pr["by"] == "atk" else def_label
+			bearer = bearer.substr(0, 1).to_upper() + bearer.substr(1)
+			parts.append("%s's %s %s." % [bearer, Patrons.gift_word(pr["side"]), _proc_text(pr)])
 	return " ".join(parts)
+
+## What a fired proc did, in a few words.
+func _proc_text(pr: Dictionary) -> String:
+	var amount := int(pr.get("amount", 0))
+	match str(pr.get("kind", "")):
+		"power": return "answers: +%d damage" % amount
+		"focus": return "answers: the blow cannot miss"
+		"echo": return "answers: a second blow follows"
+		"ward": return "answers: %d damage turned aside" % amount
+		"evade": return "answers: the blow misses"
+		"mend": return "answers: %d HP recovered" % amount
+		"miss": return "weighs: the blow goes wide"
+		"recoil": return "weighs: %d damage to themselves" % amount
+		"weak": return "weighs: -%d damage" % amount
+		"expose": return "weighs: +%d damage taken" % amount
+		"sap": return "weighs: %d more HP lost" % amount
+		"jinx": return "weighs: the blow cannot miss"
+	return "answers"
 
 # ---------------------------------------------------------- forecast & targets
 
@@ -2313,6 +2349,8 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 		c["sup_avoid"] = int(c.get("sup_avoid", 0)) + aura
 	if unit_positions.has(pid) and _marked(unit_positions[pid]):
 		c = Huma.boost(c)
+	if not _is_flashback() and Progression.is_known_unit(pid):
+		c["procs"] = Patrons.procs_for_unit(pid)                 # born under a patron's five days: a blessing and a curse
 	var day := Almanac.unit_bonus(pid, _day_chapter())       # the day's sign is theirs
 	if day > 0:
 		c["sup_hit"] = int(c.get("sup_hit", 0)) + day
@@ -2328,12 +2366,19 @@ func _enemy_combatant(inst: Dictionary) -> Dictionary:
 	var c: Dictionary = inst.archetype.duplicate()
 	if _marked(inst.pos):
 		c = Huma.boost(c)
+	c["max_hp"] = int(inst.max_hp)
+	if not _is_flashback():
+		c["procs"] = Patrons.procs_for_enemy(inst.archetype, _enemy_key(inst))
 	if inst.archetype.get("named_id") != null:
 		var day := Almanac.named_bonus(str(inst.archetype["named_id"]), _day_chapter())
 		if day > 0:
 			c["sup_hit"] = int(c.get("sup_hit", 0)) + day
 			c["sup_avoid"] = int(c.get("sup_avoid", 0)) + day
 	return c
+
+## What tells two enemies of one archetype apart for their births: where they came from.
+func _enemy_key(inst: Dictionary) -> String:
+	return "%s#%s" % [str(inst.get("spawn_id", "")), str(inst.get("inst_id", ""))]
 
 ## Whether a tile lies in the Huma's shadow this turn (only on the maps it drifts over).
 func _marked(pos: Vector2i) -> bool:

@@ -212,6 +212,9 @@ func detail_text() -> String:
 		lines.append("[color=%s]The crown's deputy.[/color]" % GOLD)
 	lines.append("%s%s   Ability slots: %d" % [Progression.class_name_of(u), "  [color=%s](certified)[/color]" % GOOD if st["promoted"] else "", Progression.slots(u)])
 	lines.append(_stat_line(u))
+	var birth := Patrons.birth_of_unit(u)
+	if birth["sign"] != "":
+		lines.append("Born %s. %s" % [Patrons.born_text(birth), Patrons.describe(birth, Patrons.lean_of_unit(u))])
 	lines.append("")
 	var opts := options()
 	var opt: Dictionary = opts[_option_index] if _option_index < opts.size() else {}

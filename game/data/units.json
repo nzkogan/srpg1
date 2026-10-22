@@ -10,7 +10,9 @@
     "growth_profile_id": "gp_avatar",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "level 1 administrator; squishy; voiced and argumentative"
+    "notes": "level 1 administrator; squishy; voiced and argumentative",
+    "birth_sign": "sgn_scorpion",
+    "birth_day": 4
   },
   {
     "unit_id": "u_jost",
@@ -23,7 +25,9 @@
     "growth_profile_id": "gp_bruiser",
     "venerated_candidate": "yes",
     "deputy_candidate": "no",
-    "notes": "ford bandit; lucky sleeper"
+    "notes": "ford bandit; lucky sleeper",
+    "birth_sign": "sgn_ram",
+    "birth_day": 6
   },
   {
     "unit_id": "u_ricberta",
@@ -36,7 +40,9 @@
     "growth_profile_id": "gp_armor",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "levy sergeant; secretly literate (Baron cross option); literacy is a deputy tiebreak"
+    "notes": "levy sergeant; secretly literate (Baron cross option); literacy is a deputy tiebreak",
+    "birth_sign": "sgn_crab",
+    "birth_day": 24
   },
   {
     "unit_id": "u_emmerich",
@@ -49,7 +55,9 @@
     "growth_profile_id": "gp_mage",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "requisitions clerk; Baron showcase"
+    "notes": "requisitions clerk; Baron showcase",
+    "birth_sign": "sgn_lion",
+    "birth_day": 15
   },
   {
     "unit_id": "u_sigrun",
@@ -62,7 +70,9 @@
     "growth_profile_id": "gp_cavalry",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "courier rider"
+    "notes": "courier rider",
+    "birth_sign": "sgn_archer",
+    "birth_day": 13
   },
   {
     "unit_id": "u_waldrada",
@@ -75,7 +85,9 @@
     "growth_profile_id": "gp_flier",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "resentful Assembly flier; loyalty subplot"
+    "notes": "resentful Assembly flier; loyalty subplot",
+    "birth_sign": "sgn_scales",
+    "birth_day": 10
   },
   {
     "unit_id": "u_tancred",
@@ -88,7 +100,9 @@
     "growth_profile_id": "gp_archer",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "village recruit; Pardoner line"
+    "notes": "village recruit; Pardoner line",
+    "birth_sign": "sgn_goat",
+    "birth_day": 11
   },
   {
     "unit_id": "u_maren",
@@ -101,7 +115,9 @@
     "growth_profile_id": "gp_healer",
     "venerated_candidate": "yes",
     "deputy_candidate": "no",
-    "notes": "winter-dole healer; Miasma Warden destination"
+    "notes": "winter-dole healer; Miasma Warden destination",
+    "birth_sign": "sgn_crab",
+    "birth_day": 12
   },
   {
     "unit_id": "u_brandt",
@@ -114,7 +130,9 @@
     "growth_profile_id": "gp_armor",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "gate sergeant; Great shield via Maren support"
+    "notes": "gate sergeant; Great shield via Maren support",
+    "birth_sign": "sgn_bull",
+    "birth_day": 4
   },
   {
     "unit_id": "u_solveig",
@@ -127,7 +145,9 @@
     "growth_profile_id": "gp_flier",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "highland pegasus courier; living-prophecy family"
+    "notes": "highland pegasus courier; living-prophecy family",
+    "birth_sign": "sgn_vessel",
+    "birth_day": 24
   },
   {
     "unit_id": "u_gunnar",
@@ -140,7 +160,9 @@
     "growth_profile_id": "gp_archer",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "old huntsman; crossbow-certified"
+    "notes": "old huntsman; crossbow-certified",
+    "birth_sign": "sgn_goat",
+    "birth_day": 6
   },
   {
     "unit_id": "u_edda",
@@ -153,7 +175,9 @@
     "growth_profile_id": "gp_frail_lucky",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "village reciter"
+    "notes": "village reciter",
+    "birth_sign": "sgn_maiden",
+    "birth_day": 7
   },
   {
     "unit_id": "u_anselm",
@@ -166,7 +190,9 @@
     "growth_profile_id": "gp_healer",
     "venerated_candidate": "no",
     "deputy_candidate": "yes",
-    "notes": "adrift monk; theology barometer"
+    "notes": "adrift monk; theology barometer",
+    "birth_sign": "sgn_fishes",
+    "birth_day": 11
   },
   {
     "unit_id": "u_kheldar",
@@ -179,7 +205,9 @@
     "growth_profile_id": "gp_frail_lucky",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "smuggler merchant-spy; ch1 cameo unkillable, escapes turn 6; manifest discrepancy thread"
+    "notes": "smuggler merchant-spy; ch1 cameo unkillable, escapes turn 6; manifest discrepancy thread",
+    "birth_sign": "sgn_scorpion",
+    "birth_day": 27
   },
   {
     "unit_id": "u_dietmar",
@@ -192,7 +220,9 @@
     "growth_profile_id": "gp_jagen",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "revolution-generation; obsolescence arc; one Act 3 gate-holding deed map"
+    "notes": "revolution-generation; obsolescence arc; one Act 3 gate-holding deed map",
+    "birth_sign": "sgn_lion",
+    "birth_day": 2
   },
   {
     "unit_id": "u_torvald",
@@ -205,7 +235,9 @@
     "growth_profile_id": "gp_jagen",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "last of a plague-gutted order; force-deployed on ch_a03"
+    "notes": "last of a plague-gutted order; force-deployed on ch_a03",
+    "birth_sign": "sgn_crab",
+    "birth_day": 30
   },
   {
     "unit_id": "u_rinsa",
@@ -218,7 +250,9 @@
     "growth_profile_id": "gp_bruiser",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "the descender: paid staff at the oracle of the dead, not clergy. Leads customers down into the dark, waits while they ask their one question, brings them up. Has done it hundreds of times. Sign: the Vessel. Bound for Ash Ascetic (brawl+reason). DIADEM: you cannot cross the wall at the Throat without a guide. ASSEMBLY: she comes down to you, because the oracle's waiting list is full of your plague dead and she wants to know why the crown stopped sending the parish lists. The only unit who has BEEN down there, which matters in the endgame when the question is whether the Venerated is dead: everyone else argues from documents."
+    "notes": "the descender: paid staff at the oracle of the dead, not clergy. Leads customers down into the dark, waits while they ask their one question, brings them up. Has done it hundreds of times. Sign: the Vessel. Bound for Ash Ascetic (brawl+reason). DIADEM: you cannot cross the wall at the Throat without a guide. ASSEMBLY: she comes down to you, because the oracle's waiting list is full of your plague dead and she wants to know why the crown stopped sending the parish lists. The only unit who has BEEN down there, which matters in the endgame when the question is whether the Venerated is dead: everyone else argues from documents.",
+    "birth_sign": "sgn_vessel",
+    "birth_day": 6
   },
   {
     "unit_id": "u_kest",
@@ -231,6 +265,8 @@
     "growth_profile_id": "gp_frail_lucky",
     "venerated_candidate": "no",
     "deputy_candidate": "no",
-    "notes": "JIMMY THE HAND / LOCKE LAMORA archetype, gender-swapped: prodigious thief, guild-raised in Nikaia (shrunken city, six hundred people inside walls built for twenty thousand) -- works the abandoned quarters the state cannot afford to police, picking through the ruin of an economy rather than preying on a functioning one. Sign: the Twins. RECRUITMENT SCENE: caught mid-job in an abandoned house, arguing both sides of whether to take a single small worthless item -- a decan token, not clearly valuable and not clearly anyone's. She takes it despite herself. The recruiting unit does not need to understand the argument, only notice she was having one with someone who is not there. REVEAL WITHHELD AT RECRUITMENT: she is grieving a twin brother she believes she failed to protect, and the arguing-both-sides habit used to be a real second voice. This surfaces later, in supports, never at recruitment -- a first-time player should read the scene as ordinary Twins indecision, not grief, and only recontextualise it once a support earns the reveal. The token is HIS decan, not hers; inert and unremarked in Act 1-2, becomes relevant to the calendar schism in Act 3 (see calendar tab) -- a personal object turns out to be evidence in the document dispute the endgame runs on, without her knowing that when she pockets it. Bound for the shadow tier (Assassin/Trickster). NOTE: this is the one unit whose sign carries a hidden-trauma mechanism this deep -- not a template for the other 17 (see signs tab caution)."
+    "notes": "JIMMY THE HAND / LOCKE LAMORA archetype, gender-swapped: prodigious thief, guild-raised in Nikaia (shrunken city, six hundred people inside walls built for twenty thousand) -- works the abandoned quarters the state cannot afford to police, picking through the ruin of an economy rather than preying on a functioning one. Sign: the Twins. RECRUITMENT SCENE: caught mid-job in an abandoned house, arguing both sides of whether to take a single small worthless item -- a decan token, not clearly valuable and not clearly anyone's. She takes it despite herself. The recruiting unit does not need to understand the argument, only notice she was having one with someone who is not there. REVEAL WITHHELD AT RECRUITMENT: she is grieving a twin brother she believes she failed to protect, and the arguing-both-sides habit used to be a real second voice. This surfaces later, in supports, never at recruitment -- a first-time player should read the scene as ordinary Twins indecision, not grief, and only recontextualise it once a support earns the reveal. The token is HIS decan, not hers; inert and unremarked in Act 1-2, becomes relevant to the calendar schism in Act 3 (see calendar tab) -- a personal object turns out to be evidence in the document dispute the endgame runs on, without her knowing that when she pockets it. Bound for the shadow tier (Assassin/Trickster). NOTE: this is the one unit whose sign carries a hidden-trauma mechanism this deep -- not a template for the other 17 (see signs tab caution).",
+    "birth_sign": "sgn_twins",
+    "birth_day": 2
   }
 ]
