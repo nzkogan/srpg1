@@ -712,5 +712,83 @@
     "value": 1,
     "text": "map_f02",
     "notes": "Patrons: the map whose win reveals the patrons for what they are (demons and angels); before it they are called patrons, their gifts favours and burdens."
+  },
+  {
+    "param_id": "prm_morph_unlock_level",
+    "value": 10,
+    "text": null,
+    "notes": "The Morph gamble: the level a unit must reach before its patron's form is open to it."
+  },
+  {
+    "param_id": "prm_morph_unlock_lean",
+    "value": 2,
+    "text": null,
+    "notes": "The Morph gamble: how clearly a unit must lean to the angel or the demon (|lean|) before the form answers; the form is the side they lean to."
+  },
+  {
+    "param_id": "prm_morph_turns",
+    "value": 3,
+    "text": null,
+    "notes": "The Morph gamble: player turns the form holds, counting the turn it is taken. If the battle is not over when it lapses, the bearer dies for good."
+  },
+  {
+    "param_id": "prm_morph_base_chance",
+    "value": 60,
+    "text": null,
+    "notes": "The Morph gamble: percent chance the patron answers, before the lean's help."
+  },
+  {
+    "param_id": "prm_morph_lean_chance",
+    "value": 5,
+    "text": null,
+    "notes": "The Morph gamble: percent added to the chance for each point of lean."
+  },
+  {
+    "param_id": "prm_morph_fail_damage",
+    "value": 6,
+    "text": null,
+    "notes": "The Morph gamble: HP a bearer loses when the patron does not answer (the burden's price); there is no second try that battle."
+  },
+  {
+    "param_id": "prm_morph_stat_angel",
+    "value": 3,
+    "text": null,
+    "notes": "The Morph gamble: +str, mag, def, res and spd in the angel's form."
+  },
+  {
+    "param_id": "prm_morph_stat_demon",
+    "value": 5,
+    "text": null,
+    "notes": "The Morph gamble: +str, mag, def, res and spd in the demon's form."
+  },
+  {
+    "param_id": "prm_morph_blessing_angel_pct",
+    "value": 200,
+    "text": null,
+    "notes": "The Morph gamble: the angel's form scales the bearer's blessing chances to this percent of normal."
+  },
+  {
+    "param_id": "prm_morph_curse_angel_pct",
+    "value": 0,
+    "text": null,
+    "notes": "The Morph gamble: ... and its curse chances to this percent (none: the angel's form is clean)."
+  },
+  {
+    "param_id": "prm_morph_blessing_demon_pct",
+    "value": 150,
+    "text": null,
+    "notes": "The Morph gamble: the demon's form scales blessing chances to this percent."
+  },
+  {
+    "param_id": "prm_morph_curse_demon_pct",
+    "value": 200,
+    "text": null,
+    "notes": "The Morph gamble: ... and curse chances to this percent (the demon's form is stronger and costs more)."
+  },
+  {
+    "param_id": "prm_morph_pull",
+    "value": 1,
+    "text": null,
+    "notes": "The Morph gamble: a bearer who still holds the form when the battle ends is pulled this far toward that side for good (added to their lean)."
   }
 ]

@@ -1,6 +1,6 @@
 # The patrons -- design and status
 
-Status: **phase 1 implemented** (first pass), 2026-11-05. Phase 2 (the Morph gamble) is below, built next. Your direction: five-day increments with a blessing and a curse from the demon/angel pair, proc-chance skills, sigils that show which of the pair a bearer
+Status: **phases 1 and 2 implemented** (first pass), 2026-11-05 and 2026-11-06. Your direction: five-day increments with a blessing and a curse from the demon/angel pair, proc-chance skills, sigils that show which of the pair a bearer
 leans to, the real Ars Goetia, "patrons" for the first two thirds and the demons and angels revealed later, and every place on the map tied to a pair.
 
 ## The 72 pairs
@@ -43,9 +43,24 @@ Until the reveal (the win of `prm_patron_reveal_map`, the last court of the Long
 - The 18 units' birth days, the five Named's, and the 38 places' pairs and sides.
 - That the reveal is the last court (F2): it is "what the pact layer costs".
 
+## Phase 2: the Morph gamble
+
+"A gambling-style mechanic where characters can morph into an unlockable demon/angel form, but if they don't end the battle with it they suffer permadeath." Key **G**.
+
+- **Unlock.** A roster unit may ask once it is **level 10** and **leans clearly** (|lean| of 2 or more) to the angel or the demon: the form is the side they lean to (so the gift is earned by conduct, or by being pulled there before).
+- **The gamble.** The patron answers with a percent chance: **60% plus 5% per point of lean**. If it does not, the bearer pays **6 HP** (never to death) and **cannot ask again that battle**.
+- **The form** lasts **3 player turns**, counting the turn it is taken. The **angel's form**: +3 to str, mag, def, res and spd, blessings doubled, **curses gone**. The **demon's form**: +5 to those stats, blessings 1.5x and **curses doubled**. The token changes colour (gold or blood red).
+- **The price.** At the start of each turn the form holds one fewer. **If it runs out before the battle is over, the bearer dies for good**: the fall is recorded in the epilogue as *the price of a patron's form*. On a defend map the last turn is the battle's end, so a form that runs out then has held. Killed in the form by an enemy, they fall as anyone does.
+- **Holding it to the end.** A bearer still in the form when the battle is won is **pulled one step further toward that side for good** (`GameState.patron_pull`, added to their lean), which in turn raises their odds of being answered and moves their seal. Memories (flashbacks) have no patrons to ask.
+- **Saved** with a suspended battle (the form and its clock).
+- **Words.** Until the reveal it is "the patron's answer"; after it, "the angel's form" and "the demon's form".
+
+Drafted guesses: all numbers, the unlock (level plus lean), one asking a battle, a refusal costing HP, the form lasting three turns, and the pull.
+
+Tests: `tests/test_morph.gd` (40 checks, mutation-checked; two survivors are redundant guards: the 95% ceiling can never bind at a lean cap of 4, and a memory's units are already not roster units).
+
 ## Not built yet
 
-- **Phase 2, the Morph gamble** (next): an unlockable demon or angel form that must be held to the end of the battle or the bearer dies.
 - The patron of a chapter's day (the calendar footprint and this are still separate), and the proc odds shown in the forecast panel.
 - "The image" as one escalating silhouette across the statue, the colossus and the Idol; seals on the ground of a map; the 72 patrons' own offices as skills beyond the six-and-six catalogue.
 

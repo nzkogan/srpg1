@@ -158,5 +158,10 @@
     "phrase_id": "epi_roll_enrolled",
     "text": "Each of them is entered by name in the parish lists, and the name is spoken.",
     "notes": "closes the fallen roll once Anna has gone: she continues the Continuing Word's rebaptism fieldwork (prc_rebaptism: nobody is enrolled without their name being spoken) off-screen after departing (guest_units.gst_anna.off_screen_purpose_on_exit)"
+  },
+  {
+    "phrase_id": "epi_hazard_patron",
+    "text": "the price of a patron's form",
+    "notes": "hazard names, keyed epi_hazard_<id>: a bearer who did not hold the demon or angel form to the battle's end (the Morph gamble)"
   }
 ]

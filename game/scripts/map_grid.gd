@@ -129,6 +129,8 @@ const ORIGIN_TINT := Color(1.0, 0.9, 0.3, 0.7)
 const TOKEN_COLOR := Color(0.15, 0.15, 0.18, 0.9)
 const TOKEN_SELECTED_COLOR := Color(1.0, 0.85, 0.2, 0.95)
 const TOKEN_MOVED_COLOR := Color(0.35, 0.35, 0.4, 0.9)
+const FORM_ANGEL_COLOR := Color(0.78, 0.62, 0.15, 0.95)     # a bearer in the angel's form
+const FORM_DEMON_COLOR := Color(0.55, 0.1, 0.14, 0.95)      # ... and in the demon's
 const SHADOW_TINT := Color(0.25, 0.1, 0.4, 0.35)       # the Huma's shadow
 const ENEMY_TOKEN_COLOR := Color(0.55, 0.12, 0.12, 0.95)
 const NEUTRAL_TOKEN_COLOR := Color(0.62, 0.55, 0.18, 0.95) # a bribed enemy: stood down for the map
@@ -169,6 +171,8 @@ var bribed_count := 0          # enemies turned neutral on this map (Kheldar's b
 var move_cost: Dictionary = {}       # pid -> movement spent this turn (the Karkadann's charge reads it)
 var _clerk_lines: Array[String] = []   # F1: what the clerk has written down since the last turn began
 var _clerk_counts: Dictionary = {}     # F1: who has brought down how many
+var morphs: Dictionary = {}              # pid -> {"side": "angel"/"demon", "left": player turns the form still holds}
+var morph_tried: Dictionary = {}         # pid -> true once they have gambled this battle
 var charge_stuck: Dictionary = {}    # pid -> the turn on which a charging Karkadann rider cannot move
 var horses_captured := 0             # Warhorses this map's captures have brought in (mount_capture_per_map)
 var _supply_mode := false      # [Q] pressed: the next arrow key / click picks the ally the quartermaster supplies
@@ -766,6 +770,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_provoke()
 		elif key_event.keycode == KEY_Q:
 			_begin_supply()
+		elif key_event.keycode == KEY_G:
+			_morph()
 		elif key_event.keycode == KEY_R:
 			_begin_skald("refresh")
 		elif key_event.keycode == KEY_X:
@@ -814,6 +820,8 @@ func _refresh_token_color(idx: int) -> void:
 		return
 	if idx == selected_unit_index:
 		token.bg.color = TOKEN_SELECTED_COLOR
+	elif morphs.has(pid):
+		token.bg.color = FORM_ANGEL_COLOR if morphs[pid]["side"] == "angel" else FORM_DEMON_COLOR
 	elif moved_this_turn.has(pid):
 		token.bg.color = TOKEN_MOVED_COLOR
 	else:
@@ -1010,6 +1018,7 @@ func _next_turn() -> void:
 	moved_this_turn.clear()
 	move_cost.clear()
 	var mount_lines := _mount_turn_start()
+	mount_lines.append_array(_morph_turn_start())
 	_draw_shadow()
 	for i in units.size():
 		_refresh_token_color(i)
@@ -1044,6 +1053,9 @@ func _on_map_won() -> void:
 	if _is_flashback() and Flashback.has_rule(map_id, "lost_page"):
 		Flashback.lose_a_page(rng_override)       # F1: a page of the copy is lost, and nothing says which
 		_reward_text = (_reward_text + " The clerk counts the sheets and is satisfied.").strip_edges()
+	var held := _settle_morphs()
+	if not held.is_empty():
+		_reward_text = (_reward_text + " " + " ".join(held)).strip_edges()
 	if map_id == "map_x11":
 		Deputy.ensure_decided()       # the Second Writ is won: the crown's pick stands if it was never contested
 	var forged: Array[String] = []
@@ -1181,6 +1193,13 @@ func _hazard_at(pos: Vector2i) -> int:
 ## wins immediately for 'defend' maps (checked in _attack_enemy instead,
 ## since that's when it can happen) -- d05 has no boss row, only mooks/dens,
 ## so that early-win branch never fires there.
+## Whether this turn's start is the end of a defend or survive battle (its turn limit is reached): a form that runs out then has
+## held to the end.
+func _defend_win_due() -> bool:
+	var verb: String = map_row.get("objective_verb", "")
+	var limit := int(map_row.get("turn_limit", 0))
+	return (verb == "defend" or verb == "survive") and limit > 0 and turn >= limit
+
 func _check_defend_win() -> void:
 	var verb: String = map_row.get("objective_verb", "")
 	if map_won or (verb != "defend" and verb != "survive"):
@@ -2350,7 +2369,10 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 	if unit_positions.has(pid) and _marked(unit_positions[pid]):
 		c = Huma.boost(c)
 	if not _is_flashback() and Progression.is_known_unit(pid):
-		c["procs"] = Patrons.procs_for_unit(pid)                 # born under a patron's five days: a blessing and a curse
+		var form: String = str(morphs[pid]["side"]) if morphs.has(pid) else ""
+		c["procs"] = Patrons.procs_for_unit(pid, form)           # born under a patron's five days: a blessing and a curse
+		if form != "":
+			c = Patrons.form_boost(c, form)                      # and, in a patron's form, stronger for it
 	var day := Almanac.unit_bonus(pid, _day_chapter())       # the day's sign is theirs
 	if day > 0:
 		c["sup_hit"] = int(c.get("sup_hit", 0)) + day
@@ -2375,6 +2397,74 @@ func _enemy_combatant(inst: Dictionary) -> Dictionary:
 			c["sup_hit"] = int(c.get("sup_hit", 0)) + day
 			c["sup_avoid"] = int(c.get("sup_avoid", 0)) + day
 	return c
+
+# ----------------------------------------------------------------- the Morph gamble
+#
+# [G]: the selected unit asks its patron for a form (Patrons.can_morph says who may). The patron may refuse; if it answers, the
+# form holds morph_turns player turns, and a bearer who does not still hold it when the battle ends dies for good.
+
+func _morph() -> void:
+	if units.is_empty() or map_won or map_lost or _is_flashback():
+		return
+	var unit: Dictionary = units[selected_unit_index]
+	var pid: String = unit.get("punit_id", "")
+	var uname: String = unit.get("name", pid)
+	if not _is_roster_unit(unit) or not unit_positions.has(pid):
+		return
+	if morphs.has(pid):
+		info_label.text = "%s already holds the form." % uname
+		return
+	if morph_tried.has(pid):
+		info_label.text = "%s has gambled once this battle; the patron will not be asked again." % uname
+		return
+	var ok := Patrons.can_morph(pid)
+	if not ok["ok"]:
+		info_label.text = "%s cannot ask: %s." % [uname, ok["reason"]]
+		return
+	var rng := rng_override
+	if rng == null:
+		rng = RandomNumberGenerator.new()
+		rng.randomize()
+	morph_tried[pid] = true
+	var chance := Patrons.morph_chance(pid)
+	if rng.randi_range(1, 100) > chance:
+		var hurt := mini(int(Progression.param("morph_fail_damage")), maxi(0, int(unit_hp.get(pid, 0)) - 1))
+		unit_hp[pid] = int(unit_hp.get(pid, 0)) - hurt
+		info_label.text = "%s asks, at %d%%, and the patron does not answer. %d HP is the price; there is no second asking this battle." % [uname, chance, hurt]
+	else:
+		morphs[pid] = {"side": ok["side"], "left": int(Progression.param("morph_turns"))}
+		info_label.text = "%s asks, at %d%%, and is answered: %s. It holds %d turns, and only the end of the battle lets go of it. Be still in it when the battle ends, or the patron collects." % [
+			uname, chance, Patrons.form_word(ok["side"]), int(Progression.param("morph_turns"))]
+		_refresh_token_color(selected_unit_index)
+	_update_status_label()
+	_update_forecast()
+
+## At the start of each player turn: every form holds one turn fewer, and one that has run out before the battle is over takes its
+## bearer with it. Returns the lines to show.
+func _morph_turn_start() -> Array[String]:
+	var lines: Array[String] = []
+	for pid in morphs.keys():
+		morphs[pid]["left"] = int(morphs[pid]["left"]) - 1
+		var uname: String = str(defender_row_for(pid).get("name", pid))
+		if int(morphs[pid]["left"]) <= 0 and not map_won and not _defend_win_due():
+			var side: String = morphs[pid]["side"]
+			_kill_unit(pid, {"type": "hazard", "id": "patron", "own_action": false})
+			lines.append("%s's form has run out before the battle is over, and the patron collects. They are gone for good." % uname)
+			morphs.erase(pid)
+			_check_defeat()
+		else:
+			lines.append("%s's form holds %d more turn%s." % [uname, int(morphs[pid]["left"]), "" if int(morphs[pid]["left"]) == 1 else "s"])
+	return lines
+
+## The battle is won: whoever still holds a form kept the bargain, and is pulled toward its side for good.
+func _settle_morphs() -> Array[String]:
+	var lines: Array[String] = []
+	for pid in morphs.keys():
+		var side: String = morphs[pid]["side"]
+		Patrons.add_pull(pid, side)
+		lines.append("%s ended the battle in %s, and the patron lets go: they are drawn further toward the %s." % [str(defender_row_for(pid).get("name", pid)), Patrons.form_word(side), Patrons.holder_word(side)])
+	morphs.clear()
+	return lines
 
 ## What tells two enemies of one archetype apart for their births: where they came from.
 func _enemy_key(inst: Dictionary) -> String:
@@ -2972,7 +3062,7 @@ func capture_state() -> Dictionary:
 		"positions": positions, "hp": unit_hp.duplicate(), "moved": moved_this_turn.duplicate(), "attacked": attacked_this_turn.duplicate(),
 		"struck": struck_units.duplicate(), "fought": fought_units.duplicate(), "hold": hold,
 		"enemies": enemy_rows, "dens": den_rows, "enemy_log": enemy_log.duplicate(),
-		"bribed": bribed_count, "charge_stuck": charge_stuck.duplicate(), "move_cost": move_cost.duplicate(), "horses": horses_captured, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
+		"bribed": bribed_count, "charge_stuck": charge_stuck.duplicate(), "move_cost": move_cost.duplicate(), "morphs": morphs.duplicate(true), "morph_tried": morph_tried.duplicate(), "horses": horses_captured, "provoked": provoked_by, "miracle": miracle_used.keys(), "sapper_used": sapper_used, "breached": breached.keys().map(func(p): return _v2a(p)),
 		"mines": mines.keys().map(func(p): return {"at": _v2a(p), "by": mines[p]["by"]}), "escaped": escaped_count, "delivered": delivered.duplicate(),
 	}
 
@@ -3045,6 +3135,8 @@ func _restore_progress(snap: Dictionary) -> void:
 	charge_stuck = (snap.get("charge_stuck", {}) as Dictionary).duplicate()
 	move_cost = (snap.get("move_cost", {}) as Dictionary).duplicate()
 	horses_captured = int(snap.get("horses", 0))
+	morphs = (snap.get("morphs", {}) as Dictionary).duplicate(true)
+	morph_tried = (snap.get("morph_tried", {}) as Dictionary).duplicate()
 	miracle_used.clear()
 	for pid in snap.get("miracle", []):
 		miracle_used[str(pid)] = true
@@ -3321,6 +3413,7 @@ func _check_cargo_lost() -> void:
 ## A player unit leaves play (dead): token, position and all. `killer` is who did it, for the
 ## epilogue (see Epilogue.note_fall); a fall that is final once the map is won.
 func _kill_unit(pid: String, killer: Dictionary = {"type": "unknown"}) -> void:
+	morphs.erase(pid)
 	Epilogue.note_fall(pid, map_id, killer)
 	var token = unit_tokens.get(pid)
 	if token:
@@ -3449,6 +3542,8 @@ func _update_status_label() -> void:
 			break
 	if not push_names.is_empty():
 		controls = controls.replace("[E] weapon", "[S] " + "/".join(push_names).to_lower() + " -- [E] weapon")
+	if not _is_flashback() and units.any(func(u): return _is_roster_unit(u) and Patrons.can_morph(str(u.get("punit_id", "")))["ok"]):
+		controls = controls.replace("[E] weapon", "[G] gamble -- [E] weapon")
 	if map_id == "map_f00":
 		controls = "[A] attack statue -- " + controls
 	lines.append(controls)

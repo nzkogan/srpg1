@@ -111,6 +111,10 @@ var trial: Dictionary = {}
 ## Scenes already shown (scene ids; see the Scenes autoload).
 var scenes_seen: Dictionary = {}
 
+## How far a unit has been pulled toward the angel (+) or the demon (-) by holding a patron's form to a battle's end (see the
+## Patrons autoload): unit id -> points, added to its lean.
+var patron_pull: Dictionary = {}
+
 ## A suspended battle (a mid-map save): {} when there is none, else the snapshot
 ## map_grid.gd's capture_state() made -- the map, the turn, every unit and enemy -- plus
 ## a copy of the rest of the playthrough as it was, so resuming rolls everything back
@@ -135,7 +139,7 @@ const PERSISTED := {
 	"materials": TYPE_DICTIONARY, "materials_claimed": TYPE_DICTIONARY, "forge_orders": TYPE_ARRAY, "works_started": TYPE_INT,
 	"defections": TYPE_DICTIONARY, "guests": TYPE_DICTIONARY,
 	"deputy_ledger": TYPE_DICTIONARY, "deputy": TYPE_DICTIONARY, "epilogue": TYPE_DICTIONARY, "mounts": TYPE_DICTIONARY,
-	"named_slain": TYPE_ARRAY, "trial": TYPE_DICTIONARY, "scenes_seen": TYPE_DICTIONARY,
+	"named_slain": TYPE_ARRAY, "trial": TYPE_DICTIONARY, "scenes_seen": TYPE_DICTIONARY, "patron_pull": TYPE_DICTIONARY,
 }
 
 ## Variables that are deliberately not saved: one-shot UI hand-offs.

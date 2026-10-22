@@ -92,7 +92,7 @@ func lean_of_unit(unit_id: String) -> int:
 	var d := Deputy.docket(unit_id)
 	var net := int(d["mercies"]) * int(Progression.param("trial_mercy_weight")) - int(d["kills"])
 	var shift := clampi(int(net / maxi(1, int(Progression.param("patron_lean_step")))), -(cap - 1), cap - 1)
-	return clampi(birth_lean(b["day"]) + shift, -cap, cap)
+	return clampi(birth_lean(b["day"]) + shift + int(GameState.patron_pull.get(unit_id, 0)), -cap, cap)
 
 func lean_of_enemy(birth: Dictionary) -> int:
 	return birth_lean(int(birth.get("day", 3))) if birth.get("sign", "") != "" else 0
@@ -126,8 +126,20 @@ func procs_for(birth: Dictionary, lean: int) -> Array:
 			"label": str(e["name"]), "patron": p["patron_id"]})
 	return out
 
-func procs_for_unit(unit_id: String) -> Array:
-	return procs_for(birth_of_unit(unit_id), lean_of_unit(unit_id))
+## `form_side` is "" normally, or "angel"/"demon" while the bearer holds a patron's form (the form scales the odds).
+func procs_for_unit(unit_id: String, form_side: String = "") -> Array:
+	var procs := procs_for(birth_of_unit(unit_id), lean_of_unit(unit_id))
+	if form_side == "":
+		return procs
+	var out: Array = []
+	for pr in procs:
+		var pct := float(Progression.param("morph_%s_%s_pct" % ["blessing" if pr["side"] == "blessing" else "curse", form_side]))
+		var c := int(round(pr["chance"] * pct / 100.0))
+		if c > 0:
+			var q: Dictionary = pr.duplicate()
+			q["chance"] = mini(c, int(Progression.param("patron_chance_max")) * 2)
+			out.append(q)
+	return out
 
 func procs_for_enemy(archetype: Dictionary, key: String) -> Array:
 	var b := birth_of_enemy(archetype, key)
@@ -205,3 +217,46 @@ func ground_text(location_row: Dictionary) -> String:
 		"angel": return "Ground of the demon %s, held now by the angel %s (%s)." % [p["demon_name"], p["angel_name"], note]
 		"demon": return "Ground of the angel %s, held now by the demon %s (%s)." % [p["angel_name"], p["demon_name"], note]
 	return "The demon %s and the angel %s share this ground (%s)." % [p["demon_name"], p["angel_name"], note]
+
+# ------------------------------------------------------------------ the Morph gamble
+##
+## A unit who has reached morph_unlock_level and leans clearly (|lean| >= morph_unlock_lean) to the angel or the demon may take
+## that side's FORM in battle. It is a gamble: the patron may not answer (the bearer pays morph_fail_damage and may not try again that
+## battle); if it does, the form lasts morph_turns player turns -- stronger stats, bigger blessings, and in the demon's form bigger
+## curses too -- and the bearer must still hold it when the battle ends or die for good. Holding it to the end pulls them further toward
+## that side (GameState.patron_pull).
+
+## Whether a unit may take its form now: {"ok", "reason", "side"}.
+func can_morph(unit_id: String) -> Dictionary:
+	if not Progression.is_known_unit(unit_id) or birth_of_unit(unit_id)["sign"] == "":
+		return {"ok": false, "reason": "no patron answers them", "side": ""}
+	if int(Progression.state(unit_id)["level"]) < int(Progression.param("morph_unlock_level")):
+		return {"ok": false, "reason": "not yet level %d" % int(Progression.param("morph_unlock_level")), "side": ""}
+	var lean := lean_of_unit(unit_id)
+	if absi(lean) < int(Progression.param("morph_unlock_lean")):
+		return {"ok": false, "reason": "leans neither way clearly enough", "side": ""}
+	return {"ok": true, "reason": "", "side": "angel" if lean > 0 else "demon"}
+
+## The percent chance the patron answers.
+func morph_chance(unit_id: String) -> int:
+	return clampi(int(Progression.param("morph_base_chance")) + int(Progression.param("morph_lean_chance")) * absi(lean_of_unit(unit_id)), 5, 95)
+
+func form_stat(side: String) -> int:
+	return int(Progression.param("morph_stat_angel" if side == "angel" else "morph_stat_demon"))
+
+## A copy of a stat dict with a form's bonus to str, mag, def, res and spd.
+func form_boost(stats: Dictionary, side: String) -> Dictionary:
+	var out := stats.duplicate()
+	for k in ["str", "mag", "def", "res", "spd"]:
+		out[k] = int(out.get(k, 0)) + form_stat(side)
+	return out
+
+## What the form is called: the patron's answer until the reveal, then the angel's or the demon's form.
+func form_word(side: String) -> String:
+	if not revealed():
+		return "the patron's answer"
+	return "the angel's form" if side == "angel" else "the demon's form"
+
+## Holding the form to the battle's end pulls the bearer toward its side.
+func add_pull(unit_id: String, side: String) -> void:
+	GameState.patron_pull[unit_id] = int(GameState.patron_pull.get(unit_id, 0)) + (1 if side == "angel" else -1) * int(Progression.param("morph_pull"))
