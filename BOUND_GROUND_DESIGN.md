@@ -34,6 +34,6 @@ Parameters: `seal_angel_blessing_pct`, `seal_angel_curse_pct`, `seal_demon_bless
 
 - Seals that move, are re-laid by an enemy, or can be held by standing on them for a turn.
 - A seal's own effect beyond scaling (healing ground, a ward).
-- The patron of a chapter's day.
+- (The patron of a chapter's day is built separately: PATRON_DAY_DESIGN.md.)
 
 Tests: `tests/test_seals.gd` (33 checks, mutation-checked: side branches, home bonus, rounding, zero-removal, cap, adjacency, once-a-turn, won-field refusal, unknown-tile break, snapshot, control label).

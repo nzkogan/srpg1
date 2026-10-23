@@ -305,6 +305,58 @@ func seal_scale(procs: Array, side: String, patron_id: String) -> Array:
 			out.append(q)
 	return out
 
+# ------------------------------------------------------------------ the patron of the day
+
+## The pair whose five days a chapter falls on: the sign the calendar names for it (Almanac.governing), and within that sign one
+## of its six bands each time the wheel comes round ({} when the chapter's calendar names no day, or for a memory).
+func day_patron(chapter_id: String) -> Dictionary:
+	var g := Almanac.governing(chapter_id)
+	var ch = Canon.find_by("chapters", "chapter_id", chapter_id)
+	if g == "" or ch == null:
+		return {}
+	var wheel := maxi(1, Almanac.wheel().size())
+	var band: int = ((int(ch.get("number", 1)) - 1) / wheel) % 6
+	return patron_for(g, band * 5 + 1)
+
+## Their blessings, raised by the day's bonus if the pair is the day's patron.
+func day_scale(procs: Array, day_patron_id: String) -> Array:
+	if day_patron_id == "":
+		return procs
+	var out: Array = []
+	for pr in procs:
+		if pr["side"] == "blessing" and pr.get("patron") == day_patron_id:
+			var q: Dictionary = pr.duplicate()
+			q["chance"] = mini(int(pr["chance"]) + int(Progression.param("patron_day_bonus")), int(Progression.param("patron_chance_max")) * 2)
+			out.append(q)
+		else:
+			out.append(pr)
+	return out
+
+## "Bael" before the reveal, "Bael and Hamiah" after it.
+func pair_name(patron: Dictionary) -> String:
+	if not revealed():
+		return str(patron.get("demon_name", ""))
+	return "%s and %s" % [patron.get("demon_name", ""), patron.get("angel_name", "")]
+
+## The briefing line: whose five days these are, and which of the company are born under them ("" when the chapter has no day).
+func day_briefing(chapter_id: String) -> String:
+	var p := day_patron(chapter_id)
+	if p.is_empty():
+		return ""
+	var names: Array[String] = []
+	for u in Canon.get_table("units"):
+		var uid: String = u["unit_id"]
+		if not Defections.joined(uid) or Defections.is_gone(uid):
+			continue
+		var b := birth_of_unit(uid)
+		var bp := patron_for(str(b.get("sign", "")), int(b.get("day", 0)))
+		if not bp.is_empty() and bp["patron_id"] == p["patron_id"]:
+			names.append(str(u.get("name")))
+	var out := "The day falls to %s (days %d to %d of %s)." % [pair_name(p), int(p["first_day"]), int(p["last_day"]), Almanac.sign_name(str(p["sign_id"]))]
+	if not names.is_empty():
+		out += " Their %ss run +%d%%: %s." % [gift_word("blessing"), int(Progression.param("patron_day_bonus")), ", ".join(names)]
+	return out
+
 ## What the bound ground is called: before the reveal the patron's own ground, after it the side that holds it.
 func ground_word(side: String) -> String:
 	if not revealed():

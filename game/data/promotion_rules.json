@@ -826,5 +826,11 @@
     "value": 150,
     "text": null,
     "notes": "Bound ground: a bearer born under the very pair the seal belongs to is at home: their blessings are scaled by this percent on top."
+  },
+  {
+    "param_id": "prm_patron_day_bonus",
+    "value": 5,
+    "text": null,
+    "notes": "Patron of the day: on a chapter whose calendar names a day, the patron holding that five-day band (the sign's six bands in turn, one band each time the wheel comes round) answers louder for its own bearers: their blessing chances rise by this many points (capped at twice patron_chance_max). Curses are untouched."
   }
 ]

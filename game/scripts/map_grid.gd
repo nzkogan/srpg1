@@ -317,6 +317,8 @@ func _add_day_briefing() -> void:
 	var line := Almanac.briefing(_day_chapter())
 	if line == "":
 		return
+	line += " " + Patrons.day_briefing(_day_chapter())
+	line = line.strip_edges()
 	for inst in enemies:
 		var nid = inst.archetype.get("named_id")
 		if nid != null and Almanac.named_bonus(str(nid), _day_chapter()) > 0:
@@ -2457,6 +2459,7 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 		var form: String = str(morphs[pid]["side"]) if morphs.has(pid) else ""
 		c["procs"] = Patrons.procs_for_unit(pid, form)           # born under a patron's five days: a blessing and a curse
 		c["procs"] = _on_seal(c["procs"], unit_positions.get(pid, Vector2i(-1, -1)))       # louder or softer on bound ground
+		c["procs"] = Patrons.day_scale(c["procs"], _day_patron_id())                        # louder on its own patron's day
 		if form != "":
 			c = Patrons.form_boost(c, form)                      # and, in a patron's form, stronger for it
 	var day := Almanac.unit_bonus(pid, _day_chapter())       # the day's sign is theirs
@@ -2464,6 +2467,10 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 		c["sup_hit"] = int(c.get("sup_hit", 0)) + day
 		c["sup_avoid"] = int(c.get("sup_avoid", 0)) + day
 	return c
+
+## The pair whose five days this map's chapter falls on ("" if none).
+func _day_patron_id() -> String:
+	return str(Patrons.day_patron(_day_chapter()).get("patron_id", ""))
 
 ## The chapter whose calendar governs this map's day ("" on the prologue, which keeps none).
 func _day_chapter() -> String:
@@ -2476,7 +2483,7 @@ func _enemy_combatant(inst: Dictionary) -> Dictionary:
 		c = Huma.boost(c)
 	c["max_hp"] = int(inst.max_hp)
 	if not _is_flashback():
-		c["procs"] = _on_seal(Patrons.procs_for_enemy(inst.archetype, _enemy_key(inst)), inst.pos)
+		c["procs"] = Patrons.day_scale(_on_seal(Patrons.procs_for_enemy(inst.archetype, _enemy_key(inst)), inst.pos), _day_patron_id())
 	if inst.archetype.get("named_id") != null:
 		var day := Almanac.named_bonus(str(inst.archetype["named_id"]), _day_chapter())
 		if day > 0:

@@ -29,6 +29,6 @@ The forecast panel now has a line for each side's patron gifts, in the words of 
 ## Not built
 
 - Seals on the ground of a map (bound ground), the image as a thing with a health bar or an effect in play (it is still scenery, apart from the prologue's statue), and an image on the world map.
-- A patron of the day for each chapter.
+- (A patron of the day for each chapter is built: PATRON_DAY_DESIGN.md.)
 
 Tests: `tests/test_image.gd` (28 checks, mutation-checked); the forecast line is in `test_patrons`. The validator's c07i checks the stage and the placement inside the map.

@@ -61,7 +61,7 @@ Tests: `tests/test_morph.gd` (40 checks, mutation-checked; two survivors are red
 
 ## Not built yet
 
-- The patron of a chapter's day (the calendar footprint and this are still separate), and the 72 patrons' own offices as skills beyond the six-and-six catalogue.
-- (Built since: the proc odds in the forecast and the image, see IMAGE_DESIGN.md; seals on map ground, see BOUND_GROUND_DESIGN.md.)
+- The 72 patrons' own offices as skills beyond the six-and-six catalogue.
+- (Built since: the proc odds in the forecast and the image, see IMAGE_DESIGN.md; seals on map ground, see BOUND_GROUND_DESIGN.md; the patron of the day, see PATRON_DAY_DESIGN.md.)
 
 Tests: `tests/test_patrons.gd` (72 checks, mutation-checked). The validator's c07p checks the 72 pairs, the quinaries, the effects, births and places.
