@@ -26,7 +26,7 @@ reveal by that win is caught). The writ and literacy triggers remember that they
 
 ## Not built
 
-- Any scene for the leaving (the signposting canon wants before a defection), a way to keep the creature by appeasing it, or a lieutenant version of it (as a creature that returns hostile).
+- Any scene for the leaving (the signposting canon wants before a defection), (appeasing it is built: APPEASE_DESIGN.md), or a lieutenant version of it (as a creature that returns hostile).
 - The Anzu turning to a *specific* literate unit (it just leaves).
 
 Tests: `tests/test_named_defections.gd` (29 checks, mutation-checked). The validator's c07 checks the `leaves_*` columns.

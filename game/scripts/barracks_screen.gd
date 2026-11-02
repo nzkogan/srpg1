@@ -133,6 +133,11 @@ func options() -> Array:
 				var ok := Mounts.can_mount(u, m)
 				out.append({"kind": "mount", "id": m, "mount": m, "locked": not ok["ok"], "reason": ok["reason"],
 					"data": {"name": "%s (%s)" % [Mounts.name_of(m), Mounts.row(m).get("movement", "riding")], "locked": not ok["ok"]}})
+			for m in Mounts.owned():                 # an offering to a creature that could leave
+				if not Mounts.leaves(m).is_empty():
+					var ap := Mounts.can_appease(m)
+					out.append({"kind": "appease", "id": m, "mount": m, "locked": not ap["ok"], "reason": ap["reason"],
+						"data": {"name": "Appease %s: %s (%d gold)" % [Mounts.name_of(m), Mounts.row(m).get("appease_gift", ""), ap["cost"]], "locked": not ap["ok"]}})
 		MODE_ABILITIES:
 			var chosen: Array = Progression.chosen(u)
 			for row in Progression.pool(u):
@@ -304,9 +309,15 @@ func _mount_text(u: String, opt: Dictionary) -> Array[String]:
 		lines.append("[color=%s]The stable is empty. Mounts come from a requisition (O on the overworld), from capturing a mounted enemy, or from taking a Named creature intact.[/color]" % DIM)
 	elif opt["id"] == "":
 		lines.append("Enter hands %s back to the stable." % Mounts.name_of(Mounts.mount_of(u)))
+	elif opt["kind"] == "appease":
+		lines.append("[b]%s[/b]" % Mounts.name_of(opt["id"]))
+		lines.append(Mounts.warning(opt["id"]))
+		lines.append("[color=%s]%s[/color]" % [BAD if opt["locked"] else GOOD, "Can't make the offering: %s." % opt["reason"] if opt["locked"] else "Enter makes the offering (%s) for %d gold; it holds back the next time the creature would go." % [Mounts.row(opt["id"]).get("appease_gift", ""), Mounts.appease_cost()]])
 	else:
 		lines.append("[b]%s[/b]" % Mounts.name_of(opt["id"]))
 		lines.append(Mounts.describe(opt["id"]))
+		if Mounts.warning(opt["id"]) != "":
+			lines.append("[color=%s]%s[/color]" % [DIM, Mounts.warning(opt["id"])])
 		lines.append("[color=%s]%s[/color]" % [BAD if opt["locked"] else GOOD, "Can't ride it: %s." % opt["reason"] if opt["locked"] else "Enter gives it to %s. Movement becomes %s." % [_name_of(u), Mounts.row(opt["id"]).get("movement", "riding")]])
 	return lines
 
@@ -434,10 +445,15 @@ func activate() -> void:
 			if opt["id"] == "":
 				Mounts.unassign(u)
 				_message = "%s gives up the mount." % _name_of(u)
+			elif opt["kind"] == "appease":
+				var ap := Mounts.appease(opt["id"])
+				_message = "The offering is made (%s). %d gold." % [Mounts.row(opt["id"]).get("appease_gift", ""), ap["cost"]] if ap["ok"] else "Can't: %s." % ap["reason"]
 			else:
 				var r := Mounts.assign(u, opt["id"])
 				if r.get("left", false):
 					_message = r["reason"]              # the creature would not be handed on
+				elif r.get("stayed", "") != "":
+					_message = "%s takes %s. %s" % [_name_of(u), Mounts.name_of(opt["id"]), r["stayed"]]
 				else:
 					_message = "%s takes %s." % [_name_of(u), Mounts.name_of(opt["id"])] if r["ok"] else "Can't: %s." % r["reason"]
 		_:

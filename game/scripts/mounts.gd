@@ -20,7 +20,8 @@ extends Node
 ## and assign): the Simurgh when the feather changes hands, the Karkadann when the Ashland is written off or the
 ## crown's orders are taken, the Anzu when someone shows a literacy its rider lacks. The Shadhavar never does.
 ## State: GameState.mounts = {"stable": [mount ids], "assigned": {unit_id: mount_id}, "claimed": {named_id: true},
-## "holders": {mount_id: the unit who first held it}, "writ_seen" / "literacy_seen": the triggers already noticed}.
+## "holders": {mount_id: the unit who first held it}, "writ_seen" / "literacy_seen": the triggers already noticed,
+## "pledged": {mount_id: true}: an offering made (appease) that will hold back its next departure}.
 
 func _s() -> Dictionary:
 	if not GameState.mounts.has("stable"):
@@ -31,6 +32,8 @@ func _s() -> Dictionary:
 		GameState.mounts["claimed"] = {}
 	if not GameState.mounts.has("holders"):
 		GameState.mounts["holders"] = {}
+	if not GameState.mounts.has("pledged"):
+		GameState.mounts["pledged"] = {}
 	return GameState.mounts
 
 func rows() -> Array:
@@ -114,14 +117,18 @@ func assign(unit_id: String, mount_id: String) -> Dictionary:
 	var i: int = st["stable"].find(mount_id)
 	if i < 0:
 		return {"ok": false, "reason": "%s is not in the stable" % name_of(mount_id)}
+	var stayed := ""
 	if _handed_on(unit_id, mount_id):
-		return {"ok": true, "left": true, "reason": _depart(mount_id)}        # the feather has changed hands
+		if not pledged(mount_id):
+			return {"ok": true, "left": true, "reason": _depart(mount_id)}        # the feather has changed hands
+		stayed = _hold(mount_id)               # ...but an offering was made: she stays, and the new hand holds the feather
+		st["holders"][mount_id] = unit_id
 	st["stable"].remove_at(i)
 	unassign(unit_id)
 	st["assigned"][unit_id] = mount_id
 	if not _holder_valid(str(st["holders"].get(mount_id, ""))):
 		st["holders"][mount_id] = unit_id
-	return {"ok": true, "reason": ""}
+	return {"ok": true, "reason": "", "stayed": stayed}
 
 # ------------------------------------------------------------- leaving
 
@@ -134,6 +141,48 @@ func leaves(mount_id: String) -> Array:
 	for part in str(v).split("|"):
 		out.append(part.strip_edges())
 	return out
+
+# ------------------------------------------------------------- appeasing
+
+## The signpost: what a mount that can leave is watching for, and whether an offering already stands ("" if it never leaves).
+func warning(mount_id: String) -> String:
+	var w = row(mount_id).get("leaves_warning")
+	if w == null:
+		return ""
+	return "%s%s" % [w, " An offering stands (%s): it will stay once." % row(mount_id).get("appease_gift") if pledged(mount_id) else ""]
+
+func pledged(mount_id: String) -> bool:
+	return bool(_s()["pledged"].get(mount_id, false))
+
+func appease_cost() -> int:
+	return int(Progression.param("appease_cost"))
+
+## Whether an offering can be made to this mount now: {"ok", "reason", "cost"}.
+func can_appease(mount_id: String) -> Dictionary:
+	var cost := appease_cost()
+	if row(mount_id).is_empty() or leaves(mount_id).is_empty():
+		return {"ok": false, "reason": "it was never going to leave", "cost": cost}
+	if not owned().has(mount_id):
+		return {"ok": false, "reason": "it is not with the company", "cost": cost}
+	if pledged(mount_id):
+		return {"ok": false, "reason": "an offering already stands", "cost": cost}
+	if GameState.gold < cost:
+		return {"ok": false, "reason": "it costs %d gold (you have %d)" % [cost, GameState.gold], "cost": cost}
+	return {"ok": true, "reason": "", "cost": cost}
+
+## Makes the offering: it holds back the creature's next departure.
+func appease(mount_id: String) -> Dictionary:
+	var check := can_appease(mount_id)
+	if not check["ok"]:
+		return check
+	GameState.gold -= int(check["cost"])
+	_s()["pledged"][mount_id] = true
+	return check
+
+## An offering is spent holding a departure back; returns the line to show.
+func _hold(mount_id: String) -> String:
+	_s()["pledged"].erase(mount_id)
+	return str(row(mount_id).get("appease_line", "%s stays." % name_of(mount_id).capitalize()))
 
 ## Whether a unit still counts as a living member of the company.
 func _holder_valid(unit_id: String) -> bool:
@@ -154,6 +203,7 @@ func _depart(mount_id: String) -> String:
 		if st["assigned"][u] == mount_id:
 			st["assigned"].erase(u)
 	st["holders"].erase(mount_id)
+	st["pledged"].erase(mount_id)
 	st["claimed"].erase(row(mount_id).get("named_id"))
 	return str(row(mount_id).get("leaves_line", "%s leaves." % name_of(mount_id).capitalize()))
 
@@ -203,7 +253,7 @@ func check_departures(map_id: String, newly: bool) -> Array[String]:
 					rider = u
 			go = not literate.has(rider)         # the one who can read the register keeps it
 		if go:
-			out.append(_depart(mid))
+			out.append(_hold(mid) if pledged(mid) else _depart(mid))
 	return out
 
 ## Takes a unit's mount back to the stable. False if they had none.
@@ -246,6 +296,7 @@ func on_rider_fell(unit_id: String, recovered: bool) -> String:
 		return "%s is recovered, riderless, and goes back to the stable." % name_of(mount).capitalize()
 	if row(mount).get("kind") == "named":
 		st["claimed"].erase(row(mount).get("named_id"))         # the creature goes back to the wild: it can be won again
+		st["pledged"].erase(mount)
 	return "%s runs off riderless and is lost." % name_of(mount).capitalize()
 
 ## The line the barracks and the ledger show for a unit's mount ("" if none).

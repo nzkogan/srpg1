@@ -856,5 +856,11 @@
     "value": 100,
     "text": null,
     "notes": "Offices: scale (percent) for a President or Knight."
+  },
+  {
+    "param_id": "prm_appease_cost",
+    "value": 300,
+    "text": null,
+    "notes": "Appeasing a Named mount that can leave: the gold the offering costs. One pledge holds one departure back; it is spent when it does."
   }
 ]

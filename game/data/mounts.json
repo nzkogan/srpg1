@@ -11,7 +11,10 @@
     "leaves_when": null,
     "leaves_map_id": null,
     "leaves_unless_map_id": null,
-    "leaves_line": null
+    "leaves_line": null,
+    "leaves_warning": null,
+    "appease_gift": null,
+    "appease_line": null
   },
   {
     "mount_id": "mnt_simurgh",
@@ -25,7 +28,10 @@
     "leaves_when": "handed_on",
     "leaves_map_id": null,
     "leaves_unless_map_id": null,
-    "leaves_line": "She arrives green and stops being green: the feather has changed hands, and the Simurgh is gone from the stable."
+    "leaves_line": "She arrives green and stops being green: the feather has changed hands, and the Simurgh is gone from the stable.",
+    "leaves_warning": "She answers whoever holds the feather: give her to another hand while the first still lives and rides with you, and she goes.",
+    "appease_gift": "a second feather, sewn into the harness",
+    "appease_line": "A second feather is sewn into the harness, and the Simurgh stays green a while longer."
   },
   {
     "mount_id": "mnt_shadhavar",
@@ -39,7 +45,10 @@
     "leaves_when": null,
     "leaves_map_id": null,
     "leaves_unless_map_id": null,
-    "leaves_line": null
+    "leaves_line": null,
+    "leaves_warning": null,
+    "appease_gift": null,
+    "appease_line": null
   },
   {
     "mount_id": "mnt_karkadann",
@@ -53,7 +62,10 @@
     "leaves_when": "map_won|writ",
     "leaves_map_id": "map_b15",
     "leaves_unless_map_id": "map_ct19",
-    "leaves_line": "The Karkadann turns: it guards the doves, and a company that writes the Ashland off, or takes the crown's orders, is not one whose terms it can keep."
+    "leaves_line": "The Karkadann turns: it guards the doves, and a company that writes the Ashland off, or takes the crown's orders, is not one whose terms it can keep.",
+    "leaves_warning": "It guards the doves of the Ashland, and will not carry a company that writes the Ashland off or takes the crown's orders.",
+    "appease_gift": "grain for the doves, laid at its stall",
+    "appease_line": "The company feeds the doves, and the Karkadann stays its terms for now."
   },
   {
     "mount_id": "mnt_anzu",
@@ -67,6 +79,9 @@
     "leaves_when": "literacy",
     "leaves_map_id": null,
     "leaves_unless_map_id": null,
-    "leaves_line": "Someone has shown a literacy its rider lacks, and the Anzu turns to the one who can read the register."
+    "leaves_line": "Someone has shown a literacy its rider lacks, and the Anzu turns to the one who can read the register.",
+    "leaves_warning": "It follows whoever can read the register: let someone show a literacy its rider lacks and it turns to them.",
+    "appease_gift": "ink and a clean page, set before it",
+    "appease_line": "A clean page is set before the Anzu, and it stays with its rider."
   }
 ]
