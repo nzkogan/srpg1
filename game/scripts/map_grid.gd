@@ -2462,6 +2462,11 @@ func _combatant_for_unit(pid: String) -> Dictionary:
 		c["procs"] = Patrons.day_scale(c["procs"], _day_patron_id())                        # louder on its own patron's day
 		if form != "":
 			c = Patrons.form_boost(c, form)                      # and, in a patron's form, stronger for it
+		var office := Patrons.office_of_unit(pid, form)          # a clear lean (or a form) carries the patron's office
+		if not office.is_empty():
+			var held: Array = c.get("abilities", []).duplicate()
+			held.append(office)
+			c["abilities"] = held
 	var day := Almanac.unit_bonus(pid, _day_chapter())       # the day's sign is theirs
 	if day > 0:
 		c["sup_hit"] = int(c.get("sup_hit", 0)) + day

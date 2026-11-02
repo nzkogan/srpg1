@@ -77,6 +77,7 @@ PRIMARY_KEYS = {
     "signs": ("sign_id", "sgn_"),
     "patrons": ("patron_id", "pat_"),
     "patron_effects": ("effect_id", "eff_"),
+    "offices": ("office_id", "off_"),
 }
 
 # Art x movement cells that are gaps ON PURPOSE. Anything else missing is a bug.
@@ -287,7 +288,7 @@ def main():
         "kill_base", "kill_per_diff", "kill_max", "catchup_gap", "underdog_per_level", "underdog_cap",
         "income_base", "income_per_kill", "income_factor_bonus",
         "paragon_min_level", "paragon_deeds_required", "paragon_fee_base", "paragon_fee_per_level", "paragon_growth_bonus", "paragon_slots",
-        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages", "patron_chance_king", "patron_chance_prince", "patron_chance_duke", "patron_chance_marquis", "patron_chance_earl", "patron_chance_president", "patron_chance_knight", "patron_lean_step", "patron_lean_cap", "patron_lean_pct", "patron_chance_min", "patron_chance_max", "morph_unlock_level", "morph_unlock_lean", "morph_turns", "morph_base_chance", "morph_lean_chance", "morph_fail_damage", "morph_stat_angel", "morph_stat_demon", "morph_blessing_angel_pct", "morph_curse_angel_pct", "morph_blessing_demon_pct", "morph_curse_demon_pct", "morph_pull", "seal_angel_blessing_pct", "seal_angel_curse_pct", "seal_demon_blessing_pct", "seal_demon_curse_pct", "seal_balanced_pct", "seal_home_pct", "patron_day_bonus"]
+        "solo_hold_phases", "solo_hold_radius", "weapon_marks_max", "reforge_fee", "sapper_charges", "mine_damage", "renew_heal", "drain_pct", "recoil_damage", "steal_base", "steal_per_spd", "aura_radius", "aura_per_deed", "aura_cap", "miracle_per_map", "standard_cost_basic", "standard_cost_mid", "standard_cost_high", "standard_house_discount_pct", "capture_intact_hp_pct", "mount_heal", "charge_distance", "charge_bonus", "mount_capture_per_map", "huma_radius", "huma_drift", "huma_start_col", "huma_bonus", "named_wary_kills", "trial_mercy_weight", "calendar_bonus", "flashback_register_pages", "patron_chance_king", "patron_chance_prince", "patron_chance_duke", "patron_chance_marquis", "patron_chance_earl", "patron_chance_president", "patron_chance_knight", "patron_lean_step", "patron_lean_cap", "patron_lean_pct", "patron_chance_min", "patron_chance_max", "morph_unlock_level", "morph_unlock_lean", "morph_turns", "morph_base_chance", "morph_lean_chance", "morph_fail_damage", "morph_stat_angel", "morph_stat_demon", "morph_blessing_angel_pct", "morph_curse_angel_pct", "morph_blessing_demon_pct", "morph_curse_demon_pct", "morph_pull", "seal_angel_blessing_pct", "seal_angel_curse_pct", "seal_demon_blessing_pct", "seal_demon_curse_pct", "seal_balanced_pct", "seal_home_pct", "patron_day_bonus", "office_unlock_lean", "office_pct_high", "office_pct_mid", "office_pct_low"]
     STATS = ["hp", "str", "mag", "dex", "spd", "lck", "def", "res"]
     param_ids = {r["param_id"] for r in tabs["promotion_rules"]}
     for need in REQUIRED_PARAMS + [f"jump_{s}" for s in STATS] + [f"paragon_jump_{s}" for s in STATS] + [f"shape_{m}" for m in MATRIX_MOVES]:
@@ -791,6 +792,17 @@ def main():
         if u.get("status") == "recruitable":
             if u.get("birth_sign") not in sign_ids_p or not isinstance(u.get("birth_day"), int) or not 1 <= u["birth_day"] <= 30:
                 fail("c07", "blocking", f"units.{u['unit_id']}", "a unit is born under a sign on a day 1-30")
+    # --- c07o offices: every patron has an office in one of the families, and a family is an ability-shaped effect
+    offices = {o["office_id"]: o for o in tabs["offices"]}
+    for o in tabs["offices"]:
+        if not any(isinstance(o.get(k), int) and o[k] != 0 for k in ("hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct")):
+            fail("c07", "blocking", f"offices.{o['office_id']}", "an office does something (one of hit, avoid, crit, dodge, dmg, guard, speed, exp_pct is non-zero)")
+        cond = str(o.get("cond"))
+        if not (cond in ("always", "hp_low", "hp_full") or cond.startswith("vs_") or cond.startswith("art:")):
+            fail("c07", "blocking", f"offices.{o['office_id']}", f"unknown cond '{cond}'")
+    for p in pats:
+        if p.get("office_id") not in offices or not p.get("office_text"):
+            fail("c07", "blocking", f"patrons.{p['patron_id']}", "every patron has an office_text and an office_id in the offices tab")
     pat_ids = {p["patron_id"] for p in pats}
     for l in tabs["locations"]:
         if l.get("patron_id") not in pat_ids or l.get("patron_side") not in ("angel", "demon", "balanced"):

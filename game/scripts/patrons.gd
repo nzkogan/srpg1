@@ -305,6 +305,58 @@ func seal_scale(procs: Array, side: String, patron_id: String) -> Array:
 			out.append(q)
 	return out
 
+# ------------------------------------------------------------------ offices
+##
+## Each of the 72 has an OFFICE from the Ars Goetia (patrons.office_text), assigned to one of the offices tab's families
+## (patrons.office_id); a family is an abilities-shaped effect. A bearer whose lean toward the angel or the demon is clear
+## (office_unlock_lean), or who holds a patron's form, carries their own patron's office as a free ability, its numbers
+## scaled by the patron's rank. Enemies lean at most one step from birth, so offices are the company's to earn.
+
+const OFFICE_KEYS := ["hit", "avoid", "crit", "dodge", "dmg", "guard", "speed", "exp_pct"]
+const OFFICE_RANK := {"King": "office_pct_high", "Prince": "office_pct_high", "Duke": "office_pct_mid", "Marquis": "office_pct_mid",
+	"Earl": "office_pct_mid", "President": "office_pct_low", "Knight": "office_pct_low"}
+
+## A patron's office as an ability dictionary scaled by rank ({} if it has none).
+func office_of_patron(patron: Dictionary) -> Dictionary:
+	var o = Canon.find_by("offices", "office_id", str(patron.get("office_id", "")))
+	if o == null:
+		return {}
+	var pct := float(Progression.param(OFFICE_RANK.get(str(patron.get("demon_rank")), "office_pct_low")))
+	var out := {"ability_id": o["office_id"], "name": o["name"], "cond": o["cond"], "patron": patron["patron_id"], "text": str(patron.get("office_text", ""))}
+	for k in OFFICE_KEYS:
+		var v := int(o.get(k, 0))
+		out[k] = 0 if v == 0 else (1 if v > 0 else -1) * maxi(1, int(round(absi(v) * pct / 100.0)))
+	return out
+
+## The office a unit carries now ({} if their lean is not clear enough and they hold no form).
+func office_of_unit(unit_id: String, form_side: String = "") -> Dictionary:
+	if not enabled or not Progression.is_known_unit(unit_id):
+		return {}
+	var b := birth_of_unit(unit_id)
+	if b["sign"] == "":
+		return {}
+	if form_side == "" and absi(lean_of_unit(unit_id)) < int(Progression.param("office_unlock_lean")):
+		return {}
+	return office_of_patron(patron_for(str(b["sign"]), int(b["day"])))
+
+## The EXP bonus (percent) an office gives, for Progression.exp_multiplier.
+func office_exp_pct(unit_id: String) -> int:
+	return int(office_of_unit(unit_id).get("exp_pct", 0))
+
+## One line for the barracks: "Office (Bael): makes men invisible. Veil of Glamour: +12 avoid" or what it waits on.
+func office_line(unit_id: String) -> String:
+	var b := birth_of_unit(unit_id)
+	var p := patron_for(str(b.get("sign", "")), int(b.get("day", 0)))
+	if p.is_empty():
+		return ""
+	var o := office_of_patron(p)
+	if o.is_empty():
+		return ""
+	var who := name_for(p, side_of(lean_of_unit(unit_id)))
+	if office_of_unit(unit_id).is_empty():
+		return "Office of %s (%s): %s. It answers only a bearer who leans clearly toward one side." % [who, o["name"], str(p.get("office_text", ""))]
+	return "Office of %s: %s. %s: %s." % [who, str(p.get("office_text", "")), o["name"], Progression.describe_ability(o)]
+
 # ------------------------------------------------------------------ the patron of the day
 
 ## The pair whose five days a chapter falls on: the sign the calendar names for it (Almanac.governing), and within that sign one

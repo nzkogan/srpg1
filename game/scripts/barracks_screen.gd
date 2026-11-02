@@ -215,6 +215,9 @@ func detail_text() -> String:
 	var birth := Patrons.birth_of_unit(u)
 	if birth["sign"] != "":
 		lines.append("Born %s. %s" % [Patrons.born_text(birth), Patrons.describe(birth, Patrons.lean_of_unit(u))])
+		var office_text := Patrons.office_line(u)
+		if office_text != "":
+			lines.append(office_text)
 	lines.append("")
 	var opts := options()
 	var opt: Dictionary = opts[_option_index] if _option_index < opts.size() else {}

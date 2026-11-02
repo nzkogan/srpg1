@@ -832,5 +832,29 @@
     "value": 5,
     "text": null,
     "notes": "Patron of the day: on a chapter whose calendar names a day, the patron holding that five-day band (the sign's six bands in turn, one band each time the wheel comes round) answers louder for its own bearers: their blessing chances rise by this many points (capped at twice patron_chance_max). Curses are untouched."
+  },
+  {
+    "param_id": "prm_office_unlock_lean",
+    "value": 2,
+    "text": null,
+    "notes": "Offices: a bearer whose lean toward the angel or the demon is at least this far from balanced (or who holds a patron's form) carries their own patron's office."
+  },
+  {
+    "param_id": "prm_office_pct_high",
+    "value": 150,
+    "text": null,
+    "notes": "Offices: scale (percent) of the office's numbers for a King or Prince."
+  },
+  {
+    "param_id": "prm_office_pct_mid",
+    "value": 125,
+    "text": null,
+    "notes": "Offices: scale (percent) for a Duke, Marquis or Earl."
+  },
+  {
+    "param_id": "prm_office_pct_low",
+    "value": 100,
+    "text": null,
+    "notes": "Offices: scale (percent) for a President or Knight."
   }
 ]
