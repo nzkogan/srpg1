@@ -862,5 +862,11 @@
     "value": 300,
     "text": null,
     "notes": "Appeasing a Named mount that can leave: the gold the offering costs. One pledge holds one departure back; it is spent when it does."
+  },
+  {
+    "param_id": "prm_appease_vigil_company",
+    "value": 4,
+    "text": null,
+    "notes": "Appeasing by vigil: the unit who keeps it sits out the next chapter; this many other fielded units must remain in the company."
   }
 ]

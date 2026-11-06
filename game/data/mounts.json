@@ -14,7 +14,8 @@
     "leaves_line": null,
     "leaves_warning": null,
     "appease_gift": null,
-    "appease_line": null
+    "appease_line": null,
+    "appease_vigil": null
   },
   {
     "mount_id": "mnt_simurgh",
@@ -31,7 +32,8 @@
     "leaves_line": "She arrives green and stops being green: the feather has changed hands, and the Simurgh is gone from the stable.",
     "leaves_warning": "She answers whoever holds the feather: give her to another hand while the first still lives and rides with you, and she goes.",
     "appease_gift": "a second feather, sewn into the harness",
-    "appease_line": "A second feather is sewn into the harness, and the Simurgh stays green a while longer."
+    "appease_line": "A second feather is sewn into the harness, and the Simurgh stays green a while longer.",
+    "appease_vigil": "keeps the night watch over the feather"
   },
   {
     "mount_id": "mnt_shadhavar",
@@ -48,7 +50,8 @@
     "leaves_line": null,
     "leaves_warning": null,
     "appease_gift": null,
-    "appease_line": null
+    "appease_line": null,
+    "appease_vigil": null
   },
   {
     "mount_id": "mnt_karkadann",
@@ -65,7 +68,8 @@
     "leaves_line": "The Karkadann turns: it guards the doves, and a company that writes the Ashland off, or takes the crown's orders, is not one whose terms it can keep.",
     "leaves_warning": "It guards the doves of the Ashland, and will not carry a company that writes the Ashland off or takes the crown's orders.",
     "appease_gift": "grain for the doves, laid at its stall",
-    "appease_line": "The company feeds the doves, and the Karkadann stays its terms for now."
+    "appease_line": "The company feeds the doves, and the Karkadann stays its terms for now.",
+    "appease_vigil": "keeps watch over the doves through the night"
   },
   {
     "mount_id": "mnt_anzu",
@@ -82,6 +86,7 @@
     "leaves_line": "Someone has shown a literacy its rider lacks, and the Anzu turns to the one who can read the register.",
     "leaves_warning": "It follows whoever can read the register: let someone show a literacy its rider lacks and it turns to them.",
     "appease_gift": "ink and a clean page, set before it",
-    "appease_line": "A clean page is set before the Anzu, and it stays with its rider."
+    "appease_line": "A clean page is set before the Anzu, and it stays with its rider.",
+    "appease_vigil": "sits with the Anzu over a blank page"
   }
 ]

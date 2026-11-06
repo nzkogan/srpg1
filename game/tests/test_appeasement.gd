@@ -190,3 +190,88 @@ func _run() -> void:
 	check(_m.mount_of("u_brandt") == "mnt_simurgh" and bs._message.contains("takes the Simurgh") and bs._message.contains("second feather"), "the barracks tells you she stayed: %s" % bs._message)
 	bs.queue_free()
 	await process_frame
+
+	# ---- the other offering: a vigil (a unit sits out the next chapter)
+	check(_p.param("appease_vigil_company") == 4 and _m.row("mnt_karkadann")["appease_vigil"].contains("doves") and _m.row("mnt_simurgh")["appease_vigil"] != null and _m.row("mnt_anzu")["appease_vigil"] != null and _m.row("mnt_shadhavar")["appease_vigil"] == null, "canon: a vigil for each creature that can leave; four others must remain")
+	_fresh(["u_jost", "u_brandt", "u_ricberta", "u_sigrun", "u_dietmar", "u_kheldar"], 0)
+	_m.add_to_stable("mnt_karkadann")
+	_m.add_to_stable("mnt_shadhavar")
+	check(_m.available_company() == 6, "six fielded and free")
+	check(_m.can_vigil("mnt_karkadann", "u_jost")["ok"], "no gold needed for a vigil")
+	check(not _m.can_vigil("mnt_shadhavar", "u_jost")["ok"] and _m.can_vigil("mnt_shadhavar", "u_jost")["reason"].contains("never going to leave"), "the Shadhavar needs none")
+	check(not _m.can_vigil("mnt_karkadann", "u_nobody")["ok"] and not _m.can_vigil("mnt_anzu", "u_jost")["ok"] and _m.can_vigil("mnt_anzu", "u_jost")["reason"].contains("not with the company"), "no stranger, and no creature that is not with the company")
+	var vg: Dictionary = _m.keep_vigil("mnt_karkadann", "u_jost")
+	check(vg["ok"] and _m.is_resting("u_jost") and _m.resting() == ["u_jost"] and _m.pledged("mnt_karkadann") and _gs.gold == 0 and _m.available_company() == 5, "Jost keeps the vigil: he rests, a pledge stands, no gold is spent")
+	check(not _m.can_vigil("mnt_karkadann", "u_brandt")["ok"] and _m.can_vigil("mnt_karkadann", "u_brandt")["reason"].contains("already stands"), "one offering at a time, in gold or in vigil")
+	_gs.gold = 1000
+	check(not _m.can_appease("mnt_karkadann")["ok"], "...so gold is refused too")
+	# the pledge works the same
+	check(_m.check_departures("map_b15", true) == [_m.row("mnt_karkadann")["appease_line"]] and _m.owned().has("mnt_karkadann"), "the Karkadann stays when the write-off comes")
+	# he is out of the next chapter
+	var mp: Node = load("res://scenes/map_d02.tscn").instantiate()
+	var ids: Array[String] = ["u_jost", "u_brandt", "u_ricberta"]
+	mp.deploy_unit_ids = ids
+	mp.enemy_phase_enabled = false
+	root.add_child(mp)
+	await process_frame
+	var deployed: Array = mp.units.map(func(u): return u.get("punit_id"))
+	check(not deployed.has("u_jost") and deployed.has("u_brandt") and deployed.has("u_ricberta"), "Jost is not on the field for the next chapter; the others are")
+	check(_m.is_resting("u_jost"), "(the vigil lasts until the chapter is won, so a retry or a resume finds him still resting)")
+	mp.queue_free()
+	await process_frame
+	# a memory does not count as a chapter
+	var mf: Node = load("res://scenes/map_f01.tscn").instantiate()
+	root.add_child(mf)
+	await process_frame
+	mf._on_map_won()
+	check(_m.is_resting("u_jost"), "a flashback is not the next chapter, even when won")
+	mf.queue_free()
+	await process_frame
+	# winning ends it
+	mp = load("res://scenes/map_d02.tscn").instantiate()
+	mp.deploy_unit_ids = ids
+	mp.enemy_phase_enabled = false
+	root.add_child(mp)
+	await process_frame
+	mp._on_map_won()
+	check(not _m.is_resting("u_jost") and _m.resting().is_empty() and mp._reward_text.contains("The vigil is over: Jost is back"), "winning the chapter ends the vigil: %s" % mp._reward_text.substr(maxi(0, mp._reward_text.length() - 60)))
+	mp.queue_free()
+	await process_frame
+	_gs.epilogue["deaths"] = {"u_ricberta": {}}
+	check(not _m.can_vigil("mnt_karkadann", "u_ricberta")["ok"] and _m.can_vigil("mnt_karkadann", "u_ricberta")["reason"].contains("not with the company"), "the dead cannot keep a vigil")
+	_gs.epilogue.erase("deaths")
+	# the company must be able to spare them
+	_fresh(["u_jost", "u_brandt", "u_ricberta", "u_sigrun"], 0)
+	_m.add_to_stable("mnt_karkadann")
+	check(not _m.can_vigil("mnt_karkadann", "u_jost")["ok"] and _m.can_vigil("mnt_karkadann", "u_jost")["reason"].contains("needs 4 others"), "with only four fielded, no one can be spared")
+	_join(["u_dietmar"])
+	check(_m.can_vigil("mnt_karkadann", "u_jost")["ok"], "with five, one can")
+	_m.keep_vigil("mnt_karkadann", "u_jost")
+	_m.unassign("u_jost")
+	_m.add_to_stable("mnt_simurgh")
+	check(not _m.can_vigil("mnt_simurgh", "u_jost")["ok"] and _m.can_vigil("mnt_simurgh", "u_jost")["reason"].contains("already resting"), "a resting unit cannot keep a second vigil")
+	var back2 = JSON.parse_string(JSON.stringify(_gs.mounts))
+	check(back2["resting"] == ["u_jost"], "the vigil survives a save")
+
+	# ---- the barracks offers it
+	_fresh(["u_jost", "u_brandt", "u_ricberta", "u_sigrun", "u_dietmar", "u_kheldar"], 0)
+	_m.add_to_stable("mnt_karkadann")
+	bs = load("res://scenes/barracks_screen.tscn").instantiate()
+	root.add_child(bs)
+	await process_frame
+	bs._mode = 4
+	bs._unit_index = bs.unit_ids.find("u_jost")
+	bs._refresh()
+	var vopts: Array = bs.options().filter(func(o): return o["kind"] == "vigil")
+	check(vopts.size() == 1 and not vopts[0]["locked"] and vopts[0]["data"]["name"].contains("Vigil for the Karkadann: Jost") and vopts[0]["data"]["name"].contains("sitting out the next chapter"), "the barracks offers the vigil, naming who keeps it: %s" % (vopts[0]["data"]["name"] if not vopts.is_empty() else "-"))
+	var vi: int = bs.options().map(func(o): return o["kind"]).find("vigil")
+	bs._option_index = vi
+	bs._refresh()
+	check(bs.detail_text().contains("costs no gold") and bs.detail_text().contains("not available for the next chapter"), "its text says what it costs")
+	bs._column = 1
+	bs.activate()
+	check(_m.is_resting("u_jost") and _m.pledged("mnt_karkadann") and _gs.gold == 0 and bs._message.contains("sit out the next chapter"), "Enter keeps it: %s" % bs._message)
+	bs.activate()
+	check(bs._message.contains("Can't"), "a second try is refused")
+	bs.queue_free()
+	await process_frame

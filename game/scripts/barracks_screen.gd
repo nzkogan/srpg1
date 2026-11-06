@@ -138,6 +138,9 @@ func options() -> Array:
 					var ap := Mounts.can_appease(m)
 					out.append({"kind": "appease", "id": m, "mount": m, "locked": not ap["ok"], "reason": ap["reason"],
 						"data": {"name": "Appease %s: %s (%d gold)" % [Mounts.name_of(m), Mounts.row(m).get("appease_gift", ""), ap["cost"]], "locked": not ap["ok"]}})
+					var vg := Mounts.can_vigil(m, u)
+					out.append({"kind": "vigil", "id": m, "mount": m, "locked": not vg["ok"], "reason": vg["reason"],
+						"data": {"name": "Vigil for %s: %s %s, sitting out the next chapter" % [Mounts.name_of(m), _name_of(u), Mounts.row(m).get("appease_vigil", "")], "locked": not vg["ok"]}})
 		MODE_ABILITIES:
 			var chosen: Array = Progression.chosen(u)
 			for row in Progression.pool(u):
@@ -309,6 +312,10 @@ func _mount_text(u: String, opt: Dictionary) -> Array[String]:
 		lines.append("[color=%s]The stable is empty. Mounts come from a requisition (O on the overworld), from capturing a mounted enemy, or from taking a Named creature intact.[/color]" % DIM)
 	elif opt["id"] == "":
 		lines.append("Enter hands %s back to the stable." % Mounts.name_of(Mounts.mount_of(u)))
+	elif opt["kind"] == "vigil":
+		lines.append("[b]%s[/b]" % Mounts.name_of(opt["id"]))
+		lines.append(Mounts.warning(opt["id"]))
+		lines.append("[color=%s]%s[/color]" % [BAD if opt["locked"] else GOOD, "Can't keep the vigil: %s." % opt["reason"] if opt["locked"] else "Enter: %s %s and is not available for the next chapter. It holds back the next time the creature would go, and costs no gold." % [_name_of(u), Mounts.row(opt["id"]).get("appease_vigil", "")]])
 	elif opt["kind"] == "appease":
 		lines.append("[b]%s[/b]" % Mounts.name_of(opt["id"]))
 		lines.append(Mounts.warning(opt["id"]))
@@ -445,6 +452,9 @@ func activate() -> void:
 			if opt["id"] == "":
 				Mounts.unassign(u)
 				_message = "%s gives up the mount." % _name_of(u)
+			elif opt["kind"] == "vigil":
+				var vg := Mounts.keep_vigil(opt["id"], u)
+				_message = "%s %s. They will sit out the next chapter." % [_name_of(u), Mounts.row(opt["id"]).get("appease_vigil", "")] if vg["ok"] else "Can't: %s." % vg["reason"]
 			elif opt["kind"] == "appease":
 				var ap := Mounts.appease(opt["id"])
 				_message = "The offering is made (%s). %d gold." % [Mounts.row(opt["id"]).get("appease_gift", ""), ap["cost"]] if ap["ok"] else "Can't: %s." % ap["reason"]

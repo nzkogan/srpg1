@@ -21,7 +21,8 @@ extends Node
 ## crown's orders are taken, the Anzu when someone shows a literacy its rider lacks. The Shadhavar never does.
 ## State: GameState.mounts = {"stable": [mount ids], "assigned": {unit_id: mount_id}, "claimed": {named_id: true},
 ## "holders": {mount_id: the unit who first held it}, "writ_seen" / "literacy_seen": the triggers already noticed,
-## "pledged": {mount_id: true}: an offering made (appease) that will hold back its next departure}.
+## "pledged": {mount_id: true}: an offering made (appease, in gold or by a vigil) that will hold back its next departure,
+## "resting": [unit ids] keeping a vigil: unavailable until the next chapter is won (end_vigils)}.
 
 func _s() -> Dictionary:
 	if not GameState.mounts.has("stable"):
@@ -34,6 +35,8 @@ func _s() -> Dictionary:
 		GameState.mounts["holders"] = {}
 	if not GameState.mounts.has("pledged"):
 		GameState.mounts["pledged"] = {}
+	if not GameState.mounts.has("resting"):
+		GameState.mounts["resting"] = []
 	return GameState.mounts
 
 func rows() -> Array:
@@ -178,6 +181,52 @@ func appease(mount_id: String) -> Dictionary:
 	GameState.gold -= int(check["cost"])
 	_s()["pledged"][mount_id] = true
 	return check
+
+## The other offering: a unit keeps VIGIL with the creature and sits out the next chapter. {"ok", "reason"}.
+func can_vigil(mount_id: String, unit_id: String) -> Dictionary:
+	if row(mount_id).is_empty() or leaves(mount_id).is_empty() or row(mount_id).get("appease_vigil") == null:
+		return {"ok": false, "reason": "it was never going to leave"}
+	if not owned().has(mount_id):
+		return {"ok": false, "reason": "it is not with the company"}
+	if pledged(mount_id):
+		return {"ok": false, "reason": "an offering already stands"}
+	if not Progression.has_state(unit_id) or Defections.is_gone(unit_id):
+		return {"ok": false, "reason": "they are not with the company"}
+	if is_resting(unit_id):
+		return {"ok": false, "reason": "they are already resting"}
+	if available_company() - 1 < int(Progression.param("appease_vigil_company")):
+		return {"ok": false, "reason": "the company can't spare them (it needs %d others in the field)" % int(Progression.param("appease_vigil_company"))}
+	return {"ok": true, "reason": ""}
+
+## Keeps the vigil: the unit sits out the next chapter and a pledge stands.
+func keep_vigil(mount_id: String, unit_id: String) -> Dictionary:
+	var check := can_vigil(mount_id, unit_id)
+	if not check["ok"]:
+		return check
+	_s()["resting"].append(unit_id)
+	_s()["pledged"][mount_id] = true
+	return check
+
+func is_resting(unit_id: String) -> bool:
+	return _s()["resting"].has(unit_id)
+
+func resting() -> Array:
+	return _s()["resting"].duplicate()
+
+## How many fielded units are free to deploy (with the company, not keeping a vigil).
+func available_company() -> int:
+	var n := 0
+	for u in Canon.get_table("units"):
+		var uid: String = u["unit_id"]
+		if Progression.has_state(uid) and not Defections.is_gone(uid) and not is_resting(uid):
+			n += 1
+	return n
+
+## A chapter has been won: every vigil is over. Returns the unit ids who sat it out.
+func end_vigils() -> Array:
+	var out: Array = _s()["resting"].duplicate()
+	_s()["resting"].clear()
+	return out
 
 ## An offering is spent holding a departure back; returns the line to show.
 func _hold(mount_id: String) -> String:

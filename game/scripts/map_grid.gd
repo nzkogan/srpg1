@@ -370,7 +370,7 @@ func _build_units() -> Array:
 	var result: Array = []
 	var roster_ids: Array[String] = []
 	for uid in deploy_unit_ids:
-		if not Defections.is_gone(uid):        # a defector has left the company
+		if not Defections.is_gone(uid) and not Mounts.is_resting(uid):        # a defector has left the company; a vigil keeper sits this one out
 			roster_ids.append(uid)
 	for i in roster_ids.size():
 		var unit_id: String = roster_ids[i]
@@ -1131,9 +1131,15 @@ func _on_map_won() -> void:
 	_support_lines.clear()
 	var newly := not GameState.won_maps.has(map_id)
 	var fallen := Epilogue.commit(_death_fates())     # the map is won: this map's falls are final
+	var vigil: Array = [] if _is_flashback() else Mounts.end_vigils()        # the chapter is won: the vigil is over
 	_reward_text = _settle_rewards()
 	if not fallen.is_empty():
 		_reward_text = (_reward_text + "\n" + "\n".join(fallen)).strip_edges()
+	if not vigil.is_empty():
+		var names: Array[String] = []
+		for uid in vigil:
+			names.append(str(Canon.find_by("units", "unit_id", uid).get("name", uid)))
+		_reward_text = (_reward_text + "\nThe vigil is over: %s is back with the company." % ", ".join(names)).strip_edges()
 	if _is_flashback() and Flashback.has_rule(map_id, "lost_page"):
 		Flashback.lose_a_page(rng_override)       # F1: a page of the copy is lost, and nothing says which
 		_reward_text = (_reward_text + " The clerk counts the sheets and is satisfied.").strip_edges()
