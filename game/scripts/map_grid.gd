@@ -294,6 +294,10 @@ func _ready() -> void:
 	forecast_label.visible = false
 	add_child(forecast_label)
 
+	action_menu = ActionMenuScript.new()
+	action_menu.chosen.connect(func(key: int): _press(key))
+	add_child(action_menu)
+
 	if not snap.is_empty():
 		_restore_progress(snap)
 	_update_status_label()
@@ -693,6 +697,8 @@ func _draw_grid() -> void:
 			tile_rects[Vector2i(col, row)] = rect
 
 const ImageFigureScript := preload("res://scripts/image_figure.gd")
+const ActionMenuScript := preload("res://scripts/action_menu.gd")
+var action_menu: PanelContainer = null      # Space / right-click: the selected unit's actions as a list (see action_menu.gd)
 var image_figure: Node2D = null       # THE IMAGE on the maps where canon shows it (maps.image_*), drawn above the tiles and below the tokens
 
 func _draw_image() -> void:
@@ -729,6 +735,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_tree().change_scene_to_file(_way_out())
 			elif key == KEY_S and map_won and not _support_entries.is_empty():
 				open_support_viewer()
+		return
+	if action_menu != null and action_menu.is_open():
+		if event is InputEventKey and event.pressed:
+			action_menu.handle_key((event as InputEventKey).keycode)
+		elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+			action_menu.close()
+		return              # a click on an entry is the button's own; anything else waits for the menu to close
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT \
+			and not (_talk_mode or _bribe_mode or _shove_mode or _supply_mode or _sapper_mode != "" or _skald_mode != ""):
+		open_action_menu(get_local_mouse_position())
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var local := get_local_mouse_position()
@@ -769,7 +785,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _supply_mode:
 			_supply_key(key_event.keycode)
 			return
-		if key_event.keycode == KEY_P:
+		if key_event.keycode == KEY_SPACE:
+			open_action_menu()
+		elif key_event.keycode == KEY_P:
 			suspend(true)
 		elif key_event.keycode == KEY_F5:
 			suspend(false)
@@ -813,6 +831,73 @@ func _unhandled_input(event: InputEvent) -> void:
 			var idx := key_event.keycode - KEY_1
 			if idx >= 0 and idx < units.size():
 				_select_unit(idx)
+
+# ----------------------------------------------------------------- the action menu
+
+## What the selected unit can do right now, as [{"label", "key"}]: the menu's entries. Each key is the hotkey that already runs
+## the action, so the rules (and their refusals) stay in one place. Listed by the unit's class and the map, not by whether a
+## target happens to be in reach: a refusal says why, which teaches the rule.
+func action_entries() -> Array:
+	var out: Array = []
+	if units.is_empty():
+		return out
+	var unit: Dictionary = units[clampi(selected_unit_index, 0, units.size() - 1)]
+	var pid: String = unit.get("punit_id", "")
+	var roster := _is_roster_unit(unit)
+	var acted := attacked_this_turn.has(pid)
+	if map_id == "map_f00" and not statue_destroyed and not acted:
+		out.append({"label": "Strike the statue", "key": KEY_A})
+	if not acted and unit.get("weapon_art") != null:
+		out.append({"label": "Attack", "key": KEY_F})
+	if roster and not acted:
+		if Progression.can_capture(pid):
+			out.append({"label": "Capture", "key": KEY_C})
+		var push := Progression.push_name(pid)
+		if push != "":
+			out.append({"label": push, "key": KEY_S})
+		if not _is_flashback():
+			out.append({"label": "Talk", "key": KEY_T})
+		if Progression.can_bribe(pid):
+			out.append({"label": "Bribe", "key": KEY_B})
+		if Progression.can_provoke(pid):
+			out.append({"label": "Provoke", "key": KEY_V})
+		if _can_supply(pid):
+			out.append({"label": "Supply", "key": KEY_Q})
+		if Progression.can_refresh(pid):
+			out.append({"label": "Refresh", "key": KEY_R})
+		if Progression.can_steal(pid):
+			out.append({"label": "Steal", "key": KEY_X})
+		if Progression.can_breach(pid):
+			out.append({"label": "Breach", "key": KEY_D})
+		if Progression.can_mine(pid):
+			out.append({"label": "Lay a mine", "key": KEY_M})
+		if not _is_flashback() and Patrons.can_morph(pid)["ok"] and not morphs.has(pid):
+			out.append({"label": "Gamble for a form", "key": KEY_G})
+	if roster:
+		out.append({"label": "Switch weapon", "key": KEY_E})
+	if _cargo_needed() > 0:
+		out.append({"label": "Select cargo", "key": KEY_W})
+	out.append({"label": "End turn", "key": KEY_N})
+	if not _is_flashback():
+		out.append({"label": "Suspend", "key": KEY_P})
+	return out
+
+## Opens the menu beside the selected unit (or at `at`, map-local pixels).
+func open_action_menu(at: Vector2 = Vector2(-1, -1)) -> void:
+	if action_menu == null or units.is_empty() or map_won or map_lost:
+		return
+	var unit: Dictionary = units[clampi(selected_unit_index, 0, units.size() - 1)]
+	if at.x < 0:
+		var tile: Vector2i = unit_positions.get(unit.get("punit_id", ""), Vector2i(0, 0))
+		at = Vector2((tile.x + 1) * CELL_SIZE + 4, tile.y * CELL_SIZE)
+	action_menu.open(action_entries(), at, str(unit.get("name", "")))
+
+## Runs a hotkey's action as if it had been pressed.
+func _press(keycode: int) -> void:
+	var ev := InputEventKey.new()
+	ev.keycode = keycode
+	ev.pressed = true
+	_unhandled_input(ev)
 
 ## Selecting a unit shows their movement range from wherever they currently
 ## are (not their static deploy tile -- they may have already moved).
@@ -3554,7 +3639,7 @@ func _update_status_label() -> void:
 	if _cargo_needed() > 0:
 		header += " -- Cargo: %d/%d delivered" % [delivered.size(), _cargo_needed()]
 	lines.append(header)
-	var controls := "[F] attack -- [Tab] retarget -- [E] weapon -- [N] / Enter: next turn -- click a tile to move"
+	var controls := "[Space] / right-click: actions -- [F] attack -- [Tab] retarget -- [E] weapon -- [N] / Enter: next turn -- click a tile to move"
 	for u in units:
 		if _is_roster_unit(u) and Progression.can_capture(u.get("punit_id", "")):
 			controls = controls.replace("[Tab] retarget", "[C] capture -- [Tab] retarget")
