@@ -12,9 +12,7 @@
     "last_day": 5,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_recoil",
-    "notes": "DRAFTED 2026-11-05: the Ars Goetia's number 1 paired with the Shem ha-Mephorash's angel 1; the five days of a 30-day sign month (quinary); the decan's ruling sign is sgn_ram by triplicity.",
-    "office_id": "off_veil",
-    "office_text": "makes men invisible; answers truly of divine and secret things"
+    "notes": "DRAFTED 2026-11-05: the Ars Goetia's number 1 paired with the Shem ha-Mephorash's angel 1; the five days of a 30-day sign month (quinary); the decan's ruling sign is sgn_ram by triplicity."
   },
   {
     "patron_id": "pat_02",
@@ -29,9 +27,7 @@
     "last_day": 10,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_recoil",
-    "notes": null,
-    "office_id": "off_tongues",
-    "office_text": "teaches every tongue; makes runaways return; destroys dignities"
+    "notes": null
   },
   {
     "patron_id": "pat_03",
@@ -46,9 +42,7 @@
     "last_day": 15,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "declares things past and to come; finds what is hidden or lost"
+    "notes": null
   },
   {
     "patron_id": "pat_04",
@@ -63,9 +57,7 @@
     "last_day": 20,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches the liberal sciences; speaks with the souls of the drowned"
+    "notes": null
   },
   {
     "patron_id": "pat_05",
@@ -80,9 +72,7 @@
     "last_day": 25,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_healer",
-    "office_text": "answers of hidden things; causes and cures diseases; teaches mechanical arts"
+    "notes": null
   },
   {
     "patron_id": "pat_06",
@@ -97,9 +87,7 @@
     "last_day": 30,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_thief",
-    "office_text": "a good familiar who tempts to theft"
+    "notes": null
   },
   {
     "patron_id": "pat_07",
@@ -114,9 +102,7 @@
     "last_day": 5,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "reconciles friends and foes; knows things past and to come"
+    "notes": null
   },
   {
     "patron_id": "pat_08",
@@ -131,9 +117,7 @@
     "last_day": 10,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_beasts",
-    "office_text": "understands the voices of birds and beasts; reveals treasure; reconciles kings"
+    "notes": null
   },
   {
     "patron_id": "pat_09",
@@ -148,9 +132,7 @@
     "last_day": 15,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_marked",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches arts, sciences and secrets; binds men to the master"
+    "notes": null
   },
   {
     "patron_id": "pat_10",
@@ -165,9 +147,7 @@
     "last_day": 20,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_marked",
-    "notes": null,
-    "office_id": "off_healer",
-    "office_text": "teaches philosophy, logic and the virtue of herbs; heals the sick"
+    "notes": null
   },
   {
     "patron_id": "pat_11",
@@ -182,9 +162,7 @@
     "last_day": 25,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "tells all things past, present and to come; reconciles friendships"
+    "notes": null
   },
   {
     "patron_id": "pat_12",
@@ -199,9 +177,7 @@
     "last_day": 30,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "kindles love between the sexes; reveals secrets"
+    "notes": null
   },
   {
     "patron_id": "pat_13",
@@ -216,9 +192,7 @@
     "last_day": 5,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "causes love, until the heat is spent"
+    "notes": null
   },
   {
     "patron_id": "pat_14",
@@ -233,9 +207,7 @@
     "last_day": 10,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "causes battles; makes wounds from arrows fester"
+    "notes": null
   },
   {
     "patron_id": "pat_15",
@@ -250,9 +222,7 @@
     "last_day": 15,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "discovers hidden things; knows of wars and how soldiers will meet; wins the favour of lords"
+    "notes": null
   },
   {
     "patron_id": "pat_16",
@@ -267,9 +237,7 @@
     "last_day": 20,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "turns a woman's love to a man; makes the barren fruitful"
+    "notes": null
   },
   {
     "patron_id": "pat_17",
@@ -284,9 +252,7 @@
     "last_day": 25,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "tells things past and to come; reconciles friends and foes"
+    "notes": null
   },
   {
     "patron_id": "pat_18",
@@ -301,9 +267,7 @@
     "last_day": 30,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_flight",
-    "office_text": "knows herbs and precious stones; carries men swiftly between lands"
+    "notes": null
   },
   {
     "patron_id": "pat_19",
@@ -318,9 +282,7 @@
     "last_day": 5,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "draws love between the sexes"
+    "notes": null
   },
   {
     "patron_id": "pat_20",
@@ -335,9 +297,7 @@
     "last_day": 10,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "finds things hidden and treasure; tells things past, present and to come"
+    "notes": null
   },
   {
     "patron_id": "pat_21",
@@ -352,9 +312,7 @@
     "last_day": 15,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches astronomy and the liberal sciences; gives good familiars"
+    "notes": null
   },
   {
     "patron_id": "pat_22",
@@ -369,9 +327,7 @@
     "last_day": 20,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "gives courage and wit; tells things past and to come"
+    "notes": null
   },
   {
     "patron_id": "pat_23",
@@ -386,9 +342,7 @@
     "last_day": 25,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "sets cities and castles afire; makes men witty"
+    "notes": null
   },
   {
     "patron_id": "pat_24",
@@ -403,9 +357,7 @@
     "last_day": 30,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_tongues",
-    "office_text": "makes men cunning in the arts, above all rhetoric; restores lost dignities"
+    "notes": null
   },
   {
     "patron_id": "pat_25",
@@ -420,9 +372,7 @@
     "last_day": 5,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "teaches all arts at once; causes bloodshed and manslaughter; makes men invisible"
+    "notes": null
   },
   {
     "patron_id": "pat_26",
@@ -437,9 +387,7 @@
     "last_day": 10,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_dead",
-    "office_text": "moves the dead; gives riches, wisdom and eloquence"
+    "notes": null
   },
   {
     "patron_id": "pat_27",
@@ -454,9 +402,7 @@
     "last_day": 15,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_tongues",
-    "office_text": "teaches rhetoric and languages; gains the favour of friends and foes"
+    "notes": null
   },
   {
     "patron_id": "pat_28",
@@ -471,9 +417,7 @@
     "last_day": 20,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_hoard",
-    "office_text": "turns all metals to gold; gives and confirms honour"
+    "notes": null
   },
   {
     "patron_id": "pat_29",
@@ -488,9 +432,7 @@
     "last_day": 25,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_recoil",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "declares things past and to come; teaches the liberal sciences"
+    "notes": null
   },
   {
     "patron_id": "pat_30",
@@ -505,9 +447,7 @@
     "last_day": 30,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_recoil",
-    "notes": null,
-    "office_id": "off_tongues",
-    "office_text": "teaches rhetoric and tongues; gives a good name and the love of friends"
+    "notes": null
   },
   {
     "patron_id": "pat_31",
@@ -522,9 +462,7 @@
     "last_day": 5,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_marked",
-    "notes": null,
-    "office_id": "off_healer",
-    "office_text": "teaches the virtue of herbs and stones; grants long life"
+    "notes": null
   },
   {
     "patron_id": "pat_32",
@@ -539,9 +477,7 @@
     "last_day": 10,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_marked",
-    "notes": null,
-    "office_id": "off_hoard",
-    "office_text": "teaches arithmetic and astronomy; makes men invisible; shows hidden treasure"
+    "notes": null
   },
   {
     "patron_id": "pat_33",
@@ -556,9 +492,7 @@
     "last_day": 15,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_flight",
-    "office_text": "teaches philosophy and the sciences; carries men between lands"
+    "notes": null
   },
   {
     "patron_id": "pat_34",
@@ -573,9 +507,7 @@
     "last_day": 20,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_storm",
-    "office_text": "raises lightning, thunder and storms; lies unless compelled"
+    "notes": null
   },
   {
     "patron_id": "pat_35",
@@ -590,9 +522,7 @@
     "last_day": 25,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "a strong fighter who gives true answers"
+    "notes": null
   },
   {
     "patron_id": "pat_36",
@@ -607,9 +537,7 @@
     "last_day": 30,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches astronomy and the virtue of herbs and stones"
+    "notes": null
   },
   {
     "patron_id": "pat_37",
@@ -624,9 +552,7 @@
     "last_day": 5,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches the sciences and makes excellent poets"
+    "notes": null
   },
   {
     "patron_id": "pat_38",
@@ -641,9 +567,7 @@
     "last_day": 10,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "raises towers and fills them with weapons; sends men to war"
+    "notes": null
   },
   {
     "patron_id": "pat_39",
@@ -658,9 +582,7 @@
     "last_day": 15,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_hoard",
-    "office_text": "builds houses and towers; brings craftsmen together"
+    "notes": null
   },
   {
     "patron_id": "pat_40",
@@ -675,9 +597,7 @@
     "last_day": 20,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_thief",
-    "office_text": "steals treasure and carries it where bidden; destroys cities"
+    "notes": null
   },
   {
     "patron_id": "pat_41",
@@ -692,9 +612,7 @@
     "last_day": 25,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_storm",
-    "office_text": "drowns men and sinks ships; raises winds and seas"
+    "notes": null
   },
   {
     "patron_id": "pat_42",
@@ -709,9 +627,7 @@
     "last_day": 30,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_storm",
-    "office_text": "guides the waters and ships; makes wounds fester with worms"
+    "notes": null
   },
   {
     "patron_id": "pat_43",
@@ -726,9 +642,7 @@
     "last_day": 5,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "builds towers and castles; afflicts men with wounds; gives good familiars"
+    "notes": null
   },
   {
     "patron_id": "pat_44",
@@ -743,9 +657,7 @@
     "last_day": 10,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_thief",
-    "office_text": "takes away sight, hearing and wit; steals money and horses"
+    "notes": null
   },
   {
     "patron_id": "pat_45",
@@ -760,9 +672,7 @@
     "last_day": 15,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_storm",
-    "office_text": "discovers hidden things; raises storms; makes walls of stone"
+    "notes": null
   },
   {
     "patron_id": "pat_46",
@@ -777,9 +687,7 @@
     "last_day": 20,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_dead",
-    "office_text": "teaches astrology and geometry; moves the dead to new places"
+    "notes": null
   },
   {
     "patron_id": "pat_47",
@@ -794,9 +702,7 @@
     "last_day": 25,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "procures love of women; knows things past and to come"
+    "notes": null
   },
   {
     "patron_id": "pat_48",
@@ -811,9 +717,7 @@
     "last_day": 30,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_hoard",
-    "office_text": "turns metals to gold and water to wine; makes men wise"
+    "notes": null
   },
   {
     "patron_id": "pat_49",
@@ -828,9 +732,7 @@
     "last_day": 5,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_storm",
-    "office_text": "teaches geometry and the liberal arts; makes great noises of waters"
+    "notes": null
   },
   {
     "patron_id": "pat_50",
@@ -845,9 +747,7 @@
     "last_day": 10,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches philosophy, astrology, rhetoric and logic"
+    "notes": null
   },
   {
     "patron_id": "pat_51",
@@ -862,9 +762,7 @@
     "last_day": 15,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_recoil",
-    "notes": null,
-    "office_id": "off_veil",
-    "office_text": "knows things past and to come; makes men invisible and witty"
+    "notes": null
   },
   {
     "patron_id": "pat_52",
@@ -879,9 +777,7 @@
     "last_day": 20,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_recoil",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches astronomy and the liberal sciences; gives good familiars"
+    "notes": null
   },
   {
     "patron_id": "pat_53",
@@ -896,9 +792,7 @@
     "last_day": 25,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_beasts",
-    "office_text": "gives the understanding of birds, dogs and bullocks"
+    "notes": null
   },
   {
     "patron_id": "pat_54",
@@ -913,9 +807,7 @@
     "last_day": 30,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_exposed",
-    "notes": null,
-    "office_id": "off_dead",
-    "office_text": "teaches philosophy; constrains the souls of the dead; is heard with trumpets"
+    "notes": null
   },
   {
     "patron_id": "pat_55",
@@ -930,9 +822,7 @@
     "last_day": 5,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "tells all things past, present and to come; gives dignities and the favour of friends"
+    "notes": null
   },
   {
     "patron_id": "pat_56",
@@ -947,9 +837,7 @@
     "last_day": 10,
     "blessing_effect": "eff_surge",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_love",
-    "office_text": "tells things past and to come; shows treasure; wins the love of women"
+    "notes": null
   },
   {
     "patron_id": "pat_57",
@@ -964,9 +852,7 @@
     "last_day": 15,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_beasts",
-    "office_text": "teaches the liberal sciences; changes a man into any shape"
+    "notes": null
   },
   {
     "patron_id": "pat_58",
@@ -981,9 +867,7 @@
     "last_day": 20,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches astrology and the liberal sciences; gives good familiars; finds treasure"
+    "notes": null
   },
   {
     "patron_id": "pat_59",
@@ -998,9 +882,7 @@
     "last_day": 25,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_marked",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "divines by the stars; changes men; gives dignities and the favour of friends"
+    "notes": null
   },
   {
     "patron_id": "pat_60",
@@ -1015,9 +897,7 @@
     "last_day": 30,
     "blessing_effect": "eff_clarity",
     "curse_effect": "eff_marked",
-    "notes": null,
-    "office_id": "off_scholar",
-    "office_text": "teaches handicrafts, professions, philosophy and the sciences"
+    "notes": null
   },
   {
     "patron_id": "pat_61",
@@ -1032,9 +912,7 @@
     "last_day": 5,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_hoard",
-    "office_text": "makes men witty; turns water to wine and wine to water; carries treasure"
+    "notes": null
   },
   {
     "patron_id": "pat_62",
@@ -1049,9 +927,7 @@
     "last_day": 10,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_beasts",
-    "office_text": "gives account of hidden treasure; rides a dragon and gives the sight of serpents"
+    "notes": null
   },
   {
     "patron_id": "pat_63",
@@ -1066,9 +942,7 @@
     "last_day": 15,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "sows discord; may slay master, servant and all"
+    "notes": null
   },
   {
     "patron_id": "pat_64",
@@ -1083,9 +957,7 @@
     "last_day": 20,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_war",
-    "office_text": "tells things past, present and to come; burns the master's enemies"
+    "notes": null
   },
   {
     "patron_id": "pat_65",
@@ -1100,9 +972,7 @@
     "last_day": 25,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_flight",
-    "office_text": "teaches geometry and astronomy; may change into a bird"
+    "notes": null
   },
   {
     "patron_id": "pat_66",
@@ -1117,9 +987,7 @@
     "last_day": 30,
     "blessing_effect": "eff_aegis",
     "curse_effect": "eff_faltering",
-    "notes": null,
-    "office_id": "off_tongues",
-    "office_text": "teaches grammar, logic, rhetoric; finds lost things"
+    "notes": null
   },
   {
     "patron_id": "pat_67",
@@ -1134,9 +1002,7 @@
     "last_day": 5,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_storm",
-    "office_text": "gives the concert of music; bends trees at command"
+    "notes": null
   },
   {
     "patron_id": "pat_68",
@@ -1151,9 +1017,7 @@
     "last_day": 10,
     "blessing_effect": "eff_veil",
     "curse_effect": "eff_stumble",
-    "notes": null,
-    "office_id": "off_tongues",
-    "office_text": "gains favour of friends and foes; distributes dignities"
+    "notes": null
   },
   {
     "patron_id": "pat_69",
@@ -1168,9 +1032,7 @@
     "last_day": 15,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_beasts",
-    "office_text": "knows the virtue of birds and precious stones; brings familiars in the shape of birds"
+    "notes": null
   },
   {
     "patron_id": "pat_70",
@@ -1185,9 +1047,7 @@
     "last_day": 20,
     "blessing_effect": "eff_mending",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_flight",
-    "office_text": "goes anywhere in the blink of an eye; fetches what is asked"
+    "notes": null
   },
   {
     "patron_id": "pat_71",
@@ -1202,9 +1062,7 @@
     "last_day": 25,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_seer",
-    "office_text": "knows the thoughts of men and women and can change them"
+    "notes": null
   },
   {
     "patron_id": "pat_72",
@@ -1219,8 +1077,6 @@
     "last_day": 30,
     "blessing_effect": "eff_echo",
     "curse_effect": "eff_bleeding",
-    "notes": null,
-    "office_id": "off_thief",
-    "office_text": "returns thieves and stolen goods; discovers all wickedness"
+    "notes": null
   }
 ]

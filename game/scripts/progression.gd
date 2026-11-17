@@ -228,7 +228,6 @@ func exp_multiplier(unit_id: String) -> float:
 	var pct := 0
 	for ab in ability_effects(unit_id):
 		pct += int(ab.get("exp_pct", 0))
-	pct += Patrons.office_exp_pct(unit_id)
 	var median := squad_median(unit_id)
 	var deficit := maxi(0, median - level(unit_id)) if median >= 0 else 0
 	var underdog := minf(param("underdog_cap"), param("underdog_per_level") * deficit)
@@ -682,9 +681,6 @@ func map_actions(unit_id: String) -> Array:
 func can_capture(unit_id: String) -> bool:
 	return "capture" in map_actions(unit_id)
 
-## Whether the unit's class can break a patron's seal on bound ground (the Pardoner: "seal not kill").
-func can_unseal(unit_id: String) -> bool:
-	return "unseal" in map_actions(unit_id)
 
 ## Tiles the unit's Shove/Smite pushes a target, before the target's weight is
 ## counted; 0 if the class has neither. A 'smite' class (the Housecarl) has the

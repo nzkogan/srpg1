@@ -61,6 +61,7 @@ Tests: `tests/test_morph.gd` (40 checks, mutation-checked; two survivors are red
 
 ## Not built yet
 
-- (Built since: the proc odds in the forecast and the image, see IMAGE_DESIGN.md; seals on map ground, see BOUND_GROUND_DESIGN.md; the patron of the day, see PATRON_DAY_DESIGN.md; the 72 offices, see OFFICES_DESIGN.md.)
+- (Built since: the proc odds in the forecast and the image, see IMAGE_DESIGN.md.)
+- **Cut 2026-11-17:** seals on map ground (bound ground), the patron of the day, and the 72 offices as passives. All three were built, then removed after review: they each modified the same rolls the procs already modify, which is the "second stat system" canon's calendar tab warns against. The git history has them if any is wanted back.
 
 Tests: `tests/test_patrons.gd` (72 checks, mutation-checked). The validator's c07p checks the 72 pairs, the quinaries, the effects, births and places.
