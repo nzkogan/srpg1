@@ -1,0 +1,95 @@
+# Tests every push, then exports the game for the web and publishes it to GitHub Pages so it can be played on a phone.
+# One-time setup on GitHub: Settings -> Pages -> Source: "GitHub Actions". Until then the deploy step is skipped as a
+# failure that does not turn the run red, and the build is still downloadable from the run's "web-build" artifact.
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: "4.3"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl
+      - name: Canon validator (fails on any blocking finding)
+        run: python3 canon_validate.py canon.xlsx
+      - name: Exported data matches the workbook
+        run: |
+          python3 export_canon_json.py
+          git diff --exit-code -- game/data || (echo "game/data is stale: run python3 export_canon_json.py and commit" && exit 1)
+      - name: Install Godot
+        run: |
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip -d "$HOME/godot"
+          echo "GODOT=$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Import project
+        run: $GODOT --headless --path game --import || true
+      - name: Tests and map sweep
+        run: tools/run_tests.sh
+
+  web:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Cache Godot and its web templates
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-${{ env.GODOT_VERSION }}-web
+      - name: Install Godot and the web export templates
+        run: |
+          if [ ! -x "$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" ]; then
+            curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+            unzip -q godot.zip -d "$HOME/godot"
+            curl -sSL -o templates.tpz "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+            T="$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+            mkdir -p "$T"
+            unzip -qj templates.tpz 'templates/web_*' 'templates/version.txt' -d "$T"
+            rm templates.tpz
+          fi
+          echo "GODOT=$HOME/godot/Godot_v${GODOT_VERSION}-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Export for the web
+        run: |
+          $GODOT --headless --path game --import || true
+          mkdir -p build/web
+          $GODOT --headless --path game --export-release "Web" ../build/web/index.html
+          test -s build/web/index.pck
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: web
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -274,17 +274,21 @@ func _ready() -> void:
 	if snap.is_empty():
 		_add_day_briefing()
 
+	# The status and info text stack in one column under the map, so a long controls line pushes the info down
+	# instead of drawing over it.
+	var hud := VBoxContainer.new()
+	hud.position = Vector2(0, grid.size() * CELL_SIZE + 16)
+	hud.custom_minimum_size = Vector2(maxf(grid[0].length() * CELL_SIZE, 640.0), 0)
+	hud.add_theme_constant_override("separation", 6)
+	add_child(hud)
 	status_label = Label.new()
-	status_label.position = Vector2(0, grid.size() * CELL_SIZE + 16)
-	status_label.custom_minimum_size = Vector2(grid[0].length() * CELL_SIZE, 60)
 	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD
-	add_child(status_label)
-
+	status_label.custom_minimum_size = Vector2(hud.custom_minimum_size.x, 0)
+	hud.add_child(status_label)
 	info_label = Label.new()
-	info_label.position = Vector2(0, grid.size() * CELL_SIZE + 80)
-	info_label.custom_minimum_size = Vector2(grid[0].length() * CELL_SIZE, 100)
 	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD
-	add_child(info_label)
+	info_label.custom_minimum_size = Vector2(hud.custom_minimum_size.x, 0)
+	hud.add_child(info_label)
 
 	forecast_label = RichTextLabel.new()
 	forecast_label.bbcode_enabled = true

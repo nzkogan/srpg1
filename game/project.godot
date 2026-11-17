@@ -28,3 +28,8 @@ Flashback="*res://scripts/flashback.gd"
 Scenes="*res://scripts/scenes.gd"
 Patrons="*res://scripts/patrons.gd"
 SaveGame="*res://scripts/save_game.gd"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

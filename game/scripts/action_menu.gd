@@ -14,6 +14,12 @@ var _list: VBoxContainer
 var _buttons: Array = []
 
 func _init() -> void:
+	var bg := StyleBoxFlat.new()
+	bg.bg_color = Color(0.12, 0.11, 0.10, 0.96)
+	bg.border_color = Color(0.85, 0.75, 0.45, 0.9)
+	bg.set_border_width_all(1)
+	bg.set_content_margin_all(6)
+	add_theme_stylebox_override("panel", bg)
 	_list = VBoxContainer.new()
 	add_child(_list)
 	visible = false

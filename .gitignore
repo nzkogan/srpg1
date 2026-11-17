@@ -16,3 +16,6 @@ violations.csv
 # OS
 .DS_Store
 Thumbs.db
+
+# Web export output
+build/

@@ -626,7 +626,7 @@ func _show_location(location_id: String, here: bool, extra: String = "") -> void
 		var nxt := next_chapter(location_id)
 		if not nxt.is_empty():
 			lines.append("Enter plays %s." % nxt.chapter.get("title"))
-			var day := Almanac.briefing(str(nxt.chapter.get("chapter_id", "")))
+			var day := "" if is_memory(location_id) else Almanac.briefing(str(nxt.chapter.get("chapter_id", "")))       # a memory keeps no calendar
 			if day != "":
 				lines.append(day)
 		elif location_status(location_id) == "won":
