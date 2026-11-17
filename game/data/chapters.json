@@ -13,7 +13,8 @@
     "tonal_register": "cold",
     "teaches_system": "positioning",
     "location_id": "loc_tally_house",
-    "unlock_after": "ch_f00"
+    "unlock_after": "ch_f00",
+    "story_job": "DRAFTED. Open on the clerk's real job: counting grain that is not there. Kheldar's manifest discrepancy starts here, and Kheldar is the first to offer credit against the shortfall -- the first strand of the network the Enlightened One will inherit."
   },
   {
     "chapter_id": "ch_d02",
@@ -29,7 +30,8 @@
     "tonal_register": "grim",
     "teaches_system": "green levies",
     "location_id": "loc_weighbridge",
-    "unlock_after": "ch_d01"
+    "unlock_after": "ch_d01",
+    "story_job": "DRAFTED. The state taking what it needs from a house that cannot refuse. Kest pockets her twin's decan token (the Act 3 evidence); Ricberta's hidden literacy is first visible to an attentive player."
   },
   {
     "chapter_id": "ch_d03",
@@ -45,7 +47,8 @@
     "tonal_register": "grim",
     "teaches_system": "escort + cargo",
     "location_id": "loc_grain_road",
-    "unlock_after": "ch_d02"
+    "unlock_after": "ch_d02",
+    "story_job": "DRAFTED. What feeding the capital costs the villages along the way. Jost and Tancred join; the first escort teaches that legible deeds (a delivery) are what the clerks will count."
   },
   {
     "chapter_id": "ch_a01",
@@ -61,7 +64,8 @@
     "tonal_register": "warm",
     "teaches_system": "terrain hazard",
     "location_id": "loc_vetch_gate",
-    "unlock_after": "ch_f00"
+    "unlock_after": "ch_f00",
+    "story_job": "DRAFTED. Medicine, not grain: the Assembly's crisis is authority, not supply -- the dole runs because a rump council improvises. The medicine was bought on Company credit, the first strand of the network on this route."
   },
   {
     "chapter_id": "ch_a02",
@@ -77,7 +81,8 @@
     "tonal_register": "warm",
     "teaches_system": "talk / capture / disperse",
     "location_id": "loc_still_town",
-    "unlock_after": "ch_a01"
+    "unlock_after": "ch_a01",
+    "story_job": "DRAFTED. Belief as a battlefield force: a preacher converts one a turn. The jailed preacher is the Act 2 hook into the Continuing Word; Solveig, Gunnar and Edda join."
   },
   {
     "chapter_id": "ch_a03",
@@ -93,7 +98,8 @@
     "tonal_register": "desolate",
     "teaches_system": "reinforcement pressure",
     "location_id": "loc_chapterhouse",
-    "unlock_after": "ch_a02"
+    "unlock_after": "ch_a02",
+    "story_job": "DRAFTED. Anselm joins and starts asking the question he will leave over at Vetch. The reliquary to take or give is the route's first mercy-or-extraction choice the ledger reads."
   },
   {
     "chapter_id": "ch_x11",
@@ -109,7 +115,8 @@
     "tonal_register": "triumphal",
     "teaches_system": "the commission split",
     "location_id": "loc_muster_field",
-    "unlock_after": "ch_d10|ch_a10"
+    "unlock_after": "ch_d10|ch_a10",
+    "story_job": null
   },
   {
     "chapter_id": "ch_b15",
@@ -125,7 +132,8 @@
     "tonal_register": "warm",
     "teaches_system": "purchase objective",
     "location_id": "loc_caravanserai",
-    "unlock_after": "ch_c21"
+    "unlock_after": "ch_c21",
+    "story_job": null
   },
   {
     "chapter_id": "ch_d05",
@@ -141,7 +149,8 @@
     "tonal_register": "wondrous",
     "teaches_system": "boarding / grapple-dens",
     "location_id": "loc_salt_ford",
-    "unlock_after": "ch_d04"
+    "unlock_after": "ch_d03",
+    "story_job": "DRAFTED. The Diadem's reach: grain bought abroad, on credit, through the factors. The convoy routes the player builds here are the distribution network canon says the Enlightened One is handed in Act 3."
   },
   {
     "chapter_id": "ch_f00",
@@ -157,7 +166,8 @@
     "tonal_register": "wondrous",
     "teaches_system": "movement, terrain cost, weapon triangle",
     "location_id": "loc_ur_nashet",
-    "unlock_after": null
+    "unlock_after": null,
+    "story_job": null
   },
   {
     "chapter_id": "ch_v21",
@@ -173,7 +183,8 @@
     "tonal_register": "grim",
     "teaches_system": "no-talk chapters",
     "location_id": "loc_vashti_gate",
-    "unlock_after": "ch_x11"
+    "unlock_after": "ch_x11",
+    "story_job": null
   },
   {
     "chapter_id": "ch_v22",
@@ -189,7 +200,8 @@
     "tonal_register": "solemn",
     "teaches_system": "ritual defense",
     "location_id": "loc_vashti_gate",
-    "unlock_after": "ch_v21"
+    "unlock_after": "ch_v21",
+    "story_job": null
   },
   {
     "chapter_id": "ch_c21",
@@ -205,7 +217,8 @@
     "tonal_register": "tense",
     "teaches_system": "home-front ambush",
     "location_id": "loc_vetch_chapel",
-    "unlock_after": "ch_v22|ch_m22"
+    "unlock_after": "ch_v22|ch_m22",
+    "story_job": null
   },
   {
     "chapter_id": "ch_m21",
@@ -221,7 +234,8 @@
     "tonal_register": "eerie",
     "teaches_system": "ongoing prophecy pressure",
     "location_id": "loc_lake_shore",
-    "unlock_after": "ch_x11"
+    "unlock_after": "ch_x11",
+    "story_job": null
   },
   {
     "chapter_id": "ch_m22",
@@ -237,7 +251,8 @@
     "tonal_register": "uneasy",
     "teaches_system": "archive standoff",
     "location_id": "loc_march_shrine",
-    "unlock_after": "ch_m21"
+    "unlock_after": "ch_m21",
+    "story_job": null
   },
   {
     "chapter_id": "ch_r16",
@@ -253,7 +268,8 @@
     "tonal_register": "warm",
     "teaches_system": "redemption-as-purchase",
     "location_id": "loc_caravanserai",
-    "unlock_after": "ch_b15"
+    "unlock_after": "ch_b15",
+    "story_job": null
   },
   {
     "chapter_id": "ch_e31",
@@ -269,7 +285,8 @@
     "tonal_register": "tense",
     "teaches_system": "consequences accumulate",
     "location_id": "loc_caravanserai",
-    "unlock_after": "ch_k22"
+    "unlock_after": "ch_k22",
+    "story_job": null
   },
   {
     "chapter_id": "ch_e32_sanctified",
@@ -285,7 +302,8 @@
     "tonal_register": "ambivalent",
     "teaches_system": "the good ending still costs something",
     "location_id": "loc_caravanserai",
-    "unlock_after": "ch_e31"
+    "unlock_after": "ch_e31",
+    "story_job": null
   },
   {
     "chapter_id": "ch_e32_perverse",
@@ -301,7 +319,8 @@
     "tonal_register": "grim",
     "teaches_system": "false godhood, assembled not born",
     "location_id": "loc_caravanserai",
-    "unlock_after": "ch_e31"
+    "unlock_after": "ch_e31",
+    "story_job": null
   },
   {
     "chapter_id": "ch_h31",
@@ -317,7 +336,8 @@
     "tonal_register": "grim",
     "teaches_system": "conquest, not villainy",
     "location_id": "loc_march_shrine",
-    "unlock_after": "ch_k22"
+    "unlock_after": "ch_k22",
+    "story_job": null
   },
   {
     "chapter_id": "ch_h32",
@@ -333,7 +353,8 @@
     "tonal_register": "solemn",
     "teaches_system": "the trial IS the system",
     "location_id": "loc_kaisareia_walls",
-    "unlock_after": "ch_h31"
+    "unlock_after": "ch_h31",
+    "story_job": null
   },
   {
     "chapter_id": "ch_h33_mercy",
@@ -349,7 +370,8 @@
     "tonal_register": "uneasy",
     "teaches_system": "mercy has a bill too",
     "location_id": "loc_kaisareia_walls",
-    "unlock_after": "ch_h32"
+    "unlock_after": "ch_h32",
+    "story_job": null
   },
   {
     "chapter_id": "ch_h34_war1",
@@ -365,7 +387,8 @@
     "tonal_register": "desolate",
     "teaches_system": "attrition, not spectacle",
     "location_id": "loc_muster_field",
-    "unlock_after": "ch_h32"
+    "unlock_after": "ch_h32",
+    "story_job": null
   },
   {
     "chapter_id": "ch_h34_war2",
@@ -381,7 +404,8 @@
     "tonal_register": "desolate",
     "teaches_system": "the front keeps moving, there's no fixed line to hold",
     "location_id": "loc_glass_edge",
-    "unlock_after": "ch_h34_war1"
+    "unlock_after": "ch_h34_war1",
+    "story_job": null
   },
   {
     "chapter_id": "ch_h34_war3",
@@ -397,7 +421,8 @@
     "tonal_register": "grim",
     "teaches_system": "the cost lands on the world",
     "location_id": "loc_kaisareia_walls",
-    "unlock_after": "ch_h34_war2"
+    "unlock_after": "ch_h34_war2",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_poemen",
@@ -413,7 +438,8 @@
     "tonal_register": "elegiac",
     "teaches_system": "a saint who will not judge",
     "location_id": "loc_north_wind",
-    "unlock_after": "ch_a05|ch_d05"
+    "unlock_after": "ch_a03|ch_d05",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_pambo",
@@ -429,7 +455,8 @@
     "tonal_register": "wondrous",
     "teaches_system": "a saint who will not judge",
     "location_id": "loc_hermit_lake",
-    "unlock_after": "ch_a06|ch_d06"
+    "unlock_after": "ch_a07|ch_d07",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_shadhavar",
@@ -445,7 +472,8 @@
     "tonal_register": "eerie",
     "teaches_system": "a pact that cannot be turned off",
     "location_id": "loc_lowest_terrace",
-    "unlock_after": "ch_a06|ch_d06"
+    "unlock_after": "ch_a07|ch_d07",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_simurgh",
@@ -461,7 +489,8 @@
     "tonal_register": "ambivalent",
     "teaches_system": "help you cannot simply ask for",
     "location_id": "loc_simurgh_nest",
-    "unlock_after": "ch_a05|ch_d05"
+    "unlock_after": "ch_a03|ch_d05",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_karkadann",
@@ -477,7 +506,8 @@
     "tonal_register": "warm",
     "teaches_system": "a guardian whose terms are simple and absolute",
     "location_id": "loc_dove_colony",
-    "unlock_after": "ch_a10|ch_d10"
+    "unlock_after": "ch_a10|ch_d10",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_anzu",
@@ -493,7 +523,8 @@
     "tonal_register": "strange",
     "teaches_system": "a pact you must be able to read to keep",
     "location_id": "loc_flats_interior",
-    "unlock_after": "ch_x11"
+    "unlock_after": "ch_x11",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_huma",
@@ -509,7 +540,8 @@
     "tonal_register": "wondrous",
     "teaches_system": "a blessing that was never yours to keep",
     "location_id": "loc_open_road",
-    "unlock_after": "ch_x11"
+    "unlock_after": "ch_x11",
+    "story_job": null
   },
   {
     "chapter_id": "ch_p_buried_works",
@@ -525,39 +557,8 @@
     "tonal_register": "grim",
     "teaches_system": "what a shrine is built to bury",
     "location_id": "loc_buried_works",
-    "unlock_after": "ch_a10|ch_d10"
-  },
-  {
-    "chapter_id": "ch_d04",
-    "act": "1",
-    "route": "diadem",
-    "column": "unified",
-    "number": 4,
-    "title": "Thessala Harbour",
-    "map_id": "map_d04",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_thessala (region_id=rgn_center, 'south coast; grain bought abroad, unloaded under protest'). 'Under protest' reads as a hostile crowd around the unloading, not the protesters themselves as combatants -- the actual threat is opportunists exploiting the unrest to loot the grain, same framing ea_looter already carries everywhere else it's used this session, kept deliberately rather than making dockside protesters into killable enemies.",
-    "tonal_register": "tense",
-    "teaches_system": "defend under a deadline",
-    "location_id": "loc_thessala",
-    "unlock_after": "ch_d03"
-  },
-  {
-    "chapter_id": "ch_d06",
-    "act": "1",
-    "route": "diadem",
-    "column": "unified",
-    "number": 6,
-    "title": "Anthe, on the Terraces",
-    "map_id": "map_d06",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_anthe (region_id=rgn_stepped_coast, 'a port stranded above its own water; three levels of street'). This is the terrain regions.rgn_stepped_coast's own scar text ('three raised marine terraces, each a former shoreline, each with a ruined harbor at the wrong altitude') actually describes first -- a 2026-09-23 pass used that same scar text for ch_p_poemen before that was corrected to a different region entirely (see ch_p_poemen's own note); this chapter is the terrace terrain's real, rightful home in canon.xlsx, not a reuse of the correction.",
-    "tonal_register": "elegiac",
-    "teaches_system": "riding-blocked elevation",
-    "location_id": "loc_anthe",
-    "unlock_after": "ch_d05"
+    "unlock_after": "ch_a10|ch_d10",
+    "story_job": null
   },
   {
     "chapter_id": "ch_d07",
@@ -573,39 +574,8 @@
     "tonal_register": "elegiac",
     "teaches_system": "a ruin with residents who are not the enemy",
     "location_id": "loc_stranded_harbour",
-    "unlock_after": "ch_d06"
-  },
-  {
-    "chapter_id": "ch_d08",
-    "act": "1",
-    "route": "diadem",
-    "column": "unified",
-    "number": 8,
-    "title": "The Dry Country",
-    "map_id": "map_d08",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_dry_country (region_id=rgn_center, 'open ground, no cover, the map that punishes slow armies'). objective_verb='survive' (not 'rout', which map_grid.gd does not implement -- checked before choosing) turns 'punishes slow armies' into a real mechanical shape: enduring N turns fully exposed on open ground against a fast raiding party, rather than a fixed point to reach. ea_war_captain reused as the raiders' leader -- a mobile order-tier threat, matching the location's own 'slow armies' framing by being fast itself.",
-    "tonal_register": "tense",
-    "teaches_system": "no cover, no terrain to lean on",
-    "location_id": "loc_dry_country",
-    "unlock_after": "ch_d07"
-  },
-  {
-    "chapter_id": "ch_d09",
-    "act": "1",
-    "route": "diadem",
-    "column": "unified",
-    "number": 9,
-    "title": "The Vashti Road",
-    "map_id": "map_d09",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Diadem route Act1 gap, found by auditing every locations row with acts containing '1' against the chapters tab -- 10 diadem locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_d01/d02/d03/d05 existed as built chapters. This is one of the 6 remaining. locations.loc_vashti_road (region_id=rgn_ashland, 'the single road east; lava fans narrow it to one lane in places'). Terrain reuses ter_miasma (already grounded for rgn_ashland's own volcanic ash on ch_p_karkadann) for the lava-fan hazard patches and ter_span ('a', width-1 chokepoint, from map_f00) for the single-lane narrows the location's own text names directly. objective_verb='escape' -- a linear road corridor to cross, same shape as ch_p_huma's road, no cargo to escort stated anywhere in the location's own text (ch_d03 already covers diadem's escort-a-wagon beat).",
-    "tonal_register": "tense",
-    "teaches_system": "a chokepoint road, no fixed objective",
-    "location_id": "loc_vashti_road",
-    "unlock_after": "ch_d08"
+    "unlock_after": "ch_d05",
+    "story_job": "DRAFTED. First sight of the silent: renunciants living in a ruin who will not explain or judge. Sets up Pambo and the refusal to adjudicate as a position, not an evasion."
   },
   {
     "chapter_id": "ch_d10",
@@ -621,55 +591,8 @@
     "tonal_register": "grim",
     "teaches_system": "a door that answers with force, not words",
     "location_id": "loc_vashti_gate",
-    "unlock_after": "ch_d09"
-  },
-  {
-    "chapter_id": "ch_a04",
-    "act": "1",
-    "route": "assembly",
-    "column": "unified",
-    "number": 4,
-    "title": "Halder Harbour",
-    "map_id": "map_a04",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_halder (region_id=rgn_drowned_march, 'north coast; exotic medicines bought from people who know it'). Continues assembly's own medicine thread rather than starting a new one: ch_a01 is a medicine cart (the winter dole), ch_a02 is an apothecary town -- this is where that medicine actually gets bought, from a black-market angle ('people who know it' implies specialist/illicit sourcing). Reuses ea_looter for the same opportunist framing as ch_d04's own harbour.",
-    "tonal_register": "tense",
-    "teaches_system": "a harbour trade, no crowd this time",
-    "location_id": "loc_halder",
-    "unlock_after": "ch_a03"
-  },
-  {
-    "chapter_id": "ch_a05",
-    "act": "1",
-    "route": "assembly",
-    "column": "unified",
-    "number": 5,
-    "title": "The Lake Shore",
-    "map_id": "map_a05",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_lake_shore (region_id=rgn_drowned_march, 'the drowned town; a bell tower breaking the surface in dry years'). This is regions.rgn_drowned_march's own scar text in its most direct form -- the same texture ch_p_poemen's corrected terrain and ch_p_simurgh's mountain-above-the-lake both already draw on, this time as the Act1 location it was probably always meant to describe first. Terrain built fresh (open farmland, a residual lake patch, the bell tower's tip), not copied from either paralogue map.",
-    "tonal_register": "elegiac",
-    "teaches_system": "a drowned landmark, walkable around it",
-    "location_id": "loc_lake_shore",
-    "unlock_after": "ch_a04"
-  },
-  {
-    "chapter_id": "ch_a06",
-    "act": "1",
-    "route": "assembly",
-    "column": "unified",
-    "number": 6,
-    "title": "Ostrova and the Marches",
-    "map_id": "map_a06",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_ostrova (region_id=rgn_drowned_march, 'steppe edge; the Assembly's eastern city, closer to the Plains than to Vetch'). A frontier city at the steppe's edge -- open ground with a small settlement cluster, threatened by mobile raiders out of the Plains (ea_war_captain) rather than an organized siege.",
-    "tonal_register": "tense",
-    "teaches_system": "a frontier city, open approach",
-    "location_id": "loc_ostrova",
-    "unlock_after": "ch_a05"
+    "unlock_after": "ch_d07",
+    "story_job": "DRAFTED. The Unstained will not talk. The route's finale is a door that answers with force; it sets up the occupation Waldrada will not serve (v21) and what is buried under Vashti."
   },
   {
     "chapter_id": "ch_a07",
@@ -685,23 +608,8 @@
     "tonal_register": "tense",
     "teaches_system": "a cliff edge as a wall",
     "location_id": "loc_upper_scar",
-    "unlock_after": "ch_a06"
-  },
-  {
-    "chapter_id": "ch_a08",
-    "act": "1",
-    "route": "assembly",
-    "column": "unified",
-    "number": 8,
-    "title": "The Timber Road",
-    "map_id": "map_a08",
-    "sect_id": null,
-    "recruits_unit_ids": null,
-    "notes": "New (2026-09-25). Assembly route Act1 gap, found the same way the diadem batch was: auditing every locations row with acts containing '1' against the chapters tab -- 10 assembly locations are declared (chapters '1' through '10' in locations' own legacy numbering) but only ch_a01/a02/a03 existed as built chapters. locations.loc_timber_road (region_id=rgn_drowned_march, 'forest; the map where fliers are worthless and archers are not'). Terrain reuses ter_cloister ('i', from map_a03) for forest canopy purely for its existing cost profile -- blocks flying outright, cost 1 for every ground movement type -- which is exactly 'fliers worthless, archers not', not for its 'cloister/indoors' name. Bandits using the treeline for cover (ea_looter) rather than an organized force.",
-    "tonal_register": "tense",
-    "teaches_system": "canopy blocks flight, ground fights normal",
-    "location_id": "loc_timber_road",
-    "unlock_after": "ch_a07"
+    "unlock_after": "ch_a03",
+    "story_job": "DRAFTED. Holding a cliff where the rift never filled: the material explanation of the Drowned March (the ground simply dropped), seen before the sacred one is preached at the shrine."
   },
   {
     "chapter_id": "ch_a09",
@@ -717,7 +625,8 @@
     "tonal_register": "wondrous",
     "teaches_system": "a shrine that keeps writing itself",
     "location_id": "loc_march_shrine",
-    "unlock_after": "ch_a08"
+    "unlock_after": "ch_a07",
+    "story_job": "DRAFTED. New scripture still arriving: the Continuing Word's method, converting levies in the field, shown before the Hierophant's movement consolidates out of it in Act 3."
   },
   {
     "chapter_id": "ch_a10",
@@ -733,7 +642,8 @@
     "tonal_register": "grim",
     "teaches_system": "a loyalist home front, first contact",
     "location_id": "loc_vetch_chapel",
-    "unlock_after": "ch_a09"
+    "unlock_after": "ch_a09",
+    "story_job": "DRAFTED. Obedience belongs to the throne: the court sect at home, its gate shut. Seeds Anselm's departure when the crown answers with it at the Vetch Reunion."
   },
   {
     "chapter_id": "ch_k21",
@@ -749,7 +659,8 @@
     "tonal_register": "tense",
     "teaches_system": "a home front, not a frontier",
     "location_id": "loc_kaisareia_walls",
-    "unlock_after": "ch_rf20"
+    "unlock_after": "ch_rf20",
+    "story_job": null
   },
   {
     "chapter_id": "ch_k22",
@@ -765,7 +676,8 @@
     "tonal_register": "eerie",
     "teaches_system": "what a false godhood is actually made of",
     "location_id": "loc_kaisareia_walls",
-    "unlock_after": "ch_k21"
+    "unlock_after": "ch_k21",
+    "story_job": null
   },
   {
     "chapter_id": "ch_ct19",
@@ -781,7 +693,8 @@
     "tonal_register": "tense",
     "teaches_system": "an ash crossing, no fixed foe",
     "location_id": "loc_cinder_track",
-    "unlock_after": "ch_c21"
+    "unlock_after": "ch_c21",
+    "story_job": null
   },
   {
     "chapter_id": "ch_tp19",
@@ -797,7 +710,8 @@
     "tonal_register": "tense",
     "teaches_system": "a toll held by force, not by law",
     "location_id": "loc_throat_pass",
-    "unlock_after": "ch_b15"
+    "unlock_after": "ch_b15",
+    "story_job": null
   },
   {
     "chapter_id": "ch_rf20",
@@ -813,7 +727,8 @@
     "tonal_register": "warm",
     "teaches_system": "what each side kept, what each side lost",
     "location_id": "loc_reunion_field",
-    "unlock_after": "ch_tp19|ch_ct19"
+    "unlock_after": "ch_tp19|ch_ct19",
+    "story_job": null
   },
   {
     "chapter_id": "ch_f01",
@@ -829,7 +744,8 @@
     "tonal_register": "eerie",
     "teaches_system": "the epithet ledger, by watching a clerk write",
     "location_id": "loc_scribes_quarter",
-    "unlock_after": "ch_d10|ch_a10"
+    "unlock_after": "ch_d10|ch_a10",
+    "story_job": null
   },
   {
     "chapter_id": "ch_f02",
@@ -845,6 +761,7 @@
     "tonal_register": "elegiac",
     "teaches_system": "what the pact layer costs",
     "location_id": "loc_last_court",
-    "unlock_after": "ch_rf20"
+    "unlock_after": "ch_rf20",
+    "story_job": null
   }
 ]

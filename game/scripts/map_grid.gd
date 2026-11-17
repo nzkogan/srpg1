@@ -85,7 +85,7 @@ const MAX_STATUE_ATTACKERS_PER_TURN := 4
 ## (open ground, terrace/lake, lava-road, rubble+statue, forest canopy):
 ## on open/mixed terrain flying reaches roughly 60-70% of riding's tile
 ## count, tracking budget-squared (7^2/9^2=60%) almost exactly -- internally
-## consistent, not degenerate. On map_a08 (forest canopy, ter_cloister
+## consistent, not degenerate. On the cut map_a08 (forest canopy, ter_cloister
 ## blocks flying outright) flying's reach collapsed to near-zero, which is
 ## the location's own grounding working as intended ("fliers worthless,
 ## archers not"), not a bug. Left unchanged: flying's real value is

@@ -381,7 +381,7 @@ def main():
         if lid not in adj and c.get("act") not in ("prologue", "flashback"):
             fail("c07", "blocking", f"chapters.{c['chapter_id']}", f"is placed at {lid}, which no path reaches (only the prologue flashback may stand alone)")
     for lid in sorted(loc_ids - used):
-        fail("c07", "warning", f"locations.{lid}", "no chapter is placed here")
+        fail("c07", "info", f"locations.{lid}", "a place the road passes through: no chapter is placed here")
     after = {c["chapter_id"]: split_multi(c.get("unlock_after")) for c in tabs["chapters"]}
     for cid, reqs in after.items():
         for r in reqs:

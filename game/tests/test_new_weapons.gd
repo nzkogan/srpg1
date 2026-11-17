@@ -177,7 +177,7 @@ func _run() -> void:
 	await process_frame
 
 	# ---- where each is found
-	var drops := {"spn_d04_boss": "wpn_morningstar", "spn_a04_boss": "wpn_morningstar", "spn_x11_captain_east": "wpn_perun_brand", "spn_a08_boss": "wpn_vila_moonbow",
+	var drops := {"spn_d10_boss": "wpn_morningstar", "spn_x11_captain_east": "wpn_perun_brand", "spn_a07_boss": "wpn_vila_moonbow",
 		"spn_d07_boss": "wpn_neith_bow", "spn_a09_boss": "wpn_miroslav_gospel", "spn_a02_boyan": "wpn_zographos_codex", "spn_k22_boss": "wpn_lemegeton", "spn_pburiedworks_boss": "wpn_astaroth_goetia"}
 	for sid in drops:
 		var row = _canon.find_by("encounter_spawns", "spawn_id", sid)

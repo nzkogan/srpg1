@@ -1027,45 +1027,6 @@
     "drop_weapon_id": null
   },
   {
-    "spawn_id": "spn_d04_boss",
-    "map_id": "map_d04",
-    "kind": "boss",
-    "enemy_id": "ea_looter",
-    "row": 3,
-    "col": 12,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "The looter ringleader exploiting the dockside unrest -- see chapters.ch_d04's own note on why the protesters themselves aren't combatants.",
-    "drop_weapon_id": "wpn_morningstar"
-  },
-  {
-    "spawn_id": "spn_d04_mook",
-    "map_id": "map_d04",
-    "kind": "mook",
-    "enemy_id": "ea_looter",
-    "row": 6,
-    "col": 4,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "See spn_d04_boss.",
-    "drop_weapon_id": null
-  },
-  {
-    "spawn_id": "spn_d06_boss",
-    "map_id": "map_d06",
-    "kind": "boss",
-    "enemy_id": "ea_garrison",
-    "row": 5,
-    "col": 10,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "ea_garrison ('fatigued and not a threat', per its own notes) -- a skeleton crew watching a port stranded above its own water, not a real defense.",
-    "drop_weapon_id": null
-  },
-  {
     "spawn_id": "spn_d07_boss",
     "map_id": "map_d07",
     "kind": "boss",
@@ -1079,58 +1040,6 @@
     "drop_weapon_id": "wpn_neith_bow"
   },
   {
-    "spawn_id": "spn_d08_boss",
-    "map_id": "map_d08",
-    "kind": "boss",
-    "enemy_id": "ea_war_captain",
-    "row": 4,
-    "col": 15,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "A mobile raiding party leader, matching 'punishes slow armies' by being fast itself.",
-    "drop_weapon_id": "wpn_lance_mid"
-  },
-  {
-    "spawn_id": "spn_d08_mook",
-    "map_id": "map_d08",
-    "kind": "mook",
-    "enemy_id": "ea_conscript_levy",
-    "row": 6,
-    "col": 15,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "See spn_d08_boss.",
-    "drop_weapon_id": null
-  },
-  {
-    "spawn_id": "spn_d09_mook1",
-    "map_id": "map_d09",
-    "kind": "mook",
-    "enemy_id": "ea_conscript_levy",
-    "row": 2,
-    "col": 9,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "Local levies guarding the narrow lava-fan pass, no boss -- same road-map pattern as ch_p_huma.",
-    "drop_weapon_id": null
-  },
-  {
-    "spawn_id": "spn_d09_mook2",
-    "map_id": "map_d09",
-    "kind": "mook",
-    "enemy_id": "ea_conscript_levy",
-    "row": 5,
-    "col": 9,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "See spn_d09_mook1.",
-    "drop_weapon_id": null
-  },
-  {
     "spawn_id": "spn_d10_boss",
     "map_id": "map_d10",
     "kind": "boss",
@@ -1141,7 +1050,7 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "The gate captain -- 'the Unstained will not talk to you' means this is the answer instead.",
-    "drop_weapon_id": "wpn_lance_mid"
+    "drop_weapon_id": "wpn_morningstar"
   },
   {
     "spawn_id": "spn_d10_mook",
@@ -1157,71 +1066,6 @@
     "drop_weapon_id": null
   },
   {
-    "spawn_id": "spn_a04_boss",
-    "map_id": "map_a04",
-    "kind": "boss",
-    "enemy_id": "ea_looter",
-    "row": 3,
-    "col": 12,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "Opportunists working the medicine trade, same framing as ch_d04's harbour.",
-    "drop_weapon_id": "wpn_morningstar"
-  },
-  {
-    "spawn_id": "spn_a04_mook",
-    "map_id": "map_a04",
-    "kind": "mook",
-    "enemy_id": "ea_looter",
-    "row": 6,
-    "col": 4,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "See spn_a04_boss.",
-    "drop_weapon_id": null
-  },
-  {
-    "spawn_id": "spn_a05_boss",
-    "map_id": "map_a05",
-    "kind": "boss",
-    "enemy_id": "ea_looter",
-    "row": 10,
-    "col": 9,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "Scavengers picking through the drowned town, same framing as ch_d07.",
-    "drop_weapon_id": null
-  },
-  {
-    "spawn_id": "spn_a06_boss",
-    "map_id": "map_a06",
-    "kind": "boss",
-    "enemy_id": "ea_war_captain",
-    "row": 3,
-    "col": 14,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "A mobile Plains raiding party leader threatening the frontier city.",
-    "drop_weapon_id": "wpn_lance_mid"
-  },
-  {
-    "spawn_id": "spn_a06_mook",
-    "map_id": "map_a06",
-    "kind": "mook",
-    "enemy_id": "ea_war_captain",
-    "row": 6,
-    "col": 14,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "See spn_a06_boss.",
-    "drop_weapon_id": null
-  },
-  {
     "spawn_id": "spn_a07_boss",
     "map_id": "map_a07",
     "kind": "boss",
@@ -1232,19 +1076,6 @@
     "max_waves": null,
     "wave_size": 1,
     "notes": "Escarpment fighting -- an organized veteran force holding the cliff edge.",
-    "drop_weapon_id": "wpn_sword_mid"
-  },
-  {
-    "spawn_id": "spn_a08_boss",
-    "map_id": "map_a08",
-    "kind": "boss",
-    "enemy_id": "ea_looter",
-    "row": 5,
-    "col": 12,
-    "spawn_interval": null,
-    "max_waves": null,
-    "wave_size": 1,
-    "notes": "Bandits using the treeline for cover, not an organized force.",
     "drop_weapon_id": "wpn_vila_moonbow"
   },
   {

@@ -150,4 +150,4 @@ func _convoy_and_drops() -> void:
 			drops += 1
 			for one in str(d).split("|", false):
 				check(not _eq.weapon_row(one).is_empty(), "drop %s resolves (%s)" % [one, row["spawn_id"]])
-	check(drops == 29, "29 drops in canon (got %d)" % drops)
+	check(drops == 24, "24 drops in canon (got %d)" % drops)

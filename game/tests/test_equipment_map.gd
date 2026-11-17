@@ -185,15 +185,15 @@ func _run() -> void:
 	m.queue_free()
 	await process_frame
 
-	# ---- real data: the Act 1 captain on map_a06 carries a steel lance
+	# ---- real data: the Act 1 finale captain on map_a10 carries a steel lance
 	_reset()
-	var a06: Node = load("res://scenes/map_a06.tscn").instantiate()
-	root.add_child(a06)
+	var a10: Node = load("res://scenes/map_a10.tscn").instantiate()
+	root.add_child(a10)
 	await process_frame
 	var boss: Dictionary = {}
-	for e in a06.enemies:
+	for e in a10.enemies:
 		if e.kind == "boss":
 			boss = e
-	check(not boss.is_empty() and boss["spawn_id"] == "spn_a06_boss" and boss["drop"] == "wpn_lance_mid", "map_a06's boss drops a Steel Lance (from canon)")
-	a06.queue_free()
+	check(not boss.is_empty() and boss["spawn_id"] == "spn_a10_boss" and boss["drop"] == "wpn_lance_mid", "map_a10's boss drops a Steel Lance (from canon)")
+	a10.queue_free()
 	await process_frame

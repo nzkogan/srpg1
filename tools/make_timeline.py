@@ -87,8 +87,8 @@ part1 = "".join(era_block(*x) for x in ERAS)
 def column(title, cids, cls=""):
     return f'<div class="col {cls}"><h5>{e(title)}</h5><ol>{"".join(chrow(c) for c in cids)}</ol></div>'
 
-act1_d = [f"ch_d{n:02d}" for n in range(1, 11)]
-act1_a = [f"ch_a{n:02d}" for n in range(1, 11)]
+act1_d = sorted(c for c in chapters if c.startswith("ch_d"))
+act1_a = sorted(c for c in chapters if c.startswith("ch_a"))
 kheldar = ""
 
 para = [

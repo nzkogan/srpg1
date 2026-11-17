@@ -43,11 +43,7 @@ const AVAILABLE_SCENES := {
 	"map_a02": "res://scenes/map_a02.tscn",
 	"map_a03": "res://scenes/map_a03.tscn",
 	"map_d03": "res://scenes/map_d03.tscn",
-	"map_d04": "res://scenes/map_d04.tscn",
-	"map_d06": "res://scenes/map_d06.tscn",
 	"map_d07": "res://scenes/map_d07.tscn",
-	"map_d08": "res://scenes/map_d08.tscn",
-	"map_d09": "res://scenes/map_d09.tscn",
 	"map_d10": "res://scenes/map_d10.tscn",
 	"map_x11": "res://scenes/map_x11.tscn",
 	"map_ct19": "res://scenes/map_ct19.tscn",
@@ -56,11 +52,7 @@ const AVAILABLE_SCENES := {
 	"map_b15": "res://scenes/map_b15.tscn",
 	"map_d02": "res://scenes/map_d02.tscn",
 	"map_a01": "res://scenes/map_a01.tscn",
-	"map_a04": "res://scenes/map_a04.tscn",
-	"map_a05": "res://scenes/map_a05.tscn",
-	"map_a06": "res://scenes/map_a06.tscn",
 	"map_a07": "res://scenes/map_a07.tscn",
-	"map_a08": "res://scenes/map_a08.tscn",
 	"map_a09": "res://scenes/map_a09.tscn",
 	"map_a10": "res://scenes/map_a10.tscn",
 	"map_d05": "res://scenes/map_d05.tscn",
@@ -119,6 +111,7 @@ const START_LOCATION := "loc_tally_house"   # where the avatar starts as a clerk
 const AVAILABLE_COLOR := Color(0.30, 0.55, 0.85, 0.95)
 const WON_COLOR := Color(0.30, 0.68, 0.40, 0.95)
 const LOCKED_COLOR := Color(0.35, 0.35, 0.38, 0.95)
+const WAYPOINT_COLOR := Color(0.62, 0.58, 0.50, 0.55)       # a place the road passes through, with no chapter of its own
 const PARTY_COLOR := Color(0.98, 0.82, 0.25, 1.0)
 const ROUTE_COLORS := {
 	"diadem": Color(0.88, 0.50, 0.38, 0.9),
@@ -564,6 +557,9 @@ func _draw_nodes() -> void:
 
 func _recolor_nodes() -> void:
 	for lid in _node_rects:
+		if locations[lid]["chapters"].is_empty():
+			_node_rects[lid].color = WAYPOINT_COLOR
+			continue
 		match location_status(lid):
 			"won": _node_rects[lid].color = WON_COLOR
 			"open": _node_rects[lid].color = AVAILABLE_COLOR

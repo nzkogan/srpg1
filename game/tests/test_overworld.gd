@@ -194,7 +194,7 @@ func _run() -> void:
 	check(ow.location_status("loc_tally_house") == "won" and ow.next_chapter("loc_tally_house").is_empty(), "all won: status won")
 	check(ow.chapter_to_play("loc_tally_house").chapter["chapter_id"] == "ch_d01", "Enter then replays it")
 	check(ow.chapter_to_play("loc_vashti_road").is_empty(), "a place with nothing open or won has nothing to play")
-	_win(["map_d09", "map_d10", "map_x11"])
+	_win(["map_d07", "map_d10", "map_x11"])
 	check(ow.next_chapter("loc_vashti_gate").chapter["chapter_id"] == "ch_v21", "Vashti gate: the Act 1 chapter was won, so Act 2's first is next")
 	check(ow.location_status("loc_vashti_gate") == "open", "(with v22 still locked behind it, the place is open)")
 	_win(["map_v21"])

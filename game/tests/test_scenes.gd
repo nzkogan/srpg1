@@ -38,7 +38,7 @@ func _run() -> void:
 	var types := {}
 	for r in _s.rows():
 		types[r["type"]] = int(types.get(r["type"], 0)) + 1
-	check(_s.rows().size() == 37 and types == {"post-battle": 31, "pre-battle": 5, "narrative": 1}, "37 scenes: 31 after the battle, 5 before (Alexia's among them), 1 narrative (%s)" % str(types))
+	check(_s.rows().size() == 29 and types == {"post-battle": 23, "pre-battle": 5, "narrative": 1}, "29 scenes: 23 after the battle, 5 before (Alexia's among them), 1 narrative (%s)" % str(types))
 
 	# ---- conditions
 	_gs.reset()
@@ -51,7 +51,7 @@ func _run() -> void:
 	check(not _s.available(_s.row("sc_e31_ledger")), "the Ledger scene needs Maren or Kest")
 	_p.state("u_kest")
 	check(_s.available(_s.row("sc_e31_ledger")), "...flag_deaths is the epilogue record, always there")
-	check(_s.available(_s.rows().filter(func(r): return r["chapter_id"] == "ch_d04")[0]), "a plain scene has no conditions")
+	check(_s.available(_s.rows().filter(func(r): return r["chapter_id"] == "ch_d07")[0]), "a plain scene has no conditions")
 
 	# ---- Alexia's one fixed scene
 	_gs.reset()
@@ -70,12 +70,12 @@ func _run() -> void:
 
 	# ---- shown once
 	_gs.reset()
-	var d04: Array = _s.pending("ch_d04", "post-battle")
-	check(d04.size() == 1 and _s.pending("ch_d04", "pre-battle").is_empty() and _s.pending("ch_nope", "post-battle").is_empty(), "a chapter's scene is waiting after its battle, not before, and no other chapter has it")
-	_s.mark_seen(d04[0])
-	check(_s.pending("ch_d04", "post-battle").is_empty() and _s.seen(d04[0]), "once shown it is not shown again")
+	var d07: Array = _s.pending("ch_d07", "post-battle")
+	check(d07.size() == 1 and _s.pending("ch_d07", "pre-battle").is_empty() and _s.pending("ch_nope", "post-battle").is_empty(), "a chapter's scene is waiting after its battle, not before, and no other chapter has it")
+	_s.mark_seen(d07[0])
+	check(_s.pending("ch_d07", "post-battle").is_empty() and _s.seen(d07[0]), "once shown it is not shown again")
 	var d: Dictionary = _gs.to_dict()
-	check(d["scenes_seen"] == {d04[0]: true} and _gs.validate(d) == "", "what has been seen is saved")
+	check(d["scenes_seen"] == {d07[0]: true} and _gs.validate(d) == "", "what has been seen is saved")
 	_gs.reset()
 	check(_gs.scenes_seen.is_empty(), "a new run sees them all again")
 
@@ -88,8 +88,8 @@ func _run() -> void:
 
 	# ---- the screen
 	var ids: Array = ["sc_h31_capture", "sc_x11_writ"]
-	var path: String = _s.stage(ids, "res://scenes/map_d04.tscn")
-	check(path == "res://scenes/scene_screen.tscn" and _s.queue == ids and _s.next_path == "res://scenes/map_d04.tscn", "staging sets the queue and where to go next")
+	var path: String = _s.stage(ids, "res://scenes/map_d07.tscn")
+	check(path == "res://scenes/scene_screen.tscn" and _s.queue == ids and _s.next_path == "res://scenes/map_d07.tscn", "staging sets the queue and where to go next")
 	var sc: Node = load(path).instantiate()
 	root.add_child(sc)
 	await process_frame
@@ -128,7 +128,7 @@ func _run() -> void:
 	var plain: Dictionary = {}
 	for lid in ow.locations:
 		for e in ow.locations[lid]["chapters"]:
-			if e.chapter["chapter_id"] == "ch_d04":
+			if e.chapter["chapter_id"] == "ch_d07":
 				plain = e
 	check(ow.launch_path(plain) == ow.scene_for(plain) and ow.launch_path(plain) != "res://scenes/scene_screen.tscn", "a chapter whose scene comes after goes straight to its map")
 	ow.queue_free()
@@ -136,7 +136,7 @@ func _run() -> void:
 
 	# ---- on the way out of a won map
 	_gs.reset()
-	var m: Node = load("res://scenes/map_d04.tscn").instantiate()
+	var m: Node = load("res://scenes/map_d07.tscn").instantiate()
 	m.enemy_phase_enabled = false
 	root.add_child(m)
 	await process_frame
