@@ -897,8 +897,8 @@
     "drop_weapon_id": null
   },
   {
-    "spawn_id": "spn_pmacuil_boss",
-    "map_id": "map_p_macuil",
+    "spawn_id": "spn_ppoemen_boss",
+    "map_id": "map_p_poemen",
     "kind": "boss",
     "enemy_id": "ea_warlord",
     "row": 5,
@@ -906,12 +906,12 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "npcs.npc_macuil: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty. Repositioned (2026-09-24) to row5/col12 -- dry shoreline ground at the map's new eastern shore, next to the regrounded seize tile, not in the lake patch the old row5/col8 coordinate now falls inside.",
+    "notes": "npcs.npc_poemen: 'paralogue capstone.' ea_warlord reused for capstone-tier difficulty. Repositioned (2026-09-24) to row5/col12 -- dry shoreline ground at the map's new eastern shore, next to the regrounded seize tile, not in the lake patch the old row5/col8 coordinate now falls inside.",
     "drop_weapon_id": "wpn_axe_high|wpn_rostam_bow"
   },
   {
-    "spawn_id": "spn_pindech_boss",
-    "map_id": "map_p_indech",
+    "spawn_id": "spn_ppambo_boss",
+    "map_id": "map_p_pambo",
     "kind": "boss",
     "enemy_id": "ea_warlord",
     "row": 2,
@@ -919,7 +919,7 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "npcs.npc_indech: 'paralogue capstone,' same treatment as map_p_macuil.",
+    "notes": "npcs.npc_pambo: 'paralogue capstone,' same treatment as map_p_poemen.",
     "drop_weapon_id": "wpn_axe_high|wpn_svyatogor_grip"
   },
   {
@@ -932,7 +932,7 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_lowest_terrace / named.nmd_shadhavar: the creature itself, placed mid-terrace, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_shadhavar.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss after that map's own correction.",
+    "notes": "locations.loc_lowest_terrace / named.nmd_shadhavar: the creature itself, placed mid-terrace, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_shadhavar.txt) -- same adjacent-not-overlapping placement used for spn_ppoemen_boss after that map's own correction.",
     "drop_weapon_id": "wpn_reason_high"
   },
   {
@@ -945,7 +945,7 @@
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_simurgh_nest / named.nmd_simurgh: the creature at her nest, one tile east of the seize tile at row6/col8 (see game/data/maps/map_p_simurgh.txt) -- same adjacent-not-overlapping placement used for spn_pmacuil_boss and spn_pshadhavar_boss.",
+    "notes": "locations.loc_simurgh_nest / named.nmd_simurgh: the creature at her nest, one tile east of the seize tile at row6/col8 (see game/data/maps/map_p_simurgh.txt) -- same adjacent-not-overlapping placement used for spn_ppoemen_boss and spn_pshadhavar_boss.",
     "drop_weapon_id": "wpn_faith_high"
   },
   {

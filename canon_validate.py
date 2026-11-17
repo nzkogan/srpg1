@@ -1,7 +1,7 @@
 """
 canon_validate.py
 
-Purpose:  Referential and structural integrity check over fodlan_canon.xlsx.
+Purpose:  Referential and structural integrity check over canon.xlsx.
           Covers the checks a spreadsheet formula cannot express: pipe-delimited
           foreign keys, chapter-ordering (a scene cannot name a unit who has not
           joined yet), matrix coverage, and objective-verb monotony.
@@ -15,7 +15,7 @@ Rules:    Read-only by construction. It never writes to the workbook. Its only
           should stop; warning = probably wrong, human decides; info = a count
           worth eyeballing.
 
-Usage:    python canon_validate.py fodlan_canon.xlsx [--out violations.csv]
+Usage:    python canon_validate.py canon.xlsx [--out violations.csv]
 Env:      none. Requires openpyxl.
 Provenance: drafted 2026-08-03 for Nick Kogan. No approvals required, read-only.
 """
@@ -127,7 +127,7 @@ def split_multi(value):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("workbook", nargs="?", default="fodlan_canon.xlsx")
+    ap.add_argument("workbook", nargs="?", default="canon.xlsx")
     ap.add_argument("--out", default="violations.csv")
     args = ap.parse_args()
 

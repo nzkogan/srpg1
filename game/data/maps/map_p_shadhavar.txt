@@ -2,7 +2,7 @@
 # Reads top to bottom (row0 = top). Grounded in locations.loc_lowest_terrace
 # and regions.rgn_stepped_coast's scar (three raised marine terraces) --
 # specifically the lowest of the three, at the waterline, distinct from
-# ch_p_indech's own site further out among the isles.
+# ch_p_pambo's own site further out among the isles.
 #   T upper terraces (riding blocked, backdrop)   . the lowest terrace (open)
 #   c the sea beyond it (flying only)
 #   * seize tile (where the Shadhavar's song is loudest)

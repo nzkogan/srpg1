@@ -38,7 +38,7 @@ func _run() -> void:
 	var types := {}
 	for r in _s.rows():
 		types[r["type"]] = int(types.get(r["type"], 0)) + 1
-	check(_s.rows().size() == 37 and types == {"post-battle": 31, "pre-battle": 5, "narrative": 1}, "37 scenes: 31 after the battle, 5 before (Anna's among them), 1 narrative (%s)" % str(types))
+	check(_s.rows().size() == 37 and types == {"post-battle": 31, "pre-battle": 5, "narrative": 1}, "37 scenes: 31 after the battle, 5 before (Alexia's among them), 1 narrative (%s)" % str(types))
 
 	# ---- conditions
 	_gs.reset()
@@ -53,19 +53,19 @@ func _run() -> void:
 	check(_s.available(_s.row("sc_e31_ledger")), "...flag_deaths is the epilogue record, always there")
 	check(_s.available(_s.rows().filter(func(r): return r["chapter_id"] == "ch_d04")[0]), "a plain scene has no conditions")
 
-	# ---- Anna's one fixed scene
+	# ---- Alexia's one fixed scene
 	_gs.reset()
-	var anna: Dictionary = _s.row("sc_anna_fixed")
-	check(anna["chapter_id"] == "ch_rf20" and anna["type"] == "pre-battle" and _s.speakers(anna) == "Avatar, Anna", "Anna's scene: the eve of the Reunion, the avatar and Anna (%s)" % _s.speakers(anna))
-	check(not _s.available(anna) and _s.pending("ch_rf20", "pre-battle").is_empty(), "it waits until she has been with the company")
+	var alexia: Dictionary = _s.row("sc_alexia_fixed")
+	check(alexia["chapter_id"] == "ch_rf20" and alexia["type"] == "pre-battle" and _s.speakers(alexia) == "Avatar, Alexia", "Alexia's scene: the eve of the Reunion, the avatar and Alexia (%s)" % _s.speakers(alexia))
+	check(not _s.available(alexia) and _s.pending("ch_rf20", "pre-battle").is_empty(), "it waits until she has been with the company")
 	_gs.defections["def_anselm"] = {"state": "gone"}
 	_gs.defections["def_maren"] = {"state": "gone"}
-	check(_s.available(anna) and _s.pending("ch_rf20", "pre-battle") == ["sc_anna_fixed"], "...with both defections resolved she is with it, and the scene is waiting")
-	_gs.guests["gst_anna"] = "departed"
-	check(_s.available(anna), "(and a guest who has gone still counts as met)")
+	check(_s.available(alexia) and _s.pending("ch_rf20", "pre-battle") == ["sc_alexia_fixed"], "...with both defections resolved she is with it, and the scene is waiting")
+	_gs.guests["gst_alexia"] = "departed"
+	check(_s.available(alexia), "(and a guest who has gone still counts as met)")
 	_gs.reset()
 	_gs.defections["def_anselm"] = {"state": "gone"}
-	check(not _s.available(anna), "one defection alone does not bring her")
+	check(not _s.available(alexia), "one defection alone does not bring her")
 	_gs.reset()
 
 	# ---- shown once

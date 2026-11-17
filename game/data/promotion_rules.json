@@ -423,7 +423,7 @@
     "param_id": "prm_guest_level_gap",
     "value": 2,
     "text": null,
-    "notes": "A guest unit (Anna) joins this many levels under the squad's median, from her class's trained baseline grown by her profile's expected rates."
+    "notes": "A guest unit (Alexia) joins this many levels under the squad's median, from her class's trained baseline grown by her profile's expected rates."
   },
   {
     "param_id": "prm_surveyor_radius",

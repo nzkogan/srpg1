@@ -34,7 +34,7 @@ trigger map is won. Maren's is conditional: do Column A first and she never goes
 - **Maren's way back**: winning the Cinder Track while she is gone (and alive) brings her home with the weapons she took. A
   returned Maren no longer appears as a lieutenant.
 
-## Anna, the guest
+## Alexia, the guest
 
 Canon's guest covers the faith niche the departures could zero out, without bending anyone's arc to protect roster math:
 
@@ -46,11 +46,11 @@ Canon's guest covers the faith niche the departures could zero out, without bend
 
 ## Not built
 
-- The **scenes**: the signposting dialogue before each goes, Anna's one fixed scene, and the pre-battle *screen* itself (here a
+- The **scenes**: the signposting dialogue before each goes, Alexia's one fixed scene, and the pre-battle *screen* itself (here a
   line in the map's panel).
 - **Pact obligations** and epithets "taken with them" beyond the title list; **talking** a defector down (a natural fit for
   Maren's genuine amends) and the ascension signal `sig_defection_handling` that reads how she was handled.
-- Anna's Act 3 payoff -- canon's own **reconstruction gap**: the row says the real text is missing.
+- Alexia's Act 3 payoff -- canon's own **reconstruction gap**: the row says the real text is missing.
 - A defector's later growth (they are frozen as they left), and the epilogue reading of a defector killed.
 - The trigger/appearance maps and Maren's "Column B first" reading of the supply decision are guesses.
 

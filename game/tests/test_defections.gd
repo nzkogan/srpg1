@@ -1,6 +1,6 @@
 extends SceneTree
 ## Headless checks for defections: when each of Waldrada, Anselm and Maren leaves, what they
-## take, the lieutenants they become, Maren's way back, and the guest Anna.
+## take, the lieutenants they become, Maren's way back, and the guest Alexia.
 ## Run from the repo root:
 ##   godot --headless --path game --script res://tests/test_defections.gd
 ## Exits 0 if every check passes, 1 otherwise.
@@ -172,43 +172,43 @@ func _run() -> void:
 	check(_d.on_map_won("map_ct19", true).is_empty() and _d.is_gone("u_maren") and _d.lieutenants_for("map_tp19").is_empty(), "winning the return map does nothing for a dead lieutenant")
 	check(_d.on_lieutenant_down("def_waldrada", "killed") == "" and _d.on_lieutenant_down("def_maren", "captured") == "", "(and a capture, or a defection that never happened, changes nothing)")
 
-	# ---- Anna
+	# ---- Alexia
 	_fresh()
 	_join(["u_anselm", "u_maren", "u_jost", "u_ricberta", "u_dietmar"], 12)
-	check(not _d.guest_active("gst_anna") and _d.active_guests().is_empty(), "no guest at the start")
+	check(not _d.guest_active("gst_alexia") and _d.active_guests().is_empty(), "no guest at the start")
 	_d.on_map_won("map_c21", true)
-	check(not _d.guest_active("gst_anna"), "Anselm's departure alone doesn't bring her")
+	check(not _d.guest_active("gst_alexia"), "Anselm's departure alone doesn't bring her")
 	_fresh()
 	_join(["u_anselm", "u_maren", "u_jost", "u_ricberta", "u_dietmar"], 12)
 	_d.on_map_won("map_b15", true)
-	check(not _d.guest_active("gst_anna"), "nor does Maren's alone")
+	check(not _d.guest_active("gst_alexia"), "nor does Maren's alone")
 	_d.on_map_won("map_c21", true)
-	check(_d.guest_active("gst_anna") and _d.active_guests().size() == 1, "both gone: Anna joins")
-	var g: Dictionary = _canon.find_by("guest_units", "guest_id", "gst_anna")
+	check(_d.guest_active("gst_alexia") and _d.active_guests().size() == 1, "both gone: Alexia joins")
+	var g: Dictionary = _canon.find_by("guest_units", "guest_id", "gst_alexia")
 	check(_d.guest_level(g) == 10, "at the squad's median less 2 (%d)" % _d.guest_level(g))
 	var gs: Dictionary = _d.guest_stats(g)
 	var base: Dictionary = _canon.find_by("unit_base_stats", "unit_id", "u_maren")
 	check(int(gs["mag"]) > int(base["mag"]) and int(gs["hp"]) > int(base["hp"]), "grown from the trained baseline (mag %d vs %d)" % [gs["mag"], base["mag"]])
 	m = await _map("map_d02", ["u_jost", "u_ricberta"], [])
 	var ann: Dictionary = m.units[m.units.size() - 1]
-	check(m.units.size() == 3 and ann["punit_id"] == "gst_anna" and ann["name"] == "Anna" and ann["guest"] and ann["level"] == 10, "she is deployed after the squad")
+	check(m.units.size() == 3 and ann["punit_id"] == "gst_alexia" and ann["name"] == "Alexia" and ann["guest"] and ann["level"] == 10, "she is deployed after the squad")
 	check(ann["weapon_art"] == "faith" and m._weapon_for_unit(ann).get("art", "") == "faith" and not m._is_roster_unit(ann), "with a faith weapon, and she is not a roster unit (no EXP, no uses)")
-	check(m.unit_positions.has("gst_anna") and m.unit_hp["gst_anna"] == ann["hp"] and m.unit_tokens.has("gst_anna"), "on the map with a token and her hit points")
+	check(m.unit_positions.has("gst_alexia") and m.unit_hp["gst_alexia"] == ann["hp"] and m.unit_tokens.has("gst_alexia"), "on the map with a token and her hit points")
 	m._next_turn()
-	check(m.turn == 1 and m.unit_positions.has("gst_anna"), "(a turn passes with her aboard)")
+	check(m.turn == 1 and m.unit_positions.has("gst_alexia"), "(a turn passes with her aboard)")
 	m.queue_free()
 	await process_frame
-	# Maren returns: Anna stays (she departs by the reunion regardless)
+	# Maren returns: Alexia stays (she departs by the reunion regardless)
 	_gs.won_maps["map_ct19"] = true
 	_d.on_map_won("map_ct19", true)
-	check(_d.guest_active("gst_anna") and not _d.is_gone("u_maren"), "if Maren is won back, Anna stays until the reunion")
+	check(_d.guest_active("gst_alexia") and not _d.is_gone("u_maren"), "if Maren is won back, Alexia stays until the reunion")
 	var dep: Array[String] = _d.on_map_won("map_rf20", true)
-	check(dep.size() == 1 and dep[0].begins_with("Anna leaves the company for good") and _gs.guests["gst_anna"] == "departed" and not _d.guest_active("gst_anna"), "the reunion sends her away (%s)" % str(dep))
+	check(dep.size() == 1 and dep[0].begins_with("Alexia leaves the company for good") and _gs.guests["gst_alexia"] == "departed" and not _d.guest_active("gst_alexia"), "the reunion sends her away (%s)" % str(dep))
 	m = await _map("map_d02", ["u_jost"], [])
 	check(m.units.size() == 1, "she isn't deployed after that")
 	m.queue_free()
 	await process_frame
-	check(_d.on_map_won("map_rf20", true).is_empty() and not _d.guest_active("gst_anna"), "and never comes back")
+	check(_d.on_map_won("map_rf20", true).is_empty() and not _d.guest_active("gst_alexia"), "and never comes back")
 
 	# ---- through a won map, and saved
 	_fresh()

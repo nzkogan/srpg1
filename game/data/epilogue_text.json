@@ -157,7 +157,7 @@
   {
     "phrase_id": "epi_roll_enrolled",
     "text": "Each of them is entered by name in the parish lists, and the name is spoken.",
-    "notes": "closes the fallen roll once Anna has gone: she continues the Continuing Word's rebaptism fieldwork (prc_rebaptism: nobody is enrolled without their name being spoken) off-screen after departing (guest_units.gst_anna.off_screen_purpose_on_exit)"
+    "notes": "closes the fallen roll once Alexia has gone: she continues the Continuing Word's rebaptism fieldwork (prc_rebaptism: nobody is enrolled without their name being spoken) off-screen after departing (guest_units.gst_alexia.off_screen_purpose_on_exit)"
   },
   {
     "phrase_id": "epi_hazard_patron",

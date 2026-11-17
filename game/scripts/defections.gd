@@ -9,7 +9,7 @@ extends Node
 ## their weapons, and "appears later as a lieutenant standing near someone else's seal",
 ## carrying the titles (deeds) the player generated. Never the boss. Killing the lieutenant
 ## is permanent and, for Maren, ends any way back; winning her return map brings her home.
-## Anna, a guest, joins once every defection she requires has happened and leaves for
+## Alexia, a guest, joins once every defection she requires has happened and leaves for
 ## good when her departure map is won. State is in GameState (defections, guests).
 
 const TIER_BY_PROMOTION := {"promoted": "high", "plain": "mid"}

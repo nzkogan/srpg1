@@ -92,7 +92,7 @@ act1_a = [f"ch_a{n:02d}" for n in range(1, 11)]
 kheldar = ""
 
 para = [
- ("ch_p_macuil", "after chapter 5 on either road"), ("ch_p_simurgh", "after chapter 5"), ("ch_p_indech", "after chapter 6"),
+ ("ch_p_poemen", "after chapter 5 on either road"), ("ch_p_simurgh", "after chapter 5"), ("ch_p_pambo", "after chapter 6"),
  ("ch_p_shadhavar", "after chapter 6"), ("ch_p_karkadann", "after chapter 10"), ("ch_p_buried_works", "after chapter 10"),
  ("ch_p_anzu", "after the Second Writ"), ("ch_p_huma", "after the Second Writ"),
 ]
@@ -121,7 +121,7 @@ ans = ev("main", "After The Vetch Reunion", "Anselm leaves",
 mar = ev("main", "After The going rate", "Maren may leave",
          "Conditional. If Column B's opener is won and the Cinder Track was never worked, the state's medicine policy has written the Ashland off, and Maren goes. She returns as a lieutenant at the Throat Pass. Win the Cinder Track afterwards, and she comes home with the weapons she took.",
          tags(("sys", "built: a supply decision that reverses"), ("open", "Kest's restitution thread feeds the ascension signals")), "defect")
-anna_svg = ('<svg class="anna" viewBox="0 0 64 72" role="img" aria-label="A drafted sketch of Anna: red hair in a ponytail">'
+alexia_svg = ('<svg class="alexia" viewBox="0 0 64 72" role="img" aria-label="A drafted sketch of Alexia: red hair in a ponytail">'
             '<path d="M45 22c10 2 13 14 8 26-2 5-6 8-9 8l-2-6c3-4 4-12 1-17z" fill="#b8431f"/>'
             '<circle cx="30" cy="30" r="15" style="fill:var(--skin)"/>'
             '<path d="M14 28c2-14 18-18 28-9 3 3 4 7 3 10-5-2-9-6-12-9-4 5-10 8-19 8z" fill="#c8512a"/>'
@@ -129,7 +129,7 @@ anna_svg = ('<svg class="anna" viewBox="0 0 64 72" role="img" aria-label="A draf
             '<circle cx="25" cy="32" r="1.6" style="fill:var(--ink)"/><circle cx="35" cy="32" r="1.6" style="fill:var(--ink)"/>'
             '<path d="M26 39c3 2 6 2 9 0" style="stroke:var(--ink)" stroke-width="1.5" fill="none" stroke-linecap="round"/>'
             '<path d="M10 72c1-14 9-20 20-20s19 6 20 20z" style="fill:var(--accent)"/></svg>')
-anna = (f'<article class="ev anna-ev" data-layer="main"><div class="when">Once both Anselm and Maren have gone</div><div class="what anna-w">{anna_svg}<div><h4>Anna joins, and leaves at the Reunion</h4>'
+alexia = (f'<article class="ev alexia-ev" data-layer="main"><div class="when">Once both Anselm and Maren have gone</div><div class="what alexia-w">{alexia_svg}<div><h4>Alexia joins, and leaves at the Reunion</h4>'
         '<p>A faith unit who covers the gap the two departures open, fighting a little below the squad, with no support chain and no place in the 153. She has one fixed scene on the eve of the Reunion, shows the parish lists beside the decan tables, and goes on enrolling the plague dead by name. She is the one who might know when the Venerated was born. Her Act 3 payoff is the missing text.'
         + tags(("sys", "built: her scene and the roll's last line"), ("open", "the decan token is unwritten")) +
         '<span class="aside">Sketch: red hair in a ponytail. A joke from the table, not canon.</span></p></div></div></article>')
@@ -141,7 +141,7 @@ act2 = f"""
 <div class="stage">{wal}</div>
 <div class="stage"><ol class="solo">{chrow("ch_c21")}</ol>{ans}</div>
 <div class="split">{column("Column A: the ash", ["ch_ct19"], "c-a")}{column("Column B: the road east", ["ch_b15","ch_r16","ch_tp19"], "c-d")}</div>
-<div class="stage">{mar}{anna}</div>
+<div class="stage">{mar}{alexia}</div>
 <div class="stage"><ol class="solo">{chrow("ch_rf20")}</ol></div>
 <div class="bridge" data-layer="play">&darr; The Reunion hands the party into <b>Memory F2</b>, the last court of the Long Reign, before Act 3 begins.</div></section>"""
 
@@ -164,7 +164,7 @@ act3 = f"""
 OPEN = [
  ("The Venerated", "What did they do, and did they die?", "Five sects answer; none can be proven. Each answer needs a voice, a relic and a reason to be believed.", "eras, sects, calendar"),
  ("The withheld name", "What Nashar wrote", "Never shown, by design. What can be written is everyone who has argued about it since. Treat it as a constraint to write around, and the page lost in the scribes' quarter as the thing that made it possible.", "flashbacks"),
- ("Anna's payoff", "The decan token", "What it proves, who contests it, and how it reaches Act 3. Canon marks it a reconstruction gap and the calendar schism depends on it.", "guest_units, calendar"),
+ ("Alexia's payoff", "The decan token", "What it proves, who contests it, and how it reaches Act 3. Canon marks it a reconstruction gap and the calendar schism depends on it.", "guest_units, calendar"),
  ("The Enlightened One", "A name, a history, whether he believes it", "The only decision made is that his horror is generosity. Everything else is open.", "the_claimant"),
  ("The Hierophant", "Beyond Methodios", "The prophet is known; the person he speaks for is not.", "the_hierophant"),
  ("The ascension signals", "Which five things the game watches", "Dispersal against kills, the Unstained respected or steamrolled, Kest's restitution, how forge access was used, how Maren was handled. Candidates, not a locked list.", "ascension_signals"),
@@ -252,8 +252,8 @@ ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 .br ol{margin-top:4px}
 .tag{display:inline-block;font:500 .7rem var(--f-mono);border-radius:3px;padding:2px 6px;margin:4px 6px 0 0;border:1px solid var(--rule);color:var(--muted)}
 .t-sys{color:var(--good);border-color:var(--good)}.t-open{color:var(--warn);border-color:var(--warn)}.t-lore{color:var(--accent);border-color:var(--accent)}.t-main{color:var(--ink)}
-.anna-w{flex-direction:row!important;gap:12px;align-items:flex-start}
-.anna{flex:none;width:64px;height:72px;border-radius:4px;background:var(--leaf2)}
+.alexia-w{flex-direction:row!important;gap:12px;align-items:flex-start}
+.alexia{flex:none;width:64px;height:72px;border-radius:4px;background:var(--leaf2)}
 .aside{display:block;font-size:.85rem;color:var(--muted);font-style:italic;margin-top:4px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.88rem;color:var(--muted)}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:5px;vertical-align:-1px}

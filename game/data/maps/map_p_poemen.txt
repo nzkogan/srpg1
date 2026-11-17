@@ -1,4 +1,4 @@
-# map_p_macuil -- The North Wind Winds   16 x 12
+# map_p_poemen -- The North Wind Winds   16 x 12
 # Reads top to bottom (row0 = top). REGROUNDED AGAIN (2026-09-24): the prior
 # terrace terrain used rgn_stepped_coast, the wrong region (see chapters'
 # own corrected note). Rebuilt from rgn_drowned_march's actual scar/texture:
@@ -8,7 +8,7 @@
 #   . shoreline farmland (open ground)   c open water (flying only)
 #   x the bell tower's tip (impassable to ground; flying passes over --
 #     reusing ter_wall_face for its cost profile, not its "wall/temple" name)
-#   * seize tile (Macuil's spot, on dry ground at the new shoreline)
+#   * seize tile (Poemen's spot, on dry ground at the new shoreline)
 ................
 ................
 ................

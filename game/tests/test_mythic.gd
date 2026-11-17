@@ -84,7 +84,7 @@ func _run() -> void:
 
 	# ---- where they are found
 	var drops := {"spn_rf20_boss": "wpn_sword_high|wpn_marko_claymore", "spn_hw3_boss": "wpn_axe_high|wpn_stgeorge_spear", "spn_k21_boss": "wpn_axe_high|wpn_svarog_cleaver",
-		"spn_pmacuil_boss": "wpn_axe_high|wpn_rostam_bow", "spn_pindech_boss": "wpn_axe_high|wpn_svyatogor_grip", "spn_tp19_boss": "wpn_lance_high|wpn_slavonic_enoch", "spn_k22_boss": "wpn_lemegeton"}
+		"spn_ppoemen_boss": "wpn_axe_high|wpn_rostam_bow", "spn_ppambo_boss": "wpn_axe_high|wpn_svyatogor_grip", "spn_tp19_boss": "wpn_lance_high|wpn_slavonic_enoch", "spn_k22_boss": "wpn_lemegeton"}
 	for sid in drops:
 		var row = _canon.find_by("encounter_spawns", "spawn_id", sid)
 		check(row != null and row["drop_weapon_id"] == drops[sid], "%s drops %s" % [sid, drops[sid]])

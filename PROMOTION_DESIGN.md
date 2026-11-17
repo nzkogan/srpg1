@@ -56,8 +56,8 @@ current fee. Level and every earned stat are kept; only the class's shape overla
 ability picks the new class can't offer are dropped. Hybrids are not a recertification target.
 
 **Hybrid unlocks** (`classes.unlock_map_id`, drafted, thematic): Billman = Throat Pass (map_tp19, where the
-halberd-bearers stand), Ferryman = the Drowned March's lake (map_p_macuil), Pardoner = the mercy chapter
-(map_h33_mercy), Ash Ascetic = the Stepped Coast's lake (map_p_indech), Miasma Warden = the Dove Colony
+halberd-bearers stand), Ferryman = the Drowned March's lake (map_p_poemen), Pardoner = the mercy chapter
+(map_h33_mercy), Ash Ascetic = the Stepped Coast's lake (map_p_pambo), Miasma Warden = the Dove Colony
 (map_p_karkadann). Until then they show red and locked, with the map to win.
 
 **Late joiners.** The first time a unit is fielded (not merely looked at), if it is more than 3 levels under the

@@ -12,7 +12,7 @@ every rule that canon did not decide are drafts, flagged below; all text lives i
   since the mid-map snapshot is the whole `GameState`).
 - A fallen unit has **left the company**: `Defections.is_gone()` answers true for them, so deployment, the barracks, the convoy
   screen and the deputy pool already hide them. A fallen unit never defects.
-- **Not recorded:** the avatar (their fall would end the story, not write an epilogue), Anna (a guest), cargo units, the
+- **Not recorded:** the avatar (their fall would end the story, not write an epilogue), Alexia (a guest), cargo units, the
   prologue (`map_f00`), and everything when `GameState.flags["casual"]` is true.
 - **Their things:** the *pack* (everything but the weapon carried) goes to the convoy; the **carried weapon** meets its fate.
 - Replaying a won map with permadeath still on is allowed; it is not special-cased.

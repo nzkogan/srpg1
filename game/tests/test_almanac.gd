@@ -54,7 +54,7 @@ func _run() -> void:
 	check(_a.governing("ch_d07") == "sgn_scales" and _a.governing("ch_x11") == "sgn_vessel", "...chapter 7 is the Scales, chapter 11 the Vessel")
 	check(_a.governing("ch_h31") == "sgn_lion", "the March keeps the Vessel's calendar: chapter 31 is 10 + 30 mod 12 = the Lion")
 	check(_a.governing("ch_p_huma") == "sgn_maiden", "the Road's: the Scales + 95 wraps round to the Maiden")
-	check(_a.governing("ch_v21") == "" and _a.governing("ch_p_indech") == "", "no day is favoured on an Unstained or a silent chapter")
+	check(_a.governing("ch_v21") == "" and _a.governing("ch_p_pambo") == "", "no day is favoured on an Unstained or a silent chapter")
 
 	# ---- who it favours
 	check(_a.sign_of("u_jost") == "sgn_ram" and _a.sign_of("u_avatar") == "sgn_scorpion" and _a.sign_of("u_waldrada") == "sgn_scales" and _a.sign_of("u_nobody") == "", "a unit's sign comes from its supports")

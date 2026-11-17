@@ -110,24 +110,24 @@
     "word_count": "0"
   },
   {
-    "scene_id": "sc_p_macuil",
-    "chapter_id": "ch_p_macuil",
+    "scene_id": "sc_p_poemen",
+    "chapter_id": "ch_p_poemen",
     "type": "post-battle",
-    "speaker_ids": "u_avatar|npc_macuil",
+    "speaker_ids": "u_avatar|npc_poemen",
     "depends_on_flags": "flag_deaths",
     "depends_on_units": null,
-    "summary": "Macuil offers both explanations for the drowned valley -- divine judgment on the old seat, or the ground simply dropping, per rgn_drowned_march's own explanation_sacred/explanation_material -- and refuses to say which one is true; 'the north wind winds' reads as much like weather passing over an unanswered question as it does a location. 'Dark in some runs' (this sect's own doctrine language, reused the way sc_p_indech's summary reuses it for sect_coast) reads off flag_deaths: a costly run hears his silence as an indictment, a clean one hears it as genuine refusal to judge -- same words either way, matching sect_march's own wild cosmology just as closely as the earlier, wrong-region draft matched sect_coast's renunciation -- Macuil's personal refusal to adjudicate isn't itself sect doctrine, so the device transfers regardless of which sect actually claims the ground he stands on.",
+    "summary": "Poemen offers both explanations for the drowned valley -- divine judgment on the old seat, or the ground simply dropping, per rgn_drowned_march's own explanation_sacred/explanation_material -- and refuses to say which one is true; 'the north wind winds' reads as much like weather passing over an unanswered question as it does a location. 'Dark in some runs' (this sect's own doctrine language, reused the way sc_p_pambo's summary reuses it for sect_coast) reads off flag_deaths: a costly run hears his silence as an indictment, a clean one hears it as genuine refusal to judge -- same words either way, matching sect_march's own wild cosmology just as closely as the earlier, wrong-region draft matched sect_coast's renunciation -- Poemen's personal refusal to adjudicate isn't itself sect doctrine, so the device transfers regardless of which sect actually claims the ground he stands on.",
     "status": "drafted",
     "word_count": "0"
   },
   {
-    "scene_id": "sc_p_indech",
-    "chapter_id": "ch_p_indech",
+    "scene_id": "sc_p_pambo",
+    "chapter_id": "ch_p_pambo",
     "type": "post-battle",
-    "speaker_ids": "u_avatar|npc_indech",
+    "speaker_ids": "u_avatar|npc_pambo",
     "depends_on_flags": "flag_deaths",
     "depends_on_units": null,
-    "summary": "Indech's fisher cult reads the lake for an answer it may not actually contain -- same refusal-to-adjudicate as Macuil (teaches_system's shared line), here through water instead of stone; 'dark in some runs' (sects.sect_coast's own note, now applying to both its paralogues) reads off flag_deaths the same way sc_p_macuil's summary does: a costly crossing of the ford reads the cult's silence as an indictment, a clean one reads it as genuine renunciation, same words either way.",
+    "summary": "Pambo's fisher cult reads the lake for an answer it may not actually contain -- same refusal-to-adjudicate as Poemen (teaches_system's shared line), here through water instead of stone; 'dark in some runs' (sects.sect_coast's own note, now applying to both its paralogues) reads off flag_deaths the same way sc_p_poemen's summary does: a costly crossing of the ford reads the cult's silence as an indictment, a clean one reads it as genuine renunciation, same words either way.",
     "status": "drafted",
     "word_count": "0"
   },
@@ -396,13 +396,13 @@
     "word_count": "0"
   },
   {
-    "scene_id": "sc_anna_fixed",
+    "scene_id": "sc_alexia_fixed",
     "chapter_id": "ch_rf20",
     "type": "pre-battle",
-    "speaker_ids": "u_avatar|gst_anna",
+    "speaker_ids": "u_avatar|gst_alexia",
     "depends_on_flags": null,
-    "depends_on_units": "gst_anna",
-    "summary": "ANNA'S ONE FIXED SCENE (DRAFTED 2026-11-04; stands in for a support chain, which guest_units.support_shape says she has none of). On the eve of the Reunion, before she leaves, Anna lays the parish lists she has been cross-referencing beside the decan tables for the avatar and shows the places where the two will not agree; she does not say what the disagreement means, only that someone must go on enrolling the dead by name, and that it will be her. Nothing here settles the calendar: her Act 3 payoff (the decan token) is still the reconstruction gap in guest_units.gst_anna.act3_payoff.",
+    "depends_on_units": "gst_alexia",
+    "summary": "ALEXIA'S ONE FIXED SCENE (DRAFTED 2026-11-04; stands in for a support chain, which guest_units.support_shape says she has none of). On the eve of the Reunion, before she leaves, Alexia lays the parish lists she has been cross-referencing beside the decan tables for the avatar and shows the places where the two will not agree; she does not say what the disagreement means, only that someone must go on enrolling the dead by name, and that it will be her. Nothing here settles the calendar: her Act 3 payoff (the decan token) is still the reconstruction gap in guest_units.gst_alexia.act3_payoff.",
     "status": "drafted",
     "word_count": "0"
   }

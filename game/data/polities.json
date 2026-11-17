@@ -20,7 +20,7 @@
     "region_id": "rgn_drowned_march",
     "holds": "the taiga belt and the forest lakes",
     "stance_on_the_war": "war victor; calls the Diadem a crown worn by whoever survived",
-    "condition": "CONSTITUTIONAL COLLAPSE, not just resource-poor: legitimacy runs on assent of the great houses, and enough house heads died in the plague that Vetch may not currently have quorum to seat a government at all -- a rump council improvising rather than a functioning state. A crisis of authority, distinct from the Diadem's crisis of resources; this asymmetry was present in the original FE3H-era design (plague-and-no-spiritual-relief vs. crops-destroyed) and thinned out in the de-pivot -- restored here on purpose, since it primes which of the two Act 3 threats makes sense before the player ever chooses.",
+    "condition": "CONSTITUTIONAL COLLAPSE, not just resource-poor: legitimacy runs on assent of the great houses, and enough house heads died in the plague that Vetch may not currently have quorum to seat a government at all -- a rump council improvising rather than a functioning state. A crisis of authority, distinct from the Diadem's crisis of resources; this asymmetry was present in the original design (plague-and-no-spiritual-relief vs. crops-destroyed) and thinned out in the de-pivot -- restored here on purpose, since it primes which of the two Act 3 threats makes sense before the player ever chooses.",
     "naval_posture": "no fleet and no shipwrights; Halder ices shut a third of the year",
     "comparative_advantage": "interior lines, timber, horses -- and credit: it HIRES fleets it cannot build",
     "epilogue_adjective": "Assembly"

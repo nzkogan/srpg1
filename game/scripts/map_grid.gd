@@ -408,7 +408,7 @@ func _build_units() -> Array:
 	result.append_array(_cargo_rows())
 	return result
 
-## The guests with the company right now (Anna), as roster rows deployed after the squad.
+## The guests with the company right now (Alexia), as roster rows deployed after the squad.
 ## A guest fights with her class's basic art, earns nothing and has no supports.
 func _guest_rows(first_slot: int) -> Array:
 	var rows: Array = []

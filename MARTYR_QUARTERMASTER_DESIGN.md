@@ -19,7 +19,7 @@ and can come back as a lieutenant with his titles; the class is gone with him.) 
 
 Not a roster unit (the roster is a fixed 18 with a finished support grid). **Wolfram** keeps the convoy for the main column; **Hildegund** keeps it for **Column B**
 (chapters whose column is B: the going-rate and Throat Pass line). Each map has exactly one of them, never both: that is "one per column". They join the company when the
-first Act 1 map is won on either route (so a fresh game and every test before that has neither), and never depart. They use the guest machinery Anna uses: a baseline borrowed
+first Act 1 map is won on either route (so a fresh game and every test before that has neither), and never depart. They use the guest machinery Alexia uses: a baseline borrowed
 from Kheldar (a frail non-combatant), the squad's median level less two, no EXP, no supports, **no art, so they cannot attack**. Their names are my invention; rename freely.
 
 - **Supply (Q):** an adjacent **roster** ally swaps their equipped weapon for the **strongest weapon in the convoy they can wield** (by might; certification still gates silver,

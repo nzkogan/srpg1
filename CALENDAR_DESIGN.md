@@ -31,7 +31,7 @@ The bonus is deliberately small and flat: it is the same size as a Skald's first
 ## Not built
 
 - **Pact-holders** (canon: "each pact-holder is governed by a decan") -- no pact-holder exists as a unit or enemy yet beyond the five Named; the decans (36 ten-degree divisions, two spirits each, 72 in all) and the Goetic register are not modelled, only the twelve signs.
-- A chosen calendar: the player does not pick a sect's calendar, it follows each chapter's sect. Feast days, and anything the schism's Act 3 evidence (Anna's token) would change.
+- A chosen calendar: the player does not pick a sect's calendar, it follows each chapter's sect. Feast days, and anything the schism's Act 3 evidence (Alexia's token) would change.
 - The sign shown on the unit panels, and a day indicator on the world map beyond the next-chapter line.
 
 Tests: `tests/test_almanac.gd` (28 checks, mutation-checked). The validator's c07z checks the sects' and Named's signs and that every roster unit has one.

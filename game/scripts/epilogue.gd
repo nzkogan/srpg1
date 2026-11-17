@@ -6,7 +6,7 @@ extends Node
 ## Permadeath. A main-roster unit (not the avatar) who falls on a map is recorded as pending;
 ## winning the map makes it final -- they leave the company (Defections.is_gone says so, so every
 ## roster screen already hides them), their pack goes to the convoy and the weapon they carried
-## meets its fate. Losing or retrying the map discards the pending falls. Anna, cargo and the
+## meets its fate. Losing or retrying the map discards the pending falls. Alexia, cargo and the
 ## prologue's units are not "the 18" and are never recorded. GameState.flags["casual"] = true
 ## turns permadeath off.
 ##
@@ -321,6 +321,6 @@ func roll_text() -> String:
 	for r in rows:
 		lines.append(r["text"])
 		lines.append("")
-	if Defections.guest_departed("gst_anna"):
-		lines.append(fill("epi_roll_enrolled"))       # Anna has gone to enrol the dead by name (prc_rebaptism)
+	if Defections.guest_departed("gst_alexia"):
+		lines.append(fill("epi_roll_enrolled"))       # Alexia has gone to enrol the dead by name (prc_rebaptism)
 	return "\n".join(lines).strip_edges()
