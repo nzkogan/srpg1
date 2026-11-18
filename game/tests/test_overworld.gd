@@ -155,7 +155,9 @@ func _run() -> void:
 	_win(["map_ct19"])
 	check(_status(ow, "ch_rf20") == "open", "either column opens the reunion field")
 	check(_status(ow, "ch_p_anzu") == "open" and _status(ow, "ch_p_huma") == "open", "the paralogues set to open after the muster do")
-	check(_status(ow, "ch_p_karkadann") == "open", "and the one set to open at the end of Act 1 does")
+	check(_status(ow, "ch_p_karkadann") == "locked", "the Karkadann (the slice's paralogue) waits for chapter 3, which this path skipped")
+	_win(["map_d03"])
+	check(_status(ow, "ch_p_karkadann") == "open", "...and opens once chapter 3 is won")
 	_free(ow)
 	await process_frame
 

@@ -38,7 +38,7 @@ func _run() -> void:
 	var types := {}
 	for r in _s.rows():
 		types[r["type"]] = int(types.get(r["type"], 0)) + 1
-	check(_s.rows().size() == 37 and types == {"post-battle": 27, "pre-battle": 9, "narrative": 1}, "37 scenes: 27 after the battle, 9 before (Alexia's among them), 1 narrative (%s)" % str(types))
+	check(_s.rows().size() == 38 and types == {"post-battle": 27, "pre-battle": 10, "narrative": 1}, "38 scenes: 27 after the battle, 10 before (Alexia's among them), 1 narrative (%s)" % str(types))
 
 	# ---- conditions
 	_gs.reset()
@@ -95,7 +95,7 @@ func _run() -> void:
 	check(_s.script("sc_x11_writ").is_empty() and _s.script("sc_nope").is_empty(), "no file, no script")
 	var memory: Array = _s.script("sc_f00_post")
 	check(memory.any(func(l): return l["speaker_id"] == "pu_nashar"), "a memory's own people speak (the prologue roster)")
-	for sid in ["sc_f00_pre", "sc_f00_post", "sc_d01_pre", "sc_d01_post", "sc_d02_pre", "sc_d02_post", "sc_d03_pre", "sc_d03_post"]:
+	for sid in ["sc_f00_pre", "sc_f00_post", "sc_d01_pre", "sc_d01_post", "sc_d02_pre", "sc_d02_post", "sc_d03_pre", "sc_d03_post", "sc_p_karkadann_pre", "sc_p_karkadann"]:
 		var r: Dictionary = _s.row(sid)
 		var named: Array = _s.script(sid).filter(func(l): return l["name"] != "")
 		check(not r.is_empty() and named.all(func(l): return l["speaker_id"] != ""), "%s: every speaker in the script is one of the scene's speakers" % sid)

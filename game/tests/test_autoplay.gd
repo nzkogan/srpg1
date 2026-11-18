@@ -20,7 +20,7 @@ func check(cond: bool, label: String) -> void:
 func _initialize() -> void:
 	await process_frame
 	# map -> [minimum wins out of 3 seeds, minimum turns a win takes]
-	var bounds := {"map_f00": [3, 7], "map_d01": [3, 3], "map_d02": [3, 3], "map_d03": [2, 5]}
+	var bounds := {"map_f00": [3, 7], "map_d01": [3, 3], "map_d02": [3, 3], "map_d03": [2, 5], "map_p_karkadann": [3, 2]}
 	for map_id in bounds:
 		var wins := 0
 		var fastest := 999

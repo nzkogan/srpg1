@@ -850,11 +850,11 @@
     "kind": "boss",
     "enemy_id": "ea_karkadann",
     "row": 4,
-    "col": 9,
+    "col": 8,
     "spawn_interval": null,
     "max_waves": null,
     "wave_size": 1,
-    "notes": "locations.loc_dove_colony / named.nmd_karkadann: the creature guarding the clearing's center, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_karkadann.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session.",
+    "notes": "locations.loc_dove_colony / named.nmd_karkadann: the creature guarding the clearing's center, one tile east of the seize tile at row4/col8 (see game/data/maps/map_p_karkadann.txt) -- same adjacent-not-overlapping placement used for every other Named stand-in this session. ADDENDUM (2026-11-18, vertical slice): DRAFTED. Stands on the colony's heart (the seize tile), so the clearing is taken by facing it.",
     "drop_weapon_id": "wpn_brawl_high"
   },
   {

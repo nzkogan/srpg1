@@ -162,7 +162,7 @@
     "depends_on_units": null,
     "summary": "No feather, no fisher cult, no refusal to judge -- the Karkadann's terms are the simplest of the Named's: it guards the doves, and nothing it has not decided to protect matters to it either way. named.nmd_karkadann's own notes call it 'the plain one on purpose', and the avatar leaves the clearing without a riddle to carry, just the doves, still there, still guarded, whether or not that was ever in question.",
     "status": "drafted",
-    "word_count": "0"
+    "word_count": "50"
   },
   {
     "scene_id": "sc_p_anzu",
@@ -405,5 +405,16 @@
     "summary": "Jost, who slept through the morning on the bandits' side of the bridge, would rather walk beside the grain than wait for it at a ford.",
     "status": "drafted",
     "word_count": "86"
+  },
+  {
+    "scene_id": "sc_p_karkadann_pre",
+    "chapter_id": "ch_p_karkadann",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar|u_jost|u_tancred",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The ash field and the clearing in it, full of doves, and the Karkadann standing over them. Nothing about it is a riddle: it guards what it has decided to guard.",
+    "status": "drafted",
+    "word_count": "127"
   }
 ]
