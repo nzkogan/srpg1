@@ -221,9 +221,9 @@ func _run() -> void:
 	# objective: seize on a seize map
 	m.queue_free()
 	await process_frame
-	m = await _map("map_d02", ["u_gunnar"], [Vector2i(8, 6)])
+	m = await _map("map_d02", ["u_gunnar"], [Vector2i(4, 1)])
 	m.selected_unit_index = 0
-	m.unit_positions["u_gunnar"] = Vector2i(8, 6)
+	m.unit_positions["u_gunnar"] = m.seize_pos + Vector2i(2, 0)
 	m._select_unit(0)
 	m._try_move_to(m.seize_pos)
 	check(m.map_won and _d.count("u_gunnar", "on_objective") == 1, "seizing the objective is the seizer's")

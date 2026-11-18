@@ -96,7 +96,7 @@ func _run() -> void:
 	var wall: Vector2i = spot[0]
 	var floor_tile: Vector2i = spot[1]
 	m.unit_positions["u_rinsa"] = floor_tile
-	m.unit_positions["u_sigrun"] = Vector2i(0, 0)
+	m.unit_positions["u_sigrun"] = Vector2i(13, 9)
 	m.selected_unit_index = 0
 	check(m._terrain_cost(wall, "infantry") >= 99 and m._terrain_cost(wall, "flying") >= 99, "(a warehouse blocks everyone, fliers too)")
 	var reach_before: Dictionary = m._compute_reachable(floor_tile, 9, "infantry")
@@ -124,7 +124,7 @@ func _run() -> void:
 	m._begin_sapper("mine")
 	m._sapper_toward(open_dir)
 	check(m.sapper_used == 0 and m.mines.is_empty(), "...or under a friend")
-	m.unit_positions["u_sigrun"] = Vector2i(0, 0)
+	m.unit_positions["u_sigrun"] = Vector2i(13, 9)
 	m._begin_sapper("breach")
 	m._sapper_toward(wall - floor_tile)
 	check(m.breached.has(wall) and m.sapper_used == 1 and m.attacked_this_turn.has("u_rinsa"), "the wall comes down; a charge and the action are spent")
@@ -162,7 +162,7 @@ func _run() -> void:
 	# a player stepping on a mine sets it off for no one
 	m.unit_positions["u_sigrun"] = mt
 	check(m.mines.has(mt), "a friend on a mine does nothing")
-	m.unit_positions["u_sigrun"] = Vector2i(0, 0)
+	m.unit_positions["u_sigrun"] = Vector2i(13, 9)
 	# the enemy trips it
 	m._spawn_enemy_instance(_arch("Levy", {"hp": 30}), Vector2i(15, 7), "mook", 9)
 	var inst: Dictionary = m.enemies[-1]

@@ -5,7 +5,8 @@ extends RefCounted
 ## nobody hurt, is worth a designer's look. Canon's map laws ask for this ("the two-compositions test is a
 ## MEASUREMENT, not an opinion").
 ##
-## Use: var r = Autoplay.new().play(map_node, seed, max_turns) -> {"won", "lost", "turns", "fallen", "enemies_left"}
+## Use: var r = Autoplay.new().play(map_node, seed, max_turns) -> {"won", "lost", "turns", "fallen", "hp_lost_pct", "enemies_left"}
+## (hp_lost_pct: the share of the party's starting HP gone at the end, the fallen counted as all of theirs.)
 
 const IMPASSABLE := 99
 
@@ -17,6 +18,9 @@ func play(map: Node, seed: int = 1, max_turns: int = 40) -> Dictionary:
 	rng.seed = seed
 	m.rng_override = rng
 	var start_units: Array = m.units.map(func(u): return str(u.get("punit_id", "")))
+	var start_hp := 0
+	for p in start_units:
+		start_hp += int(m.unit_hp.get(p, 0))
 	if m.turn == 0:
 		m._next_turn()
 	while not m.map_won and not m.map_lost and m.turn <= max_turns:
@@ -25,7 +29,10 @@ func play(map: Node, seed: int = 1, max_turns: int = 40) -> Dictionary:
 			break
 		m._next_turn()
 	var fallen: Array = start_units.filter(func(p): return int(m.unit_hp.get(p, 1)) <= 0)
-	return {"won": m.map_won, "lost": m.map_lost, "turns": m.turn, "fallen": fallen,
+	var end_hp := 0
+	for p in start_units:
+		end_hp += maxi(0, int(m.unit_hp.get(p, 0)))
+	return {"won": m.map_won, "lost": m.map_lost, "turns": m.turn, "fallen": fallen, "hp_lost_pct": 0 if start_hp == 0 else int(round(100.0 * (start_hp - end_hp) / start_hp)),
 		"enemies_left": m.enemies.filter(func(e): return not e.defeated and not e.get("neutral", false)).size()}
 
 # ------------------------------------------------------------------ one turn
@@ -74,7 +81,13 @@ func _act(unit: Dictionary, pid: String) -> void:
 		if _prologue_statue(unit, reach, occupied):
 			return
 
-	# 4. fight: the best tile from which an enemy is in reach
+	# 4. badly hurt: pull back to the safest tile instead of trading blows
+	var max_hp := int(unit.get("hp", 1))
+	if int(m.unit_hp.get(pid, max_hp)) * 100 < max_hp * 40 and not m._is_cargo(pid):
+		_retreat(unit, reach, occupied)
+		return
+
+	# 5. fight: the best tile from which an enemy is in reach
 	var weapon: Dictionary = m._weapon_for_unit(unit)
 	if not weapon.is_empty():
 		var best := _best_attack_tile(unit, weapon, reach, occupied)
@@ -84,7 +97,7 @@ func _act(unit: Dictionary, pid: String) -> void:
 			_attack(best["target"], weapon)
 			return
 
-	# 5. otherwise advance: on the objective if there is one, else on the nearest enemy
+	# 6. otherwise advance: on the objective if there is one, else on the nearest enemy
 	var dest := goal
 	if m._cargo_needed() > 0:
 		dest = _nearest_enemy_pos(here)    # escorts clear the road rather than walk to the exit
@@ -160,6 +173,26 @@ func _threat_at(tile: Vector2i) -> int:
 		if m._distance(e.pos, tile) <= mv + 1:
 			n += 1
 	return n
+
+## Moves to the reachable free tile the fewest enemies can reach next phase (ties: farthest from the nearest enemy).
+func _retreat(unit: Dictionary, reach: Dictionary, occupied: Dictionary) -> void:
+	var pid := str(unit.get("punit_id", ""))
+	var here: Vector2i = m.unit_positions[pid]
+	var best := here
+	var best_key := Vector2(_threat_at(here), -_gap(here))
+	for tile in reach:
+		if occupied.has(tile):
+			continue
+		var key := Vector2(_threat_at(tile), -_gap(tile))
+		if key.x < best_key.x or (key.x == best_key.x and key.y < best_key.y):
+			best_key = key
+			best = tile
+	if best != here:
+		m._try_move_to(best)
+
+func _gap(tile: Vector2i) -> int:
+	var nearest := _nearest_enemy_pos(tile)
+	return 99 if nearest == Vector2i(-1, -1) else m._distance(tile, nearest)
 
 func _nearest_enemy_pos(from: Vector2i) -> Vector2i:
 	var best := Vector2i(-1, -1)

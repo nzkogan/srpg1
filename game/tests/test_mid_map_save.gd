@@ -72,7 +72,7 @@ func _digest(m: Node) -> Dictionary:
 	for d in m.dens:
 		den.append([d.spawn_row["spawn_id"], d.waves_spawned])
 	return {"turn": m.turn, "pos": m.unit_positions.duplicate(), "hp": _live_hp(m), "enemies": en, "dens": den,
-		"moved": m.moved_this_turn.keys(), "attacked": m.attacked_this_turn.keys(), "struck": m.struck_units.keys(), "fought": m.fought_units.keys(),
+		"moved": _sorted(m.moved_this_turn.keys()), "attacked": _sorted(m.attacked_this_turn.keys()), "struck": _sorted(m.struck_units.keys()), "fought": _sorted(m.fought_units.keys()),
 		"bribed": m.bribed_count, "escaped": m.escaped_count, "delivered": m.delivered.duplicate(), "sel": m.selected_unit_index,
 		"tokens": m.unit_tokens.keys(), "log": m.enemy_log.duplicate()}
 
@@ -80,6 +80,12 @@ func _live_hp(m: Node) -> Dictionary:
 	var out := {}
 	for pid in m.unit_positions:
 		out[pid] = m.unit_hp.get(pid, -1)
+	return out
+
+## Keys in a fixed order: a save keeps who is in a set, not the order they were added.
+func _sorted(a: Array) -> Array:
+	var out := a.duplicate()
+	out.sort()
 	return out
 
 ## Through JSON, the way a save file does it.
@@ -143,7 +149,7 @@ func _run() -> void:
 	check(after["enemies"] == before["enemies"], "every enemy as it was: place, HP, kind, spawn, flags, who hit it, and whether it still has a token")
 	check(after["dens"] == before["dens"] and after["dens"][0][1] >= 1, "the den's wave count carries over (%s)" % str(after["dens"]))
 	check(after["moved"] == before["moved"] and after["attacked"] == before["attacked"], "who has moved and acted this turn")
-	check(after["struck"] == before["struck"] and after["fought"] == before["fought"] and after["bribed"] == 1, "the deed bookkeeping and the bribe")
+	check(after["struck"] == before["struck"] and after["fought"] == before["fought"] and after["bribed"] == 1, "the deed bookkeeping and the bribe (%s / %s)" % [str([before["struck"], before["fought"], before["bribed"]]), str([after["struck"], after["fought"], after["bribed"]])])
 	check(m2.hold_streak.has(u0) and m2.hold_streak[u0]["tile"] == Vector2i(5, 9) and m2.hold_streak[u0]["phases"] == 2, "a solo-hold streak in progress")
 	check(after["sel"] == before["sel"], "the selected unit")
 	check(after["log"] == before["log"], "the last enemy phase's log")
