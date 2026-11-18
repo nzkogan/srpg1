@@ -326,9 +326,10 @@ func _add_day_briefing() -> void:
 			line += " It is the %s's day too." % str(inst.archetype.get("name", "creature")).trim_prefix("The ").trim_prefix("the ")
 	_intro_lines.append(line)
 
-## Where Escape leads after the battle: the overworld, by way of the chapter's post-battle scenes on a win.
+## Where Escape leads after the battle: the overworld, by way of the chapter's post-battle scenes on a win
+## (a memory's too: the prologue ends with the name being written).
 func _way_out() -> String:
-	if map_won and not _is_flashback():
+	if map_won:
 		var after := Scenes.pending(str(map_row.get("chapter_id", "")), "post-battle")
 		if not after.is_empty():
 			return Scenes.stage(after, Scenes.OVERWORLD)

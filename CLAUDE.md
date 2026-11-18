@@ -24,7 +24,11 @@ Original-IP tactics RPG in Godot 4.3. One developer (Nick), who owns the story a
   `scripts/map_grid.gd` (large; rules and drawing are mixed, so split it before big UI or graphics work).
 - Autoloads (`game/project.godot`, in order): Canon, GameState, Supports, Equipment, Progression, Forge, Defections,
   Deputy, Epilogue, Provenance, Mounts, Huma, Almanac, Flashback, Scenes, Patrons, SaveGame.
-- `game/tests/test_*.gd` headless tests; `game/tools/sweep.gd` loads every map.
+- `game/tests/test_*.gd` headless tests; `game/tools/sweep.gd` loads every map; `game/tools/autoplay.gd` plays a map to
+  the end with a plain player AI (`autoplay_run.gd -- map_d01 --seeds=10 [--without=u_dietmar]` prints win rate, turns,
+  HP lost). Tune maps with it; `test_autoplay` holds the slice's difficulty floor.
+- `game/dialogue/<scene_id>.txt` scene scripts ("Name: line", "> narration"); `game/art/portraits|backdrops/` art slots
+  (see `game/art/README.md`); placeholders stand in until files exist.
 - `docs/design/*_DESIGN.md` one doc per built system, each with "Drafted guesses to confirm" and "Not built".
 - `tools/` flipbook/timeline generators, `run_tests.sh`, and `canon_edits/` (every scripted workbook change, kept so it
   can be re-run or reversed). `blender/` scripts for the F0 block-out (the glb is in Git LFS).

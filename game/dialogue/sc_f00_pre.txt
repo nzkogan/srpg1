@@ -1,0 +1,12 @@
+# sc_f00_pre -- DRAFTED 2026-11-18 (vertical slice). A placeholder for Nick to rewrite.
+# Format: "Name: line" for speech, "> text" for narration, "#" for notes. Names are the speakers' display names.
+> Ur-Nashet. Eight hundred years before anyone now living. Rain on the river wall.
+Enmet: Forty tiles of masonry, and a generation to lay them. Give me first light and the wall is gone.
+Sargath: Then the city is open by morning. That is not the part that matters.
+Ilat: The image.
+Sargath: The image. Their patron stands in the court, and while it stands this is its city, whoever holds the gate.
+Enmet: Nothing I cast will move that.
+Sargath: No. It comes down the slow way. Every hand on it, one blow at a time, until there is nothing left standing.
+Nashar: And when it is down?
+Sargath: Then you write. Keep the book dry.
+> The scribe wraps the book in a cloak and stays behind the line.

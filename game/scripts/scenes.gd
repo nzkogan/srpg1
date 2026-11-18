@@ -5,12 +5,14 @@ extends Node
 ## the win) and one 'narrative' scene (the Kaisareia Trial, which is a screen of its own). Each has speakers, a
 ## summary, and optional conditions: depends_on_flags (the flags it reads -- flag_deaths is the epilogue record,
 ## always there) and depends_on_units (a scene featuring them: shown if ANY of them has joined the company -- a guest counts while with it or once gone).
-## Every scene is still 'drafted' with word_count 0 -- the canon has summaries, not scripts -- so the card shows
-## the summary and says so; when a script is authored it is what the card will show. A scene is shown once
+## A scene's SCRIPT, when it has one, is game/dialogue/<scene_id>.txt ("Name: line" for speech, "> text" for narration,
+## "#" for notes) and the scene screen plays it line by line; a scene without one shows its canon summary as a card,
+## and says so. A scene is shown once
 ## (GameState.scenes_seen). The overworld stages pre-battle scenes before a chapter's map, and a won map stages its
 ## post-battle scenes on the way out.
 
 const SCREEN := "res://scenes/scene_screen.tscn"
+const DIALOGUE_DIR := "res://dialogue/"
 const OVERWORLD := "res://scenes/overworld.tscn"
 
 func rows() -> Array:
@@ -81,13 +83,45 @@ func speakers(r: Dictionary) -> String:
 		if g != null:
 			names.append(str(g.get("name")))
 			continue
-		var n = Canon.find_by("npcs", "npc_id", sp)
-		names.append(str(n.get("name")) if n != null else sp)
+		names.append(speaker_name(sp))
 	return ", ".join(names)
 
-## Whether the scene has a script yet (canon word_count above 0).
+## One speaker id's display name: a unit, a guest, a troupe NPC, or someone in a memory.
+func speaker_name(sp: String) -> String:
+	for t in [["units", "unit_id"], ["guest_units", "guest_id"], ["npcs", "npc_id"], ["prologue_roster", "punit_id"]]:
+		var r = Canon.find_by(t[0], t[1], sp)
+		if r != null:
+			return str(r.get("name"))
+	return sp
+
+## Whether the scene has a script yet (a dialogue file with at least one line).
 func has_script(r: Dictionary) -> bool:
-	return int(str(r.get("word_count", "0"))) > 0
+	return not script(str(r.get("scene_id", ""))).is_empty()
+
+## A scene's script as lines: [{"speaker_id", "name", "text"}] -- narration has speaker_id "" and name "".
+## A speaker's name is matched to the scene's speaker_ids (so a portrait can be found); [] when there is no script.
+func script(scene_id: String) -> Array:
+	var path := DIALOGUE_DIR + scene_id + ".txt"
+	if not FileAccess.file_exists(path):
+		return []
+	var ids := {}
+	for sp in _list(row(scene_id).get("speaker_ids")):
+		ids[speaker_name(sp)] = sp
+	var out: Array = []
+	for raw in FileAccess.get_file_as_string(path).split("\n"):
+		var line := raw.strip_edges()
+		if line == "" or line.begins_with("#"):
+			continue
+		if line.begins_with(">"):
+			out.append({"speaker_id": "", "name": "", "text": line.trim_prefix(">").strip_edges()})
+			continue
+		var colon := line.find(":")
+		if colon <= 0:
+			out.append({"speaker_id": "", "name": "", "text": line})
+			continue
+		var name := line.substr(0, colon).strip_edges()
+		out.append({"speaker_id": str(ids.get(name, "")), "name": name, "text": line.substr(colon + 1).strip_edges()})
+	return out
 
 func chapter_title(chapter_id: String) -> String:
 	var c = Canon.find_by("chapters", "chapter_id", chapter_id)

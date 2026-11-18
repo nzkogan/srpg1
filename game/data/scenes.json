@@ -317,5 +317,93 @@
     "summary": "ALEXIA'S ONE FIXED SCENE (DRAFTED 2026-11-04; stands in for a support chain, which guest_units.support_shape says she has none of). On the eve of the Reunion, before she leaves, Alexia lays the parish lists she has been cross-referencing beside the decan tables for the avatar and shows the places where the two will not agree; she does not say what the disagreement means, only that someone must go on enrolling the dead by name, and that it will be her. Nothing here settles the calendar: her Act 3 payoff (the decan token) is still the reconstruction gap in guest_units.gst_alexia.act3_payoff.",
     "status": "drafted",
     "word_count": "0"
+  },
+  {
+    "scene_id": "sc_f00_pre",
+    "chapter_id": "ch_f00",
+    "type": "pre-battle",
+    "speaker_ids": "pu_sargath|pu_enmet|pu_ilat|pu_nashar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The last night of Ur-Nashet. Enmet will take the river wall in one cast at first light; the patron's image in the court cannot be cast down, only worn down, by every hand. Nashar is to keep the book dry.",
+    "status": "drafted",
+    "word_count": "121"
+  },
+  {
+    "scene_id": "sc_f00_post",
+    "chapter_id": "ch_f00",
+    "type": "post-battle",
+    "speaker_ids": "pu_sargath|pu_nashar|pu_ilat",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The image is rubble. Nashar writes the patron into the book; a hand covers the page and the rain is on it. The name is never shown.",
+    "status": "drafted",
+    "word_count": "55"
+  },
+  {
+    "scene_id": "sc_d01_pre",
+    "chapter_id": "ch_d01",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar|u_sigrun|u_dietmar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "The tally house at night. The ledger and the warehouse disagree by half; a crew is carrying sacks out through the lanes. The lanes are too narrow for a horse.",
+    "status": "drafted",
+    "word_count": "122"
+  },
+  {
+    "scene_id": "sc_d01_post",
+    "chapter_id": "ch_d01",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|u_kheldar",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Kheldar's manifest says what the Avatar's ledger says. The difference left on a boat. Kheldar offers credit against the shortfall, on fair terms.",
+    "status": "drafted",
+    "word_count": "87"
+  },
+  {
+    "scene_id": "sc_d02_pre",
+    "chapter_id": "ch_d02",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar|u_emmerich|u_ricberta",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "A requisition writ for a house that has already said no. Emmerich's figures are the Baron's; Ricberta knows the writ a little too well for someone who had it read to her. The levies in the field were farmers last week.",
+    "status": "drafted",
+    "word_count": "118"
+  },
+  {
+    "scene_id": "sc_d02_post",
+    "chapter_id": "ch_d02",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|u_kest",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Kest, mid-heist in an abandoned house, argues both sides of taking one small worthless thing -- a decan token -- and takes it. The Avatar notices the argument was with someone who is not there.",
+    "status": "drafted",
+    "word_count": "81"
+  },
+  {
+    "scene_id": "sc_d03_pre",
+    "chapter_id": "ch_d03",
+    "type": "pre-battle",
+    "speaker_ids": "u_avatar|u_tancred|u_sigrun",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Three wagons of the weighbridge's grain and one bridge a wagon can cross. Tancred's village has given twice already; Tancred is here to see it arrive.",
+    "status": "drafted",
+    "word_count": "99"
+  },
+  {
+    "scene_id": "sc_d03_post",
+    "chapter_id": "ch_d03",
+    "type": "post-battle",
+    "speaker_ids": "u_avatar|u_jost",
+    "depends_on_flags": null,
+    "depends_on_units": null,
+    "summary": "Jost, who slept through the morning on the bandits' side of the bridge, would rather walk beside the grain than wait for it at a ford.",
+    "status": "drafted",
+    "word_count": "86"
   }
 ]

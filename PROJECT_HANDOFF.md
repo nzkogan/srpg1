@@ -35,12 +35,14 @@ Last rewritten 2026-11-17, after a whole-project review. This replaces the Septe
 ## What to do next, in order
 
 1. **Answer `TRUTH.md`** (five decisions). Everything in the story leans on them.
-2. **Build the vertical slice:** the prologue, Diadem chapters 1-3 and one paralogue, finished: real enemy rosters
-   (most Act 1 maps have one or two enemies), written dialogue for their scenes, portraits and painted maps.
+2. **Build the vertical slice:** the prologue, Diadem chapters 1-3 and one paralogue. Done 2026-11-18: real rosters
+   and new layouts for Diadem 1-3 tuned with the auto-player, the dialogue screen, drafted scripts for the eight slice
+   scenes, and art slots with placeholders. Still to do: the paralogue (which one is undecided), Nick's own scripts,
+   portraits and backdrops, painted maps.
 3. **Split `map_grid.gd`** (3,700 lines) into rules and view before the graphics work lands on it.
 4. **Confirm or cut the drafted guesses:** each `docs/design/*_DESIGN.md` lists them (about 70 in all).
-5. **A playthrough harness:** let the enemy AI drive the player's side so each map can be checked for being winnable,
-   which canon's README asks for and nothing yet tests.
+5. **The playthrough harness exists** (`game/tools/autoplay.gd`). Use it to sweep the rest of the campaign; the
+   escort in Diadem 3 currently leans on Dietmar (won 1 in 10 without him).
 
 ## Still open in canon
 

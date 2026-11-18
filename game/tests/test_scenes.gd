@@ -38,7 +38,7 @@ func _run() -> void:
 	var types := {}
 	for r in _s.rows():
 		types[r["type"]] = int(types.get(r["type"], 0)) + 1
-	check(_s.rows().size() == 29 and types == {"post-battle": 23, "pre-battle": 5, "narrative": 1}, "29 scenes: 23 after the battle, 5 before (Alexia's among them), 1 narrative (%s)" % str(types))
+	check(_s.rows().size() == 37 and types == {"post-battle": 27, "pre-battle": 9, "narrative": 1}, "37 scenes: 27 after the battle, 9 before (Alexia's among them), 1 narrative (%s)" % str(types))
 
 	# ---- conditions
 	_gs.reset()
@@ -84,7 +84,39 @@ func _run() -> void:
 	var c: Dictionary = _s.card(_s.rows().filter(func(r): return r["chapter_id"] == "ch_k22")[0]["scene_id"])
 	check(c["title"] == "What Feeds the Colossus -- after the battle" and c["note"].contains("no script yet") and c["text"] != "", "a card: chapter and when, the summary, and that it has no script yet (%s)" % c["title"])
 	check(_s.card("sc_e31_ledger")["title"].ends_with("before the battle"), "a pre-battle card says so")
-	check(not _s.has_script({"word_count": "0"}) and _s.has_script({"word_count": "340"}), "a scene with words has a script")
+	check(not _s.has_script({"scene_id": "sc_x11_writ"}) and _s.has_script({"scene_id": "sc_d01_pre"}), "a scene with a dialogue file has a script")
+
+	# ---- scripts (game/dialogue/<scene_id>.txt)
+	var lines: Array = _s.script("sc_d01_pre")
+	check(lines.size() >= 5 and lines[0]["name"] == "" and lines[0]["speaker_id"] == "", "a script opens with narration (no speaker): %s" % (str(lines[0]) if not lines.is_empty() else "none"))
+	var avatar_lines: Array = lines.filter(func(l): return l["name"] == "Avatar")
+	check(not avatar_lines.is_empty() and avatar_lines[0]["speaker_id"] == "u_avatar" and avatar_lines[0]["text"].begins_with("The ledger"), "a speaker's name is matched to their id (for the portrait)")
+	check(lines.all(func(l): return not l["text"].begins_with("#")), "notes are not lines")
+	check(_s.script("sc_x11_writ").is_empty() and _s.script("sc_nope").is_empty(), "no file, no script")
+	var memory: Array = _s.script("sc_f00_post")
+	check(memory.any(func(l): return l["speaker_id"] == "pu_nashar"), "a memory's own people speak (the prologue roster)")
+	for sid in ["sc_f00_pre", "sc_f00_post", "sc_d01_pre", "sc_d01_post", "sc_d02_pre", "sc_d02_post", "sc_d03_pre", "sc_d03_post"]:
+		var r: Dictionary = _s.row(sid)
+		var named: Array = _s.script(sid).filter(func(l): return l["name"] != "")
+		check(not r.is_empty() and named.all(func(l): return l["speaker_id"] != ""), "%s: every speaker in the script is one of the scene's speakers" % sid)
+	var flat: String = " ".join(_s.script("sc_f00_post").map(func(l): return l["text"]))
+	check(not flat.contains("Belial"), "the prologue's script never shows the name")
+
+	# ---- the screen plays a script line by line
+	_gs.reset()
+	_s.stage(["sc_d01_post"], "res://scenes/overworld.tscn")
+	var ls: Node = load("res://scenes/scene_screen.tscn").instantiate()
+	root.add_child(ls)
+	await process_frame
+	var n: int = _s.script("sc_d01_post").size()
+	check(ls._name.text == "" and ls._footer.text.contains("line 1 of %d" % n), "the first line is narration: no name (%s)" % ls._footer.text)
+	ls.advance()
+	check(ls._name.text == "Kheldar" and ls._portrait.speaker_id == "u_kheldar" and ls._portrait.visible, "the next is Kheldar's, with Kheldar's portrait")
+	for i in n - 2:
+		check(not ls.advance(), "line %d" % (i + 3))
+	check(ls.advance() and _s.queue.is_empty(), "past the last line the screen is done")
+	ls.queue_free()
+	await process_frame
 
 	# ---- the screen
 	var ids: Array = ["sc_h31_capture", "sc_x11_writ"]

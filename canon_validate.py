@@ -156,7 +156,7 @@ def main():
     # --- c03 pipe-delimited foreign keys -------------------------------------
     multi_fks = [
         ("chapters", "recruits_unit_ids", "units"),
-        ("scenes", "speaker_ids", "units+npcs+guest_units"),
+        ("scenes", "speaker_ids", "units+npcs+guest_units+prologue_roster"),   # memories have their own people
         ("scenes", "depends_on_units", "units+guest_units"),
         ("scenes", "depends_on_flags", "canon_flags"),
     ]

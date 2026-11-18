@@ -25,3 +25,16 @@ This builds the vehicle so a script, once authored, has somewhere to go; until t
 - Scenes flagged to the world map (a scene on arriving somewhere), and replaying a seen scene from a log.
 
 Tests: `tests/test_scenes.gd` (28 checks, mutation-checked; one survivor is the Second Writ guard, equivalent because that chapter has no pre-battle scene).
+
+## Scripts and the dialogue screen (2026-11-18, vertical slice)
+
+- A scene's script is `game/dialogue/<scene_id>.txt`: `Name: line` for speech, `> text` for narration, `#` for notes.
+  Names are matched to the scene's `speaker_ids`, so each line gets its speaker's portrait. A scene with no file still
+  shows its summary card.
+- The scene screen plays a script line by line (Enter, Space or a click), with the portrait, the name and the line in a
+  dialogue box, and a chapter's painted backdrop behind it when `game/art/backdrops/<chapter_id>.png` exists.
+  Portraits come from `game/art/portraits/<speaker_id>.png`; until then a placeholder in a stable colour stands in.
+- The prologue's own people (the prologue roster) can speak in scenes, and a memory's post-battle scene now plays.
+- Eight slice scenes exist: before and after the prologue and Diadem chapters 1-3. **Every script is DRAFTED** and a
+  placeholder for Nick's own: written only from canon facts and Act 1's drafted story jobs. The prologue never shows
+  the name; Kest's scene withholds the twin, as canon requires.
